@@ -1,0 +1,261 @@
+<%@page import="com.mss.ediscv.general.UserInfoBean"%>
+<%@page import="java.util.Map"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page buffer="50kb" autoFlush="true" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@page import="com.mss.ediscv.doc.DocRepositoryBean"%>
+<%@ taglib uri="/WEB-INF/tlds/dbgrid.tld" prefix="grd"%>
+<%@ page import="com.freeware.gridtag.*"%>
+<%@page import="java.sql.Connection"%>
+<%@  page import="com.mss.ediscv.util.AppConstants"%>
+<%@ page import="com.mss.ediscv.util.ConnectionProvider"%>
+<%@ page import="java.sql.SQLException"%>
+<%@ page import = "java.util.ResourceBundle" %>
+<%@page buffer="50kb" autoFlush="true" %>
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Miracle Supply Chain Visibility Portal</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- Bootstrap 3.3.5 -->
+<script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+<link rel="stylesheet" href='<s:url value="/includes/bootstrap/css/bootstrap.min.css"/>'>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- Theme style -->
+<link rel="stylesheet" href='<s:url value="/includes/bootstrap/css/AdminLTE.min.css"/>'>
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+     folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet" href='<s:url value="/includes/bootstrap/css/skins/_all-skins.min.css"/>'>
+<!-- iCheck -->
+<link rel="stylesheet" href='<s:url value="/includes/plugins/iCheck/flat/blue.css"/>'>
+<!-- Morris chart -->
+<link rel="stylesheet" href='<s:url value="/includes/plugins/morris/morris.css"/>'>
+<!-- jvectormap -->
+<link rel="stylesheet" href='<s:url value="/includes/plugins/jvectormap/jquery-jvectormap-1.2.2.css"/>'>
+<!-- Date Picker -->
+<link rel="stylesheet" href='<s:url value="/includes/plugins/datepicker/datepicker3.css"/>'>
+<!-- Daterange picker -->
+<link rel="stylesheet" href='<s:url value="/includes/plugins/daterangepicker/daterangepicker-bs3.css"/>'>
+<!-- bootstrap wysihtml5 - text editor -->
+<link rel="stylesheet" href='<s:url value="/includes/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"/>'>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src='<s:url value="/includes/plugins/datepicker/moment.js"/>'></script>
+<script type="text/javascript" src='<s:url value="/includes/plugins/datepicker/daterangepicker.js"/>'></script>
+<link rel="stylesheet" href='<s:url value="/includes/bootstrap/css/userdefined.css"/>'>
+<script type="text/javascript" src='<s:url value="/includes/bootstrap/js/userdefined.js"/>'></script>
+
+<%-- <body class="hold-transition skin-blue sidebar-mini">--%>
+<%-- <s:include value="/includes/template/header.jsp"/> --%>   
+
+<div class="wrapper">
+    
+   
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar" style="padding-top: 0%;z-index: 1000;">
+        <header class="main-header">
+         <a href="index2.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>SCV</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><strong>Miracle </strong> SCVP</span>
+        </a>
+             </header> 
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <s:url id="lImage" action="renderImage" namespace="/user"> </s:url>
+                    <img src="<s:property value="#lImage" />" class="img-circle" alt="User Image"/>
+                </div>
+                <div class="pull-left info">
+                    <div><font color="white"><s:property value="#session.userName" /></font></div>
+                    <a><s:if test="%{#session.loginId != null && #session.mscvpRole != null}">
+                            <font color="white"><s:property value="#session.mscvpRole"/></font>
+                        </s:if></a>
+                </div>
+            </div>
+            <%
+                int userId = (Integer) session.getAttribute(AppConstants.SES_USER_ID);
+                Map usrFlowMap = (Map) session.getAttribute(AppConstants.SES_USER_FLOW_MAP);
+            %>
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+               
+                <li class=" treeview" id="profile">
+                    <a href="<s:url action="../user/getProfile.action"/>">
+                        <i class="fa fa-user"></i> <span>Profile</span> 
+                    </a>
+                </li>
+                <% if (userId != 0) {
+                        if (usrFlowMap.containsValue("msscvpAdmin")) {%> 
+                <li class="treeview" id="admintree">
+                    <a href="#">
+                        <i class="fa fa-user"></i> <span>Admin</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li id="createusr"><a href="<s:url action="../user/userAction.action"/>"><i class="fa fa-circle-o"></i> User Creation</a></li>
+                        <li id="searchusr"><a href="<s:url action="../user/doSearchUser.action"/>"><i class="fa fa-circle-o"></i> User Search</a></li>
+                        <li id="resetUsrPwd"><a href="<s:url action="../user/resetUserPwd.action"/>"><i class="fa fa-circle-o"></i> Reset User Password</a></li>
+                    </ul>
+                </li>
+                <%} else {
+                    if ((usrFlowMap.containsValue("Logistics")) || (usrFlowMap.containsValue("Manufacturing"))) {%>
+                <li class=" treeview" id="dashboardLM">
+                    <a href="#">
+                        <i class="fa fa-line-chart"></i> <span>Dashboard</span> 
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <% if (usrFlowMap.containsValue("Logistics")) {%>
+                        <li id="ltdashboard"><a href="<s:url action="../logisticsReports/dashboard.action"/>"><i class="fa fa-circle-o"></i>Logistics Dashboard</a></li> 
+                        <% }
+                            if (usrFlowMap.containsValue("Manufacturing")) {%> 
+                        <li id="dashboard"><a href="<s:url action="../reports/dashboard.action"/>"><i class="fa fa-circle-o"></i>Manufacturing Dashboard</a></li>
+                        <% }%>
+                    </ul>
+                </li>
+                <% }%>
+                <%
+                    if (usrFlowMap.containsValue("Logistics")) {
+                %> 
+                <li class="treeview" id="logistics">
+                    <a href="#">
+                        <i class="fa fa-truck"></i> <span>Logistics</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu" >
+                        <% //100,101,0,0,106,107
+                            if (!session.getAttribute(AppConstants.SES_ROLE_ID).equals("1")) {%>
+                        <li id="ltdocrepository"><a href="<s:url action="../logisticsdoc/Logistics.action"/>"><i class="fa fa-circle-o"></i> Doc Repository</a></li>
+                        <%} //100,101,0,0,106,107
+                            if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("101") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("106") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("107")) {%>
+                        <li id="ltloadtendering">
+                            <a href="<s:url action="../logisticsloadtendering/loadtendering.action"/>"><i class="fa fa-circle-o"></i> Load Tendering</a></li>
+                            <%} //100,0,102,0,106,107
+                                if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("102") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("106") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("107")) {%>
+                        <li id="ltresponse"><a href="<s:url action="../ltResponse/ltResponse.action"/>"><i class="fa fa-circle-o"></i> Response</a></li>
+                        <%} //L_SHIPMENT = 100,0,102,103,106,107
+                            if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("102") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("103") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("106") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("107")) {%>
+                        <li id="ltsupplychain">
+                            <a href="#"><i class="fa fa-circle-o"></i> Supply Chain <i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li id="ltshipment"><a href="<s:url action="../logisticsshipment/ltshipment.action"/>"><i class="fa fa-circle-o"></i> Shipment</a></li>
+                            </ul>
+                        </li>
+                        <%} //L_INVOICE = 100,0,0,103,106,107
+                            if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("103") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("106") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("107")) {%>
+                        <li id="ltfinance"> 
+                            <a href="#"><i class="fa fa-circle-o"></i> Finance <i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li id="ltinvoice"><a href="<s:url action="../logisticsinvoice/ltinvoice.action"/>"><i class="fa fa-circle-o"></i> Invoice</a></li>
+                            </ul>
+                        </li>
+                        <%}%>
+                        <li id="ltreports">
+                            <a href="#"><i class="fa fa-circle-o"></i> Logistic&nbsp;Reports <i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li id="ltexcelreports"><a href="<s:url action="../logisticsReports/getLogisticReports"/>"><i class="fa fa-circle-o"></i> Excel&nbsp;Reports </a></li>
+                                <%--    <li id="ltdashboard"><a href="<s:url action="../logisticsReports/dashboard.action"/>"><i class="fa fa-circle-o"></i> Dashboard</a></li> --%>
+                            </ul>
+                        </li>
+                        <li id="ltconfig">
+                            <a href="#"><i class="fa fa-circle-o"></i> Config<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li id="ltpartner"><a href="<s:url action="../partner/getPartnerList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i> Partner</a></li>
+                                <li id="ltrouting"><a href="<s:url action="../routing/getRoutingList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i> Routing</a></li>
+                                <li id="ltb2bchannel"><a href="<s:url action="../b2bchannel/getB2BChannelList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>B2B Channel</a></li>
+                                <li id="ltdeliverychannel"><a href="<s:url action="../partner/deliveryChannelList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>Delivery Channel</a></li>
+                                <li id="ltscheduler"><a href="<s:url action="../partner/getSchedular.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>Scheduler</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                <%  }
+                    if (usrFlowMap.containsValue("Manufacturing")) {%>
+                <li class="treeview" id="manufacturing">
+                    <a href="#">
+                        <i class="fa fa-wrench"></i> <span>Manufacturing</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li id="docrepository"><a href="<s:url action="../doc/orderToCash"/>"><i class="fa fa-circle-o"></i> Document Repository</a></li>
+                        <% if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("101") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("105")) {%>
+                        <li id="oredermanagement">
+                            <a href="#"><i class="fa fa-circle-o"></i> Order Management <i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li id="purchaseorder"><a href="<s:url action="../po/purchaseOrder"/>"><i class="fa fa-circle-o"></i> Purchase Order</a></li>
+                            </ul>
+                        </li>
+                        <%}
+                            if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("102") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("105")) {%>
+                        <li id="supplychain">
+                            <a href="#"><i class="fa fa-circle-o"></i> Supply Chain <i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li id="shipments"><a href="<s:url action="../shipment/shipmentAction"/>"><i class="fa fa-circle-o"></i> Shipments </a></li>
+                            </ul>
+                        </li>
+                        <%}
+                            if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("103") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("105")) {%>
+                        <li id="financials">
+                            <a href="#"><i class="fa fa-circle-o"></i> Financials <i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li id="invoices"><a href="<s:url action="../inv/invoiceAction"/>"><i class="fa fa-circle-o"></i>Invoices</a></li>
+                                <li id="payments"><a href="<s:url action="../payment/paymentAction"/>"><i class="fa fa-circle-o"></i>Payments</a></li>
+                            </ul>
+                        </li>
+                        <%}%>
+                        <li id="reports">
+                            <a href="#"><i class="fa fa-circle-o"></i> Reports <i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li id="excelreports"><a href="<s:url action="../reports/getReports"/>"><i class="fa fa-circle-o"></i>Excel Reports</a></li>
+                                <li id="editrackinginout"><a href="<s:url action="../reports/getTrackInOut"/>"><i class="fa fa-circle-o"></i>EDI Tracking IN/OUT</a></li>
+                                <li id="editrackingsummary"><a href="<s:url action="../reports/getTrackSummary"/>"><i class="fa fa-circle-o"></i>EDI Tracking Summary</a></li>
+                                <li id="editrackingenquiry"><a href="<s:url action="../reports/getTrackInquiry"/>"><i class="fa fa-circle-o"></i>EDI Tracking Enquiry</a></li>
+                                <%--  <li id="dashboard"><a href="<s:url action="../reports/dashboard.action"/>"><i class="fa fa-circle-o"></i>Dashboard</a></li>  --%>
+                            </ul>
+                        </li>
+                        <% if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100")) {%>
+                        <li id="config">
+                            <a href="#"><i class="fa fa-circle-o"></i> Config<i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li id="partner"><a href="<s:url action="../partner/getPartnerList.action"><s:param name="configFlowFlag" value="'manufacturing'"/></s:url>"><i class="fa fa-circle-o"></i>Partner</a></li>
+                                <li id="routing"><a href="<s:url action="../routing/getRoutingList.action"><s:param name="configFlowFlag" value="'manufacturing'"/></s:url>"><i class="fa fa-circle-o"></i>Routing</a></li>
+                                <li id="b2bchannel"><a href="<s:url action="../b2bchannel/getB2BChannelList.action"><s:param name="configFlowFlag" value="'manufacturing'"/></s:url>"><i class="fa fa-circle-o"></i>B2B Channel</a></li>
+                                <li id="deliverychannel"><a href="<s:url action="../partner/deliveryChannelList.action"><s:param name="configFlowFlag" value="'manufacturing'"/></s:url>"><i class="fa fa-circle-o"></i>Delivery Channel</a></li>
+                                <li id="scheduler"><a href="<s:url action="../partner/getSchedular.action"> <s:param name="configFlowFlag" value="'manufacturing'"/></s:url>"><i class="fa fa-circle-o"></i>Scheduler</a></li>
+                                </ul>
+                            </li>
+                        <%}%>
+                    </ul>
+                </li>
+                <% }
+                    if (usrFlowMap.containsValue("DocumentVisibility")) {%>
+                <li class="treeview" id="documentvisibility">
+                    <a href="#">
+                        <i class="fa fa-book"></i> <span>Document Visibility</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li id="dvdocrepository"><a href="<s:url action="../documentVisibility/DocumentVisibility.action"/>"><i class="fa fa-circle-o"></i> Doc Repository
+                            </a></li>
+                    </ul>
+                </li>
+                <% }
+                        }
+                    }
+                %>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+</div>
+
+

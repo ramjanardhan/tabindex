@@ -1,0 +1,3086 @@
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+function getXMLHttpRequest() {
+    var xmlHttpReq = false;
+    // to create XMLHttpRequest object in non-Microsoft browsers
+    if (window.XMLHttpRequest) {
+        xmlHttpReq = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        try {
+            // to create XMLHttpRequest object in later versions
+            // of Internet Explorer
+            xmlHttpReq = new ActiveXObject("Msxml2.XMLHTTP");
+        } catch (exp1) {
+            try {
+                // to create XMLHttpRequest object in older versions
+                // of Internet Explorer
+                xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+            } catch (exp2) {
+                xmlHttpReq = false;
+            }
+        }
+    }
+    return xmlHttpReq;
+}
+
+/**
+ * TP method
+ */
+function readyStateHandlerText1(req, responseTextHandler) {
+    return function () {
+        if (req.readyState == 4) {
+            if (req.status == 200) {
+                //                   (document.getElementById("loadingImage")).style.display = "none";
+                responseTextHandler(req.responseXML);
+            } else {
+                alert("HTTP error" + req.status + " : " + req.statusText);
+            }
+        }
+        else {
+
+            // (document.getElementById("loadingImage")).style.display = "block";
+        }
+    }
+}
+
+
+
+function readyStateHandlerText(req, responseTextHandler) {
+    return function () {
+        if (req.readyState == 4) {
+            if (req.status == 200) {
+                responseTextHandler(req.responseXML);
+            } else {
+                alert("HTTP error" + req.status + " : " + req.statusText);
+            }
+        }
+
+    }
+}
+
+
+
+function readyStateHandlerLoadText(req, responseTextHandler) {
+    return function () {
+        if (req.readyState == 4) {
+            if (req.status == 200) {
+                (document.getElementById("loadingImage")).style.display = "none";
+                responseTextHandler(req.responseText);
+            } else {
+                alert("HTTP error" + req.status + " : " + req.statusText);
+            }
+        }
+        else {
+
+            (document.getElementById("loadingImage")).style.display = "block";
+        }
+    }
+}
+
+function getPoDetails(number, number1) {
+    var num = number;
+    var num1 = number1;
+    $(function () {
+
+        $('#detail_box').show();
+        return false;
+
+    });
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populatePoDetails);
+    var url = "../ajax/getPoDetails.action?poNumber=" + num + "&poInst=" + num1;
+    req.open("POST", url, "true");
+    // req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populatePoDetails(responseXML)
+{
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+
+    //   alert("datails--->"+details);
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+
+    if (chk.childNodes[0].nodeValue == "true") {
+        document.getElementById('InvErrormessage').innerHTML = "";
+        var detail = details.childNodes[0];
+        var fileID = detail.getElementsByTagName("FILEID")[0].childNodes[0].nodeValue;
+        var poNUM = detail.getElementsByTagName("PONUM")[0].childNodes[0].nodeValue;
+        var poDATE = detail.getElementsByTagName("PODATE")[0].childNodes[0].nodeValue;
+        var poValue = detail.getElementsByTagName("POVALUE")[0].childNodes[0].nodeValue;
+        //new adding
+        var SHIP_DATE = detail.getElementsByTagName("SHIP_DATE")[0].childNodes[0].nodeValue;
+        // var ISA_CONTROL_NUMBER = detail.getElementsByTagName("ISA_CONTROL_NUMBER")[0].childNodes[0].nodeValue; 
+        var ROUTINGS = detail.getElementsByTagName("ROUTINGS")[0].childNodes[0].nodeValue;
+        var INVOICED_AMOUNT = detail.getElementsByTagName("INVOICED_AMOUNT")[0].childNodes[0].nodeValue;
+        var PAYMENT_RECEIVED = detail.getElementsByTagName("PAYMENT_RECEIVED")[0].childNodes[0].nodeValue;
+        var SHIP_ADDRESS_ID = detail.getElementsByTagName("SHIP_ADDRESS_ID")[0].childNodes[0].nodeValue;
+        var BILL_ADDRESS_ID = detail.getElementsByTagName("BILL_ADDRESS_ID")[0].childNodes[0].nodeValue;
+
+        var sapIdocNum = detail.getElementsByTagName("SAPIDOCNUM")[0].childNodes[0].nodeValue;
+        var SENDER_ID = detail.getElementsByTagName("SENDER_ID")[0].childNodes[0].nodeValue;
+        var RECEIVER_ID = detail.getElementsByTagName("RECEIVER_ID")[0].childNodes[0].nodeValue;
+
+        var SENDER_NAME = detail.getElementsByTagName("SENDER_NAME")[0].childNodes[0].nodeValue;
+        var RECEIVER_NAME = detail.getElementsByTagName("RECEIVER_NAME")[0].childNodes[0].nodeValue;
+
+        var deilvaryName = detail.getElementsByTagName("DELSTATUS")[0].childNodes[0].nodeValue;
+        var itemQty = detail.getElementsByTagName("ITEMQTY")[0].childNodes[0].nodeValue;
+        var sonumber = detail.getElementsByTagName("SO_NUMBER")[0].childNodes[0].nodeValue;
+        var PRE_TRANS_FILEPATH = detail.getElementsByTagName("PRETRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var POST_TRANS_FILEPATH = detail.getElementsByTagName("POSTTRANSFILEPATH")[0].childNodes[0].nodeValue;
+
+        var ORDER_STATUS = detail.getElementsByTagName("ORDER_STATUS")[0].childNodes[0].nodeValue;
+        var ERRMESSAGE = detail.getElementsByTagName("ERR_MESSAGE")[0].childNodes[0].nodeValue;
+        var ACKFILEID = detail.getElementsByTagName("ACKFILEID")[0].childNodes[0].nodeValue;
+
+        var ISA_NUMBER = detail.getElementsByTagName("ISA_NUMBER")[0].childNodes[0].nodeValue;
+        var GS_CONTROL_NUMBER = detail.getElementsByTagName("GS_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var ST_CONTROL_NUMBER = detail.getElementsByTagName("ST_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var ISA_DATE = detail.getElementsByTagName("ISA_DATE")[0].childNodes[0].nodeValue;
+        var ISA_TIME = detail.getElementsByTagName("ISA_TIME")[0].childNodes[0].nodeValue;
+
+        var TRANSACTION_TYPE = detail.getElementsByTagName("TRANSACTION_TYPE")[0].childNodes[0].nodeValue;
+        var STATUS = detail.getElementsByTagName("STATUS")[0].childNodes[0].nodeValue;
+        var FILE_TYPE = detail.getElementsByTagName("FILE_TYPE")[0].childNodes[0].nodeValue;
+
+
+        // Sap Detals
+
+        var SAP_DETAILS = detail.getElementsByTagName("SAP_DETAILS")[0].childNodes[0].nodeValue;
+        var SAP_USER;
+        var IDOC_NUMBER;
+        var PO_NUMBER;
+        var PO_DATE;
+        var IDOC_STATUS_CODE;
+        var IDOC_STATUS_DESCRIPTION;
+        if (SAP_DETAILS != 'NO') {
+
+            SAP_USER = detail.getElementsByTagName("SAP_USER")[0].childNodes[0].nodeValue;
+            IDOC_NUMBER = detail.getElementsByTagName("IDOC_NUMBER")[0].childNodes[0].nodeValue;
+            PO_NUMBER = detail.getElementsByTagName("PO_NUMBER")[0].childNodes[0].nodeValue;
+            PO_DATE = detail.getElementsByTagName("PO_DATE")[0].childNodes[0].nodeValue;
+            IDOC_STATUS_CODE = detail.getElementsByTagName("IDOC_STATUS_CODE")[0].childNodes[0].nodeValue;
+            IDOC_STATUS_DESCRIPTION = detail.getElementsByTagName("IDOC_STATUS_DESCRIPTION")[0].childNodes[0].nodeValue;
+
+        }
+
+
+        document.getElementById('POInstanceId').value = fileID;
+        document.getElementById('POQty').value = itemQty;
+        if (poNUM != "NO") {
+            document.getElementById('PONum').value = poNUM;
+        }
+        else
+        {
+            document.getElementById('PONum').value = "--";
+        }
+        if (poDATE != "NO") {
+            document.getElementById('PODates').value = poDATE;
+        }
+        else
+        {
+            document.getElementById('PODates').value = "--";
+        }
+        if (poValue != "NO") {
+            document.getElementById('POValue').value = poValue;
+        }
+        else {
+            document.getElementById('POValue').value = "--";
+        }
+        if (SHIP_DATE != "NO") {
+            document.getElementById('POShipDate').value = SHIP_DATE;
+        }
+        else {
+            document.getElementById('POShipDate').value = "--";
+        }
+        if (ROUTINGS != "NO") {
+            document.getElementById('PORoutings').value = ROUTINGS;
+        }
+        else
+        {
+            document.getElementById('PORoutings').value = "--";
+        }
+        if (INVOICED_AMOUNT != "NO") {
+            document.getElementById('INVOICED_AMOUNT').value = INVOICED_AMOUNT;
+        }
+        else
+        {
+            document.getElementById('INVOICED_AMOUNT').value = "--";
+
+        }
+        if (PAYMENT_RECEIVED != "NO") {
+            document.getElementById('POPaymentReceived').value = PAYMENT_RECEIVED;
+        }
+        else {
+            document.getElementById('POPaymentReceived').value = "--";
+        }
+        if (SHIP_ADDRESS_ID != "NO") {
+            document.getElementById('POShipAddrId').value = SHIP_ADDRESS_ID;
+        }
+        else {
+            document.getElementById('POShipAddrId').value = "--";
+        }
+        if (BILL_ADDRESS_ID != "NO") {
+            document.getElementById('POBillAddrId').value = BILL_ADDRESS_ID;
+        }
+        else
+        {
+            document.getElementById('POBillAddrId').value = "--";
+        }
+        if (sonumber != "NO") {
+            document.getElementById('POSoNumber').value = sonumber;
+        }
+        else {
+            document.getElementById('POSoNumber').value = "--";
+        }
+        if (sapIdocNum != "NO") {
+            document.getElementById('POSapIdocNum').value = sapIdocNum;
+        }
+        else {
+            document.getElementById('POSapIdocNum').value = "--";
+        }
+        if (deilvaryName != "NO") {
+            document.getElementById('PODeilvaryName').value = deilvaryName;
+        }
+        else {
+            document.getElementById('PODeilvaryName').value = "--";
+        }
+        document.getElementById('PODocumentType').value = FILE_TYPE;
+        document.getElementById('POTransactionType').value = TRANSACTION_TYPE;
+        document.getElementById('POSenderId').value = SENDER_ID;
+        document.getElementById('POSenderName').value = SENDER_NAME;
+        document.getElementById('POReceiverId').value = RECEIVER_ID;
+        document.getElementById('POReceiverName').value = RECEIVER_NAME;
+        document.getElementById('POIsa').value = ISA_NUMBER;
+        document.getElementById('POGs').value = GS_CONTROL_NUMBER;
+        document.getElementById('POSt').value = ST_CONTROL_NUMBER;
+        document.getElementById('POIsADate').value = ISA_DATE;
+        document.getElementById('POIsATime').value = ISA_TIME;
+        if (STATUS.toUpperCase() == "ERROR") {
+            document.getElementById('POStatus').value = STATUS;
+        } else if (STATUS.toUpperCase() == "SUCCESS") {
+            document.getElementById('POStatus').value = STATUS;
+        } else {
+            document.getElementById('POStatus').value = STATUS;
+        }
+        if (ORDER_STATUS != "NO") {
+            document.getElementById('POOrderStatus').value = ORDER_STATUS;
+        }
+        else {
+            document.getElementById('POOrderStatus').value = "--";
+        }
+        if (PRE_TRANS_FILEPATH == "No File") {
+            document.getElementById('POPreTransition').innerHTML = "--";
+        } else {
+            document.getElementById('POPreTransition').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + PRE_TRANS_FILEPATH + "\">Download</a>";
+        }
+        if (POST_TRANS_FILEPATH == "No File") {
+            document.getElementById('POPostTransition').innerHTML = "--";
+
+        } else {
+            document.getElementById('POPostTransition').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
+        }
+        if (ACKFILEID == "No File") {
+            document.getElementById('POAckFileId').innerHTML = "--";
+
+        } else {
+            document.getElementById('POAckFileId').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
+        }
+
+        if (ERRMESSAGE != "NO MSG") {
+            document.getElementById('InvErrormessage').innerHTML = ERRMESSAGE;
+
+        }
+
+//        alert('before sap details');
+        if (SAP_DETAILS != 'NO') {
+            document.getElementById('SAP_USER').value = SAP_USER;
+            document.getElementById('IDOC_NUMBER').value = IDOC_NUMBER;
+            document.getElementById('PO_NUMBER').value = PO_NUMBER;
+            document.getElementById('PO_DATE').value = PO_DATE;
+            document.getElementById('IDOC_STATUS_CODE').value = IDOC_STATUS_CODE;
+            document.getElementById('IDOC_STATUS_DESCRIPTION').value = IDOC_STATUS_DESCRIPTION;
+        }
+        else
+        {
+            document.getElementById('SAP_USER').value = '--';
+            document.getElementById('IDOC_NUMBER').value = '--';
+            document.getElementById('PO_NUMBER').value = '--';
+            document.getElementById('PO_DATE').value = '--';
+            document.getElementById('IDOC_STATUS_CODE').value = '--';
+            document.getElementById('IDOC_STATUS_DESCRIPTION').value = '--';
+        }
+//        alert('after sap details');
+
+    }
+    if (chk.childNodes[0].nodeValue == "false") {
+        document.getElementById('noresult').value = " <h5 >Sorry ! No Results Found</h5>";
+
+
+    }
+
+    $('#hide-menu1').addClass('show-menu');
+
+}
+
+/*Reterving ASN Details using ASN Number
+ *DATE : 03/21/2013
+ * 
+ */
+
+function getAsnDetails(number, ponum, fileId) {
+
+    var num = number;
+    var poNum = ponum;
+    $(function () {
+
+        $('#detail_box').show();
+        return false;
+
+    });
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populateASNDetails);
+
+    var url = "../ajax/getASNDetails.action?asnNumber=" + num + "&poNumber=" + poNum + "&fileId=" + fileId;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populateASNDetails(responseXML) {
+
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+
+    if (chk.childNodes[0].nodeValue == "true") {
+        document.getElementById('mserrormessage').innerHTML = "";
+        var detail = details.childNodes[0];
+        var fileID = detail.getElementsByTagName("FILEID")[0].childNodes[0].nodeValue;
+        var asnNum = detail.getElementsByTagName("ASNNUMBER")[0].childNodes[0].nodeValue;
+        var poNum = detail.getElementsByTagName("PONUMBER")[0].childNodes[0].nodeValue;
+        var bolNum = detail.getElementsByTagName("BOLNUMBER")[0].childNodes[0].nodeValue;
+        var isaNum = detail.getElementsByTagName("ISANUMBER")[0].childNodes[0].nodeValue;
+        var isaDate = detail.getElementsByTagName("ISADATE")[0].childNodes[0].nodeValue;
+        var isaTime = detail.getElementsByTagName("ISATIME")[0].childNodes[0].nodeValue;
+        var STATUS = detail.getElementsByTagName("STATUS")[0].childNodes[0].nodeValue;
+        var PRE_TRANS_FILEPATH = detail.getElementsByTagName("PRETRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var POST_TRANS_FILEPATH = detail.getElementsByTagName("POSTTRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var ORGFILEPATH = detail.getElementsByTagName("ORGFILEPATH")[0].childNodes[0].nodeValue;
+        var ERRMESSAGE = detail.getElementsByTagName("ERR_MESSAGE")[0].childNodes[0].nodeValue;
+        var ACKFILEID = detail.getElementsByTagName("ACKFILEID")[0].childNodes[0].nodeValue;
+        var SHIPDATE = detail.getElementsByTagName("SHIPDATE")[0].childNodes[0].nodeValue;
+
+        var SENDER_ID = detail.getElementsByTagName("SENDER_ID")[0].childNodes[0].nodeValue;
+        var RECEIVER_ID = detail.getElementsByTagName("RECEIVER_ID")[0].childNodes[0].nodeValue;
+        var SENDER_NAME = detail.getElementsByTagName("SENDER_NAME")[0].childNodes[0].nodeValue;
+        var RECEIVER_NAME = detail.getElementsByTagName("RECEIVER_NAME")[0].childNodes[0].nodeValue;
+
+        var ST_CONTROL_NUMBER = detail.getElementsByTagName("ST_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var GS_CONTROL_NUMBER = detail.getElementsByTagName("GS_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var TRANSACTION_TYPE = detail.getElementsByTagName("TRANSACTION_TYPE")[0].childNodes[0].nodeValue;
+        var FILE_TYPE = detail.getElementsByTagName("FILE_TYPE")[0].childNodes[0].nodeValue;
+        // Sap Detals
+
+        var SAP_DETAILS = detail.getElementsByTagName("SAP_DETAILS")[0].childNodes[0].nodeValue;
+        var SAP_USER;
+        var IDOC_NUMBER;
+        var PO_NUMBER;
+        var PO_DATE;
+        var IDOC_STATUS_CODE;
+        var IDOC_STATUS_DESCRIPTION;
+        if (SAP_DETAILS != 'NO') {
+
+            SAP_USER = detail.getElementsByTagName("SAP_USER")[0].childNodes[0].nodeValue;
+            IDOC_NUMBER = detail.getElementsByTagName("IDOC_NUMBER")[0].childNodes[0].nodeValue;
+            PO_NUMBER = detail.getElementsByTagName("PO_NUMBER")[0].childNodes[0].nodeValue;
+            PO_DATE = detail.getElementsByTagName("PO_DATE")[0].childNodes[0].nodeValue;
+            IDOC_STATUS_CODE = detail.getElementsByTagName("IDOC_STATUS_CODE")[0].childNodes[0].nodeValue;
+            IDOC_STATUS_DESCRIPTION = detail.getElementsByTagName("IDOC_STATUS_DESCRIPTION")[0].childNodes[0].nodeValue;
+
+        }
+        document.getElementById('msfileID').value = fileID;
+        document.getElementById('msasnNum').value = asnNum;
+
+        document.getElementById('mspoNum').value = poNum;
+        document.getElementById('msbolNum').value = bolNum;
+
+        document.getElementById('msshipDate').value = SHIPDATE;
+        document.getElementById('msdocType').value = FILE_TYPE;
+
+        document.getElementById('mstransType').value = TRANSACTION_TYPE;
+        document.getElementById('msisaNum').value = isaNum;
+
+        document.getElementById('mssenderId').value = SENDER_ID;
+        document.getElementById('mssenderName').value = SENDER_NAME;
+
+        document.getElementById('msreceiverId').value = RECEIVER_ID;
+        document.getElementById('msreceiverName').value = RECEIVER_NAME;
+
+        document.getElementById('msgsControlNo').value = GS_CONTROL_NUMBER;
+        document.getElementById('msstControlNo').value = ST_CONTROL_NUMBER;
+
+        document.getElementById('msisaDate').value = isaDate;
+        document.getElementById('msisaTime').value = isaTime;
+
+        document.getElementById('msstatus').value = STATUS.toUpperCase();
+
+        if (SAP_DETAILS != 'NO') {
+
+            document.getElementById('msapDiv').style.display = "block";
+
+            document.getElementById('mssapUser').value = SAP_USER;
+            document.getElementById('msidocNo').value = IDOC_NUMBER;
+
+            document.getElementById('mspoNo').value = PO_NUMBER;
+            document.getElementById('mspoDate').value = PO_DATE;
+
+            document.getElementById('msidocStatusCode').value = IDOC_STATUS_CODE;
+            document.getElementById('msidocStatusDesc').value = IDOC_STATUS_DESCRIPTION;
+        }
+
+        if (PRE_TRANS_FILEPATH == "No File") {
+            document.getElementById('mspreTransFilepath').innerHTML = "--";
+        } else {
+            //<a href=\"../download/getAttachment.action?locationAvailable="+POST_TRANS_FILEPATH+"\">Download</a>
+            document.getElementById('mspreTransFilepath').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + PRE_TRANS_FILEPATH + "\">Download</a>";
+            // document.getElementById('mspreTransFilepath').value = PRE_TRANS_FILEPATH;
+        }
+
+        if (POST_TRANS_FILEPATH == "No File") {
+            document.getElementById('mspostTransFilepath').innerHTML = "--";
+        } else {
+            document.getElementById('mspostTransFilepath').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
+        }
+
+        if (ACKFILEID == "No File") {
+            document.getElementById('msackFileId').innerHTML = "--";
+        } else {
+            document.getElementById('msackFileId').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
+        }
+
+        if (ERRMESSAGE != "NO MSG") {
+            document.getElementById('errorDiv').style.display = "block";
+            document.getElementById('mserrormessage').innerHTML = ERRMESSAGE;
+        }
+
+    }
+    if (chk.childNodes[0].nodeValue == "false") {
+        document.getElementById('noresult').value = " <h5 >Sorry ! No Results Found</h5>";
+
+
+    }
+
+    $('#hide-menu1').addClass('show-menu');
+
+}
+
+/*
+ * Reteriving Invoice Table Details
+ * Date : 03/21/2013
+ * 
+ */
+function getInvDetails(number, ponum, fileID) {
+    var num = number;
+    //alert("inv number-->"+num);
+    //  var req = new XMLHttpRequest();
+    $(function () {
+
+        $('#detail_box').show();
+        return false;
+
+    });
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populateInvDetails);
+
+    var url = "../ajax/getInvDetails.action?invNumber=" + num + "&poNumber=" + ponum + "&fileId=" + fileID;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populateInvDetails(responseXML) {
+
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+
+    if (chk.childNodes[0].nodeValue == "true") {
+        document.getElementById('mierrormessage').innerHTML = "";
+        var detail = details.childNodes[0];
+        var fileID = detail.getElementsByTagName("FILEID")[0].childNodes[0].nodeValue;
+        var invNum = detail.getElementsByTagName("INVNUMBER")[0].childNodes[0].nodeValue;
+        var poNum = detail.getElementsByTagName("PONUMBER")[0].childNodes[0].nodeValue;
+        var itemQty = detail.getElementsByTagName("ITEMQTY")[0].childNodes[0].nodeValue;
+        var invAmt = detail.getElementsByTagName("INVAMT")[0].childNodes[0].nodeValue;
+        var invDate = detail.getElementsByTagName("INVDATE")[0].childNodes[0].nodeValue;
+        var isaNum = detail.getElementsByTagName("ISANUM")[0].childNodes[0].nodeValue;
+        var isaDate = detail.getElementsByTagName("ISADATE")[0].childNodes[0].nodeValue;
+        var isaTime = detail.getElementsByTagName("ISATIME")[0].childNodes[0].nodeValue;
+        var STATUS = detail.getElementsByTagName("STATUS")[0].childNodes[0].nodeValue;
+        var PRE_TRANS_FILEPATH = detail.getElementsByTagName("PRETRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var POST_TRANS_FILEPATH = detail.getElementsByTagName("POSTTRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var ORGFILEPATH = detail.getElementsByTagName("ORGFILEPATH")[0].childNodes[0].nodeValue;
+        var ERRMESSAGE = detail.getElementsByTagName("ERR_MESSAGE")[0].childNodes[0].nodeValue;
+        var ACKFILEID = detail.getElementsByTagName("ACKFILEID")[0].childNodes[0].nodeValue;
+
+        var SENDER_ID = detail.getElementsByTagName("SENDER_ID")[0].childNodes[0].nodeValue;
+        var RECEIVER_ID = detail.getElementsByTagName("RECEIVER_ID")[0].childNodes[0].nodeValue;
+        var SENDER_NAME = detail.getElementsByTagName("SENDER_NAME")[0].childNodes[0].nodeValue;
+        var RECEIVER_NAME = detail.getElementsByTagName("RECEIVER_NAME")[0].childNodes[0].nodeValue;
+
+        var TRANSACTION_TYPE = detail.getElementsByTagName("TRANSACTION_TYPE")[0].childNodes[0].nodeValue;
+        var ST_CONTROL_NUMBER = detail.getElementsByTagName("ST_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var GS_CONTROL_NUMBER = detail.getElementsByTagName("GS_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var FILETYPE = detail.getElementsByTagName("FILETYPE")[0].childNodes[0].nodeValue;
+
+        // Sap Detals
+        var SAP_DETAILS = detail.getElementsByTagName("SAP_DETAILS")[0].childNodes[0].nodeValue;
+        var SAP_USER;
+        var IDOC_NUMBER;
+        var PO_NUMBER;
+        var PO_DATE;
+        var IDOC_STATUS_CODE;
+        var IDOC_STATUS_DESCRIPTION;
+        if (SAP_DETAILS != 'NO') {
+
+            SAP_USER = detail.getElementsByTagName("SAP_USER")[0].childNodes[0].nodeValue;
+            IDOC_NUMBER = detail.getElementsByTagName("IDOC_NUMBER")[0].childNodes[0].nodeValue;
+            PO_NUMBER = detail.getElementsByTagName("PO_NUMBER")[0].childNodes[0].nodeValue;
+            PO_DATE = detail.getElementsByTagName("PO_DATE")[0].childNodes[0].nodeValue;
+            IDOC_STATUS_CODE = detail.getElementsByTagName("IDOC_STATUS_CODE")[0].childNodes[0].nodeValue;
+            IDOC_STATUS_DESCRIPTION = detail.getElementsByTagName("IDOC_STATUS_DESCRIPTION")[0].childNodes[0].nodeValue;
+
+        }
+
+
+        document.getElementById('mifileID').value = fileID;
+        document.getElementById('miinvNum').value = invNum;
+
+        document.getElementById('mipoNum').value = poNum;
+        document.getElementById('miinvAmt').value = invAmt;
+
+        if (invDate != "NO") {
+            document.getElementById('miinvDate').value = invDate;
+        } else {
+            document.getElementById('miinvDate').value = "--";
+        }
+        document.getElementById('miitemQty').value = itemQty;
+
+        document.getElementById('misenderId').value = SENDER_ID;
+        document.getElementById('misenderName').value = SENDER_NAME;
+
+        document.getElementById('mireceiverId').value = RECEIVER_ID;
+        document.getElementById('mireceiverName').value = RECEIVER_NAME;
+
+        document.getElementById('miisaNum').value = isaNum;
+        document.getElementById('migsControlNo').value = GS_CONTROL_NUMBER;
+
+        document.getElementById('mistControlNo').value = ST_CONTROL_NUMBER;
+        document.getElementById('mistatus').value = STATUS.toUpperCase();
+
+        document.getElementById('miisaDate').value = isaDate;
+        document.getElementById('miisaTime').value = isaTime;
+
+        document.getElementById('mitransType').value = TRANSACTION_TYPE;
+        document.getElementById('mifileType').value = FILETYPE;
+
+
+        if (SAP_DETAILS != 'NO') {
+
+            document.getElementById('sapDiv').style.display = "block";
+
+            document.getElementById('misapUser').value = SAP_USER;
+            document.getElementById('miidocNo').value = IDOC_NUMBER;
+
+            document.getElementById('mipoNo').value = PO_NUMBER;
+            document.getElementById('mipoDate').value = PO_DATE;
+
+            document.getElementById('miidocStatusCode').value = IDOC_STATUS_CODE;
+            document.getElementById('miidocStatusDesc').value = IDOC_STATUS_DESCRIPTION;
+        }
+
+        if (PRE_TRANS_FILEPATH == "No File") {
+            document.getElementById('mipreTransFilepath').innerHTML = "--";
+        } else {
+            document.getElementById('mipreTransFilepath').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + PRE_TRANS_FILEPATH + "\">Download</a>";
+        }
+
+        if (POST_TRANS_FILEPATH == "No File") {
+            document.getElementById('mipostTransFilepath').innerHTML = "--";
+        } else {
+            document.getElementById('mipostTransFilepath').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
+        }
+
+        if (ACKFILEID == "No File") {
+            document.getElementById('miackFileId').innerHTML = "--";
+        } else {
+            document.getElementById('miackFileId').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
+        }
+
+        if (ERRMESSAGE != "NO MSG") {
+            document.getElementById('errorDiv').style.display = "block";
+            document.getElementById('mierrormessage').innerHTML = ERRMESSAGE;
+        }
+
+    }
+    if (chk.childNodes[0].nodeValue == "false") {
+        document.getElementById('noresult').value = " <h5 >Sorry ! No Results Found</h5>";
+
+
+    }
+
+    $('#hide-menu1').addClass('show-menu');
+
+}
+
+/**
+ * For doc Ajax call
+ * 
+ */
+function getDocDetails(number, ponum, id) {
+
+    var num = number;
+    var ponum = ponum;
+    var id = id;
+
+    $(function () {
+
+        $('#detail_box').show();
+        return false;
+
+    });
+    /* alert(ponum);
+     if(ponum=='')
+     {
+     ponum=null;
+     }*/
+    // alert(ponum);
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populateDocDetails);
+    var url = "../ajax/getDocDetails.action?isaNumber=" + num + "&poNumber=" + ponum + "&id=" + id;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+
+
+function populateDocDetails(responseXML)
+{
+//    alert("responseXML--->"+responseXML.toString());
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+//    alert("details--->"+details);
+    var detail = details.childNodes[0];
+//    alert("responseXML--->"+detail.getElementsByTagName("SEC_KEY_VAL")[0].childNodes[0].nodeValue);
+    var chk = detail.getElementsByTagName("VALID")[0];
+//    alert(chk);
+
+
+    if (chk.childNodes[0].nodeValue == "true") {
+        document.getElementById('errorDiv').value = "";
+//        alert(chk.childNodes[0].nodeValue);
+        var detail = details.childNodes[0];
+
+        var fileid = detail.getElementsByTagName("FILEID")[0].childNodes[0].nodeValue;
+        var docType = detail.getElementsByTagName("FILETYPE")[0].childNodes[0].nodeValue;
+
+        var PRE_TRANS_FILEPATH = detail.getElementsByTagName("PRETRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var POST_TRANS_FILEPATH = detail.getElementsByTagName("POSTTRANSFILEPATH")[0].childNodes[0].nodeValue;
+
+        var SENDER_ID = detail.getElementsByTagName("SENDERID")[0].childNodes[0].nodeValue;
+        var RECEIVER_ID = detail.getElementsByTagName("RECEIVERID")[0].childNodes[0].nodeValue;
+        var SENDER_NAME = detail.getElementsByTagName("SENDER_NAME")[0].childNodes[0].nodeValue;
+        var RECEIVER_NAME = detail.getElementsByTagName("RECEIVER_NAME")[0].childNodes[0].nodeValue;
+
+        var ISA_NUMBER = detail.getElementsByTagName("ISA_NUMBER")[0].childNodes[0].nodeValue;
+        var ISA_DATE = detail.getElementsByTagName("ISA_DATE")[0].childNodes[0].nodeValue;
+        var ISA_TIME = detail.getElementsByTagName("ISA_TIME")[0].childNodes[0].nodeValue;
+        var GS_CONTROL_NUMBER = detail.getElementsByTagName("GS_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var ST_CONTROL_NUMBER = detail.getElementsByTagName("ST_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        //var TRAN_NUMBER = detail.getElementsByTagName("TRANSACTION_TYPE")[0].childNodes[0].nodeValue; 
+        var SEC_KEY_VAL = detail.getElementsByTagName("SEC_KEY_VAL")[0].childNodes[0].nodeValue;
+        //        var PRI_KEY_TYPE = detail.getElementsByTagName("PRI_KEY_TYPE")[0].childNodes[0].nodeValue; 
+        var PRI_KEY_VAL = detail.getElementsByTagName("PRI_KEY_VAL")[0].childNodes[0].nodeValue;
+        //var ORG_FILEPATH = detail.getElementsByTagName("ORG_FILEPATH")[0].childNodes[0].nodeValue; 
+        var ACKFILEID = detail.getElementsByTagName("ACKFILEID")[0].childNodes[0].nodeValue;
+        //        var DIRECTION = detail.getElementsByTagName("DIRECTION")[0].childNodes[0].nodeValue;
+        var ERRMESSAGE = detail.getElementsByTagName("ERR_MESSAGE")[0].childNodes[0].nodeValue;
+
+        var TRANSACTION_TYPE = detail.getElementsByTagName("TRANSACTION_TYPE")[0].childNodes[0].nodeValue;
+        var STATUS = detail.getElementsByTagName("STATUS")[0].childNodes[0].nodeValue;
+
+        // Sap Detals
+
+        var SAP_DETAILS = detail.getElementsByTagName("SAP_DETAILS")[0].childNodes[0].nodeValue;
+        var SAP_USER;
+        var IDOC_NUMBER;
+        var PO_NUMBER;
+        var PO_DATE;
+        var IDOC_STATUS_CODE;
+        var IDOC_STATUS_DESCRIPTION;
+        if (SAP_DETAILS != 'NO') {
+
+            SAP_USER = detail.getElementsByTagName("SAP_USER")[0].childNodes[0].nodeValue;
+            IDOC_NUMBER = detail.getElementsByTagName("IDOC_NUMBER")[0].childNodes[0].nodeValue;
+            PO_NUMBER = detail.getElementsByTagName("PO_NUMBER")[0].childNodes[0].nodeValue;
+            PO_DATE = detail.getElementsByTagName("PO_DATE")[0].childNodes[0].nodeValue;
+            IDOC_STATUS_CODE = detail.getElementsByTagName("IDOC_STATUS_CODE")[0].childNodes[0].nodeValue;
+            IDOC_STATUS_DESCRIPTION = detail.getElementsByTagName("IDOC_STATUS_DESCRIPTION")[0].childNodes[0].nodeValue;
+
+
+            document.getElementById('ManFileId').value = fileid;
+//            alert("instanceid-------------" +fileid);
+            document.getElementById('ManShipment').value = PRI_KEY_VAL;
+//            alert("ManShipment-------------" +PRI_KEY_VAL);
+
+            if (SEC_KEY_VAL != "NULL" && SEC_KEY_VAL != "")
+            {
+                document.getElementById('ManPurchaseOrder').value = SEC_KEY_VAL;
+//                alert("SEC_KEY_VAL-------------" +SEC_KEY_VAL);
+
+            }
+            //            if(PRI_KEY_TYPE != "NULL"&&PRI_KEY_TYPE!=""){
+            //                document.getElementById('ManPriKeyType').value=PRI_KEY_TYPE;
+            //            }
+            //            if(PRI_KEY_VAL=="NO"){
+            //                PRI_KEY_VAL="-";
+            //            }
+
+            //            if(DIRECTION == "inbound"){
+            //                document.getElementById('senderinfo').value="";
+            //            }else{
+            //                document.getElementById('senderinfo').value="";
+            //            }
+            //        
+            //            if(DIRECTION == "outbound"){
+            //                document.getElementById('receiverinfo').value="";
+            //            }else{
+            //                document.getElementById('receiverinfo').value="";
+            //            }
+
+            if (SENDER_NAME == "NULL") {
+                SENDER_NAME = "Null";
+            }
+
+            if (RECEIVER_NAME == "NULL") {
+                RECEIVER_NAME = "Null";
+            }
+            document.getElementById('ManDocumentType').value = docType;
+//            alert("docType-------------" +docType);
+
+            document.getElementById('ManTransactionType').value = TRANSACTION_TYPE;
+//            alert("TRANSACTION_TYPE-------------" +TRANSACTION_TYPE);
+
+            document.getElementById('ManSenderId').value = SENDER_ID;
+//            alert("SENDER_ID-------------" +SENDER_ID);
+
+            document.getElementById('ManSenderName').value = SENDER_NAME;
+//            alert("SENDER_NAME-------------" +SENDER_NAME);
+
+            document.getElementById('ManReceiverId').value = RECEIVER_ID;
+//            alert("RECEIVER_ID-------------" +RECEIVER_ID);
+
+            document.getElementById('ManReceiverName').value = RECEIVER_NAME;
+//            alert("RECEIVER_NAME-------------" +RECEIVER_NAME);
+
+            document.getElementById('ManISA').value = ISA_NUMBER;
+//            alert("ISA_NUMBER-------------" +ISA_NUMBER);
+
+
+            if (GS_CONTROL_NUMBER != "No GS CONTROL NUMBER")
+            {
+                document.getElementById('ManGs').value = " ";
+            }
+            else
+            {
+                document.getElementById('ManGs').value = GS_CONTROL_NUMBER;
+//                alert("GS_CONTROL_NUMBER-------------" +GS_CONTROL_NUMBER);
+
+            }
+            document.getElementById('ManSt').value = ST_CONTROL_NUMBER;
+//            alert("ST_CONTROL_NUMBER-------------" +ST_CONTROL_NUMBER);
+
+            document.getElementById('ManIsADate').value = ISA_DATE;
+//            alert("ISA_DATE-------------" +ISA_DATE);
+
+            document.getElementById('ManIsATime').value = ISA_TIME;
+//            alert("ISA_TIME-------------" +ISA_TIME);
+
+
+            if (STATUS.toUpperCase() == "ERROR") {
+                document.getElementById('ManStatus').value = STATUS;
+            } else if (STATUS.toUpperCase() == "SUCCESS") {
+                document.getElementById('ManStatus').value = STATUS;
+            } else {
+                document.getElementById('ManStatus').value = STATUS;
+//                alert("ISA_TIME-------------" +ISA_TIME);
+
+            }
+
+
+            if (PRE_TRANS_FILEPATH == "No File") {
+                document.getElementById('ManPreTranslation').innerHTML = "--";
+            } else {
+                document.getElementById('ManPreTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + PRE_TRANS_FILEPATH + "\">Download</a>";
+//                alert("ManPreTranslation-------------" +PRE_TRANS_FILEPATH);
+
+            }
+            if (POST_TRANS_FILEPATH == "No File") {
+                document.getElementById('ManPostTranslation').innerHTML = "--";
+
+            } else {
+                document.getElementById('ManPostTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
+//                alert("ManPostTranslation-------------" +POST_TRANS_FILEPATH);
+
+            }
+            if (ACKFILEID == "No File") {
+                document.getElementById('ManAckFileId').innerHTML = "--";
+
+            } else {
+                document.getElementById('ManAckFileId').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
+
+//                alert("ManAckFileId-------------" +ACKFILEID);
+            }
+
+            if (ERRMESSAGE != "NO MSG") {
+                document.getElementById('errorDiv').value = ERRMESSAGE;
+//                alert("errorDiv-------------" +ERRMESSAGE);
+
+            }
+
+            if (SAP_DETAILS != 'NO') {
+//                alert("SAP_DETAILS-------------" +SAP_DETAILS);
+
+                document.getElementById('SAP_USER').value = SAP_USER;
+//                alert("SAP_USER-------------" +SAP_USER);
+
+                document.getElementById('IDOC_NUMBER').value = IDOC_NUMBER;
+//                alert("IDOC_NUMBER-------------" +IDOC_NUMBER);
+
+
+                document.getElementById('PO_NUMBER').value = PO_NUMBER;
+//                alert("PO_NUMBER-------------" +PO_NUMBER);
+
+                document.getElementById('PO_DATE').value = PO_DATE;
+//                alert("PO_DATE-------------" +PO_DATE);
+
+                document.getElementById('IDOC_STATUS_CODE').value = IDOC_STATUS_CODE;
+//                alert("IDOC_STATUS_CODE-------------" +IDOC_STATUS_CODE);
+
+
+                document.getElementById('IDOC_STATUS_DESCRIPTION').value = IDOC_STATUS_DESCRIPTION;
+//                alert("IDOC_STATUS_DESCRIPTION-------------" +IDOC_STATUS_DESCRIPTION);
+
+
+            }
+//            alert('after SAP');
+            document.getElementById('ManNullValues').innerHTML = "<a href=\"javascript:getNullValues('<%=docRepositoryBean.getId()%>');\">Dispalay Null</a></td></tr>";
+        }
+    }
+    if (chk.childNodes[0].nodeValue == "false") {
+        document.getElementById('noresult').value = " <h5 >Sorry ! No Results Found</h5>";
+
+
+    }
+
+    $('#hide-menu1').addClass('show-menu');
+
+}
+
+
+
+/**
+ * Doc copying using Ajax call
+ * 
+ */
+function getProces(btnValue, list) {
+    var po_Files = "";
+
+    if ((btnValue.value == 'ReTransmit')) {
+        var res;
+        var i = 0;
+        for (var j = 0; j < list; j++) {
+            if (document.getElementById("check_List" + j) != null) {
+                if (list == 1) {
+                    res = document.getElementById("check_List" + j).checked;
+                }
+                else {
+                    res = document.getElementById("check_List" + j).checked;
+                }
+                if (res == true) {
+                    i = i + 1;
+                    if (i == 1) {
+                        po_Files = po_Files + document.getElementById("text" + j).value + "|";
+                        po_Files = po_Files + document.getElementById("Instance" + j).value + "^";
+                    }
+                    if (i != 1)
+                    {
+                        alert("Please select one checkbox to retransmission for PO !!");
+                        return false;
+                    }
+                }
+            }
+        }
+
+        // alert("length-->"+po_Files);
+        if ((po_Files != "") && (po_Files != null)) {
+            var r = confirm("Please confirm retransmission of the selected PO!");
+            if (r == true) {
+                getcopy(po_Files, "POST");
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            alert("Please select checkbox(s) before ReTransmit");
+        }
+    }
+
+    if ((btnValue.value == 'ReSubmit')) {
+        var i = 0;
+        // alert("ReSubmit-->"+list);
+        for (var j = 0; j < list; j++) {
+            var res;
+            if (document.getElementById("check_List" + j) != null) {
+                if (list == 1) {
+                    res = document.getElementById("check_List" + j).checked;
+                } else {
+                    res = document.getElementById("check_List" + j).checked;
+                }
+                if (res == true) {
+                    i = i + 1;
+                    if (i == 1) {
+                        po_Files = po_Files + document.getElementById("text" + j).value + "|";
+                        po_Files = po_Files + document.getElementById("Instance" + j).value + "^";
+                    }
+                    else
+                    {
+                        alert("Please select one checkbox to retransmission for PO !!");
+                        return false;
+                    }
+                }
+            }
+        }
+
+        if ((po_Files != "") && (po_Files != null)) {
+            var r = confirm("Please confirm resubmission of the selected PO!");
+            if (r == true) {
+                getcopy(po_Files, "PRE");
+            } else {
+                return false;
+            }
+        }
+        else {
+            alert("Please select checkbox(s) before ReSubmit");
+        }
+    }
+}
+
+function populateDocCopy(responseText) {
+    alert(responseText);
+    document.getElementById("purchaseForm").submit();
+}
+
+
+function getcopy(PO_LIST, type) {
+    //var req = new XMLHttpRequest();
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerString(req, populateDocCopy);
+    var url = "../ajax/getDocCopy.action?poList=" + PO_LIST + "&type=" + type;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function readyStateHandlerString(req, responseTextHandler) {
+    return function () {
+        if (req.readyState == 4) {
+            if (req.status == 200) {
+                responseTextHandler(req.responseText);
+            } else {
+                alert("HTTP error" + req.status + " : " + req.statusText);
+            }
+        }
+    }
+}
+/**
+ * Shipment copying using Ajax call
+ * 
+ */
+
+function getProcesAsn(btnValue, list) {
+    // alert("hi");
+    var asn_Files = "";
+    if ((btnValue.value == 'ReTransmit')) {
+        // alert("ReTransmit-->"+list);
+        var res;
+        // alert(document.shipmentForm.check_List[0]);
+        for (var j = 0; j < list; j++) {
+            if (list == 1) {
+                res = document.shipmentForm.check_List.checked;
+            } else {
+                res = document.shipmentForm.check_List[j].checked;
+            }
+            //alert("res---->"+res);
+            if (res == true) {
+                asn_Files = asn_Files + document.getElementById("text" + j).value + "|";
+                asn_Files = asn_Files + document.getElementById("Instance" + j).value + "^";
+                alert("po_Files--" + asn_Files);
+            }
+        }
+        //alert("length-->"+asn_Files);
+        if ((asn_Files != "") && (asn_Files != null)) {
+            var r = confirm("Please confirm retransmission of the selected ASN!");
+            if (r == true) {
+                getAsncopy(asn_Files, "POST");
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            alert("Please select checkbox(s) before ReTransmit");
+        }
+    }
+
+    if ((btnValue.value == 'ReSubmit')) {
+        // alert("ReSubmit-->"+list);
+        for (var j = 0; j < list; j++) {
+
+            var res;
+            if (list == 1) {
+                res = document.shipmentForm.check_List.checked;
+            } else {
+                res = document.shipmentForm.check_List[j].checked;
+            }
+            if (res == true) {
+                asn_Files = asn_Files + document.getElementById("text" + j).value + "|";
+                asn_Files = asn_Files + document.getElementById("Instance" + j).value + "^";
+            }
+        }
+
+        // alert("length-->"+asn_Files);
+        if ((asn_Files != "") && (asn_Files != null)) {
+            var r = confirm("Please confirm resubmission of the selected ASN!");
+            if (r == true) {
+                getAsncopy(asn_Files, "PRE");
+            } else {
+                return false;
+            }
+        }
+        else {
+            alert("Please select checkbox(s) before ReSubmit");
+        }
+    }
+}
+
+function getAsncopy(ASN_LIST, type) {
+    //var req = new XMLHttpRequest();
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerString(req, populateDocAsnCopy);
+    var url = "../ajax/getDocASNCopy.action?asnList=" + ASN_LIST + "&type=" + type;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populateDocAsnCopy(responseText) {
+    alert(responseText);
+    document.getElementById("shipmentForm").submit();
+}
+
+
+
+/**
+ * Invices copying using Ajax call
+ * 
+ */
+
+
+
+function getProcesInv(btnValue, list) {
+    // alert("hi");
+    var inv_Files = "";
+    if ((btnValue.value == 'ReTransmit')) {
+        // alert("ReTransmit-->"+list);
+        var res;
+        // alert(document.shipmentForm.check_List[0]);
+        for (var j = 0; j < list; j++) {
+            if (list == 1) {
+                res = document.invoiceForm.check_List.checked;
+            } else {
+                res = document.invoiceForm.check_List[j].checked;
+            }
+            //alert("res---->"+res);
+            if (res == true) {
+                inv_Files = inv_Files + document.getElementById("text" + j).value + "|";
+                inv_Files = inv_Files + document.getElementById("Instance" + j).value + "^";
+                alert("po_Files--" + inv_Files);
+            }
+        }
+        //alert("length-->"+asn_Files);
+        if ((inv_Files != "") && (inv_Files != null)) {
+            var r = confirm("Please confirm retransmission of the selected INVOICE!");
+            if (r == true) {
+                getInvcopy(inv_Files, "POST");
+            } else {
+                return false;
+            }
+        }
+        else {
+            alert("Please select checkbox(s) before ReTransmit");
+        }
+    }
+
+    if ((btnValue.value == 'ReSubmit')) {
+        // alert("ReSubmit-->"+list);
+        for (var j = 0; j < list; j++) {
+
+            var res;
+            if (list == 1) {
+                res = document.invoiceForm.check_List.checked;
+            } else {
+                res = document.invoiceForm.check_List[j].checked;
+            }
+            if (res == true) {
+                inv_Files = inv_Files + document.getElementById("text" + j).value + "|";
+                inv_Files = inv_Files + document.getElementById("Instance" + j).value + "^";
+            }
+        }
+
+        // alert("length-->"+asn_Files);
+        if ((inv_Files != "") && (inv_Files != null)) {
+            var r = confirm("Please confirm resubmission of the selected INVOICE!");
+            if (r == true) {
+                getInvcopy(inv_Files, "PRE");
+            } else {
+                return false;
+            }
+        }
+        else {
+            alert("Please select checkbox(s) before ReSubmit");
+        }
+    }
+}
+function getInvcopy(INV_LIST, type) {
+    //var req = new XMLHttpRequest();
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerString(req, populateDocInvCopy);
+    var url = "../ajax/getInvCopy.action?invList=" + INV_LIST + "&type=" + type;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populateDocInvCopy(responseText) {
+    alert(responseText);
+    document.getElementById("invoiceForm").submit();
+}
+
+
+
+
+function getProcesPayment(btnValue, list) {
+    // alert("hi");
+    var payment_Files = "";
+    if ((btnValue.value == 'ReTransmit')) {
+        // alert("ReTransmit-->"+list);
+        var res;
+        // alert(document.shipmentForm.check_List[0]);
+        for (var j = 0; j < list; j++) {
+            if (list == 1) {
+                res = document.paymentForm.check_List.checked;
+            } else {
+                res = document.paymentForm.check_List[j].checked;
+            }
+            //alert("res---->"+res);
+            if (res == true) {
+                payment_Files = payment_Files + document.getElementById("text" + j).value + "|";
+                payment_Files = payment_Files + document.getElementById("Instance" + j).value + "^";
+                alert("po_Files--" + payment_Files);
+            }
+        }
+        //alert("length-->"+asn_Files);
+        if ((payment_Files != "") && (payment_Files != null)) {
+            var r = confirm("Please confirm retransmission of the selected PAYMENT!");
+            if (r == true) {
+                getPaymentcopy(payment_Files, "POST");
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            alert("Please select checkbox(s) before ReTransmit");
+        }
+    }
+
+    if ((btnValue.value == 'ReSubmit')) {
+        // alert("ReSubmit-->"+list);
+        for (var j = 0; j < list; j++) {
+
+            var res;
+            if (list == 1) {
+                res = document.paymentForm.check_List.checked;
+            } else {
+                res = document.paymentForm.check_List[j].checked;
+            }
+            if (res == true) {
+                payment_Files = payment_Files + document.getElementById("text" + j).value + "|";
+                payment_Files = payment_Files + document.getElementById("Instance" + j).value + "^";
+            }
+        }
+
+        // alert("length-->"+asn_Files);
+        if ((payment_Files != "") && (payment_Files != null)) {
+            var r = confirm("Please confirm resubmission of the selected PAYMENT!");
+            if (r == true) {
+                getPaymentcopy(payment_Files, "PRE");
+            } else {
+                return false;
+            }
+        }
+        else {
+            alert("Please select checkbox(s) before ReSubmit");
+        }
+    }
+}
+function getPaymentcopy(Payment_LIST, type) {
+    //var req = new XMLHttpRequest();
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerString(req, populateDocPaymentCopy);
+    var url = "../ajax/getPaymentCopy.action?paymentList=" + Payment_LIST + "&type=" + type;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populateDocPaymentCopy(responseText) {
+    alert(responseText);
+    document.getElementById("paymentForm").submit();
+}
+/**
+ * LoadTender copying using Ajax call
+ * 
+ */
+function getloadTenderProcess(btnValue, list) {
+
+    var load_Files = "";
+    if ((btnValue.value == 'ReTransmit')) {
+        //  alert("ReTransmit-->"+list);
+        var i = 0;
+        var res;
+        for (var j = 0; j < list; j++) {
+            if (document.getElementById("check_List" + j) != null) {
+                if (list == 1) {
+                    res = document.getElementById("check_List" + j).checked;
+                } else {
+                    res = document.getElementById("check_List" + j).checked;
+                }
+                // alert("res---->"+res);
+                if (res == true) {
+                    i = i + 1;
+                    if (i == 1) {
+                        load_Files = load_Files + document.getElementById("text" + j).value + "|";
+                        load_Files = load_Files + document.getElementById("Instance" + j).value + "^";
+                        alert("load_Files" + load_Files);
+                    }
+                    else
+                    {
+                        alert("Please select one checkbox to retransmission for loadtendering !!");
+                    }
+                }
+            }
+        }
+        // alert("length-->"+po_Files);
+        if ((load_Files != "") && (load_Files != null)) {
+            var r = confirm("Please confirm retransmission of the selected Load Files!");
+            if (r == true) {
+                getLoadTenderCopy(load_Files, "POST");
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            alert("Please select checkbox(s) before ReTransmit");
+        }
+    }
+
+    if ((btnValue.value == 'ReSubmit')) {
+        var i = 0;
+        var res;
+        // alert("ReSubmit-->"+list);
+        for (var j = 0; j < list; j++) {
+
+            if (document.getElementById("check_List" + j) != null) {
+                if (list == 1) {
+                    res = document.getElementById("check_List" + j).checked;
+                } else {
+                    res = document.getElementById("check_List" + j).checked;
+                }
+                if (res == true) {
+                    i = i + 1;
+                    if (i == 1) {
+                        load_Files = load_Files + document.getElementById("text" + j).value + "|";
+                        load_Files = load_Files + document.getElementById("Instance" + j).value + "^";
+                    }
+                    else
+                    {
+                        alert("Please select one checkbox to resubmit for loadtendering !!");
+                    }
+                }
+            }
+        }
+
+        //alert("length-->"+po_Files);
+        if ((load_Files != "") && (load_Files != null)) {
+            var r = confirm("Please confirm resubmission of the selected Load Files!");
+            if (r == true) {
+                getLoadTenderCopy(load_Files, "PRE");
+            } else {
+                return false;
+            }
+        }
+        else {
+            alert("Please select checkbox(s) before ReSubmit");
+        }
+    }
+}
+
+function getLoadTenderCopy(Load_LIST, type) {
+    //var req = new XMLHttpRequest();
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerString(req, populateLoadTenderCopy);
+    var url = "../ajax/getLoadCopy.action?loadList=" + Load_LIST + "&type=" + type;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+function populateLoadTenderCopy(responseText) {
+    alert(responseText);
+    document.getElementById("logisticsForm").submit();
+}
+/*
+ *Get Payment Details
+ */
+function getPaymentDetails(fileId) {
+    $(function () {
+
+        $('#detail_box').show();
+        return false;
+
+    });
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populatePaymentDetails);
+
+    var url = "../ajax/getPaymentDetails.action?fileId=" + fileId;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populatePaymentDetails(responseXML)
+{
+    // var routings = detail.getElementsByTagName("ROUTINGS")[0].childNodes[0].nodeValue;  
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+
+    if (chk.childNodes[0].nodeValue == "true") {
+
+        var detail = details.childNodes[0];
+        var fileid = detail.getElementsByTagName("FILE_ID")[0].childNodes[0].nodeValue;
+        var docType = detail.getElementsByTagName("FILE_TYPE")[0].childNodes[0].nodeValue;
+        var PRE_TRANS_FILEPATH = detail.getElementsByTagName("PRETRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var POST_TRANS_FILEPATH = detail.getElementsByTagName("POSTTRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var SENDER_ID = detail.getElementsByTagName("SENDER_ID")[0].childNodes[0].nodeValue;
+        var RECEIVER_ID = detail.getElementsByTagName("RECEIVER_ID")[0].childNodes[0].nodeValue;
+        var SENDER_NAME = detail.getElementsByTagName("SENDER_NAME")[0].childNodes[0].nodeValue;
+        var RECEIVER_NAME = detail.getElementsByTagName("RECEIVER_NAME")[0].childNodes[0].nodeValue;
+        var ISA_DATE = detail.getElementsByTagName("ISA_DATE")[0].childNodes[0].nodeValue;
+        var ISA_TIME = detail.getElementsByTagName("ISA_TIME")[0].childNodes[0].nodeValue;
+        var ISA_NUMBER = detail.getElementsByTagName("ISA_NUMBER")[0].childNodes[0].nodeValue;
+        var GS_CONTROL_NUMBER = detail.getElementsByTagName("GS_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var ST_CONTROL_NUMBER = detail.getElementsByTagName("ST_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var TRAN_NUMBER = detail.getElementsByTagName("TRANSACTION_TYPE")[0].childNodes[0].nodeValue;
+        var ACKFILEID = detail.getElementsByTagName("ACKFILE")[0].childNodes[0].nodeValue;
+        var STATUS = detail.getElementsByTagName("STATUS")[0].childNodes[0].nodeValue;
+        var ERRMESSAGE = detail.getElementsByTagName("ERR_MESSAGE")[0].childNodes[0].nodeValue;
+        var CHEQUE_NUMBER = detail.getElementsByTagName("Check_Number")[0].childNodes[0].nodeValue;
+//        var PO_NUMBER = detail.getElementsByTagName("PO_NUMBER")[0].childNodes[0].nodeValue;
+//        var CO_NUMBER = detail.getElementsByTagName("CO_NUMBER")[0].childNodes[0].nodeValue;
+        var SEC_KEY_VAL = detail.getElementsByTagName("SEC_KEY_VAL")[0].childNodes[0].nodeValue;
+        var INVOICE_NUMBER = detail.getElementsByTagName("INVOICE_NUMBER")[0].childNodes[0].nodeValue;
+        // Sap Detals
+
+        var SAP_DETAILS = detail.getElementsByTagName("SAP_DETAILS")[0].childNodes[0].nodeValue;
+        var SAP_USER;
+        var IDOC_NUMBER;
+        var PO_NUMBER;
+        var PO_DATE;
+        var IDOC_STATUS_CODE;
+        var IDOC_STATUS_DESCRIPTION;
+        if (SAP_DETAILS != 'NO') {
+
+            SAP_USER = detail.getElementsByTagName("SAP_USER")[0].childNodes[0].nodeValue;
+            IDOC_NUMBER = detail.getElementsByTagName("IDOC_NUMBER")[0].childNodes[0].nodeValue;
+            PO_NUMBER = detail.getElementsByTagName("PO_NUMBER")[0].childNodes[0].nodeValue;
+            PO_DATE = detail.getElementsByTagName("PO_DATE")[0].childNodes[0].nodeValue;
+            IDOC_STATUS_CODE = detail.getElementsByTagName("IDOC_STATUS_CODE")[0].childNodes[0].nodeValue;
+            IDOC_STATUS_DESCRIPTION = detail.getElementsByTagName("IDOC_STATUS_DESCRIPTION")[0].childNodes[0].nodeValue;
+
+        }
+
+
+        document.getElementById('instanceid').value = fileid;
+        //document.getElementById('shipment').value=PRI_KEY_VAL;
+        if (SEC_KEY_VAL != "NO") {
+            document.getElementById('po').value = SEC_KEY_VAL;
+        }
+        else
+        {
+            document.getElementById('po').value = "--";
+        }
+
+        if (INVOICE_NUMBER != "NO") {
+            document.getElementById('invoice').value = INVOICE_NUMBER;
+        }
+        else
+        {
+            document.getElementById('invoice').value = "--";
+        }
+
+        if (CHEQUE_NUMBER != "NO") {
+            document.getElementById('Check_Number').value = CHEQUE_NUMBER;
+        } else {
+            document.getElementById('Check_Number').value = "--";
+        }
+        document.getElementById('documenttype').value = docType;
+        document.getElementById('transactiontype').value = TRAN_NUMBER;
+        document.getElementById('senderid').value = SENDER_ID;
+        document.getElementById('sendername').value = SENDER_NAME;
+        document.getElementById('receiverid').value = RECEIVER_ID;
+        document.getElementById('receivername').value = RECEIVER_NAME;
+        document.getElementById('isa').value = ISA_NUMBER;
+        document.getElementById('gs').value = GS_CONTROL_NUMBER;
+        document.getElementById('st').value = ST_CONTROL_NUMBER;
+        document.getElementById('isadate').value = ISA_DATE;
+        document.getElementById('isatime').value = ISA_TIME;
+        if (STATUS.toUpperCase() == "ERROR") {
+            document.getElementById('togglestatus').value = STATUS;
+        } else if (STATUS.toUpperCase() == "SUCCESS") {
+            document.getElementById('togglestatus').value = STATUS;
+        } else {
+            document.getElementById('togglestatus').value = STATUS;
+        }
+        if (PRE_TRANS_FILEPATH == "No File") {
+            document.getElementById('pretranfilepath').innerHTML = "--";
+        } else {
+            document.getElementById('pretranfilepath').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + PRE_TRANS_FILEPATH + "\">Download</a>";
+        }
+
+        if (POST_TRANS_FILEPATH == "No File") {
+            document.getElementById('posttranfilepath').innerHTML = "--";
+
+        } else {
+            document.getElementById('posttranfilepath').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
+        }
+
+        if (ACKFILEID == "No File") {
+            document.getElementById('ackfileid').innerHTML = "--";
+
+        } else {
+            document.getElementById('ackfileid').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
+        }
+
+        if (ERRMESSAGE != "NO MSG") {
+            document.getElementById('errormessage').innerHTML = ERRMESSAGE;
+
+        }
+
+        if (SAP_DETAILS != 'NO') {
+            document.getElementById('SAP_USER').value = SAP_USER;
+            document.getElementById('IDOC_NUMBER').value = IDOC_NUMBER;
+            document.getElementById('PO_NUMBER').value = PO_NUMBER;
+            document.getElementById('PO_DATE').value = PO_DATE;
+            document.getElementById('IDOC_STATUS_CODE').value = IDOC_STATUS_CODE;
+            document.getElementById('IDOC_STATUS_DESCRIPTION').value = IDOC_STATUS_DESCRIPTION;
+        }
+        else
+        {
+            document.getElementById('SAP_USER').value = '--';
+            document.getElementById('IDOC_NUMBER').value = '--';
+            document.getElementById('PO_NUMBER').value = '--';
+            document.getElementById('PO_DATE').value = '--';
+            document.getElementById('IDOC_STATUS_CODE').value = '--';
+            document.getElementById('IDOC_STATUS_DESCRIPTION').value = '--';
+        }
+
+    }
+    if (chk.childNodes[0].nodeValue == "false") {
+        document.getElementById('noresult').innerHTML = " <h5 >Sorry ! No Results Found</h5>";
+
+
+    }
+
+    $('#hide-menu1').addClass('show-menu');
+
+}
+
+
+/** 
+ * New 
+ * To add and update TP
+ */
+//for editing TP Details
+
+function doEdit(id) {
+    var id = id;
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText1(req, populateTpDetails);
+
+    var url = "../ajax/getTpDetails.action?tpId=" + id;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populateTpDetails(responseXML)
+{
+
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+
+    // alert("datails--->"+details);
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+
+    if (chk.childNodes[0].nodeValue == "true") {
+
+        var detail = details.childNodes[0];
+
+        var ID = detail.getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+        // var Check_Number = detail.getElementsByTagName("Check_Number")[0].childNodes[0].nodeValue; 
+        var NAME = detail.getElementsByTagName("NAME")[0].childNodes[0].nodeValue;
+        var CONTACT_INFO = detail.getElementsByTagName("CONTACT_INFO")[0].childNodes[0].nodeValue;
+
+        var VENDOR_NUMBER = detail.getElementsByTagName("VENDOR_NUMBER")[0].childNodes[0].nodeValue;
+
+        var DEPARTMENTS = detail.getElementsByTagName("DEPARTMENTS")[0].childNodes[0].nodeValue;
+        var EDI_COMM_ID = detail.getElementsByTagName("EDI_COMM_ID")[0].childNodes[0].nodeValue;
+        var QUALIFIER = detail.getElementsByTagName("QUALIFIER")[0].childNodes[0].nodeValue;
+
+        document.getElementById('id').value = ID;
+        document.getElementById('id').disabled = true;
+        document.getElementById('name').value = NAME;
+        document.getElementById('contact').value = CONTACT_INFO;
+        document.getElementById('phno').value = VENDOR_NUMBER;
+        document.getElementById('dept').value = DEPARTMENTS;
+        document.getElementById('commid').value = EDI_COMM_ID;
+        document.getElementById('qualifier').value = QUALIFIER;
+        document.getElementById("add").style.display = 'none';
+        document.getElementById("update").style.display = 'table-row';
+
+    }
+}
+function doTpUpdate()
+{
+    //  alert("do up");
+    var id = document.getElementById("id").value;
+    var name = document.getElementById("name").value;
+    if (((id != null) && (id != "")) && (name != null) && (name != ""))
+    {
+        //  alert("in do Update");
+
+        var id = document.getElementById('id').value;
+        document.getElementById('id').disabled = false;
+        var name = document.getElementById('name').value;
+        var contact = document.getElementById('contact').value;
+        var phno = document.getElementById('phno').value;
+        var dept = document.getElementById('dept').value;
+        var commid = document.getElementById('commid').value;
+        var qualifier = document.getElementById('qualifier').value;
+
+        var req = getXMLHttpRequest();
+        req.onreadystatechange = readyStateHandlerString(req, showResultForUpdate);
+
+        var url = "../ajax/updateTpDetails.action?tpId=" + id + "&name=" + name + "&contact=" + contact + "&phno=" + phno + "&dept=" + dept + "&commid=" + commid + "&qualifier=" + qualifier;
+        req.open("GET", url, "true");
+        req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        req.send(null);
+
+    }
+    else
+    {
+        alert("Please enter atleast Id and Name!!!");
+    }
+}
+
+function showResultForUpdate(result)
+{
+    alert(result);
+    document.getElementById('id').value = "";
+    document.getElementById('id').value = "";
+    document.getElementById('name').value = "";
+    document.getElementById('contact').value = "";
+    document.getElementById('phno').value = "";
+    document.getElementById('dept').value = "";
+    document.getElementById('commid').value = "";
+    document.getElementById('qualifier').value = "";
+    document.getElementById("add").style.display = 'table-row';
+    document.getElementById("update").style.display = 'none';
+
+}
+
+
+
+function getTpDetailInformation(tpId)
+{
+    $(function () {
+
+        $('#detail_box').show();
+        return false;
+
+    });
+    var tpname = name;
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populateTpDetailInformation);
+
+    var url = "../ajax/getTpDetailInformation.action?tpId=" + tpId;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+
+}
+
+function populateTpDetailInformation(responseXML)
+{
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+
+    // alert("datails--->"+details);
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+
+    if (chk.childNodes[0].nodeValue == "true") {
+
+        var detail = details.childNodes[0];
+        var id = detail.getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+        var city = detail.getElementsByTagName("CITY")[0].childNodes[0].nodeValue;
+        var zip = detail.getElementsByTagName("ZIP")[0].childNodes[0].nodeValue;
+
+        //added 
+        var vendor = detail.getElementsByTagName("VENDOR")[0].childNodes[0].nodeValue;
+
+        //var vendor = detail.getElementByTagName("VENDOR")[0].childNodes[0].nodeValue;
+        var department = detail.getElementsByTagName("DEPARTMENT")[0].childNodes[0].nodeValue;
+
+        var ship = detail.getElementsByTagName("SHIP")[0].childNodes[0].nodeValue;
+        var payDuns = detail.getElementsByTagName("PAY_DUNS")[0].childNodes[0].nodeValue;
+        var order = detail.getElementsByTagName("ORDER")[0].childNodes[0].nodeValue;
+        var url = detail.getElementsByTagName("URL")[0].childNodes[0].nodeValue;
+        //  var cert = detail.getElementsByTagName("CERT")[0].childNodes[0].nodeValue;
+
+        //alert("ACKFILEID-->"+ACKFILEID);
+        // var routings = detail.getElementsByTagName("ROUTINGS")[0].childNodes[0].nodeValue;  
+
+        var details = "<table style='margin: 0 0 0 0;padding: 0px 0px;'> ";
+        if (id != "NO") {
+            details = details + "<tr><td class='ajaxTd'>ID&nbsp;# :</td><td class='ajaxTd'>" + id + "</td></tr>";
+        }
+        else
+        {
+            details = details + "<tr><td class='ajaxTd'>ID&nbsp;# :</td><td class='ajaxTd'>--</td></tr>";
+        }
+        if (city != "NO") {
+            details = details + "<tr><td class='ajaxTd'>City&nbsp; :</td><td class='ajaxTd'>" + city + "</td></tr>";
+        }
+        else
+        {
+            details = details + "<tr><td class='ajaxTd'>City&nbsp; :</td><td class='ajaxTd'>--</td></tr>";
+        }
+        if (zip != "NO") {
+            details = details + "<tr><td class='ajaxTd'>Zip&nbsp; :</td><td class='ajaxTd'>" + zip + "</td></tr>";
+        }
+        else
+        {
+            details = details + "<tr><td class='ajaxTd'>Zip&nbsp; :</td><td class='ajaxTd'>--</td></tr>";
+        }
+
+
+        if (vendor != "NO") {
+            details = details + "<tr><td class='ajaxTd'>Vendor&nbsp;#&nbsp;:</td><td class='ajaxTd'>" + vendor + "</td></tr>";
+        }
+        else
+        {
+            details = details + "<tr><td class='ajaxTd'>Vendor&nbsp;Number :</td><td class='ajaxTd'>--</td></tr>";
+        }
+
+        if (department != "NO") {
+            details = details + "<tr><td class='ajaxTd'>Department&nbsp; :</td><td class='ajaxTd'>" + department + "</td></tr>";
+        }
+        else
+        {
+            details = details + "<tr><td class='ajaxTd'>Department&nbsp;Number&nbsp; :</td><td class='ajaxTd'>--</td></tr>";
+        }
+
+
+
+
+        if (ship != "NO") {
+            details = details + "<tr><td class='ajaxTd'>Ship&nbsp;Duns&nbsp; :</td><td class='ajaxTd'>" + ship + "</td></tr>";
+        }
+        else
+        {
+            details = details + "<tr><td class='ajaxTd'>Ship&nbsp;Duns&nbsp; :</td><td class='ajaxTd'>--</td></tr>";
+        }
+        if (payDuns != "NO") {
+            details = details + "<tr><td class='ajaxTd'>Pay&nbsp;Duns&nbsp; :</td><td class='ajaxTd'>" + payDuns + "</td></tr>";
+        }
+        else
+        {
+            details = details + "<tr><td class='ajaxTd'>Billings&nbsp;Duns&nbsp; :</td><td class='ajaxTd'>--</td></tr>";
+        }
+
+        if (order != "NO") {
+            details = details + "<tr><td class='ajaxTd'>Order&nbsp;Duns&nbsp; :</td><td class='ajaxTd'>" + order + "</td></tr>";
+        }
+        else
+        {
+            details = details + "<tr><td class='ajaxTd'>Order&nbsp;Duns :</td><td class='ajaxTd'>--</td></tr>";
+        }
+
+        if (url != "NO") {
+            details = details + "<tr><td class='ajaxTd'>URL&nbsp; :</td><td class='ajaxTd'>" + url + "</td></tr>";
+        }
+        else
+        {
+            details = details + "<tr><td class='ajaxTd'>URL&nbsp; :</td><td class='ajaxTd'>--</td></tr>";
+        }
+
+
+
+
+
+        // "<h5 >PRE_TRANS_FILE :&nbsp; &nbsp; <a href=\"../download/getAttachment.action?locationAvailable="+PRE_TRANS_FILEPATH+"\">PRE_TRANS_FILE</a></h5>"+
+        //  "<h5 >POST_TRANS_FILE :&nbsp; &nbsp; <a href=\"../download/getAttachment.action?locationAvailable="+POST_TRANS_FILEPATH+"\">POST_TRANS_FILE</a></h5>";
+
+    } //if
+    if (chk.childNodes[0].nodeValue == "false") {
+        var details = " <h5 >Sorry ! No Results Found</h5>";
+
+    }
+    var detailsDIV = document.getElementById("detailInformation");
+    detailsDIV.innerHTML = "";
+    detailsDIV.innerHTML = details;
+    /*  $(function() {
+     
+     $('#detail_box').show();
+     return false;
+     
+     });*/
+
+}
+
+function getLogisticsDocDetails(val, id) {
+    //    alert("main");
+    //alert("hiii222222"+number+"ponum------>"+ponum);
+
+    var num = val;
+    var id = id;
+    //    alert("num"+num+"id------>"+id);
+    $(function () {
+
+        $('#detail_box').show();
+        return false;
+
+    });
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populateLogisticsDocDetails);
+    var url = "../ajax/getLogisticsDocDetails.action?isaNumber=" + num + "&id=" + id;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populateLogisticsDocDetails(responseXML)
+{
+    //   alert("responseXML--->"+responseXML.toString());
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+
+    if (chk.childNodes[0].nodeValue == "true") {
+        document.getElementById('LogDocErrorMessage').innerHTML = "";
+        var detail = details.childNodes[0];
+        var fileid = detail.getElementsByTagName("FILEID")[0].childNodes[0].nodeValue;
+        var docType = detail.getElementsByTagName("FILETYPE")[0].childNodes[0].nodeValue;
+
+        var PRE_TRANS_FILEPATH = detail.getElementsByTagName("PRETRANSFILEPATH")[0].childNodes[0].nodeValue;
+        //            alert(PRE_TRANS_FILEPATH);
+        var POST_TRANS_FILEPATH = detail.getElementsByTagName("POSTTRANSFILEPATH")[0].childNodes[0].nodeValue;
+        //             alert(POST_TRANS_FILEPATH);
+        var SENDER_ID = detail.getElementsByTagName("SENDERID")[0].childNodes[0].nodeValue;
+        var RECEIVER_ID = detail.getElementsByTagName("RECEIVERID")[0].childNodes[0].nodeValue;
+        var SENDER_NAME = detail.getElementsByTagName("SENDER_NAME")[0].childNodes[0].nodeValue;
+        var RECEIVER_NAME = detail.getElementsByTagName("RECEIVER_NAME")[0].childNodes[0].nodeValue;
+
+        var ISA_DATE = detail.getElementsByTagName("ISA_DATE")[0].childNodes[0].nodeValue;
+
+        var ISA_TIME = detail.getElementsByTagName("ISA_TIME")[0].childNodes[0].nodeValue;
+
+        var ISA_NUMBER = detail.getElementsByTagName("ISA_NUMBER")[0].childNodes[0].nodeValue;
+        var GS_CONTROL_NUMBER = detail.getElementsByTagName("GS_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var ST_CONTROL_NUMBER = detail.getElementsByTagName("ST_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var TRAN_NUMBER = detail.getElementsByTagName("TRANSACTION_TYPE")[0].childNodes[0].nodeValue;
+        var SEC_KEY_VAL = detail.getElementsByTagName("SEC_KEY_VAL")[0].childNodes[0].nodeValue;
+        var PRI_KEY_TYPE = detail.getElementsByTagName("PRI_KEY_TYPE")[0].childNodes[0].nodeValue;
+        var PRI_KEY_VAL = detail.getElementsByTagName("PRI_KEY_VAL")[0].childNodes[0].nodeValue;
+        var ORG_FILEPATH = detail.getElementsByTagName("ORG_FILEPATH")[0].childNodes[0].nodeValue;
+        var ACKFILEID = detail.getElementsByTagName("ACKFILEID")[0].childNodes[0].nodeValue;
+        //  var ISA_DATE = detail.getElementsByTagName("ISA_DATE")[0].childNodes[0].nodeValue;
+        //  var ISA_TIME = detail.getElementsByTagName("ISA_TIME")[0].childNodes[0].nodeValue;
+        var STATUS = detail.getElementsByTagName("STATUS")[0].childNodes[0].nodeValue;
+        var DIRECTION = detail.getElementsByTagName("DIRECTION")[0].childNodes[0].nodeValue;
+
+        var ERRMESSAGE = detail.getElementsByTagName("ERR_MESSAGE")[0].childNodes[0].nodeValue;
+
+        var BOL_NUMBER = detail.getElementsByTagName("BOL_NUMBER")[0].childNodes[0].nodeValue;
+        var CO_NUMBER = detail.getElementsByTagName("CO_NUMBER")[0].childNodes[0].nodeValue;
+        var PO_NUMBER = detail.getElementsByTagName("PO_NUMBER")[0].childNodes[0].nodeValue;
+
+        document.getElementById('LogDocInstanceId').value = fileid;
+        document.getElementById('LogDocShipment').value = PRI_KEY_VAL;
+        document.getElementById('LogDocDocumentType').value = docType;
+        document.getElementById('LogDocTransactionType').value = TRAN_NUMBER;
+        document.getElementById('LogDocSenderid').value = SENDER_ID;
+        document.getElementById('LogDocSenderName').value = SENDER_NAME;
+        document.getElementById('LogDocReceiverId').value = RECEIVER_ID;
+        document.getElementById('LogDocReceiverName').value = RECEIVER_NAME;
+        document.getElementById('LogDocIsa').value = ISA_NUMBER;
+        document.getElementById('LogDocGs').value = GS_CONTROL_NUMBER;
+        document.getElementById('LogDocSt').value = ST_CONTROL_NUMBER;
+        document.getElementById('LogDocIsADate').value = ISA_DATE;
+        document.getElementById('LogDocIsATime').value = ISA_TIME;
+        if (STATUS.toUpperCase() == "ERROR") {
+            document.getElementById('LogDocDetailInfoStatus').value = STATUS;
+        } else if (STATUS.toUpperCase() == "SUCCESS") {
+            document.getElementById('LogDocDetailInfoStatus').value = STATUS;
+        } else {
+            document.getElementById('LogDocDetailInfoStatus').value = STATUS;
+        }
+
+
+        if (PRE_TRANS_FILEPATH == "No File") {
+            document.getElementById('LogDocPreTranslation').innerHTML = "--";
+        } else {
+            document.getElementById('LogDocPreTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + PRE_TRANS_FILEPATH + "\">Download</a>";
+        }
+        if (POST_TRANS_FILEPATH == "No File") {
+            document.getElementById('LogDocPostTranslation').innerHTML = "--";
+
+        } else {
+            document.getElementById('LogDocPostTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
+        }
+        if (ACKFILEID == "No File") {
+            document.getElementById('LogDocAckFileId').innerHTML = "--";
+
+        } else {
+            document.getElementById('LogDocAckFileId').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
+        }
+        if (ERRMESSAGE != "NO MSG") {
+            document.getElementById('LogDocErrorMessage').innerHTML = "<font color='red'>" + ERRMESSAGE + "</font>";
+        }else{
+            document.getElementById('LogDocErrorMessage').innerHTML = "--";
+        }
+    }
+    if (chk.childNodes[0].nodeValue == "false") {
+        document.getElementById('noresult').innerHTML = " <h5 >Sorry ! No Results Found</h5>";
+
+
+    }
+
+    $('#hide-menu1').addClass('show-menu');
+}
+
+function getLoadTenderingDetails(number, ponum) {
+    //alert("hai");
+    //alert("hiii222222"+number+"ponum------>"+ponum);
+
+    var num = number;
+    var ponum = ponum;
+    $(function () {
+
+        $('#detail_box').show();
+        return false;
+
+    });
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populateLoadTenderingDetails);
+    var url = "../ajax/getLoadTenderingDetails.action?isaNumber=" + num + "&poNumber=" + ponum;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populateLoadTenderingDetails(responseXML)
+{
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+    // alert("details--->"+details);
+    var detail = details.childNodes[0];
+    // alert("responseXML--->"+detail.getElementsByTagName("SEC_KEY_VAL")[0].childNodes[0].nodeValue);
+    var chk = detail.getElementsByTagName("VALID")[0];
+
+
+    // alert(confirmMessage);
+
+
+    if (chk.childNodes[0].nodeValue == "true") {
+        document.getElementById('errormessage').innerHTML = "";
+        var detail = details.childNodes[0];
+
+        var fileid = detail.getElementsByTagName("FILEID")[0].childNodes[0].nodeValue;
+        var docType = detail.getElementsByTagName("FILETYPE")[0].childNodes[0].nodeValue;
+        var PRE_TRANS_FILEPATH = detail.getElementsByTagName("PRETRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var POST_TRANS_FILEPATH = detail.getElementsByTagName("POSTTRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var SENDER_ID = detail.getElementsByTagName("SENDERID")[0].childNodes[0].nodeValue;
+        var RECEIVER_ID = detail.getElementsByTagName("RECEIVERID")[0].childNodes[0].nodeValue;
+        var SENDER_NAME = detail.getElementsByTagName("SENDER_NAME")[0].childNodes[0].nodeValue;
+        var RECEIVER_NAME = detail.getElementsByTagName("RECEIVER_NAME")[0].childNodes[0].nodeValue;
+        var ISA_NUMBER = detail.getElementsByTagName("ISA_NUMBER")[0].childNodes[0].nodeValue;
+        var ISA_DATE = detail.getElementsByTagName("ISA_DATE")[0].childNodes[0].nodeValue;
+        var ISA_TIME = detail.getElementsByTagName("ISA_TIME")[0].childNodes[0].nodeValue;
+        var GS_CONTROL_NUMBER = detail.getElementsByTagName("GS_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var ST_CONTROL_NUMBER = detail.getElementsByTagName("ST_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        //var TRAN_NUMBER = detail.getElementsByTagName("TRANSACTION_TYPE")[0].childNodes[0].nodeValue; 
+        //var SEC_KEY_VAL = detail.getElementsByTagName("SEC_KEY_VAL")[0].childNodes[0].nodeValue; 
+        //var PRI_KEY_TYPE = detail.getElementsByTagName("PRI_KEY_TYPE")[0].childNodes[0].nodeValue; 
+        var PRI_KEY_VAL = detail.getElementsByTagName("PRI_KEY_VAL")[0].childNodes[0].nodeValue;
+        //var ORG_FILEPATH = detail.getElementsByTagName("ORG_FILEPATH")[0].childNodes[0].nodeValue; 
+        var ACKFILEID = detail.getElementsByTagName("ACKFILEID")[0].childNodes[0].nodeValue;
+        //var DIRECTION = detail.getElementsByTagName("DIRECTION")[0].childNodes[0].nodeValue;
+        var ERRMESSAGE = detail.getElementsByTagName("ERR_MESSAGE")[0].childNodes[0].nodeValue;
+
+        var TRANSACTION_TYPE = detail.getElementsByTagName("TRANSACTION_TYPE")[0].childNodes[0].nodeValue;
+        var STATUS = detail.getElementsByTagName("STATUS")[0].childNodes[0].nodeValue;
+        var totVolume = detail.getElementsByTagName("TOTAL_VOLUME")[0].childNodes[0].nodeValue;
+        var totWeight = detail.getElementsByTagName("TOTAL_WEIGHT")[0].childNodes[0].nodeValue;
+        var totpieces = detail.getElementsByTagName("TOTAL_PIECES")[0].childNodes[0].nodeValue;
+
+
+        document.getElementById('instanceid').value = fileid;
+        document.getElementById('shipment').value = PRI_KEY_VAL;
+        //        if(PO_NUMBER != "NO"){
+        //            document.getElementById('po').value=PO_NUMBER;
+        //        }
+        //        else
+        //        {
+        //            document.getElementById('po').value="--";
+        //        }
+        //            
+        //        if(CO_NUMBER != "NO"){
+        //            document.getElementById('co').value=CO_NUMBER;
+        //        }
+        //        else
+        //        {
+        //            document.getElementById('co').value="--";
+        //        }
+        if (totVolume != "NO") {
+            document.getElementById('Volume').value = totVolume;
+        } else
+        {
+            document.getElementById('Volume').value = "--";
+        }
+        if (totWeight != "NO") {
+            document.getElementById('totWeight').value = totWeight;
+        } else
+        {
+            document.getElementById('totWeight').value = "--";
+        }
+        if (totpieces != "NO") {
+            document.getElementById('pieces').value = totpieces;
+        } else
+        {
+            document.getElementById('pieces').value = "--";
+        }
+        document.getElementById('documenttype').value = docType;
+        document.getElementById('transactiontype').value = TRANSACTION_TYPE;
+        document.getElementById('senderid').value = SENDER_ID;
+        document.getElementById('sendername').value = SENDER_NAME;
+        document.getElementById('receiverid').value = RECEIVER_ID;
+        document.getElementById('receivername').value = RECEIVER_NAME;
+        document.getElementById('isa').value = ISA_NUMBER;
+        document.getElementById('gs').value = GS_CONTROL_NUMBER;
+        document.getElementById('st').value = ST_CONTROL_NUMBER;
+        document.getElementById('isadate').value = ISA_DATE;
+        document.getElementById('isatime').value = ISA_TIME;
+
+        if (STATUS.toUpperCase() == "ERROR") {
+            document.getElementById('togglestatus').value = STATUS;
+        } else if (STATUS.toUpperCase() == "SUCCESS") {
+            document.getElementById('togglestatus').value = STATUS;
+        } else {
+            document.getElementById('togglestatus').value = STATUS;
+        }
+
+        if (PRE_TRANS_FILEPATH == "No File") {
+            document.getElementById('pretranslation').innerHTML = "--";
+        } else {
+            document.getElementById('pretranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + PRE_TRANS_FILEPATH + "\">Download</a>";
+        }
+        if (POST_TRANS_FILEPATH == "No File") {
+            document.getElementById('posttranslation').innerHTML = "--";
+
+        } else {
+            document.getElementById('posttranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
+        }
+        if (ACKFILEID == "No File") {
+            document.getElementById('ackfileid').innerHTML = "--";
+
+        } else {
+            document.getElementById('ackfileid').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
+        }
+
+        if (ERRMESSAGE != "NO MSG") {
+            document.getElementById('errormessage').innerHTML = ERRMESSAGE;
+
+        }
+    }
+    if (chk.childNodes[0].nodeValue == "false") {
+        document.getElementById('noresult').innerHTML = " <h5 >Sorry ! No Results Found</h5>";
+
+
+    }
+
+    $('#hide-menu1').addClass('show-menu');
+
+}
+
+
+
+function getLtResponseDetails(fileId, refId) {
+    //  alert("hii");
+    //var num=number;
+    //alert("inv number-->"+num);
+    //  var req = new XMLHttpRequest();
+    $(function () {
+
+        $('#detail_box').show();
+        return false;
+
+    });
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populateLtResponseDetails);
+
+    var url = "../ajax/getLtResponseDetails.action?fileId=" + fileId + "&refId=" + refId;
+
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populateLtResponseDetails(responseXML)
+{
+
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+
+    if (chk.childNodes[0].nodeValue == "true") {
+        document.getElementById('resErrormessage').innerHTML = "";
+        var detail = details.childNodes[0];
+        var FILE_ID = detail.getElementsByTagName("FILE_ID")[0].childNodes[0].nodeValue;
+        var SHIPMENT_ID = detail.getElementsByTagName("SHIPMENT_ID")[0].childNodes[0].nodeValue;
+        var FILE_TYPE = detail.getElementsByTagName("FILE_TYPE")[0].childNodes[0].nodeValue;
+        var TRANSACTION_TYPE = detail.getElementsByTagName("TRANSACTION_TYPE")[0].childNodes[0].nodeValue;
+        var SENDER_ID = detail.getElementsByTagName("SENDER_ID")[0].childNodes[0].nodeValue;
+        var SENDER_NAME = detail.getElementsByTagName("SENDER_NAME")[0].childNodes[0].nodeValue;
+        var RECEIVER_ID = detail.getElementsByTagName("RECEIVER_ID")[0].childNodes[0].nodeValue;
+        var RECEIVER_NAME = detail.getElementsByTagName("RECEIVER_NAME")[0].childNodes[0].nodeValue;
+        var ISA_NUMBER = detail.getElementsByTagName("ISA_NUMBER")[0].childNodes[0].nodeValue;
+        var GS_CONTROL_NUMBER = detail.getElementsByTagName("GS_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var ST_CONTROL_NUMBER = detail.getElementsByTagName("ST_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var ISA_DATE = detail.getElementsByTagName("ISA_DATE")[0].childNodes[0].nodeValue;
+        var ISA_TIME = detail.getElementsByTagName("ISA_TIME")[0].childNodes[0].nodeValue;
+        var REFERENCE = detail.getElementsByTagName("REFERENCE")[0].childNodes[0].nodeValue;
+        var STATUS = detail.getElementsByTagName("STATUS")[0].childNodes[0].nodeValue;
+        var PRE_TRANS_FILEPATH = detail.getElementsByTagName("PRETRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var POST_TRANS_FILEPATH = detail.getElementsByTagName("POSTTRANSFILEPATH")[0].childNodes[0].nodeValue;
+        // var ORGFILEPATH = detail.getElementsByTagName("ORGFILEPATH")[0].childNodes[0].nodeValue;
+
+        var ACKFILEID = detail.getElementsByTagName("ACKFILEID")[0].childNodes[0].nodeValue;
+        var ERR_MESSAGE = detail.getElementsByTagName("ERR_MESSAGE")[0].childNodes[0].nodeValue;
+
+
+
+        // alert(deilvaryName+" "+poValue+ " "+ routings+ " "+invoice+" "+itemQty);
+
+
+        document.getElementById('resInstanceid').value = FILE_ID;
+        document.getElementById('resShipment').value = SHIPMENT_ID;
+        if (FILE_TYPE != "NO") {
+            document.getElementById('resFiletype').value = FILE_TYPE;
+        }
+        else
+        {
+            document.getElementById('resFiletype').value = "--";
+        }
+        document.getElementById('resTransactiontype').value = TRANSACTION_TYPE;
+        document.getElementById('resSenderid').value = SENDER_ID;
+        document.getElementById('resSendername').value = SENDER_NAME;
+        document.getElementById('resReceiverid').value = RECEIVER_ID;
+        document.getElementById('resReceivername').value = RECEIVER_NAME;
+        document.getElementById('resIsa').value = ISA_NUMBER;
+        document.getElementById('resGs').value = GS_CONTROL_NUMBER;
+        document.getElementById('resSt').value = ST_CONTROL_NUMBER;
+        document.getElementById('resIsadate').value = ISA_DATE;
+        document.getElementById('resIsatime').value = ISA_TIME;
+        document.getElementById('resReference').value = REFERENCE;
+        if (STATUS.toUpperCase() == "ERROR") {
+            document.getElementById('resStatus').value = STATUS;
+        } else if (STATUS.toUpperCase() == "SUCCESS") {
+            document.getElementById('resStatus').value = STATUS;
+        } else {
+            document.getElementById('resStatus').value = STATUS;
+        }
+        if (PRE_TRANS_FILEPATH == "No File") {
+            document.getElementById('resPreTranslation').innerHTML = "--";
+        } else {
+            document.getElementById('resPreTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + PRE_TRANS_FILEPATH + "\">Download</a>";
+        }
+        if (POST_TRANS_FILEPATH == "No File") {
+            document.getElementById('resPostTranslation').innerHTML = "--";
+
+        } else {
+            document.getElementById('resPostTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
+        }
+        if (ACKFILEID == "No File") {
+            document.getElementById('resAckfileid').innerHTML = "--";
+
+        } else {
+            document.getElementById('resAckfileid').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
+        }
+
+        if (ERR_MESSAGE != "NO MSG") {
+            document.getElementById('resErrormessage').innerHTML = ERR_MESSAGE;
+
+        }
+    }
+    if (chk.childNodes[0].nodeValue == "false") {
+        document.getElementById('noresult').innerHTML = " <h5 >Sorry ! No Results Found</h5>";
+
+
+    }
+
+    $('#hide-menu1').addClass('show-menu');
+
+}
+
+
+
+function getLogisticsInvDetails(number, id) {
+    var num = number;
+    var id = id;
+    //alert("inv number-->"+num);
+    //  var req = new XMLHttpRequest();
+    $(function () {
+
+        $('#detail_box').show();
+        return false;
+
+    });
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populateLogisticsInvDetails);
+
+    var url = "../ajax/getLogisticsInvDetails.action?invNumber=" + num + "&id=" + id;
+
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populateLogisticsInvDetails(responseXML)
+{
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+    if (chk.childNodes[0].nodeValue == "true") {
+        document.getElementById('InvErrormessage').value = "";
+        var detail = details.childNodes[0];
+        var fileID = detail.getElementsByTagName("FILEID")[0].childNodes[0].nodeValue;
+        var invNum = detail.getElementsByTagName("INVNUMBER")[0].childNodes[0].nodeValue;
+        var poNum = detail.getElementsByTagName("PONUMBER")[0].childNodes[0].nodeValue;
+        var itemQty = detail.getElementsByTagName("ITEMQTY")[0].childNodes[0].nodeValue;
+        var invAmt = detail.getElementsByTagName("INVAMT")[0].childNodes[0].nodeValue;
+        var isaNum = detail.getElementsByTagName("ISANUM")[0].childNodes[0].nodeValue;
+        var isaDate = detail.getElementsByTagName("ISADATE")[0].childNodes[0].nodeValue;
+        var isaTime = detail.getElementsByTagName("ISATIME")[0].childNodes[0].nodeValue;
+        var STATUS = detail.getElementsByTagName("STATUS")[0].childNodes[0].nodeValue;
+        var PRE_TRANS_FILEPATH = detail.getElementsByTagName("PRETRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var POST_TRANS_FILEPATH = detail.getElementsByTagName("POSTTRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var ORGFILEPATH = detail.getElementsByTagName("ORGFILEPATH")[0].childNodes[0].nodeValue;
+        var ERRMESSAGE = detail.getElementsByTagName("ERR_MESSAGE")[0].childNodes[0].nodeValue;
+        var ACKFILEID = detail.getElementsByTagName("ACKFILEID")[0].childNodes[0].nodeValue;
+
+        var SENDER_ID = detail.getElementsByTagName("SENDER_ID")[0].childNodes[0].nodeValue;
+        var RECEIVER_ID = detail.getElementsByTagName("RECEIVER_ID")[0].childNodes[0].nodeValue;
+        var SENDER_NAME = detail.getElementsByTagName("SENDER_NAME")[0].childNodes[0].nodeValue;
+        var RECEIVER_NAME = detail.getElementsByTagName("RECEIVER_NAME")[0].childNodes[0].nodeValue;
+
+        var TRANSACTION_TYPE = detail.getElementsByTagName("TRANSACTION_TYPE")[0].childNodes[0].nodeValue;
+        var ST_CONTROL_NUMBER = detail.getElementsByTagName("ST_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var GS_CONTROL_NUMBER = detail.getElementsByTagName("GS_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+
+        // alert(deilvaryName+" "+poValue+ " "+ routings+ " "+invoice+" "+itemQty);
+
+        document.getElementById('InvInstanceid').value = fileID;
+        if (poNum != 'NO')
+            document.getElementById('InvPo').value = poNum;
+    }
+    else
+    {
+        document.getElementById('InvPo').value = "--";
+    }
+    document.getElementById('InvTransactiontype').value = TRANSACTION_TYPE;
+    document.getElementById('InvNum').value = invNum;
+
+    document.getElementById('InvItemQty').value = itemQty;
+
+    document.getElementById('InvAmt').value = invAmt;
+    if (ORGFILEPATH == "No File") {
+        document.getElementById('InvORGFILEPATH').innerHTML = "--";
+    } else {
+        document.getElementById('InvORGFILEPATH').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ORGFILEPATH + "\">Download</a></td></tr>";
+    }
+    document.getElementById('InvSenderid').value = SENDER_ID;
+    document.getElementById('InvSendername').value = SENDER_NAME;
+    document.getElementById('InvReceiverid').value = RECEIVER_ID;
+    document.getElementById('InvReceivername').value = RECEIVER_NAME;
+    document.getElementById('InvIsa').value = isaNum;
+    document.getElementById('InvGs').value = GS_CONTROL_NUMBER;
+    document.getElementById('InvSt').value = ST_CONTROL_NUMBER;
+    document.getElementById('InvIsadate').value = isaDate;
+    document.getElementById('InvIsatime').value = isaTime;
+    if (STATUS.toUpperCase() == "ERROR") {
+        document.getElementById('InvStatus').value = STATUS;
+    } else if (STATUS.toUpperCase() == "SUCCESS") {
+        document.getElementById('InvStatus').value = STATUS;
+    } else {
+        document.getElementById('InvStatus').value = STATUS;
+    }
+    if (PRE_TRANS_FILEPATH == "No File") {
+        document.getElementById('InvPreTranslation').innerHTML = "--";
+    } else {
+        document.getElementById('InvPreTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + PRE_TRANS_FILEPATH + "\">Download</a>";
+    }
+    if (POST_TRANS_FILEPATH == "No File") {
+        document.getElementById('InvPostTranslation').innerHTML = "--";
+
+    } else {
+        document.getElementById('InvPostTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
+    }
+    if (ACKFILEID == "No File") {
+        document.getElementById('InvAckfileid').innerHTML = "--";
+
+    } else {
+        document.getElementById('InvAckfileid').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
+    }
+
+    if (ERRMESSAGE != "NO MSG") {
+        document.getElementById('InvErrormessage').value = ERRMESSAGE;
+
+    }
+
+    if (chk.childNodes[0].nodeValue == "false") {
+        document.getElementById('noresult').value = " <h5 >Sorry ! No Results Found</h5>";
+
+
+    }
+    $('#hide-menu1').addClass('show-menu');
+
+}
+
+
+
+/* Method for displaying Details Information of LogisticsShipment
+ * Date : 06/27/2013
+ * Author : santosh kola
+ * 
+ */
+function getLogisticsShipmentDetails(number, ponum, id)
+{
+    //  alert("hii");
+
+    var num = number;
+    var ponumber = ponum;
+    var id = id;
+    //alert("this general ajax num-->"+num);
+    //alert("this general ajax ponumber-->"+ponumber);
+    //alert("this general ajax id-->"+id);
+    //  var req = new XMLHttpRequest(); &id="+id
+    $(function () {
+
+        $('#detail_box').show();
+        return false;
+
+    });
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populateLogisticsShipmentDetails);
+
+    var url = "../ajax/getLogisticsShipmentDetails.action?asnNumber=" + num + "&poNumber=" + ponum + "&id=" + id;
+
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+
+
+function populateLogisticsShipmentDetails(responseXML)
+{
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+    //    alert(chk.childNodes[0].nodeValue );
+
+    if (chk.childNodes[0].nodeValue == "true") {
+        document.getElementById('LSErrorMessage').innerHTML = "";
+        var detail = details.childNodes[0];
+        var fileID = detail.getElementsByTagName("FILEID")[0].childNodes[0].nodeValue;
+        var asnNum = detail.getElementsByTagName("ASNNUMBER")[0].childNodes[0].nodeValue;
+        var poNum = detail.getElementsByTagName("PONUMBER")[0].childNodes[0].nodeValue;
+        var itemQty = detail.getElementsByTagName("ITEMQTY")[0].childNodes[0].nodeValue;
+        var asnVolume = detail.getElementsByTagName("ASNVOLUME")[0].childNodes[0].nodeValue;
+        var isaNum = detail.getElementsByTagName("ISANUM")[0].childNodes[0].nodeValue;
+        var isaDate = detail.getElementsByTagName("ISADATE")[0].childNodes[0].nodeValue;
+        var isaTime = detail.getElementsByTagName("ISATIME")[0].childNodes[0].nodeValue;
+        var STATUS = detail.getElementsByTagName("STATUS")[0].childNodes[0].nodeValue;
+        var PRE_TRANS_FILEPATH = detail.getElementsByTagName("PRETRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var POST_TRANS_FILEPATH = detail.getElementsByTagName("POSTTRANSFILEPATH")[0].childNodes[0].nodeValue;
+        var ORGFILEPATH = detail.getElementsByTagName("ORGFILEPATH")[0].childNodes[0].nodeValue;
+        var ERRMESSAGE = detail.getElementsByTagName("ERR_MESSAGE")[0].childNodes[0].nodeValue;
+        var ACKFILEID = detail.getElementsByTagName("ACKFILEID")[0].childNodes[0].nodeValue;
+
+        var SENDER_ID = detail.getElementsByTagName("SENDER_ID")[0].childNodes[0].nodeValue;
+        var RECEIVER_ID = detail.getElementsByTagName("RECEIVER_ID")[0].childNodes[0].nodeValue;
+        var SENDER_NAME = detail.getElementsByTagName("SENDER_NAME")[0].childNodes[0].nodeValue;
+        var RECEIVER_NAME = detail.getElementsByTagName("RECEIVER_NAME")[0].childNodes[0].nodeValue;
+
+        var TRANSACTION_TYPE = detail.getElementsByTagName("TRANSACTION_TYPE")[0].childNodes[0].nodeValue;
+        var ST_CONTROL_NUMBER = detail.getElementsByTagName("ST_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+        var GS_CONTROL_NUMBER = detail.getElementsByTagName("GS_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
+
+        // alert(deilvaryName+" "+poValue+ " "+ routings+ " "+invoice+" "+itemQty);
+        document.getElementById('LSInstanceId').value = fileID;
+        document.getElementById('LSAsnnumber').value = asnNum;
+        document.getElementById('LSPo').value = poNum;
+        document.getElementById('LSItemqty').value = itemQty;
+        document.getElementById('LSAsnvolume').value = asnVolume;
+        document.getElementById('LSIsANumber').value = isaNum;
+        document.getElementById('LSIsADate').value = isaDate;
+        document.getElementById('LSIsATime').value = isaTime;
+        document.getElementById('LSSenderId').value = SENDER_ID;
+        document.getElementById('LSSenderName').value = SENDER_NAME;
+        document.getElementById('LSReceiverId').value = RECEIVER_ID;
+        document.getElementById('LSReceiverName').value = RECEIVER_NAME;
+        document.getElementById('LSGs').value = GS_CONTROL_NUMBER;
+        document.getElementById('LSSt').value = ST_CONTROL_NUMBER;
+
+        document.getElementById('LSTransactionType').value = TRANSACTION_TYPE;
+
+        if (STATUS.toUpperCase() == "ERROR") {
+            document.getElementById('LSDetailInfoStatus').value = STATUS;
+        } else if (STATUS.toUpperCase() == "SUCCESS") {
+            document.getElementById('LSDetailInfoStatus').value = STATUS;
+        } else {
+            document.getElementById('LSDetailInfoStatus').value = STATUS;
+        }
+
+
+        if (PRE_TRANS_FILEPATH == "No File") {
+            document.getElementById('LSPreTranslation').innerHTML = "--";
+        } else {
+            document.getElementById('LSPreTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + PRE_TRANS_FILEPATH + "\">Download</a>";
+        }
+        if (POST_TRANS_FILEPATH == "No File") {
+            document.getElementById('LSPostTranslation').innerHTML = "--";
+
+        } else {
+            document.getElementById('LSPostTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
+        }
+        if (ORGFILEPATH == "No File") {
+            document.getElementById('LSOrgFilePath').innerHTML = "--";
+
+        } else {
+            document.getElementById('LSOrgFilePath').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ORGFILEPATH + "\">Download</a>";
+        }
+        if (ACKFILEID == "No File") {
+            document.getElementById('LSAckFileid').innerHTML = "--";
+
+        } else {
+            document.getElementById('LSAckFileid').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
+        }
+
+        if (ERRMESSAGE != "NO MSG") {
+            document.getElementById('LSErrorMessage').innerHTML = ERRMESSAGE;
+
+        }
+    }
+    if (chk.childNodes[0].nodeValue == "false") {
+        document.getElementById('noresult').innerHTML = " <h5 >Sorry ! No Results Found</h5>";
+
+
+    }
+    $('#hide-menu1').addClass('show-menu');
+}
+
+function getDocVisibilityDetails(id) {
+    //alert("Id -->"+id);
+    $(function () {
+
+        $('#detail_box').show();
+        return false;
+
+    });
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populateDocVisibilityDetails);
+
+    var url = "../ajax/getDocVisibilityDetails.action?docId=" + id;
+
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populateDocVisibilityDetails(responseXML) {
+    //    alert(responseXML.toString());
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+
+    if (chk.childNodes[0].nodeValue == "true") {
+        document.getElementById('errormessage').innerHTML = "";
+        var detail = details.childNodes[0];
+        var FILE_ID = detail.getElementsByTagName("FILE_ID")[0].childNodes[0].nodeValue;
+        var PARENT_FILE_ID = detail.getElementsByTagName("PARENT_FILE_ID")[0].childNodes[0].nodeValue;
+        var FILE_TYPE = detail.getElementsByTagName("FILE_TYPE")[0].childNodes[0].nodeValue;
+        var FILE_ORIGIN = detail.getElementsByTagName("FILE_ORIGIN")[0].childNodes[0].nodeValue;
+        var TRAN_MESS_TYPE = detail.getElementsByTagName("TRAN_MESS_TYPE")[0].childNodes[0].nodeValue;
+        var SENDER_ID = detail.getElementsByTagName("SENDER_ID")[0].childNodes[0].nodeValue;
+        var RECEIVER_ID = detail.getElementsByTagName("RECEIVER_ID")[0].childNodes[0].nodeValue;
+        var INTERCHANGE_CONTROLNO = detail.getElementsByTagName("INTERCHANGE_CONTROLNO")[0].childNodes[0].nodeValue;
+        var FUNCTIONAL_CONTROLNO = detail.getElementsByTagName("FUNCTIONAL_CONTROLNO")[0].childNodes[0].nodeValue;
+        var MESSAGE_CONTROLNO = detail.getElementsByTagName("MESSAGE_CONTROLNO")[0].childNodes[0].nodeValue;
+        var DATE_TIME_RECEIVED = detail.getElementsByTagName("DATE_TIME_RECEIVED")[0].childNodes[0].nodeValue;
+        var DIRECTION = detail.getElementsByTagName("DIRECTION")[0].childNodes[0].nodeValue;
+        var STATUS = detail.getElementsByTagName("STATUS")[0].childNodes[0].nodeValue;
+        var ERR_MESSAGE = detail.getElementsByTagName("ERR_MESSAGE")[0].childNodes[0].nodeValue;
+
+        var ACK_STATUS = detail.getElementsByTagName("ACK_STATUS")[0].childNodes[0].nodeValue;
+        var ID = detail.getElementsByTagName("ID")[0].childNodes[0].nodeValue;
+        var ISA_TIME = detail.getElementsByTagName("ISA_TIME")[0].childNodes[0].nodeValue;
+        var ISA_DATE = detail.getElementsByTagName("ISA_DATE")[0].childNodes[0].nodeValue;
+        var appfieldsList = detail.getElementsByTagName("APPFIELDS")[0];
+        var appFiled = appfieldsList.getElementsByTagName("APPFIELD");
+
+        for (var i = 0; i < appFiled.length; i++) {
+            //alert("123");
+            var appFiledInfo = appFiled[i];
+            var att = appFiledInfo.getAttribute("label");
+            var name = appFiledInfo.firstChild.nodeValue;
+            document.getElementById('DocAppField' + i).value = name;
+        }
+
+
+        document.getElementById('DocInstanceid').value = FILE_ID;
+        document.getElementById('DocParentFileId').value = PARENT_FILE_ID;
+
+        document.getElementById('DocFileType').value = FILE_TYPE;
+
+
+        document.getElementById('DocFileOrigin').value = FILE_ORIGIN;
+        document.getElementById('DocFunctionalControlNo').value = FUNCTIONAL_CONTROLNO;
+        document.getElementById('DocTranMessType').value = TRAN_MESS_TYPE;
+        document.getElementById('DocSenderid').value = SENDER_ID;
+        document.getElementById('DocInterchangeControlNo').value = INTERCHANGE_CONTROLNO;
+        document.getElementById('DocReceiverid').value = RECEIVER_ID;
+        document.getElementById('DocMessageControlNo').value = MESSAGE_CONTROLNO;
+        document.getElementById('DocDateTimeReceived').value = DATE_TIME_RECEIVED;
+        document.getElementById('DocDirection').value = DIRECTION;
+        document.getElementById('DocAckStatus').value = ACK_STATUS;
+        document.getElementById('DocId').value = ID;
+        document.getElementById('DocIsaTime').value = ISA_TIME;
+        document.getElementById('DocIsaDate').value = ISA_DATE;
+        if (STATUS.toUpperCase() == "ERROR") {
+            document.getElementById('DocDetailInfoStatus').value = STATUS;
+        } else if (STATUS.toUpperCase() == "SUCCESS") {
+            document.getElementById('DocDetailInfoStatus').value = STATUS;
+        } else {
+            document.getElementById('DocDetailInfoStatus').value = STATUS;
+        }
+
+        if (ERR_MESSAGE != "NO MSG") {
+            document.getElementById('errormessage').innerHTML = ERR_MESSAGE;
+
+        }
+    }
+    if (chk.childNodes[0].nodeValue == "false") {
+        document.getElementById('noresult').innerHTML = " <h5 >Sorry ! No Results Found</h5>";
+
+
+    }
+
+    $('#hide-menu1').addClass('show-menu');
+}
+
+/*Method for Routing list
+ * Date : 02/03/2015
+ * Author : Santosh Kola
+ */
+
+function changeDestLabel(element) {
+    // alert(element.value);
+    if (element.value == 'INBOUND') {
+        document.getElementById("directionLabel").innerHTML = 'INBOUND';
+    } else {
+        document.getElementById("directionLabel").innerHTML = 'OUTBOUND';
+    }
+
+}
+
+function loadDestLabel() {
+    // alert(element.value);
+    var direction = document.getElementById("direction").value;
+    if (direction == 'INBOUND') {
+        document.getElementById("directionLabel").innerHTML = 'INBOUND';
+    } else if (direction == 'OUTBOUND') {
+        document.getElementById("directionLabel").innerHTML = 'OUTBOUND';
+    }
+
+}
+
+/*Displaying Partner details
+ * Author : Santosh Kola
+ * Date : 02/03/2015
+ */
+
+function getPartnerDetails(partnerId) {
+    // alert("hii");
+
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populatePartnerDetails);
+    var url = "../ajax/getPartnerDetails.action?partnerId=" + partnerId;
+    req.open("POST", url, "true");
+    // req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populatePartnerDetails(responseXML)
+{
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+
+    // alert("datails--->"+details);
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+
+    if (chk.childNodes[0].nodeValue == "true") {
+
+        var detail = details.childNodes[0];
+        var TP_ID = detail.getElementsByTagName("TP_ID")[0].childNodes[0].nodeValue;
+        var TP_NAME = detail.getElementsByTagName("TP_NAME")[0].childNodes[0].nodeValue;
+        var INTERNALIDENTIFIER = detail.getElementsByTagName("INTERNALIDENTIFIER")[0].childNodes[0].nodeValue;
+        var APPLICATIONID = detail.getElementsByTagName("APPLICATIONID")[0].childNodes[0].nodeValue;
+        var STATE = detail.getElementsByTagName("STATE")[0].childNodes[0].nodeValue;
+        var MODIFIED_TS = detail.getElementsByTagName("MODIFIED_TS")[0].childNodes[0].nodeValue;
+        var MODIFIED_BY = detail.getElementsByTagName("MODIFIED_BY")[0].childNodes[0].nodeValue;
+        var CREATED_TS = detail.getElementsByTagName("CREATED_TS")[0].childNodes[0].nodeValue;
+
+        document.getElementById('dpartnerId').value = TP_ID;
+        document.getElementById('dpartnerName').value = TP_NAME;
+        document.getElementById('dinternalIdentifier').value = INTERNALIDENTIFIER;
+        document.getElementById('dapplicationId').value = APPLICATIONID;
+        document.getElementById('dcountryCode').value = STATE;
+        document.getElementById('dcreatedDate').value = CREATED_TS;
+        document.getElementById('dchangedDate').value = MODIFIED_TS;
+        document.getElementById('dchangedBy').value = MODIFIED_BY;
+        //alert("ACKFILEID-->"+ACKFILEID);
+        // var routings = detail.getElementsByTagName("ROUTINGS")[0].childNodes[0].nodeValue;  
+        $('#hide-menu1').addClass('show-menu');
+
+        // "<h5 >PRE_TRANS_FILE :&nbsp; &nbsp; <a href=\"../download/getAttachment.action?locationAvailable="+PRE_TRANS_FILEPATH+"\">PRE_TRANS_FILE</a></h5>"+
+        //  "<h5 >POST_TRANS_FILE :&nbsp; &nbsp; <a href=\"../download/getAttachment.action?locationAvailable="+POST_TRANS_FILEPATH+"\">POST_TRANS_FILE</a></h5>";
+
+    } //if
+    if (chk.childNodes[0].nodeValue == "false") {
+        var details = " <h5 >Sorry ! No Results Found</h5>";
+
+    }
+    var detailsDIV = document.getElementById("detailInformation");
+    detailsDIV.innerHTML = "";
+    detailsDIV.innerHTML = details;
+    /*  $(function() {
+     
+     $('#detail_box').show();
+     return false;
+     
+     });*/
+
+}
+
+function getRoutingDetails(routingId) {
+    // alert("hii");
+    $(function () {
+
+        $('#detail_box').show();
+        return false;
+
+    });
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populateRoutingDetails);
+    var url = "../ajax/getRoutingDetails.action?routingId=" + routingId;
+    req.open("POST", url, "true");
+    // req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populateRoutingDetails(responseXML)
+{
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+
+    // alert("datails--->"+details);
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+
+    if (chk.childNodes[0].nodeValue == "true") {
+
+        var detail = details.childNodes[0];
+        var ROUTER_NAME = detail.getElementsByTagName("ROUTER_NAME")[0].childNodes[0].nodeValue;
+        var STATUS = detail.getElementsByTagName("STATUS")[0].childNodes[0].nodeValue;
+        var ACCEPTORLOOKUPALIAS = detail.getElementsByTagName("ACCEPTORLOOKUPALIAS")[0].childNodes[0].nodeValue;
+        var INTERNALROUTEREMAIL = detail.getElementsByTagName("INTERNALROUTEREMAIL")[0].childNodes[0].nodeValue;
+        var DESTMAILBOX = detail.getElementsByTagName("DESTMAILBOX")[0].childNodes[0].nodeValue;
+        var SYSTEMTYPE = detail.getElementsByTagName("SYSTEMTYPE")[0].childNodes[0].nodeValue;
+        var DIRECTION = detail.getElementsByTagName("DIRECTION")[0].childNodes[0].nodeValue;
+        var ENVELOPE = detail.getElementsByTagName("ENVELOPE")[0].childNodes[0].nodeValue;
+        var CREATEDDATE = detail.getElementsByTagName("CREATEDDATE")[0].childNodes[0].nodeValue;
+        var MODIFIEDDATE = detail.getElementsByTagName("MODIFIEDDATE")[0].childNodes[0].nodeValue;
+
+        document.getElementById('rrouterName').value = ROUTER_NAME;
+        document.getElementById('rrouterStatus').value = STATUS;
+
+        document.getElementById('racceptorLookUpAlias').value = ACCEPTORLOOKUPALIAS;
+        document.getElementById('rinternalRouteEmail').value = INTERNALROUTEREMAIL;
+        document.getElementById('rdestMailBox').value = DESTMAILBOX;
+        document.getElementById('rsystemType').value = SYSTEMTYPE;
+        document.getElementById('rdirection').value = DIRECTION;
+        document.getElementById('renvelope').value = ENVELOPE;
+        document.getElementById('rcreatedDate').value = CREATEDDATE;
+        document.getElementById('rchangedDate').value = MODIFIEDDATE;
+
+    }
+    if (chk.childNodes[0].nodeValue == "false") {
+        document.getElementById('noresult').value = " <h5 >Sorry ! No Results Found</h5>";
+
+
+    }
+
+    $('#hide-menu1').addClass('show-menu');
+
+}
+
+
+
+
+function getB2bDetailInformation(b2bChannelId) {
+    // alert("hii");
+
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populateB2bChannelDetails);
+    var url = "../ajax/getB2bChannelDetails.action?b2bChannelId=" + b2bChannelId;
+    req.open("POST", url, "true");
+    // req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populateB2bChannelDetails(responseXML)
+{
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+
+    // alert("datails--->"+details);
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+
+    if (chk.childNodes[0].nodeValue == "true") {
+
+        var detail = details.childNodes[0];
+        var TP_ID = detail.getElementsByTagName("TP_ID")[0].childNodes[0].nodeValue;
+        var STATUS = detail.getElementsByTagName("STATUS")[0].childNodes[0].nodeValue;
+        var DIRECTION = detail.getElementsByTagName("DIRECTION")[0].childNodes[0].nodeValue;
+        var PROTOCOL = detail.getElementsByTagName("PROTOCOL")[0].childNodes[0].nodeValue;
+        var HOST = detail.getElementsByTagName("HOST")[0].childNodes[0].nodeValue;
+        var USERNAME = detail.getElementsByTagName("USERNAME")[0].childNodes[0].nodeValue;
+        var PRODUCERMAILBOX = detail.getElementsByTagName("PRODUCERMAILBOX")[0].childNodes[0].nodeValue;
+        var CONSUMERMAILBOX = detail.getElementsByTagName("CONSUMERMAILBOX")[0].childNodes[0].nodeValue;
+        var POOLINGCODE = detail.getElementsByTagName("POOLINGCODE")[0].childNodes[0].nodeValue;
+        var APPID = detail.getElementsByTagName("APPID")[0].childNodes[0].nodeValue;
+        var SENDERID = detail.getElementsByTagName("SENDERID")[0].childNodes[0].nodeValue;
+        var RECEIVERID = detail.getElementsByTagName("RECEIVERID")[0].childNodes[0].nodeValue;
+        // var APPID = detail.getElementsByTagName("APPID")[0].childNodes[0].nodeValue;
+
+
+        document.getElementById('b2bpartnerName').value = TP_ID;
+        document.getElementById('b2bstatus').value = STATUS;
+        document.getElementById('b2bdirection').value = DIRECTION;
+        document.getElementById('b2bprotocal').value = PROTOCOL;
+        document.getElementById('b2bhost').value = HOST;
+        document.getElementById('b2busername').value = USERNAME;
+        document.getElementById('b2bproducermailbox').value = PRODUCERMAILBOX;
+        document.getElementById('b2bconsumermailbox').value = CONSUMERMAILBOX;
+        document.getElementById('b2bpoolingcode').value = POOLINGCODE;
+        document.getElementById('b2bappid').value = APPID;
+        document.getElementById('b2bsenderid').value = SENDERID;
+        document.getElementById('b2breceiverid').value = RECEIVERID;
+        //alert("ACKFILEID-->"+ACKFILEID);
+        // var routings = detail.getElementsByTagName("ROUTINGS")[0].childNodes[0].nodeValue;  
+
+        // "<h5 >PRE_TRANS_FILE :&nbsp; &nbsp; <a href=\"../download/getAttachment.action?locationAvailable="+PRE_TRANS_FILEPATH+"\">PRE_TRANS_FILE</a></h5>"+
+        //  "<h5 >POST_TRANS_FILE :&nbsp; &nbsp; <a href=\"../download/getAttachment.action?locationAvailable="+POST_TRANS_FILEPATH+"\">POST_TRANS_FILE</a></h5>";
+        $('#hide-menu1').addClass('show-menu');
+    } //if
+    if (chk.childNodes[0].nodeValue == "false") {
+        var details = " <h5 >Sorry ! No Results Found</h5>";
+
+    }
+    var detailsDIV = document.getElementById("detailInformation");
+    detailsDIV.innerHTML = "";
+    detailsDIV.innerHTML = details;
+    /*  $(function() {
+     
+     $('#detail_box').show();
+     return false;
+     
+     });*/
+
+}
+
+/*Displaying DetailInfo 
+ * Author : Santosh Kola
+ * Date : 02/09/2015
+ */
+
+
+function getDeliveryChannelDetails(deliveryChannelId) {
+    // alert("hii");
+    $(function () {
+
+        $('#detail_box').show();
+        return false;
+
+    });
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerText(req, populateDeliveryChannelDetails);
+    var url = "../ajax/getDeliveryChannelDetails.action?deliveryChannelId=" + deliveryChannelId;
+    req.open("POST", url, "true");
+    // req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+
+function populateDeliveryChannelDetails(responseXML)
+{
+    var details = responseXML.getElementsByTagName("DETAILS")[0];
+
+    // alert("datails--->"+details);
+    var detail = details.childNodes[0];
+    var chk = detail.getElementsByTagName("VALID")[0];
+
+    if (chk.childNodes[0].nodeValue == "true") {
+
+        var detail = details.childNodes[0];
+        var PARTNER_ID = detail.getElementsByTagName("PARTNER_ID")[0].childNodes[0].nodeValue;
+        var PartnerName = detail.getElementsByTagName("PartnerName")[0].childNodes[0].nodeValue;
+        var ROUTER_NAME = detail.getElementsByTagName("ROUTER_NAME")[0].childNodes[0].nodeValue;
+        var bpName = detail.getElementsByTagName("bpName")[0].childNodes[0].nodeValue;
+        var transName = detail.getElementsByTagName("transName")[0].childNodes[0].nodeValue;
+        var demName = detail.getElementsByTagName("demName")[0].childNodes[0].nodeValue;
+        var pmbName = detail.getElementsByTagName("pmbName")[0].childNodes[0].nodeValue;
+        var encodingName = detail.getElementsByTagName("encodingName")[0].childNodes[0].nodeValue;
+        var SEQUENCE = detail.getElementsByTagName("SEQUENCE")[0].childNodes[0].nodeValue;
+        var ARCHIVEFLAG = detail.getElementsByTagName("ARCHIVEFLAG")[0].childNodes[0].nodeValue;
+        var ARCHIVEDIRCTORY = detail.getElementsByTagName("ARCHIVEDIRCTORY")[0].childNodes[0].nodeValue;
+        var OUTPUTFILENAME = detail.getElementsByTagName("OUTPUTFILENAME")[0].childNodes[0].nodeValue;
+        var OUTPUTFORMAT = detail.getElementsByTagName("OUTPUTFORMAT")[0].childNodes[0].nodeValue;
+        var STATUS = detail.getElementsByTagName("STATUS")[0].childNodes[0].nodeValue;
+
+        document.getElementById('partnerName').value = PartnerName;
+        document.getElementById('routingName').value = ROUTER_NAME;
+
+        document.getElementById('bpName').value = bpName;
+        document.getElementById('translationMapName').value = transName;
+        document.getElementById('documentExtraxctMapName').value = demName;
+        document.getElementById('producerMailBox').value = pmbName;
+        document.getElementById('encoding').value = encodingName;
+        document.getElementById('sequence').value = SEQUENCE;
+        document.getElementById('archiveFlag').value = ARCHIVEFLAG;
+        document.getElementById('archiveDirectory').value = ARCHIVEDIRCTORY;
+        document.getElementById('outputFileName').value = OUTPUTFILENAME;
+        document.getElementById('outputFormat').value = OUTPUTFORMAT;
+        document.getElementById('deliveryStatus').value = STATUS;
+
+    }
+    if (chk.childNodes[0].nodeValue == "false") {
+        document.getElementById('noresult').value = " <h5 >Sorry ! No Results Found</h5>";
+
+
+    }
+
+    $('#hide-menu1').addClass('show-menu');
+
+}
+
+
+
+/*Method for displaying Dashboard details
+ * Author : Santosh kola
+ * Date : 02/19/2015
+ */
+
+function getDashboardDeatls() {
+    //  alert("hii");
+    document.getElementById("tblCharts").style.display = 'none';
+    var startDate = document.getElementById("docdatepickerfrom").value;
+    var endDate = document.getElementById("docdatepicker").value;
+    //  var docSenderId = document.getElementById("docSenderId").value;
+    //  var direction = document.getElementById("direction").value;
+    var docType = document.getElementById("docType").value;
+
+    // var ackStatus = document.getElementById("ackStatus").value;
+    var status = document.getElementById("status").value;
+    var partnerId = document.getElementById("partnerMapId").value;
+    document.getElementById("gridDiv").style.display = 'block';
+
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerLoadText(req, populateDashboardDetails);
+    // var url="../ajax/getDashboardDetails.action?startDate="+startDate+"&endDate="+endDate+"&docType="+docType+"&ackStatus="+ackStatus+"&status="+status+"&partnerId="+partnerId+"&direction="+direction;
+    var url = "../ajax/getDashboardDetails.action?startDate=" + startDate + "&endDate=" + endDate + "&docType=" + docType + "&status=" + status + "&partnerId=" + partnerId;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+
+
+}
+
+function populateDashboardDetails(resText) {
+
+
+    var response = resText.split("*");
+
+
+    // var response = "6104917000CH|2^6183932991|3^925485US00|207^KNIG|58^LANDOLAKESDEMO|4^MSSDEMO|4^MSSDEMOSN|9^TPDEMORX|9^UNILEVER_E2U|58^*6104917000CH|4^6183932991|4^925485US00|0^KNIG|31^LANDOLAKESDEMO|6^MSSDEMO|6^MSSDEMOSN|1^TPDEMORX|1^UNILEVER_E2U|31^".split("*");
+    document.getElementById("inboundTrans").value = response[0];
+    document.getElementById("outboundTrans").value = response[1];
+    document.getElementById("tblCharts").style.display = 'block';
+    // google.setOnLoadCallback(drawInboundChart);
+    //  google.setOnLoadCallback(drawOutboundChart);
+
+    drawInboundChart();
+    drawOutboundChart();
+//document.getElementById("tblCharts").style.display='block';
+//   google.setOnLoadCallback(drawInboundChart);
+//google.setOnLoadCallback(drawOutboundChart);
+//alert(resText);
+}
+
+function drawInboundChart() {
+
+    //alert(response[0]);
+    //alert(response[1]);
+
+
+    var element = document.getElementById("inboundTrans").value;
+
+    //  alert(element);
+    var inboudResponse = element.split("^");
+
+
+    var arraydata = [['PartnerName', 'INBOUND', {
+                role: 'annotation'
+            }]];
+    /* var data = google.visualization.arrayToDataTable([
+     ['Task', 'Hours per Day'],
+     ['Work',     11],
+     ['Eat',      2],
+     ['Commute',  2],
+     ['Watch TV', 2],
+     ['Sleep',    7]
+     ]);
+     */
+
+    for (var i = 0; i < inboudResponse.length - 1; i++) {
+        var res = inboudResponse[i].split("|");
+        var dArray = [res[0], parseInt(res[1]), ''];
+        arraydata.push(dArray);
+    }
+
+    var data = google.visualization.arrayToDataTable(arraydata);
+
+    var options = {
+        title: 'Partner Inbound Transcations'
+
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('inboundPiechart'));
+    //var chart1 = new google.visualization.ColumnChart(document.getElementById('inboundPiechart'));
+    //chart.draw(data, options);
+    chart.draw(data, options);
+// chart1.draw(data, options);
+}
+
+//----------------------
+function drawOutboundChart() {
+    var element = document.getElementById("outboundTrans").value;
+    // alert(element);
+
+    var outboudResponse = element.split("^");
+
+    var arraydata = [['PartnerName', 'OUTBOUND']];
+    /* var data = google.visualization.arrayToDataTable([
+     ['Task', 'Hours per Day'],
+     ['Work',     11],
+     ['Eat',      2],
+     ['Commute',  2],
+     ['Watch TV', 2],
+     ['Sleep',    7]
+     ]);
+     */
+
+    for (var i = 0; i < outboudResponse.length - 1; i++) {
+        var res = outboudResponse[i].split("|");
+        var dArray = [res[0], parseInt(res[1])];
+        arraydata.push(dArray);
+    }
+
+    var data = google.visualization.arrayToDataTable(arraydata);
+
+    var options = {
+        title: 'Partner Outbound Transcations'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('outboundPiechart'));
+    //var chart1 = new google.visualization.ColumnChart(document.getElementById('outboundPiechart'));
+    chart.draw(data, options);
+//chart1.draw(data, options);
+}
+
+
+//  new classe for schdular tasks
+function getDeleteReport(id) {
+    document.getElementById("load").style.display = 'block';
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerLoadText(req, populateReportDeleteDetails);
+
+
+    var url = "../ajax/getReportDeleteDetails.action?&id=" + id;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+
+function populateReportDeleteDetails(responsetext)
+{
+    //alert(responsetext);
+    document.getElementById("reportsattachForm").submit();
+
+}
+
+
+function BDMOverlay(id) {
+    var overlay = document.getElementById('overlay');
+    var specialBox1 = document.getElementById('specialBox');
+
+    document.getElementById("headerLabel").style.color = "white";
+    document.getElementById("headerLabel").innerHTML = "Download Report";
+
+
+
+    overlay.style.opacity = -10;
+    if (overlay.style.display == "block") {
+        overlay.style.display = "none";
+        specialBox1.style.display = "none";
+    } else {
+        overlay.style.display = "block";
+        getOverlay(id);
+        specialBox1.style.display = "block";
+    }
+
+
+
+}
+
+function getOverlay(id) {
+    var startDate = document.getElementById("schStartdate").value;
+    //document.getElementById("load").style.display='block';
+    var req = getXMLHttpRequest();
+    document.getElementById("scheduleid").value = id;
+    req.onreadystatechange = readyStateHandlerString(req, populateOverlayDetails);
+
+
+    var url = "../ajax/getReportOverlayDetails.action?&id=" + id + "&startDate=" + startDate;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+function populateOverlayDetails(responseText)
+{
+    //alert("test");
+    //alert("response data--->"+responseText);
+
+    if (responseText != "Nodata") {
+        document.getElementById("downloadLink").style.display = 'block';
+        document.getElementById("downloadMessage").style.display = 'none';
+    }
+    else {
+        document.getElementById("downloadLink").style.display = 'none';
+        document.getElementById("downloadMessage").style.display = 'block';
+        document.getElementById("downloadMessage").innerHTML = "<font color='red'>No reports to Download</font>"
+    }
+
+
+
+}
+
+function DownloadSchedulerReport() {
+    //alert("DownloadSchedulerReport");
+    var startDate = document.getElementById("schStartdate").value;
+    var scheduleId = document.getElementById("scheduleid").value;
+    window.location = "../download/reportDownloads.action?scheduleId=" + scheduleId + "&startDate=" + startDate;
+}
+
+
+function CalenderOnChange() {
+    //alert(x.value);
+    //alert("CalenderOnChange");
+    var startDate = document.getElementById("schStartdate").value;
+    //alert("date"+startDate);
+
+    var id = document.getElementById("scheduleid").value;
+    //document.getElementById("load").style.display='block';
+
+    var req = getXMLHttpRequest();
+    document.getElementById("scheduleid").value = id;
+    req.onreadystatechange = readyStateHandlerString(req, populateOverlayDetails);
+
+    //alert("step1");
+    var url = "../ajax/getReportOverlayDetails.action?&id=" + id + "&startDate=" + startDate;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}

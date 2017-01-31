@@ -1,0 +1,864 @@
+<%@page import="com.mss.ediscv.po.PurchaseOrderBean"%>
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page buffer="50kb" autoFlush="true" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<%@ taglib uri="/WEB-INF/tlds/dbgrid.tld" prefix="grd"%>
+<%@ page import="com.freeware.gridtag.*"%>
+<%@page import="java.sql.Connection"%>
+<%@  page import="com.mss.ediscv.util.AppConstants"%>
+<%@ page import="com.mss.ediscv.util.ConnectionProvider"%>
+<%@ page import="java.sql.SQLException"%>
+<%@ page import = "java.util.ResourceBundle" %>
+<%--<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>--%>
+<%@page buffer="50kb" autoFlush="true" %>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+                #buttons{
+                display: inline-block;
+                float: right;
+            }
+           
+        </style>
+        <script>
+        
+    
+            function doOnLoad() {
+              
+                $("#purchaseorder").addClass("active");
+                $("#oredermanagement").addClass("active");
+                  
+                $("#manufacturing").addClass("active");
+                
+                $("#purchaseorder i").addClass("text-red");
+                document.getElementById('loadingAcoountSearch').style.display="none";
+            }
+               
+            function hide()
+            {
+                
+                $('#hide-menu1').removeClass('show-menu');
+            }
+            $('body,html').click(function(e){
+                $('#hide-menu1').removeClass('show-menu');
+            });
+        </script>
+
+        <meta charset="utf-8">
+
+        <title>Miracle Supply Chain Visibility Portal</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
+        <link rel="stylesheet" href='<s:url value="/includes/plugins/daterangepicker/daterangepicker.css"/>'>
+      
+
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      
+        
+       
+
+    </head>
+    <%
+        String check = null;
+        if (request.getAttribute("check") != null) {
+            check = request.getAttribute("check").toString();
+        }
+
+        //System.out.println("check-->"+check);
+%>
+
+    <body class="hold-transition skin-blue sidebar-mini" onload="check();doOnLoad()" onclick="hide()">
+        <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
+        <script type="text/javascript">
+            function check()
+            {
+            
+                var value1=document.getElementById("corrattribute1").value;
+           
+                if (value1!="-1")
+                    document.getElementById("corr").style.display = "block";
+                else
+                    document.getElementById("corr").style.display = "none";
+                var value2=document.getElementById("corrattribute2").value;
+                if (value2!="-1")
+                    document.getElementById("corr1").style.display = "block";
+                else
+                    document.getElementById("corr1").style.display = "none";
+          
+            }
+        </script>
+        <div>
+            <s:include value="../includes/template/header.jsp"/>
+        </div>
+        <div>
+            <s:include value="../includes/template/sidemenu.jsp"/>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+
+            <!-- Main content --> 
+
+            <section class="content-header">
+                <h1>
+                    Purchase Order
+                    <small>Manufacturing</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-wrench"></i>Manufacturing</a></li>
+                    <li class="active">Purchase Order</li>
+                </ol>
+            </section>
+            <br>
+
+            <section class="content">
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <div class="box-tools pull-right">
+
+                        </div>
+                    </div>  
+                    <div class="box-body">
+                        <div id="text">
+                            <div  style="alignment-adjust:central;" >
+                                <%String contextPath = request.getContextPath();
+                                %>
+
+
+
+                                <s:form action="../po/poSearch" method="post" name="purchaseForm" id="purchaseForm" theme="simple">
+                                    <s:hidden id="poDateFrom" name="poDateFrom" />
+                                    <s:hidden id="poDateTo" name="poDateTo"/>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-3"> <label>Date range</label>
+                                                        <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="Date1();" /> 
+                                                    </div>
+                                                    <script type="text/javascript">
+                                                        function Date1() {
+                                                            var date=document.purchaseForm.reportrange.value;
+                                                            var arr=date.split("-");
+                                                            var x=arr[1].trim();
+                                                            document.getElementById("poDateFrom").value = arr[0];
+                                                            document.getElementById("poDateTo").value =x ;
+                                                        }
+                                                    </script>
+                                                    <div  class="col-sm-3">
+                                                        <label for="docType">Document Type</label> 
+
+                                                        <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="docTypeList" name="docType" id="docType" value="%{docType}" tabindex="13"/>
+                                                    </div>
+
+                                                    <div  class="col-sm-3">
+                                                        <label for="docSenderId">Sender Id</label>
+
+                                                        <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="senderIdList" name="poSenderId" id="poSenderId" value="%{poSenderId}" tabindex="3" />
+                                                    </div>
+
+                                                    <div  class="col-sm-3">
+                                                        <label for="docSenderName">Sender Name</label> 
+
+                                                        <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="senderNameList" name="poSenderName" id="poSenderName" value="%{poSenderName}" tabindex="4" />
+                                                    </div>
+
+
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <label for="docBusId">Receiver Id</label>
+
+                                                        <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="receiverIdList" name="poRecId" id="poRecId" value="%{poRecId}" tabindex="5" />
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <label for="docRecName">Receiver Name</label>
+
+                                                        <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="receiverNameList" name="poRecName" id="poRecName" value="%{poRecName}" tabindex="6" />
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <label for="ackStatus">Ack Status</label>
+
+                                                        <s:select headerKey="-1" headerValue="Select Type" cssClass="form-control" list="{'Overdue','Accepted','Rejected'}" name="ackStatus" id="ackStatus" value="%{ackStatus}" tabindex="15" /> 
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <label for="status">Status</label>
+                                                        <s:select headerKey="-1" headerValue="Select Type" cssClass="form-control" list="{'Success','Error','Warning'}" name="status" id="status" value="%{status}" tabindex="14" /> 
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <label for="corrattribute">Correlation</label>
+                                                        <s:select headerKey="-1" headerValue="Select Attribute" cssClass="form-control" list="correlationList" name="corrattribute" id="corrattribute" value="%{corrattribute}" tabindex="7" />
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <label for="corrvalue">Value</label>
+                                                        <s:textfield cssClass="form-control" name="corrvalue" id="corrvalue" value="%{corrvalue}" tabindex="8"/>
+                                                    </div>
+                                                    <div class="col-sm-3"><br>
+                                                        <button  type="button" id="addButton" name="addButton" value="Add Div" class="btn btn-success"   style="margin-top:6px ;" ><i class="fa fa-plus"></i></button>
+                                                        &nbsp; <label>Add Filter</label>
+                                                    </div>
+                                                    <div id="loadingAcoountSearch" class="loadingImg">
+                                                        <span id ="LoadingContent" > <img src="<s:url value="/includes/images/Loader2.gif"/>"   ></span>
+                                                    </div>
+                                                </div>
+
+                                                <script>
+   
+                                                </script>                                      
+
+                                                <script>
+                                                    var count=0;
+                                                </script>                                          
+
+                                                <script>
+                                                    $("#addButton").click(function(){
+                                                        count++;
+                                                        if(count==1)
+                                                            document.getElementById("corr").style.display = "block";
+                                                        else if(count==2)
+                                                            document.getElementById("corr1").style.display = "block";
+                                                        else
+                                                            alert('Limit exceded.... cant add more fields');
+                                                    })
+
+                                                </script>
+
+                                                <div id="corr" style="display: none">
+                                                    <br>   <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="corrattribute1">Correlation</label>
+                                                            <s:select headerKey="-1" headerValue="Select Attribute" cssClass="form-control" list="correlationList" name="corrattribute1" id="corrattribute1" value="%{corrattribute1}"/>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <label for="corrvalue1">Value</label>
+                                                            <s:textfield cssClass="form-control" name="corrvalue1" id="corrvalue1" value="%{corrvalue1}" />
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div id="corr1" style="display: none">
+                                                    <br>   <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <label for="corrattribute2">Correlation</label>
+                                                            <s:select headerKey="-1" headerValue="Select Attribute" cssClass="form-control" list="correlationList" name="corrattribute2" id="corrattribute2" value="%{corrattribute2}"  />
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <label for="corrvalue2">Value</label>
+                                                            <s:textfield cssClass="form-control" name="corrvalue2" id="corrvalue2" value="%{corrvalue2}" />
+                                                        </div>
+
+                                                    </div></div>
+                                            </div>
+                                        </div>
+                                        <br>
+
+                                        <div class="row">
+
+
+                                            <div class="col-sm-2"><s:submit value="Search"  onclick="return checkCorrelation();"   cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
+
+                                            <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetvalues();"/></strong></div>
+                                            </td>
+                                            <s:hidden name="sampleValue" id="sampleValue" value="2"/>
+
+                                        </s:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+            </section>
+
+
+
+            <div id="gridDiv">  
+
+                <s:if test="#session.poSearchList != null"> 
+                    <%--- GRid start --%>
+
+                    <section class="content">
+
+
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="box">
+                                    <div class="box-header">
+                                        <h3 class="box-title">Table</h3>
+                                    </div><!-- /.box-header -->
+                                    <div class="box-body">
+                                        <%!String cssValue = "whiteStripe";
+                                            int resultsetTotal;%>
+                                        <div style="overflow-x:auto;">       
+                                            <table align="left" width="100%"
+                                                   border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td style="background-color: white;">
+
+                                                        <table  id="results" class="table table-bordered table-hover">
+                                                            <%
+                                                                java.util.List list = (java.util.List) session.getAttribute(AppConstants.SES_PO_LIST);
+
+                                                                if (list.size() != 0) {
+                                                                    PurchaseOrderBean purchaseOrderBean;
+                                                            %>
+                                                            <input type="hidden" name="sec_po_list" id="sec_po_list" value="<%=list.size()%>"/> 
+
+
+                                                            <thead><tr>
+                                                                    <th >InstanceId</th>
+                                                                    <th >PO #</th>
+                                                                    <th>DateTime</th> 
+                                                                    <%--   <th >SO #</th> --%>
+                                                                    <%--  <th >SAP IDOC</th>
+                                                                   <th>Item Qty</th> --%>
+                                                                    <th>Partner</th>
+                                                                    <%--<th>ISA Control # </th>  --%>
+                                                                    <%--<th>GS_Control #</th>  --%>
+                                                                    <%-- <th>PO Status</th>  --%>
+                                                                    <th>Direction</th>
+
+                                                                    <th>Status</th> 
+                                                                    <th>Ack&nbsp;Status</th>  
+                                                                    <th>Reprocess</th> 
+
+                                                                    <%
+                                                                        // System.out.println("Session=========================="+session.getAttribute(AppConstants.SES_ROLE_ID).equals("100"));
+                                                                        //System.out.println("Session=========================="+session.getAttribute(AppConstants.SES_ROLE_ID).equals("104"));
+                                                                        if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104")) {
+                                                                    %>
+                                                                    <td>#</td>
+                                                                    <%}%>
+                                                                </tr> </thead>
+                                                            <tbody>
+
+
+                                                                <%
+                                                                    for (int i = 0; i < list.size(); i++) {
+                                                                        purchaseOrderBean = (PurchaseOrderBean) list.get(i);
+
+                                                                        if (i % 2 == 0) {
+                                                                            cssValue = "whiteStripe";
+                                                                        } else {
+                                                                            cssValue = "grayEditSelection";
+                                                                        }
+                                                                %>
+
+                                                                <tr>
+                                                                    <td>
+                                                                        <%
+                                                                            out.println(purchaseOrderBean.getFileId());
+                                                                        %>
+                                                                        <input type="hidden" name="Instance<%=i%>" id="Instance<%=i%>" value="<%=purchaseOrderBean.getFileId()%>"/>   
+
+                                                                    </td>
+                                                                    <td><a href="javascript:getDetails('<%=purchaseOrderBean.getPo()%>','<%=purchaseOrderBean.getFileId()%>');"  >
+                                                                            <%
+                                                                                out.println(purchaseOrderBean.getPo());
+                                                                            %> 
+
+                                                                            <%--  <input type="hidden" name="text<%=i%>" id="text<%=i%>" value="<%=purchaseOrderBean.getPo()%>"/>  --%>
+                                                                            <input type="hidden" name="text<%=i%>" id="text<%=i%>" value="<%=purchaseOrderBean.getPo()%>"/>
+                                                                        </a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%
+                                                                            out.println(purchaseOrderBean.getDate_time_rec().toString().substring(0, purchaseOrderBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                        %>
+                                                                    </td>  
+                                                                    <td>
+                                                                        <%
+                                                                            out.println(purchaseOrderBean.getPname());
+                                                                        %>
+                                                                    </td>
+                                                                    <%--    <td>
+                                                                         <%
+                                                                  out.println(purchaseOrderBean.getSapIdoc());
+                                                                  %>
+                                                                          
+                                                                      </td>--%>
+
+
+
+                                                                    <%-- <td>
+                                                                         <%
+                                                                 out.println(purchaseOrderBean.getIsaControl());
+                                                                 %>
+                                                                     </td>  --%>
+
+                                                                    <%--  <td>
+                                                                         <%
+                                                                 out.println(purchaseOrderBean.getGsControlNumber());
+                                                                 %>
+                                                                     </td>  --%>
+
+                                                                    <%--<td>
+                                                                         <%
+                                                                   out.println(purchaseOrderBean.getPoStatus());
+                                                                   %>
+                                                                       </td> --%>
+
+                                                                    <td>
+                                                                        <%
+                                                                            out.println(purchaseOrderBean.getDirection().toUpperCase());
+                                                                        %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%
+
+                                                                            if (purchaseOrderBean.getStatus().equalsIgnoreCase("ERROR")) {
+                                                                                out.println("<font color='red'>" + purchaseOrderBean.getStatus().toUpperCase() + "</font>");
+                                                                            } else if (purchaseOrderBean.getStatus().equalsIgnoreCase("SUCCESS")) {
+                                                                                out.println("<font color='green'>" + purchaseOrderBean.getStatus().toUpperCase() + "</font>");
+                                                                            } else {
+                                                                                out.println("<font color='orange'>" + purchaseOrderBean.getStatus().toUpperCase() + "</font>");
+                                                                            }
+                                                                        %>
+                                                                    </td>  
+                                                                    <td>
+                                                                        <%
+
+                                                                            //out.println(poLifeCycleBean.getAckStatus());
+                                                                            if (purchaseOrderBean.getAckStatus().equalsIgnoreCase("REJECTED")) {
+                                                                                out.println("<font color='red'>" + purchaseOrderBean.getAckStatus().toUpperCase() + "</font>");
+                                                                            } else if (purchaseOrderBean.getAckStatus().equalsIgnoreCase("ACCEPTED")) {
+                                                                                out.println("<font color='green'>" + purchaseOrderBean.getAckStatus().toUpperCase() + "</font>");
+                                                                            } else {
+                                                                                out.println("<font color='orange'>" + purchaseOrderBean.getAckStatus().toUpperCase() + "</font>");
+                                                                            }
+
+                                                                        %>
+                                                                    </td>  
+
+                                                                    <td>
+                                                                        <%
+                                                                            //out.println(purchaseOrderBean.getReProcessStatus());
+                                                                            if (purchaseOrderBean.getReProcessStatus() != null) {
+                                                                                out.println(purchaseOrderBean.getReProcessStatus().toUpperCase());
+
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
+
+                                                                        %>
+                                                                    </td>
+                                                                    <%
+                                                                        if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104")) {
+                                                                    %>
+                                                                    <td> &nbsp; &nbsp; 
+                                                                        <input type = "checkbox" name ="check_List<%=i%>" id = "check_List<%=i%>" value="<%= purchaseOrderBean.getPo()%>"/>&nbsp; &nbsp;  
+                                                                    </td> 
+                                                                    <%
+                                                                        }
+                                                                    %>
+                                                                </tr>
+                                                                <%
+                                                                    }
+                                                                } else {
+                                                                %>
+                                                                <tr><td>
+                                                                        <%
+
+                                                                                out.println("<img  border='0' align='top'  src='" + contextPath + "/includes/images/alert.gif'/><b>No records found for the given search criteria. Please try a different search criteria!</b>");
+                                                                            }
+
+                                                                        %>
+                                                                    </td>
+                                                                </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <%
+                                                    if (list.size() != 0) {
+                                                %>
+                                                <tr >
+                                                    <td align="right" colspan="28" style="background-color: white;">
+                                                        <div align="right" id="pageNavPosition"></div>
+                                                    </td>
+                                                </tr>
+
+                                                <% }%>  </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <%-- Process butttons  start --%>
+                                    <%
+                                        // out.println(session.getAttribute(AppConstants.SES_ROLE_ID));
+
+                                        if ((session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104")) && list.size() != 0) {
+                                    %>
+
+                                    <div class="row">
+                                        <div id="buttons">
+
+                                            <div class="col-sm-2" style="margin-right:10%"><input type="button" value="ReTransmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to ReTransmit.')" onmouseout="UnTip()" onclick="return getProces(this,document.getElementById('sec_po_list').value);" id="pre"/></div>
+
+
+                                            <div class="col-sm-2" style="margin-right:5%"><input type="button" value="ReSubmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to Resubmit.')" onmouseout="UnTip()" onclick="return getProces(this,document.getElementById('sec_po_list').value);" id="post"/></div>
+
+
+                                            <div class="col-sm-2" style="margin-right:5%"><input type="button" value="LifeCycle" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to generate Life Cycle.')" onmouseout="UnTip()" onclick="return getLifeCycle(document.getElementById('sec_po_list').value);"/></div>ss
+
+
+                                            <div class="col-sm-2" style="margin-right:2%"><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('po','xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/> </div>  
+
+                                        </div>
+                                    </div>
+                                    <%}%>
+                                    <%-- process buttons end--%>
+                                    <%-- Grid End --%>
+                                </div>
+                            </div>
+                        </div></section>
+                                </s:if> </div>
+                    <div id="hide-menu1" class="hide-menu message ">
+
+                        <div class="row col-sm-12">
+                          
+                           
+                            <div class="col-sm-6"> <label class="labelw">Instance Id </label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POInstanceId" name="POInstanceId" readonly="true"/>
+                            </div>
+
+
+                            <div class="col-sm-6"> <label class="labelw">PO # :</label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PONum" name="PONum" readonly="true"/>
+                            </div> <div class="row col-sm-12"> <br>
+                                <div class="col-sm-6"> <label class="labelw">Order_Date :</label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODates" name="PODates" readonly="true"/>
+                                </div>
+                                <div class="col-sm-6"> <label class="labelw">PO Value :</label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POValue" name="POValue" readonly="true"/>
+                                </div>
+                                <div class="col-sm-6"> <label class="labelw">POQuantity:</label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POQty" name="POQty" readonly="true"/>
+                                </div>
+                                <div class="col-sm-6"> <label class="labelw">SHIP_DATE :</label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POShipDate" name="POShipDate" readonly="true"/>
+                                </div>
+                                <div class="col-sm-6"> <label class="labelw">ROUTINGS :</label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PORoutings" name="PORoutings" readonly="true"/>
+                                </div>
+                                <div class="col-sm-6"> <label class="labelw">INVOICED_AMOUNT</label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="INVOICED_AMOUNT" name="INVOICED_AMOUNT" readonly="true"/>
+                                </div>
+
+
+                                <div class="col-sm-6"> <label class="labelw">PAYMENTRECEIVED:</label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POPaymentReceived" name="POPaymentReceived" readonly="true"/>
+                                </div>
+                                <div class="col-sm-6"> <label class="labelw">SHIPADDRESSID</label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POShipAddrId" name="POShipAddrId" readonly="true"/>
+                                </div>
+                                <div class="col-sm-6"> <label class="labelw">BILL_ADDRESS_ID:</label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POBillAddrId" name="POBillAddrId" readonly="true"/>
+                                </div>
+                                <div class="col-sm-6"> <label class="labelw">SO&nbsp;# :</label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSoNumber" name="POSoNumber" readonly="true"/>
+                                </div>
+                                <div class="col-sm-6"> <label class="labelw">SAPIDOC # :</label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSapIdocNum" name="POSapIdocNum" readonly="true"/>
+                                </div>
+                                <div class="col-sm-6"> <label class="labelw">IDOC Status :</label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODeilvaryName" name="PODeilvaryName" readonly="true"/>
+                                </div>
+
+                                <div class="row col-sm-12">
+                                    <div class="col-sm-6"> <label class="labelw">DocumentType: </label>
+                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODocumentType" name="PODocumentType" readonly="true"/>
+                                    </div>  
+                                    <div class="col-sm-6"> <label class="labelw">TransactionType:</label>
+                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POTransactionType" name="POTransactionType" readonly="true"/>
+                                    </div></div> <div class="row col-sm-12">
+                                        <div class="col-sm-6"> <label class="labelw">ORDER_STATUS</label>
+                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POOrderStatus" name="POOrderStatus" readonly="true"/>
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="senderinfo">
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-6"> <h5>Sender Info :</h5></div>
+                                        <div class="col-sm-6"></div>
+                                        <div class="col-sm-6"></div>
+
+                                    </div>
+                                    <br>
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-6"> <label class="labelw">  Id </label>
+                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSenderId" name="POSenderId" readonly="true"/>
+                                        </div>
+                                        <div class="col-sm-6"> <label class="labelw"> Name </label>
+                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSenderName" name="POSenderName" readonly="true"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="receiverinfo">
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-6"> <h5>Receiver Info:</h5></div>
+                                        <div class="col-sm-6"></div>
+                                        <div class="col-sm-6"></div>
+                                    </div>
+
+                                    <br>
+                                    <div class="row col-sm-12 clear">
+                                        <div class="col-sm-6"> <label class="labelw">  Id </label>
+                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POReceiverId" name="POReceiverId" readonly="true"/>
+                                        </div>
+                                        <div class="col-sm-6"> <label class="labelw"> Name </label>
+                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POReceiverName" name="POReceiverName" readonly="true"/>
+                                        </div>
+                                    </div>
+                                </div>  <div class="row col-sm-12 clear">
+                                    <div class="col-sm-6"> <label class="labelw">  ISA </label>
+                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsa" name="POIsa" readonly="true"/>
+                                    </div>
+                                    <div class="col-sm-6"> <label class="labelw"> GS </label>
+                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POGs" name="POGs" readonly="true"/>
+                                    </div>
+                                </div>
+
+                                <br/>
+
+                                <div class="row col-sm-12" style="margin-top:10px;" >
+                                    <div class="col-sm-6"> <label class="labelw">  ST </label>
+                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSt" name="POSt" readonly="true"/>
+                                    </div>
+                                    <div class="col-sm-6"> <label class="labelw">ISA DATE </label>
+                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsADate" name="POIsADate" readonly="true"/>
+                                    </div>
+
+                                    <div class="col-sm-6"> <label class="labelw">  ISA TIME  </label>
+                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsATime" name="POIsATime" readonly="true"/>
+                                    </div>
+                                    <div class="col-sm-6"> <label class="labelw"> STATUS </label>
+                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POStatus" name="POStatus" readonly="true"/>
+                                    </div>
+                                </div>
+
+                                <div class="row col-sm-12" >
+                                    <div class="col-sm-6"> <label class="labelw">  PreTranslation  </label></div>
+                                    <div class="col-sm-6"><div id="POPreTransition"></div></div>
+                                </div>
+                                    <div class="col-sm-6"> <label class="labelw"> PostTranslation </label></div>
+                                <div class="col-sm-6"><div id="POPostTransition"></div></div>
+                            </div>
+                                    <div class="col-sm-6"> <label class="labelw">997ACKFile </label></div>                      
+
+                            <div class="col-sm-6"><div id="POAckFileId"></div></div>
+                        </div>
+                                <div class="row col-sm-12 clear" style="visibility: hidden">
+                        <div class="col-sm-6"> <label class="labelw"> SAP_USER </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="SAP_USER" name="ManStatus" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> IDOC_NUMBER </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_NUMBER" name="ManStatus" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> PO_NUMBER </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PO_NUMBER" name="ManStatus" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> PO_DATE </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PO_DATE" name="ManStatus" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> IDOC CODE </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_CODE" name="ManStatus" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> IDOC DESCRIPTION </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_DESCRIPTION" name="ManStatus" readonly="true"/>
+                        </div>
+                    </div>
+                    <br><br><br><br><br><br>
+               
+                <div class="row col-sm-12" id="errorDiv" style="display: none">
+                    <div class="col-sm-6"> <label class="labelw"> Error&nbsp;Message </label></div>
+                    <div class="col-sm-6" id="InvErrormessage" style="color: red"></div>
+                </div>
+
+                <div id="noresult"></div>
+                <div class="row col-sm-12">
+                      <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button>
+                </div>
+                 </div>
+            </div>
+       
+
+    
+
+<script>
+    $(function () {
+        //$("#example1").DataTable();
+        $('#results').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false
+        });
+    });
+</script>
+</div>
+<div>
+    <s:include value="../includes/template/footer.jsp"/>
+</div>
+
+ <script type="text/javascript" src='<s:url value="../includes/js/DateValidation.js"/>'></script>
+ <script language="JavaScript"  src='<s:url value="/includes/js/generalValidations.js"/>'></script>
+ <script language="JavaScript"  src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
+ <script language="JavaScript"  src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
+<script type="text/javascript" src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script>
+<script src='<s:url value="/includes/bootstrap/js/app.min.js"/>'></script>
+<script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
+<script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
+
+<script type="text/javascript"> 
+    // New function to show the left grid
+
+    function demo()
+    { 
+        $(function() {
+       
+            $('#detail_box').show();
+            return false;          
+        });
+  
+    }
+  
+    function getDetails(val,val1){  
+        getPoDetails(val,val1);
+    }
+  
+  
+    function getLifeCycle(checkList) {
+        var res = false;
+        var i = 0;
+        var po_Num = "";
+        for(var j=0; j<checkList;j++) {
+            if(document.getElementById("check_List"+j)!=null){
+            if(checkList==1)
+            {
+                res =document.getElementById("check_List"+j).checked;
+                    
+            }else
+            {
+                res = document.getElementById("check_List"+j).checked;
+            }
+             
+            if(res == true) {
+                i = i + 1;
+                if(i==1){
+                    po_Num =   po_Num + document.getElementById("text"+j).value;  
+                }
+            }
+        }
+        }
+        if(i != 1) {
+            alert("Please select one checkbox to get LifeCycle of PO !!");
+            return false;    
+        }
+        else {
+            //alert(po_Num);
+            //window.location = "../lfc/lifeCycle.action?poNumber="+po_Num; 
+            //purchaseForm.action = "../lfc/lifeCycle.action?poNumber="+po_Num;
+            location.href = "../lfc/lifecycle.action?poNumber="+po_Num;
+            return true;
+        }
+    }
+     
+    function resetvalues()
+    {
+        //document.getElementById('poNumber').value="";
+        document.getElementById('poDateFrom').value="";
+        document.getElementById('poDateTo').value="";
+        document.getElementById('reportrange').value=""
+        document.getElementById('docType').value="-1"; 
+        document.getElementById('poSenderId').value="-1";
+        document.getElementById('poSenderName').value="-1";
+        document.getElementById('poRecId').value="-1";
+        document.getElementById('poRecName').value="-1";  
+        document.getElementById('sampleValue').value="1";
+        //document.getElementById('ackStatus').value="-1";
+     
+        document.getElementById('ackStatus').value="-1";
+        document.getElementById('status').value="-1";
+     
+        document.getElementById('corrattribute').value="-1"; 
+        document.getElementById('corrvalue').value=""; 
+    
+        document.getElementById('corrattribute1').value="-1"; 
+        document.getElementById('corrvalue1').value=""; 
+        document.getElementById('corrattribute2').value="-1"; 
+        document.getElementById('corrvalue2').value=""; 
+        //  document.getElementById('docType').value="-1"; 
+     
+        $('#gridDiv').hide();
+    }
+
+
+    function enterDate()
+    {
+        alert("Please select from the Calender !");
+        document.getElementById('poDateFrom').value='';
+    }
+
+
+    function checkCorrelation() {
+     
+               
+        var corrattr = document.getElementById('corrattribute').value;
+        var corrval = document.getElementById('corrvalue').value;
+     
+        var corrattr1 = document.getElementById('corrattribute1').value;
+        var corrval1 = document.getElementById('corrvalue1').value;
+     
+        var corrattr2 = document.getElementById('corrattribute2').value;
+        var corrval2 = document.getElementById('corrvalue2').value;
+     
+  
+        if((corrattr!="-1")&&(corrval=="")) {
+            alert("please enter Correlation Value!!!");
+            return false;
+        }
+        if((corrattr=="-1")&&(corrval!="")) {
+            alert("please select Correlation!");
+            return false;
+        }
+     
+        if((corrattr1!="-1")&&(corrval1=="")) {
+            alert("please enter Correlation Value!!!");
+            return false;
+        }
+        if((corrattr1=="-1")&&(corrval1!="")) {
+            alert("please select Correlation!");
+            return false;
+        }
+     
+        if((corrattr2!="-1")&&(corrval2=="")) {
+            alert("please enter Correlation Value!!!");
+            return false;
+        }
+        if((corrattr2=="-1")&&(corrval2!="")) {
+            alert("please select Correlation!");
+            return false;
+        }
+     
+        var res = Formvalidation(document.getElementById('poDateFrom').value,document.getElementById('poDateTo').value);
+      
+    
+        return res;
+    }
+</script>
+</body>
+</html>

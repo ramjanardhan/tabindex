@@ -1,0 +1,1822 @@
+/*******************************************************************************
+ *
+ * Project : Miracle Supply Chain Visibility Portal v1.0
+ *
+ * Package : com.mss.ediscv.griddownload
+ *
+ * Date    : april 17, 2013 5:22:19 pm
+ *
+ * Author  : Santish kola <skola2@miraclesoft.com>
+ *
+ * File    : GridDownloadAction.java
+ *
+ * 
+ * *****************************************************************************
+ */
+
+
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mss.ediscv.griddownload;
+import com.mss.ediscv.doc.DocRepositoryBean;
+
+
+import com.mss.ediscv.inv.InvoiceBean;
+import com.mss.ediscv.logisticsdoc.LogisticsDocBean;
+import com.mss.ediscv.logisticsloadtendering.LogisticsLoadBean;
+import com.mss.ediscv.ltResponse.LtResponseBean;
+import com.mss.ediscv.payments.PaymentBean;
+import com.mss.ediscv.po.PurchaseOrderBean;
+import com.mss.ediscv.shipment.ShipmentBean;
+import com.mss.ediscv.util.AppConstants;
+import com.mss.ediscv.util.Properties;
+import com.opensymphony.xwork2.Action;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+
+
+
+//start
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import java.util.Date;
+import java.util.Iterator;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.util.CellRangeAddress;
+/**
+ *
+ * @author Ajay Tummapala <atummapala@miraclesoft.com>
+ *
+ * This Class.... ENTER THE DESCRIPTION HERE
+ */
+public class GridDownloadAction implements
+        Action,ServletRequestAware,ServletResponseAware{
+    
+   
+    // private String URL="/images/flower.GIF";
+    private String contentDisposition="FileName=inline";
+    public InputStream inputStream;
+    public OutputStream outputStream;
+    private HttpServletRequest httpServletRequest;
+    private HttpServletResponse httpServletResponse;
+    private String fileName;
+    private String downloadType;
+    private String sheetType;
+    
+    /** Creates a new instance of DownloadAction */
+    public GridDownloadAction() {
+    }
+    
+    @Override
+    public String execute() throws Exception {
+        return null;
+    }
+    
+    @Override
+    public void setServletRequest(HttpServletRequest httpServletRequest) {
+        this.httpServletRequest = httpServletRequest;
+    }
+    
+    @Override
+    public void setServletResponse(HttpServletResponse httpServletResponse) {
+        
+        String responseString="";
+        try {
+         
+            String fileLocation ="";
+            //For creating Excel grind from Search result Grid
+            
+            if(getSheetType().equals("document")&&getDownloadType().equals("xls")) {
+            fileLocation = docExcelDownload();
+            }
+            else if(getSheetType().equals("po")&&getDownloadType().equals("xls")) {
+            fileLocation = poExcelDownload();
+            }
+            else if(getSheetType().equals("shipment")&&getDownloadType().equals("xls")) {
+           fileLocation = shipmentExcelDownload();
+            }
+              else if(getSheetType().equals("invoice")&&getDownloadType().equals("xls")) {
+           fileLocation = invoiceExcelDownload();
+            }
+             else if(getSheetType().equals("payment")&&getDownloadType().equals("xls")) {
+           fileLocation = paymentExcelDownload();
+            }
+              else if(getSheetType().equals("logisticsDoc")&&getDownloadType().equals("xls")) {
+           fileLocation = logisticsDocExcelDownload();
+            }
+               else if(getSheetType().equals("loadTendering")&&getDownloadType().equals("xls")) {
+           fileLocation = loadTenderingExcelDownload();
+            }
+                else if(getSheetType().equals("ltResponse")&&getDownloadType().equals("xls")) {
+           fileLocation = ltResponseExcelDownload();
+            }
+            httpServletResponse.setContentType("application/force-download");
+           // File file = new File(Properties.getProperty("mscvp.docCreationPath")+"SearchedExcelDocument.xls");
+                    File file = new File(fileLocation); 
+                   Date date = new Date();
+                   
+                   fileName = (date.getYear()+1900)+"_"+(date.getMonth()+1)+"_"+date.getDate()+"_"+file.getName(); 
+            if(file.exists()){
+            inputStream = new FileInputStream(file);
+            outputStream =  httpServletResponse.getOutputStream();
+            httpServletResponse.setHeader("Content-Disposition","attachment;filename=\"" + fileName +"\"");
+            int noOfBytesRead = 0;
+            byte[] byteArray = null;
+            while(true) {
+                byteArray = new byte[1024];
+                noOfBytesRead = inputStream.read(byteArray);
+                if(noOfBytesRead==0) break;
+                outputStream.write(byteArray, 0, noOfBytesRead);
+            }
+            responseString = "downLoaded!!";
+                httpServletResponse.setContentType(getDownloadType());
+                httpServletResponse.getWriter().write(responseString);
+            }else{
+                throw new FileNotFoundException("File not found");
+            } 
+        }catch (FileNotFoundException ex) {
+            try {
+                httpServletResponse.sendRedirect("../general/exception.action?exceptionMessage='No File found'");
+            } catch (IOException ex1) {
+                Logger.getLogger(GridDownloadAction.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }/*catch (ServiceLocatorException ex) {
+            ex.printStackTrace();
+        }*/finally {
+            try {
+                
+                inputStream.close();
+                outputStream.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        
+        
+        
+    }
+    
+    
+    
+    /*
+     * Method for Excel Format Document Download
+     */
+    
+    public String docExcelDownload() {
+String filePath = "";
+        try {
+            java.util.List list = (java.util.List) httpServletRequest.getSession(false).getAttribute(AppConstants.SES_DOC_LIST);
+                    
+            File file = new File(Properties.getProperty("mscvp.docCreationPath"));
+            if(!file.exists())
+                file.mkdirs();
+            
+            //SearchedDocument.xls
+        //FileOutputStream fileOut = new FileOutputStream("C:\\docExcel.xls");
+            //for linux
+            //FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"/Po.xls");
+            //filePath = file.getAbsolutePath()+"/Po.xls";
+            //for XP
+             FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"\\DocRepository.xls");
+            filePath = file.getAbsolutePath()+"\\DocRepository.xls";
+            HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet worksheet = workbook.createSheet("DocRepository");
+            HSSFRow row1;
+            DocRepositoryBean docRepositoryBean = null;
+            // index from 0,0... cell A1 is cell(0,0)
+                       
+            if(list.size()!=0){
+             HSSFCellStyle cellStyle = workbook.createCellStyle();
+             HSSFCellStyle cellStyle1 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle2 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle3 = workbook.createCellStyle();
+              HSSFCellStyle cellStyleHead = workbook.createCellStyle();
+              HSSFFont font1 = workbook.createFont();
+              HSSFFont font2 = workbook.createFont();
+              HSSFFont font3 = workbook.createFont();
+              HSSFFont font4 = workbook.createFont();
+              HSSFFont fontHead = workbook.createFont();
+              fontHead.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+             // fontHead.setFontHeightInPoints((short)15);  //for font Size
+              font4.setColor(HSSFColor.WHITE.index);
+              
+             cellStyle.setFillForegroundColor(HSSFColor.BLACK.index);
+             cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+             cellStyle.setFont(font4);
+		//start	
+             Date date = new Date();
+            row1 = worksheet.createRow((short) 0);
+            HSSFCell cellpo0 = row1.createCell((short) 0);
+            // cellpo0.setCellValue("Purchase Order");
+            HSSFCell cellpo1 = row1.createCell((short) 1);
+            HSSFCell cellpo2 = row1.createCell((short) 2);
+           // cellpo2.setCellValue("Created Date");
+            HSSFCell cellpo3 = row1.createCell((short) 3);
+            //cellpo3.setCellValue((date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            
+            HSSFCell cellpo4 = row1.createCell((short) 4);
+            HSSFCell cellpo5 = row1.createCell((short) 5);
+            HSSFCell cellpo6 = row1.createCell((short) 6);
+            HSSFCell cellpo7 = row1.createCell((short) 7);
+            row1 = worksheet.createRow((short) 1);
+            Cell cell = row1.createCell((short) 1);
+            cell.setCellValue("Doc Repositry:-Created Date : "+(date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            cellStyleHead.setFont(fontHead);
+            cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+            cell.setCellStyle(cellStyleHead);
+            worksheet.addMergedRegion(CellRangeAddress.valueOf("B2:F2"));
+
+
+
+            
+             //end
+             row1 = worksheet.createRow((short) 3);
+             
+             HSSFCell cella1 = row1.createCell((short) 0);
+             cella1.setCellValue("Instance_Id");
+             cella1.setCellStyle(cellStyle);
+                        //HSSFCellStyle cellStyle = workbook.createCellStyle();
+			
+             HSSFCell cellb1 = row1.createCell((short) 1);
+             cellb1.setCellValue("FileFormat");
+             cellb1.setCellStyle(cellStyle);
+              HSSFCell cellc1 = row1.createCell((short) 2);
+             cellc1.setCellValue("Partner");
+             cellc1.setCellStyle(cellStyle);
+              HSSFCell celld1 = row1.createCell((short) 3);
+             celld1.setCellValue("DateTime");
+             celld1.setCellStyle(cellStyle);
+              HSSFCell celle1 = row1.createCell((short) 4);
+             celle1.setCellValue("Trans_Type");
+             celle1.setCellStyle(cellStyle);
+              HSSFCell cellf1 = row1.createCell((short) 5);
+             cellf1.setCellValue("Direction");
+             cellf1.setCellStyle(cellStyle);
+              HSSFCell cellg1 = row1.createCell((short) 6);
+             cellg1.setCellValue("Status");
+             cellg1.setCellStyle(cellStyle);
+             HSSFCell cellh1 = row1.createCell((short) 7);
+             cellh1.setCellValue("Reprocess");
+             cellh1.setCellStyle(cellStyle);
+             
+             for (int i = 0; i < list.size(); i++) {
+            docRepositoryBean = (DocRepositoryBean) list.get(i);
+            
+             row1 = worksheet.createRow((short) i+4);
+
+			HSSFCell cellA1 = row1.createCell((short) 0);
+                       
+                        cellA1.setCellValue(docRepositoryBean.getFile_id());  
+			
+			
+			HSSFCell cellB1 = row1.createCell((short) 1);
+                        
+                          cellB1.setCellValue(docRepositoryBean.getFile_origin());  
+                        HSSFCell cellC1 = row1.createCell((short) 2);
+                       
+                          cellC1.setCellValue(docRepositoryBean.getPname());  
+                        
+                        HSSFCell cellD1 = row1.createCell((short) 3);
+                         
+                           //cellD1.setCellValue(docRepositoryBean.getDate_time_rec());  
+                         cellD1.setCellValue(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
+                        HSSFCell cellE1 = row1.createCell((short) 4);
+                        
+                           cellE1.setCellValue(docRepositoryBean.getTransaction_type());  
+                        
+                        HSSFCell cellF1 = row1.createCell((short) 5);
+                        
+                          cellF1.setCellValue(docRepositoryBean.getDirection());   
+                        
+                        HSSFCell cellG1 = row1.createCell((short) 6);
+                        
+                           //cellG1.setCellValue(purchaseOrderBean.getStatus());  
+                        
+                        if(docRepositoryBean.getStatus()!= null) {
+                               if(docRepositoryBean.getStatus().equalsIgnoreCase("SUCCESS")){
+                        
+                          
+                         font1.setColor(HSSFColor.GREEN.index);
+                           //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                         cellG1.setCellValue(docRepositoryBean.getStatus().toUpperCase()); 
+                        cellStyle1.setFont(font1);
+                        cellG1.setCellStyle(cellStyle1);
+                          
+                        }else if(docRepositoryBean.getStatus().equalsIgnoreCase("ERROR")){
+                            
+                           font2.setColor(HSSFColor.RED.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                            cellG1.setCellValue(docRepositoryBean.getStatus().toUpperCase()); 
+                            cellStyle2.setFont(font2);
+                            cellG1.setCellStyle(cellStyle2);
+                         
+                        }else{
+                           
+                          font3.setColor(HSSFColor.ORANGE.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                          cellG1.setCellValue(docRepositoryBean.getStatus().toUpperCase()); 
+                          cellStyle3.setFont(font3);
+                          cellG1.setCellStyle(cellStyle3);
+                        
+                        }
+                        }
+                        
+                        
+                    HSSFCell cellH1 = row1.createCell((short) 7);
+                    
+                 cellH1.setCellValue(docRepositoryBean.getReProcessStatus());      
+             }
+              
+             } 
+			workbook.write(fileOut);
+			fileOut.flush();
+			fileOut.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return filePath;
+    }
+    
+     /*
+     * Method for Excel Format PO Download
+     */
+    
+    public String poExcelDownload() {
+        String filePath = "";
+        try {
+            java.util.List list = (java.util.List) httpServletRequest.getSession(false).getAttribute(AppConstants.SES_PO_LIST);
+                    
+            File file = new File(Properties.getProperty("mscvp.poCreationPath"));
+            if(!file.exists())
+                file.mkdirs();
+            
+            //SearchedDocument.xls
+        //FileOutputStream fileOut = new FileOutputStream("C:\\docExcel.xls");
+            //for linux
+            //FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"/Po.xls");
+            //filePath = file.getAbsolutePath()+"/Po.xls";
+            //for XP
+             FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"\\Po.xls");
+            filePath = file.getAbsolutePath()+"\\Po.xls";
+            HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet worksheet = workbook.createSheet("PurchaseOrder");
+            HSSFRow row1;
+            PurchaseOrderBean purchaseOrderBean = null;
+            // index from 0,0... cell A1 is cell(0,0)
+                       
+            if(list.size()!=0){
+             HSSFCellStyle cellStyle = workbook.createCellStyle();
+             HSSFCellStyle cellStyle1 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle2 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle3 = workbook.createCellStyle();
+              HSSFCellStyle cellStyleHead = workbook.createCellStyle();
+              HSSFFont font1 = workbook.createFont();
+              HSSFFont font2 = workbook.createFont();
+              HSSFFont font3 = workbook.createFont();
+              HSSFFont font4 = workbook.createFont();
+              HSSFFont fontHead = workbook.createFont();
+              fontHead.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+             // fontHead.setFontHeightInPoints((short)15);  //for font Size
+              font4.setColor(HSSFColor.WHITE.index);
+              
+             cellStyle.setFillForegroundColor(HSSFColor.BLACK.index);
+             cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+             cellStyle.setFont(font4);
+		//start	
+             Date date = new Date();
+            row1 = worksheet.createRow((short) 0);
+            HSSFCell cellpo0 = row1.createCell((short) 0);
+            // cellpo0.setCellValue("Purchase Order");
+            HSSFCell cellpo1 = row1.createCell((short) 1);
+            HSSFCell cellpo2 = row1.createCell((short) 2);
+           // cellpo2.setCellValue("Created Date");
+            HSSFCell cellpo3 = row1.createCell((short) 3);
+            //cellpo3.setCellValue((date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            
+            HSSFCell cellpo4 = row1.createCell((short) 4);
+            HSSFCell cellpo5 = row1.createCell((short) 5);
+            HSSFCell cellpo6 = row1.createCell((short) 6);
+            HSSFCell cellpo7 = row1.createCell((short) 7);
+            row1 = worksheet.createRow((short) 1);
+            Cell cell = row1.createCell((short) 1);
+            cell.setCellValue("Purchase Order:-Created Date : "+(date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            cellStyleHead.setFont(fontHead);
+            cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+            cell.setCellStyle(cellStyleHead);
+            worksheet.addMergedRegion(CellRangeAddress.valueOf("B2:F2"));
+
+
+
+            
+             //end
+             row1 = worksheet.createRow((short) 3);
+             
+             HSSFCell cella1 = row1.createCell((short) 0);
+             cella1.setCellValue("Instance_Id");
+             cella1.setCellStyle(cellStyle);
+                        //HSSFCellStyle cellStyle = workbook.createCellStyle();
+			
+             HSSFCell cellb1 = row1.createCell((short) 1);
+             cellb1.setCellValue("PO #");
+             cellb1.setCellStyle(cellStyle);
+              HSSFCell cellc1 = row1.createCell((short) 2);
+             cellc1.setCellValue("PO Date");
+             cellc1.setCellStyle(cellStyle);
+              HSSFCell celld1 = row1.createCell((short) 3);
+             celld1.setCellValue("Partner");
+             celld1.setCellStyle(cellStyle);
+              HSSFCell celle1 = row1.createCell((short) 4);
+             celle1.setCellValue("GS_Control #");
+             celle1.setCellStyle(cellStyle);
+              HSSFCell cellf1 = row1.createCell((short) 5);
+             cellf1.setCellValue("Direction");
+             cellf1.setCellStyle(cellStyle);
+              HSSFCell cellg1 = row1.createCell((short) 6);
+             cellg1.setCellValue("Status");
+             cellg1.setCellStyle(cellStyle);
+               HSSFCell cellh1 = row1.createCell((short) 7);
+             cellh1.setCellValue("Reprocess");
+             cellh1.setCellStyle(cellStyle);
+             for (int i = 0; i < list.size(); i++) {
+            purchaseOrderBean = (PurchaseOrderBean) list.get(i);
+            
+             row1 = worksheet.createRow((short) i+4);
+
+			HSSFCell cellA1 = row1.createCell((short) 0);
+                       
+                        cellA1.setCellValue(purchaseOrderBean.getFileId());  
+			
+			
+			HSSFCell cellB1 = row1.createCell((short) 1);
+                        
+                          cellB1.setCellValue(purchaseOrderBean.getPo());  
+                        HSSFCell cellC1 = row1.createCell((short) 2);
+                       
+                          cellC1.setCellValue(purchaseOrderBean.getPoDate());  
+                        
+                        HSSFCell cellD1 = row1.createCell((short) 3);
+                         
+                           cellD1.setCellValue(purchaseOrderBean.getPname());  
+                        HSSFCell cellE1 = row1.createCell((short) 4);
+                        
+                           cellE1.setCellValue(purchaseOrderBean.getGsControlNumber());  
+                        
+                        HSSFCell cellF1 = row1.createCell((short) 5);
+                        
+                          cellF1.setCellValue(purchaseOrderBean.getDirection());   
+                        
+                        HSSFCell cellG1 = row1.createCell((short) 6);
+                        
+                           //cellG1.setCellValue(purchaseOrderBean.getStatus());  
+                        if(purchaseOrderBean.getStatus()!=null) {
+                               if(purchaseOrderBean.getStatus().equalsIgnoreCase("SUCCESS")){
+                        
+                          
+                         font1.setColor(HSSFColor.GREEN.index);
+                           //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                         cellG1.setCellValue(purchaseOrderBean.getStatus().toUpperCase()); 
+                        cellStyle1.setFont(font1);
+                        cellG1.setCellStyle(cellStyle1);
+                          
+                        }else if(purchaseOrderBean.getStatus().equalsIgnoreCase("ERROR")){
+                            
+                           font2.setColor(HSSFColor.RED.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                            cellG1.setCellValue(purchaseOrderBean.getStatus().toUpperCase()); 
+                            cellStyle2.setFont(font2);
+                            cellG1.setCellStyle(cellStyle2);
+                         
+                        }else{
+                           
+                          font3.setColor(HSSFColor.ORANGE.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                          cellG1.setCellValue(purchaseOrderBean.getStatus().toUpperCase()); 
+                          cellStyle3.setFont(font3);
+                          cellG1.setCellStyle(cellStyle3);
+                        
+                        }
+                        }
+                         HSSFCell cellH1 = row1.createCell((short) 7);
+                        
+                          cellH1.setCellValue(purchaseOrderBean.getReProcessStatus());   
+                        
+             }
+                     
+             } 
+			workbook.write(fileOut);
+			fileOut.flush();
+			fileOut.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return filePath;
+    }
+    
+     /*
+     * Method for Excel Format Shipment Download
+     */
+    
+    public String shipmentExcelDownload() {
+        String filePath = "";
+        try {
+            java.util.List list = (java.util.List) httpServletRequest.getSession(false).getAttribute(AppConstants.SES_SHIPMENT_LIST);
+                   
+            File file = new File(Properties.getProperty("mscvp.shipmentCreationPath"));
+            if(!file.exists())
+                file.mkdirs();
+              
+                  
+            //SearchedDocument.xls
+        //FileOutputStream fileOut = new FileOutputStream("C:\\docExcel.xls");
+            //for linux
+            //FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"/Shipment.xls");
+              
+            //filePath = file.getAbsolutePath()+"/Shipment.xls";
+                
+            //for XP
+             FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"\\Shipment.xls");
+            filePath = file.getAbsolutePath()+"\\Shipment.xls";
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            HSSFSheet worksheet = workbook.createSheet("Shipment");
+            HSSFRow row1;
+            ShipmentBean shipmentBean = null;
+            // index from 0,0... cell A1 is cell(0,0)
+                     
+            if(list.size()!=0){
+                    
+             HSSFCellStyle cellStyle = workbook.createCellStyle();
+             HSSFCellStyle cellStyle1 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle2 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle3 = workbook.createCellStyle();
+              HSSFCellStyle cellStyleHead = workbook.createCellStyle();
+              HSSFFont font1 = workbook.createFont();
+              HSSFFont font2 = workbook.createFont();
+              HSSFFont font3 = workbook.createFont();
+              HSSFFont font4 = workbook.createFont();
+              HSSFFont fontHead = workbook.createFont();
+              fontHead.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+             // fontHead.setFontHeightInPoints((short)15);  //for font Size
+              font4.setColor(HSSFColor.WHITE.index);
+              
+             cellStyle.setFillForegroundColor(HSSFColor.BLACK.index);
+             cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+             cellStyle.setFont(font4);
+		//start	
+             Date date = new Date();
+            row1 = worksheet.createRow((short) 0);
+            HSSFCell cellpo0 = row1.createCell((short) 0);
+            // cellpo0.setCellValue("Purchase Order");
+            HSSFCell cellpo1 = row1.createCell((short) 1);
+            HSSFCell cellpo2 = row1.createCell((short) 2);
+           // cellpo2.setCellValue("Created Date");
+            HSSFCell cellpo3 = row1.createCell((short) 3);
+            //cellpo3.setCellValue((date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            
+            HSSFCell cellpo4 = row1.createCell((short) 4);
+            HSSFCell cellpo5 = row1.createCell((short) 5);
+            HSSFCell cellpo6 = row1.createCell((short) 6);
+            row1 = worksheet.createRow((short) 1);
+            Cell cell = row1.createCell((short) 1);
+            cell.setCellValue("Shipment :-Created Date : "+(date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            cellStyleHead.setFont(fontHead);
+            cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+            cell.setCellStyle(cellStyleHead);
+            worksheet.addMergedRegion(CellRangeAddress.valueOf("B2:F2"));
+
+
+
+            
+             //end
+             row1 = worksheet.createRow((short) 3);
+             
+             HSSFCell cella1 = row1.createCell((short) 0);
+             cella1.setCellValue("Instance_Id");
+             cella1.setCellStyle(cellStyle);
+                        //HSSFCellStyle cellStyle = workbook.createCellStyle();
+			
+             HSSFCell cellb1 = row1.createCell((short) 1);
+             cellb1.setCellValue("ASN #");
+             cellb1.setCellStyle(cellStyle);
+              HSSFCell cellc1 = row1.createCell((short) 2);
+             cellc1.setCellValue("Partner");
+             cellc1.setCellStyle(cellStyle);
+              HSSFCell celld1 = row1.createCell((short) 3);
+             celld1.setCellValue("DateTime");
+             celld1.setCellStyle(cellStyle);
+              HSSFCell celle1 = row1.createCell((short) 4);
+             celle1.setCellValue("Direction");
+             celle1.setCellStyle(cellStyle);
+              HSSFCell cellf1 = row1.createCell((short) 5);
+             cellf1.setCellValue("Status");
+             cellf1.setCellStyle(cellStyle);
+              HSSFCell cellg1 = row1.createCell((short) 6);
+             cellg1.setCellValue("ACK Status");
+             cellg1.setCellStyle(cellStyle);
+             
+             for (int i = 0; i < list.size(); i++) {
+            shipmentBean = (ShipmentBean) list.get(i);
+            
+             row1 = worksheet.createRow((short) i+4);
+
+			HSSFCell cellA1 = row1.createCell((short) 0);
+                       
+                        cellA1.setCellValue(shipmentBean.getFile_id());  
+			
+			
+			HSSFCell cellB1 = row1.createCell((short) 1);
+                        
+                          cellB1.setCellValue(shipmentBean.getAsnNo());  
+                        HSSFCell cellC1 = row1.createCell((short) 2);
+                       
+                          cellC1.setCellValue(shipmentBean.getPname());  
+                        
+                        HSSFCell cellD1 = row1.createCell((short) 3);
+                         
+                           cellD1.setCellValue(shipmentBean.getDate_time_rec().toString().substring(0, shipmentBean.getDate_time_rec().toString().lastIndexOf(":")));  
+                        HSSFCell cellE1 = row1.createCell((short) 4);
+                        
+                           cellE1.setCellValue(shipmentBean.getDirection());  
+                        
+                        HSSFCell cellF1 = row1.createCell((short) 5);
+                        
+                         // cellF1.setCellValue(shipmentBean.getStatus());   
+                        
+                       // HSSFCell cellG1 = row1.createCell((short) 5);
+                        
+                         if(shipmentBean.getStatus()!=null) {
+                           //cellG1.setCellValue(purchaseOrderBean.getStatus());  
+                               if(shipmentBean.getStatus().equalsIgnoreCase("SUCCESS")){
+                        
+                          
+                         font1.setColor(HSSFColor.GREEN.index);
+                           //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                         cellF1.setCellValue(shipmentBean.getStatus().toUpperCase()); 
+                        cellStyle1.setFont(font1);
+                        cellF1.setCellStyle(cellStyle1);
+                          
+                        }else if(shipmentBean.getStatus().equalsIgnoreCase("ERROR")){
+                            
+                           font2.setColor(HSSFColor.RED.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                            cellF1.setCellValue(shipmentBean.getStatus().toUpperCase()); 
+                            cellStyle2.setFont(font2);
+                            cellF1.setCellStyle(cellStyle2);
+                         
+                        }else{
+                           
+                          font3.setColor(HSSFColor.ORANGE.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                          cellF1.setCellValue(shipmentBean.getStatus().toUpperCase()); 
+                          cellStyle3.setFont(font3);
+                          cellF1.setCellStyle(cellStyle3);
+                        
+                        }
+                        
+                        
+             }
+                          HSSFCell cellG1 = row1.createCell((short) 6);
+                        
+                         // cellF1.setCellValue(shipmentBean.getStatus());   
+                        
+                       // HSSFCell cellG1 = row1.createCell((short) 5);
+                          
+                         if(shipmentBean.getAckStatus()!=null) {
+                           //cellG1.setCellValue(purchaseOrderBean.getStatus());  
+                               if(shipmentBean.getAckStatus().equalsIgnoreCase("ACCEPTED")){
+                        
+                          
+                         font1.setColor(HSSFColor.GREEN.index);
+                           //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                         cellG1.setCellValue(shipmentBean.getAckStatus().toUpperCase()); 
+                        cellStyle1.setFont(font1);
+                        cellG1.setCellStyle(cellStyle1);
+                          
+                        }else if(shipmentBean.getAckStatus().equalsIgnoreCase("REJECTED")){
+                            
+                           font2.setColor(HSSFColor.RED.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                            cellG1.setCellValue(shipmentBean.getAckStatus().toUpperCase()); 
+                            cellStyle2.setFont(font2);
+                            cellG1.setCellStyle(cellStyle2);
+                         
+                        }else{
+                           
+                          font3.setColor(HSSFColor.ORANGE.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                          cellG1.setCellValue(shipmentBean.getAckStatus().toUpperCase()); 
+                          cellStyle3.setFont(font3);
+                          cellG1.setCellStyle(cellStyle3);
+                        
+                        }
+                        
+                        
+             }
+             }      
+             } 
+			workbook.write(fileOut);
+			fileOut.flush();
+			fileOut.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return filePath;
+    }
+    /*
+     * Method for Excel Format Invoice Download
+     */
+    
+    public String invoiceExcelDownload() {
+        String filePath = "";
+        try {
+            java.util.List list = (java.util.List) httpServletRequest.getSession(false).getAttribute(AppConstants.SES_INV_LIST);
+                   
+            File file = new File(Properties.getProperty("mscvp.invoiceCreationPath"));
+            if(!file.exists())
+                file.mkdirs();
+              
+                  
+            //SearchedDocument.xls
+        //FileOutputStream fileOut = new FileOutputStream("C:\\docExcel.xls");
+            //for linux
+           // FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"/Invoice.xls");
+              
+           // filePath = file.getAbsolutePath()+"/Invoice.xls";
+                
+            //for XP
+             FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"\\Invoice.xls");
+            filePath = file.getAbsolutePath()+"\\Invoice.xls";
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            HSSFSheet worksheet = workbook.createSheet("Invoice");
+            HSSFRow row1;
+            InvoiceBean invoiceBean = null;
+            // index from 0,0... cell A1 is cell(0,0)
+                     
+            if(list.size()!=0){
+                    
+             HSSFCellStyle cellStyle = workbook.createCellStyle();
+             HSSFCellStyle cellStyle1 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle2 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle3 = workbook.createCellStyle();
+              HSSFCellStyle cellStyleHead = workbook.createCellStyle();
+              HSSFFont font1 = workbook.createFont();
+              HSSFFont font2 = workbook.createFont();
+              HSSFFont font3 = workbook.createFont();
+              HSSFFont font4 = workbook.createFont();
+              HSSFFont fontHead = workbook.createFont();
+              fontHead.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+             // fontHead.setFontHeightInPoints((short)15);  //for font Size
+              font4.setColor(HSSFColor.WHITE.index);
+              
+             cellStyle.setFillForegroundColor(HSSFColor.BLACK.index);
+             cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+             cellStyle.setFont(font4);
+		//start	
+             Date date = new Date();
+            row1 = worksheet.createRow((short) 0);
+            HSSFCell cellpo0 = row1.createCell((short) 0);
+            // cellpo0.setCellValue("Purchase Order");
+            HSSFCell cellpo1 = row1.createCell((short) 1);
+            HSSFCell cellpo2 = row1.createCell((short) 2);
+           // cellpo2.setCellValue("Created Date");
+            HSSFCell cellpo3 = row1.createCell((short) 3);
+            //cellpo3.setCellValue((date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            
+            HSSFCell cellpo4 = row1.createCell((short) 4);
+            HSSFCell cellpo5 = row1.createCell((short) 5);
+            HSSFCell cellpo6 = row1.createCell((short) 6);
+            HSSFCell cellpo7 = row1.createCell((short) 7);
+            HSSFCell cellpo8 = row1.createCell((short) 8);
+            row1 = worksheet.createRow((short) 1);
+            Cell cell = row1.createCell((short) 1);
+            cell.setCellValue("Invoice :-Created Date : "+(date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            cellStyleHead.setFont(fontHead);
+            cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+            cell.setCellStyle(cellStyleHead);
+            worksheet.addMergedRegion(CellRangeAddress.valueOf("B2:F2"));
+
+
+
+            
+             //end
+             row1 = worksheet.createRow((short) 3);
+             
+             HSSFCell cella1 = row1.createCell((short) 0);
+             cella1.setCellValue("Instance_Id");
+             cella1.setCellStyle(cellStyle);
+                        //HSSFCellStyle cellStyle = workbook.createCellStyle();
+			
+             HSSFCell cellb1 = row1.createCell((short) 1);
+             cellb1.setCellValue("Partner");
+             cellb1.setCellStyle(cellStyle);
+              HSSFCell cellc1 = row1.createCell((short) 2);
+             cellc1.setCellValue("Invoice#");
+             cellc1.setCellStyle(cellStyle);
+              HSSFCell celld1 = row1.createCell((short) 3);
+             celld1.setCellValue("PO#");
+             celld1.setCellStyle(cellStyle);
+              HSSFCell celle1 = row1.createCell((short) 4);
+             celle1.setCellValue("Item Qty");
+             celle1.setCellStyle(cellStyle);
+              HSSFCell cellf1 = row1.createCell((short) 5);
+             cellf1.setCellValue("Invoice Amount");
+             cellf1.setCellStyle(cellStyle);
+              HSSFCell cellg1 = row1.createCell((short) 6);
+             cellg1.setCellValue("Invoice Date");
+             cellg1.setCellStyle(cellStyle);
+              HSSFCell cellh1 = row1.createCell((short) 7);
+             cellh1.setCellValue("Status");
+             cellh1.setCellStyle(cellStyle);
+             HSSFCell celli1 = row1.createCell((short) 8);
+             celli1.setCellValue("Ack Status");
+             celli1.setCellStyle(cellStyle);
+             
+             for (int i = 0; i < list.size(); i++) {
+            invoiceBean = (InvoiceBean) list.get(i);
+            
+             row1 = worksheet.createRow((short) i+4);
+
+			HSSFCell cellA1 = row1.createCell((short) 0);
+                       
+                        cellA1.setCellValue(invoiceBean.getFileId());  
+			
+			
+			HSSFCell cellB1 = row1.createCell((short) 1);
+                        
+                          cellB1.setCellValue(invoiceBean.getPname());  
+                        HSSFCell cellC1 = row1.createCell((short) 2);
+                       
+                          cellC1.setCellValue(invoiceBean.getInvNumber());  
+                        
+                        HSSFCell cellD1 = row1.createCell((short) 3);
+                         
+                           cellD1.setCellValue(invoiceBean.getPoNumber());  
+                        HSSFCell cellE1 = row1.createCell((short) 4);
+                        
+                           cellE1.setCellValue(invoiceBean.getItemQty());  
+                        
+                        HSSFCell cellF1 = row1.createCell((short) 5);
+                        cellF1.setCellValue(invoiceBean.getInvAmount());  
+                          HSSFCell cellG1 = row1.createCell((short) 6);
+                        cellG1.setCellValue(invoiceBean.getInvDate()); 
+                        
+                         // cellF1.setCellValue(shipmentBean.getStatus());   
+                        
+                       // HSSFCell cellG1 = row1.createCell((short) 5);
+                        HSSFCell cellH1 = row1.createCell((short) 7);
+                         if(invoiceBean.getStatus()!=null) {
+                           //cellG1.setCellValue(purchaseOrderBean.getStatus());  
+                               if(invoiceBean.getStatus().equalsIgnoreCase("SUCCESS")){
+                        
+                          
+                         font1.setColor(HSSFColor.GREEN.index);
+                           //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                         cellH1.setCellValue(invoiceBean.getStatus().toUpperCase()); 
+                        cellStyle1.setFont(font1);
+                        cellH1.setCellStyle(cellStyle1);
+                          
+                        }else if(invoiceBean.getStatus().equalsIgnoreCase("ERROR")){
+                            
+                           font2.setColor(HSSFColor.RED.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                            cellH1.setCellValue(invoiceBean.getStatus().toUpperCase()); 
+                            cellStyle2.setFont(font2);
+                            cellH1.setCellStyle(cellStyle2);
+                         
+                        }else{
+                           
+                          font3.setColor(HSSFColor.ORANGE.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                          cellH1.setCellValue(invoiceBean.getStatus().toUpperCase()); 
+                          cellStyle3.setFont(font3);
+                          cellH1.setCellStyle(cellStyle3);
+                        
+                        }
+                        
+                        
+             }
+                          HSSFCell cellI1 = row1.createCell((short) 8);
+                        
+                         // cellF1.setCellValue(shipmentBean.getStatus());   
+                        
+                       // HSSFCell cellG1 = row1.createCell((short) 5);
+                          
+                         if(invoiceBean.getAckStatus()!=null) {
+                           //cellG1.setCellValue(purchaseOrderBean.getStatus());  
+                               if(invoiceBean.getAckStatus().equalsIgnoreCase("ACCEPTED")){
+                        
+                          
+                         font1.setColor(HSSFColor.GREEN.index);
+                           //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                         cellI1.setCellValue(invoiceBean.getAckStatus().toUpperCase()); 
+                        cellStyle1.setFont(font1);
+                        cellI1.setCellStyle(cellStyle1);
+                          
+                        }else if(invoiceBean.getAckStatus().equalsIgnoreCase("REJECTED")){
+                            
+                           font2.setColor(HSSFColor.RED.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                            cellI1.setCellValue(invoiceBean.getAckStatus().toUpperCase()); 
+                            cellStyle2.setFont(font2);
+                            cellI1.setCellStyle(cellStyle2);
+                         
+                        }else{
+                           
+                          font3.setColor(HSSFColor.ORANGE.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                          cellI1.setCellValue(invoiceBean.getAckStatus().toUpperCase()); 
+                          cellStyle3.setFont(font3);
+                          cellI1.setCellStyle(cellStyle3);
+                        
+                        }
+                        
+                        
+             }
+             }      
+             } 
+			workbook.write(fileOut);
+			fileOut.flush();
+			fileOut.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return filePath;
+    }
+    
+ /*
+     * Method for Excel Format Invoice Download
+     */
+    
+    public String paymentExcelDownload() {
+        String filePath = "";
+        try {
+            java.util.List list = (java.util.List) httpServletRequest.getSession(false).getAttribute(AppConstants.SES_PAYMENT_LIST);
+                   
+            File file = new File(Properties.getProperty("mscvp.paymentCreationPath"));
+            if(!file.exists())
+                file.mkdirs();
+              
+                  
+            //SearchedDocument.xls
+        //FileOutputStream fileOut = new FileOutputStream("C:\\docExcel.xls");
+            //for linux
+           // FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"/Payment.xls");
+              
+            //filePath = file.getAbsolutePath()+"/Payment.xls";
+                
+            //for XP
+             FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"\\Payment.xls");
+            filePath = file.getAbsolutePath()+"\\Payment.xls";
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            HSSFSheet worksheet = workbook.createSheet("Payment");
+            HSSFRow row1;
+            PaymentBean paymentBean = null;
+            // index from 0,0... cell A1 is cell(0,0)
+                     
+            if(list.size()!=0){
+                    
+             HSSFCellStyle cellStyle = workbook.createCellStyle();
+             HSSFCellStyle cellStyle1 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle2 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle3 = workbook.createCellStyle();
+              HSSFCellStyle cellStyleHead = workbook.createCellStyle();
+              HSSFFont font1 = workbook.createFont();
+              HSSFFont font2 = workbook.createFont();
+              HSSFFont font3 = workbook.createFont();
+              HSSFFont font4 = workbook.createFont();
+              HSSFFont fontHead = workbook.createFont();
+              fontHead.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+             // fontHead.setFontHeightInPoints((short)15);  //for font Size
+              font4.setColor(HSSFColor.WHITE.index);
+              
+             cellStyle.setFillForegroundColor(HSSFColor.BLACK.index);
+             cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+             cellStyle.setFont(font4);
+		//start	
+             Date date = new Date();
+            row1 = worksheet.createRow((short) 0);
+            HSSFCell cellpo0 = row1.createCell((short) 0);
+            // cellpo0.setCellValue("Purchase Order");
+            HSSFCell cellpo1 = row1.createCell((short) 1);
+            HSSFCell cellpo2 = row1.createCell((short) 2);
+           // cellpo2.setCellValue("Created Date");
+            HSSFCell cellpo3 = row1.createCell((short) 3);
+            //cellpo3.setCellValue((date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            
+            HSSFCell cellpo4 = row1.createCell((short) 4);
+            HSSFCell cellpo5 = row1.createCell((short) 5);
+            HSSFCell cellpo6 = row1.createCell((short) 6);
+            HSSFCell cellpo7 = row1.createCell((short) 7);
+            HSSFCell cellpo8 = row1.createCell((short) 8);
+            row1 = worksheet.createRow((short) 1);
+            Cell cell = row1.createCell((short) 1);
+            cell.setCellValue("Payment :-Created Date : "+(date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            cellStyleHead.setFont(fontHead);
+            cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+            cell.setCellStyle(cellStyleHead);
+            worksheet.addMergedRegion(CellRangeAddress.valueOf("B2:F2"));
+
+
+
+            
+             //end
+             row1 = worksheet.createRow((short) 3);
+             
+             HSSFCell cella1 = row1.createCell((short) 0);
+             cella1.setCellValue("Partner");
+             cella1.setCellStyle(cellStyle);
+                        //HSSFCellStyle cellStyle = workbook.createCellStyle();
+			
+             HSSFCell cellb1 = row1.createCell((short) 1);
+             cellb1.setCellValue("Instance Id");
+             cellb1.setCellStyle(cellStyle);
+              HSSFCell cellc1 = row1.createCell((short) 2);
+             cellc1.setCellValue("PO#");
+             cellc1.setCellStyle(cellStyle);
+              HSSFCell celld1 = row1.createCell((short) 3);
+             celld1.setCellValue("Invoice#");
+             celld1.setCellStyle(cellStyle);
+              HSSFCell celle1 = row1.createCell((short) 4);
+             celle1.setCellValue("Date");
+             celle1.setCellStyle(cellStyle);
+              HSSFCell cellf1 = row1.createCell((short) 5);
+             cellf1.setCellValue("Cheque#");
+             cellf1.setCellStyle(cellStyle);
+              HSSFCell cellg1 = row1.createCell((short) 6);
+             cellg1.setCellValue("Cheque Amount");
+             cellg1.setCellStyle(cellStyle);
+              HSSFCell cellh1 = row1.createCell((short) 7);
+             cellh1.setCellValue("Status");
+             cellh1.setCellStyle(cellStyle);
+             HSSFCell celli1 = row1.createCell((short) 8);
+             celli1.setCellValue("Ack Status");
+             celli1.setCellStyle(cellStyle);
+             
+             for (int i = 0; i < list.size(); i++) {
+            paymentBean = (PaymentBean) list.get(i);
+            
+             row1 = worksheet.createRow((short) i+4);
+
+			HSSFCell cellA1 = row1.createCell((short) 0);
+                       
+                        cellA1.setCellValue(paymentBean.getReceiverName());  
+			
+			
+			HSSFCell cellB1 = row1.createCell((short) 1);
+                        
+                          cellB1.setCellValue(paymentBean.getFileId());  
+                        HSSFCell cellC1 = row1.createCell((short) 2);
+                       
+                          cellC1.setCellValue(paymentBean.getPonumber());  
+                        
+                        HSSFCell cellD1 = row1.createCell((short) 3);
+                         
+                           cellD1.setCellValue(paymentBean.getInvNumber());  
+                        HSSFCell cellE1 = row1.createCell((short) 4);
+                        
+                           cellE1.setCellValue(paymentBean.getDate());  
+                        
+                        HSSFCell cellF1 = row1.createCell((short) 5);
+                        cellF1.setCellValue(paymentBean.getCheckNumber());  
+                          HSSFCell cellG1 = row1.createCell((short) 6);
+                        cellG1.setCellValue(paymentBean.getCheckAmount()); 
+                        
+                         // cellF1.setCellValue(shipmentBean.getStatus());   
+                        
+                       // HSSFCell cellG1 = row1.createCell((short) 5);
+                        HSSFCell cellH1 = row1.createCell((short) 7);
+                         if(paymentBean.getStatus()!=null) {
+                           //cellG1.setCellValue(purchaseOrderBean.getStatus());  
+                               if(paymentBean.getStatus().equalsIgnoreCase("SUCCESS")){
+                        
+                          
+                         font1.setColor(HSSFColor.GREEN.index);
+                           //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                         cellH1.setCellValue(paymentBean.getStatus().toUpperCase()); 
+                        cellStyle1.setFont(font1);
+                        cellH1.setCellStyle(cellStyle1);
+                          
+                        }else if(paymentBean.getStatus().equalsIgnoreCase("ERROR")){
+                            
+                           font2.setColor(HSSFColor.RED.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                            cellH1.setCellValue(paymentBean.getStatus().toUpperCase()); 
+                            cellStyle2.setFont(font2);
+                            cellH1.setCellStyle(cellStyle2);
+                         
+                        }else{
+                           
+                          font3.setColor(HSSFColor.ORANGE.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                          cellH1.setCellValue(paymentBean.getStatus().toUpperCase()); 
+                          cellStyle3.setFont(font3);
+                          cellH1.setCellStyle(cellStyle3);
+                        
+                        }
+                        
+                        
+             }
+                          HSSFCell cellI1 = row1.createCell((short) 8);
+                        
+                         // cellF1.setCellValue(shipmentBean.getStatus());   
+                        
+                       // HSSFCell cellG1 = row1.createCell((short) 5);
+                          
+                         if(paymentBean.getAckStatus()!=null) {
+                           //cellG1.setCellValue(purchaseOrderBean.getStatus());  
+                               if(paymentBean.getAckStatus().equalsIgnoreCase("ACCEPTED")){
+                        
+                          
+                         font1.setColor(HSSFColor.GREEN.index);
+                           //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                         cellI1.setCellValue(paymentBean.getAckStatus().toUpperCase()); 
+                        cellStyle1.setFont(font1);
+                        cellI1.setCellStyle(cellStyle1);
+                          
+                        }else if(paymentBean.getAckStatus().equalsIgnoreCase("REJECTED")){
+                            
+                           font2.setColor(HSSFColor.RED.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                            cellI1.setCellValue(paymentBean.getAckStatus().toUpperCase()); 
+                            cellStyle2.setFont(font2);
+                            cellI1.setCellStyle(cellStyle2);
+                         
+                        }else{
+                           
+                          font3.setColor(HSSFColor.ORANGE.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                          cellI1.setCellValue(paymentBean.getAckStatus().toUpperCase()); 
+                          cellStyle3.setFont(font3);
+                          cellI1.setCellStyle(cellStyle3);
+                        
+                        }
+                        
+                        
+             }
+             }      
+             } 
+			workbook.write(fileOut);
+			fileOut.flush();
+			fileOut.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return filePath;
+    }
+    
+/*
+     * Method for Excel Format Logistics DocRepository Download
+     */
+    
+    public String logisticsDocExcelDownload() {
+        String filePath = "";
+        try {
+            java.util.List list = (java.util.List) httpServletRequest.getSession(false).getAttribute(AppConstants.SES_LOG_DOC_LIST);
+                   
+            File file = new File(Properties.getProperty("mscvp.logisticsDocCreationPath"));
+            if(!file.exists())
+                file.mkdirs();
+              
+                  
+            //SearchedDocument.xls
+        //FileOutputStream fileOut = new FileOutputStream("C:\\docExcel.xls");
+            //for linux
+           // FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"/Payment.xls");
+              
+            //filePath = file.getAbsolutePath()+"/Payment.xls";
+                
+            //for XP
+             FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"\\logisticsDoc.xls");
+            filePath = file.getAbsolutePath()+"\\logisticsDoc.xls";
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            HSSFSheet worksheet = workbook.createSheet("logisticsDoc");
+            HSSFRow row1;
+            LogisticsDocBean logisticsDocBean = null;
+            // index from 0,0... cell A1 is cell(0,0)
+                     
+            if(list.size()!=0){
+                    
+             HSSFCellStyle cellStyle = workbook.createCellStyle();
+             HSSFCellStyle cellStyle1 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle2 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle3 = workbook.createCellStyle();
+              HSSFCellStyle cellStyleHead = workbook.createCellStyle();
+              HSSFFont font1 = workbook.createFont();
+              HSSFFont font2 = workbook.createFont();
+              HSSFFont font3 = workbook.createFont();
+              HSSFFont font4 = workbook.createFont();
+              HSSFFont fontHead = workbook.createFont();
+              fontHead.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+             // fontHead.setFontHeightInPoints((short)15);  //for font Size
+              font4.setColor(HSSFColor.WHITE.index);
+              
+             cellStyle.setFillForegroundColor(HSSFColor.BLACK.index);
+             cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+             cellStyle.setFont(font4);
+		//start	
+             Date date = new Date();
+            row1 = worksheet.createRow((short) 0);
+            HSSFCell cellpo0 = row1.createCell((short) 0);
+            // cellpo0.setCellValue("Purchase Order");
+            HSSFCell cellpo1 = row1.createCell((short) 1);
+            HSSFCell cellpo2 = row1.createCell((short) 2);
+           // cellpo2.setCellValue("Created Date");
+            HSSFCell cellpo3 = row1.createCell((short) 3);
+            //cellpo3.setCellValue((date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            
+            HSSFCell cellpo4 = row1.createCell((short) 4);
+            HSSFCell cellpo5 = row1.createCell((short) 5);
+            HSSFCell cellpo6 = row1.createCell((short) 6);
+            HSSFCell cellpo7 = row1.createCell((short) 7);
+//            HSSFCell cellpo8 = row1.createCell((short) 8);
+            row1 = worksheet.createRow((short) 1);
+            Cell cell = row1.createCell((short) 1);
+            cell.setCellValue("Logistics Document :-Created Date : "+(date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            cellStyleHead.setFont(fontHead);
+            cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+            cell.setCellStyle(cellStyleHead);
+            worksheet.addMergedRegion(CellRangeAddress.valueOf("B2:F2"));
+
+
+
+            
+             //end
+             row1 = worksheet.createRow((short) 3);
+             
+             HSSFCell cella1 = row1.createCell((short) 0);
+             cella1.setCellValue("FileFormat");
+             cella1.setCellStyle(cellStyle);
+                        //HSSFCellStyle cellStyle = workbook.createCellStyle();
+			
+             HSSFCell cellb1 = row1.createCell((short) 1);
+             cellb1.setCellValue("InstanceId");
+             cellb1.setCellStyle(cellStyle);
+              HSSFCell cellc1 = row1.createCell((short) 2);
+             cellc1.setCellValue("Partner");
+             cellc1.setCellStyle(cellStyle);
+              HSSFCell celld1 = row1.createCell((short) 3);
+             celld1.setCellValue("DateTime");
+             celld1.setCellStyle(cellStyle);
+              HSSFCell celle1 = row1.createCell((short) 4);
+             celle1.setCellValue("TransType");
+             celle1.setCellStyle(cellStyle);
+              HSSFCell cellf1 = row1.createCell((short) 5);
+             cellf1.setCellValue("Direction");
+             cellf1.setCellStyle(cellStyle);
+              HSSFCell cellg1 = row1.createCell((short) 6);
+             cellg1.setCellValue("Status");
+             cellg1.setCellStyle(cellStyle);
+              HSSFCell cellh1 = row1.createCell((short) 7);
+             cellh1.setCellValue("Reprocess");
+             cellh1.setCellStyle(cellStyle);
+//             HSSFCell celli1 = row1.createCell((short) 8);
+//             celli1.setCellValue("Ack Status");
+//             celli1.setCellStyle(cellStyle);
+             
+             for (int i = 0; i < list.size(); i++) {
+            logisticsDocBean = (LogisticsDocBean) list.get(i);
+            
+             row1 = worksheet.createRow((short) i+4);
+
+			HSSFCell cellA1 = row1.createCell((short) 0);
+                       
+                        cellA1.setCellValue(logisticsDocBean.getFile_type());  
+			
+			
+			HSSFCell cellB1 = row1.createCell((short) 1);
+                        
+                          cellB1.setCellValue(logisticsDocBean.getFile_id());  
+                        HSSFCell cellC1 = row1.createCell((short) 2);
+                       
+                          cellC1.setCellValue(logisticsDocBean.getPname());  
+                        
+                        HSSFCell cellD1 = row1.createCell((short) 3);
+                         
+                           cellD1.setCellValue(logisticsDocBean.getDate_time_rec().toString().substring(0, logisticsDocBean.getDate_time_rec().toString().lastIndexOf(":")));  
+                        HSSFCell cellE1 = row1.createCell((short) 4);
+                        
+                           cellE1.setCellValue(logisticsDocBean.getTransaction_type());  
+                        
+                        HSSFCell cellF1 = row1.createCell((short) 5);
+                        cellF1.setCellValue(logisticsDocBean.getDirection());  
+//                          HSSFCell cellG1 = row1.createCell((short) 6);
+//                        cellG1.setCellValue(logisticsDocBean.getCheckAmount()); 
+                        
+                         // cellF1.setCellValue(shipmentBean.getStatus());   
+                        
+                       // HSSFCell cellG1 = row1.createCell((short) 5);
+                        HSSFCell cellG1 = row1.createCell((short) 6);
+                         if(logisticsDocBean.getStatus()!=null) {
+                           //cellG1.setCellValue(purchaseOrderBean.getStatus());  
+                               if(logisticsDocBean.getStatus().equalsIgnoreCase("SUCCESS")){
+                        
+                          
+                         font1.setColor(HSSFColor.GREEN.index);
+                           //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                         cellG1.setCellValue(logisticsDocBean.getStatus().toUpperCase()); 
+                        cellStyle1.setFont(font1);
+                        cellG1.setCellStyle(cellStyle1);
+                          
+                        }else if(logisticsDocBean.getStatus().equalsIgnoreCase("ERROR")){
+                            
+                           font2.setColor(HSSFColor.RED.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                            cellG1.setCellValue(logisticsDocBean.getStatus().toUpperCase()); 
+                            cellStyle2.setFont(font2);
+                            cellG1.setCellStyle(cellStyle2);
+                         
+                        }else{
+                           
+                          font3.setColor(HSSFColor.ORANGE.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                          cellG1.setCellValue(logisticsDocBean.getStatus().toUpperCase()); 
+                          cellStyle3.setFont(font3);
+                          cellG1.setCellStyle(cellStyle3);
+                        
+                        }
+                        
+                        
+             }
+                          HSSFCell cellH1 = row1.createCell((short) 7);
+                        cellH1.setCellValue(logisticsDocBean.getReProcessStatus()); 
+
+             }      
+             } 
+			workbook.write(fileOut);
+			fileOut.flush();
+			fileOut.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return filePath;
+    }
+    /*
+     * Method for Excel Format Load Tendering Download
+     */
+    
+    public String loadTenderingExcelDownload() {
+        String filePath = "";
+        try {
+            java.util.List list = (java.util.List) httpServletRequest.getSession(false).getAttribute(AppConstants.SES_LOAD_LIST);
+                   
+            File file = new File(Properties.getProperty("mscvp.loadTenderingCreationPath"));
+            if(!file.exists())
+                file.mkdirs();
+              
+                  
+        
+            //for XP
+             FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"\\loadTendering.xls");
+            filePath = file.getAbsolutePath()+"\\loadTendering.xls";
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            HSSFSheet worksheet = workbook.createSheet("loadTendering");
+            HSSFRow row1;
+            LogisticsLoadBean logisticsLoadBean = null;
+            // index from 0,0... cell A1 is cell(0,0)
+                     
+            if(list.size()!=0){
+                    
+             HSSFCellStyle cellStyle = workbook.createCellStyle();
+             HSSFCellStyle cellStyle1 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle2 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle3 = workbook.createCellStyle();
+              HSSFCellStyle cellStyleHead = workbook.createCellStyle();
+              HSSFFont font1 = workbook.createFont();
+              HSSFFont font2 = workbook.createFont();
+              HSSFFont font3 = workbook.createFont();
+              HSSFFont font4 = workbook.createFont();
+              HSSFFont fontHead = workbook.createFont();
+              fontHead.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+             // fontHead.setFontHeightInPoints((short)15);  //for font Size
+              font4.setColor(HSSFColor.WHITE.index);
+              
+             cellStyle.setFillForegroundColor(HSSFColor.BLACK.index);
+             cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+             cellStyle.setFont(font4);
+		//start	
+             Date date = new Date();
+            row1 = worksheet.createRow((short) 0);
+            HSSFCell cellpo0 = row1.createCell((short) 0);
+            // cellpo0.setCellValue("Purchase Order");
+            HSSFCell cellpo1 = row1.createCell((short) 1);
+            HSSFCell cellpo2 = row1.createCell((short) 2);
+           // cellpo2.setCellValue("Created Date");
+            HSSFCell cellpo3 = row1.createCell((short) 3);
+            //cellpo3.setCellValue((date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            
+            HSSFCell cellpo4 = row1.createCell((short) 4);
+            HSSFCell cellpo5 = row1.createCell((short) 5);
+            HSSFCell cellpo6 = row1.createCell((short) 6);
+            HSSFCell cellpo7 = row1.createCell((short) 7);
+//            HSSFCell cellpo8 = row1.createCell((short) 8);
+            row1 = worksheet.createRow((short) 1);
+            Cell cell = row1.createCell((short) 1);
+            cell.setCellValue("LoadTendering :-Created Date : "+(date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            cellStyleHead.setFont(fontHead);
+            cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+            cell.setCellStyle(cellStyleHead);
+            worksheet.addMergedRegion(CellRangeAddress.valueOf("B2:F2"));
+
+
+
+            
+             //end
+             row1 = worksheet.createRow((short) 3);
+             
+             HSSFCell cella1 = row1.createCell((short) 0);
+             cella1.setCellValue("FileFormat");
+             cella1.setCellStyle(cellStyle);
+                        //HSSFCellStyle cellStyle = workbook.createCellStyle();
+			
+             HSSFCell cellb1 = row1.createCell((short) 1);
+             cellb1.setCellValue("InstanceId");
+             cellb1.setCellStyle(cellStyle);
+              HSSFCell cellc1 = row1.createCell((short) 2);
+             cellc1.setCellValue("Partner");
+             cellc1.setCellStyle(cellStyle);
+              HSSFCell celld1 = row1.createCell((short) 3);
+             celld1.setCellValue("DateTime");
+             celld1.setCellStyle(cellStyle);
+              HSSFCell celle1 = row1.createCell((short) 4);
+             celle1.setCellValue("TransType");
+             celle1.setCellStyle(cellStyle);
+              HSSFCell cellf1 = row1.createCell((short) 5);
+             cellf1.setCellValue("Direction");
+             cellf1.setCellStyle(cellStyle);
+              HSSFCell cellg1 = row1.createCell((short) 6);
+             cellg1.setCellValue("Status");
+             cellg1.setCellStyle(cellStyle);
+              HSSFCell cellh1 = row1.createCell((short) 7);
+             cellh1.setCellValue("Reprocess");
+             cellh1.setCellStyle(cellStyle);
+//             HSSFCell celli1 = row1.createCell((short) 8);
+//             celli1.setCellValue("Ack Status");
+//             celli1.setCellStyle(cellStyle);
+             
+             for (int i = 0; i < list.size(); i++) {
+            logisticsLoadBean = (LogisticsLoadBean) list.get(i);
+            
+             row1 = worksheet.createRow((short) i+4);
+
+			HSSFCell cellA1 = row1.createCell((short) 0);
+                       
+                        cellA1.setCellValue(logisticsLoadBean.getFile_type());  
+			
+			
+			HSSFCell cellB1 = row1.createCell((short) 1);
+                        
+                          cellB1.setCellValue(logisticsLoadBean.getFile_id());  
+                        HSSFCell cellC1 = row1.createCell((short) 2);
+                       
+                          cellC1.setCellValue(logisticsLoadBean.getPname());  
+                        
+                        HSSFCell cellD1 = row1.createCell((short) 3);
+                         
+                           cellD1.setCellValue(logisticsLoadBean.getDate_time_rec().toString().substring(0, logisticsLoadBean.getDate_time_rec().toString().lastIndexOf(":")));  
+                        HSSFCell cellE1 = row1.createCell((short) 4);
+                        
+                           cellE1.setCellValue(logisticsLoadBean.getTransaction_type());  
+                        
+                        HSSFCell cellF1 = row1.createCell((short) 5);
+                        cellF1.setCellValue(logisticsLoadBean.getDirection());  
+//                          HSSFCell cellG1 = row1.createCell((short) 6);
+//                        cellG1.setCellValue(logisticsDocBean.getCheckAmount()); 
+                        
+                         // cellF1.setCellValue(shipmentBean.getStatus());   
+                        
+                       // HSSFCell cellG1 = row1.createCell((short) 5);
+                        HSSFCell cellG1 = row1.createCell((short) 6);
+                         if(logisticsLoadBean.getStatus()!=null) {
+                           //cellG1.setCellValue(purchaseOrderBean.getStatus());  
+                               if(logisticsLoadBean.getStatus().equalsIgnoreCase("SUCCESS")){
+                        
+                          
+                         font1.setColor(HSSFColor.GREEN.index);
+                           //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                         cellG1.setCellValue(logisticsLoadBean.getStatus().toUpperCase()); 
+                        cellStyle1.setFont(font1);
+                        cellG1.setCellStyle(cellStyle1);
+                          
+                        }else if(logisticsLoadBean.getStatus().equalsIgnoreCase("ERROR")){
+                            
+                           font2.setColor(HSSFColor.RED.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                            cellG1.setCellValue(logisticsLoadBean.getStatus().toUpperCase()); 
+                            cellStyle2.setFont(font2);
+                            cellG1.setCellStyle(cellStyle2);
+                         
+                        }else{
+                           
+                          font3.setColor(HSSFColor.ORANGE.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                          cellG1.setCellValue(logisticsLoadBean.getStatus().toUpperCase()); 
+                          cellStyle3.setFont(font3);
+                          cellG1.setCellStyle(cellStyle3);
+                        
+                        }
+                        
+                        
+             }
+                          HSSFCell cellH1 = row1.createCell((short) 7);
+                        cellH1.setCellValue(logisticsLoadBean.getReProcessStatus()); 
+
+             }      
+             } 
+			workbook.write(fileOut);
+			fileOut.flush();
+			fileOut.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return filePath;
+    }
+    /*
+     * Method for Excel Format Load Tendering Download
+     */
+    
+    public String ltResponseExcelDownload() {
+        String filePath = "";
+        try {
+            java.util.List list = (java.util.List) httpServletRequest.getSession(false).getAttribute(AppConstants.SES_LTRESPONSE_LIST);
+                   
+            File file = new File(Properties.getProperty("mscvp.ltResponseCreationPath"));
+            if(!file.exists())
+                file.mkdirs();
+              
+                  
+            //SearchedDocument.xls
+        //FileOutputStream fileOut = new FileOutputStream("C:\\docExcel.xls");
+            //for linux
+           // FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"/Payment.xls");
+              
+            //filePath = file.getAbsolutePath()+"/Payment.xls";
+                
+            //for XP
+             FileOutputStream fileOut = new FileOutputStream(file.getAbsolutePath()+"\\ltResponse.xls");
+            filePath = file.getAbsolutePath()+"\\ltResponse.xls";
+            HSSFWorkbook workbook = new HSSFWorkbook();
+            HSSFSheet worksheet = workbook.createSheet("ltResponse");
+            HSSFRow row1;
+            LtResponseBean ltResponseBean = null;
+            // index from 0,0... cell A1 is cell(0,0)
+                     
+            if(list.size()!=0){
+                    
+             HSSFCellStyle cellStyle = workbook.createCellStyle();
+             HSSFCellStyle cellStyle1 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle2 = workbook.createCellStyle();
+              HSSFCellStyle cellStyle3 = workbook.createCellStyle();
+              HSSFCellStyle cellStyleHead = workbook.createCellStyle();
+              HSSFFont font1 = workbook.createFont();
+              HSSFFont font2 = workbook.createFont();
+              HSSFFont font3 = workbook.createFont();
+              HSSFFont font4 = workbook.createFont();
+              HSSFFont fontHead = workbook.createFont();
+              fontHead.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+             // fontHead.setFontHeightInPoints((short)15);  //for font Size
+              font4.setColor(HSSFColor.WHITE.index);
+              
+             cellStyle.setFillForegroundColor(HSSFColor.BLACK.index);
+             cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+             cellStyle.setFont(font4);
+		//start	
+             Date date = new Date();
+            row1 = worksheet.createRow((short) 0);
+            HSSFCell cellpo0 = row1.createCell((short) 0);
+            // cellpo0.setCellValue("Purchase Order");
+            HSSFCell cellpo1 = row1.createCell((short) 1);
+            HSSFCell cellpo2 = row1.createCell((short) 2);
+           // cellpo2.setCellValue("Created Date");
+            HSSFCell cellpo3 = row1.createCell((short) 3);
+            //cellpo3.setCellValue((date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            
+            HSSFCell cellpo4 = row1.createCell((short) 4);
+            HSSFCell cellpo5 = row1.createCell((short) 5);
+            HSSFCell cellpo6 = row1.createCell((short) 6);
+            HSSFCell cellpo7 = row1.createCell((short) 7);
+//            HSSFCell cellpo8 = row1.createCell((short) 8);
+            row1 = worksheet.createRow((short) 1);
+            Cell cell = row1.createCell((short) 1);
+            cell.setCellValue("LT Response :-Created Date : "+(date.getYear()+1900)+"-"+(date.getMonth()+1)+"-"+date.getDate());
+            cellStyleHead.setFont(fontHead);
+            cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+            cell.setCellStyle(cellStyleHead);
+            worksheet.addMergedRegion(CellRangeAddress.valueOf("B2:F2"));
+
+
+
+            
+             //end
+             row1 = worksheet.createRow((short) 3);
+             
+             HSSFCell cella1 = row1.createCell((short) 0);
+             cella1.setCellValue("FileFormat");
+             cella1.setCellStyle(cellStyle);
+                        //HSSFCellStyle cellStyle = workbook.createCellStyle();
+			
+             HSSFCell cellb1 = row1.createCell((short) 1);
+             cellb1.setCellValue("InstanceId");
+             cellb1.setCellStyle(cellStyle);
+              HSSFCell cellc1 = row1.createCell((short) 2);
+             cellc1.setCellValue("Partner");
+             cellc1.setCellStyle(cellStyle);
+              HSSFCell celld1 = row1.createCell((short) 3);
+             celld1.setCellValue("TransType");
+             celld1.setCellStyle(cellStyle);
+              HSSFCell celle1 = row1.createCell((short) 4);
+             celle1.setCellValue("Direction");
+             celle1.setCellStyle(cellStyle);
+              HSSFCell cellf1 = row1.createCell((short) 5);
+             cellf1.setCellValue("Status");
+             cellf1.setCellStyle(cellStyle);
+              HSSFCell cellg1 = row1.createCell((short) 6);
+             cellg1.setCellValue("AckStatus");
+             cellg1.setCellStyle(cellStyle);
+              HSSFCell cellh1 = row1.createCell((short) 7);
+             cellh1.setCellValue("Reprocess");
+             cellh1.setCellStyle(cellStyle);
+//             HSSFCell celli1 = row1.createCell((short) 8);
+//             celli1.setCellValue("Ack Status");
+//             celli1.setCellStyle(cellStyle);
+             
+             for (int i = 0; i < list.size(); i++) {
+            ltResponseBean = (LtResponseBean) list.get(i);
+            
+             row1 = worksheet.createRow((short) i+4);
+
+			HSSFCell cellA1 = row1.createCell((short) 0);
+                       
+                        cellA1.setCellValue(ltResponseBean.getFileType());  
+			
+			
+			HSSFCell cellB1 = row1.createCell((short) 1);
+                        
+                          cellB1.setCellValue(ltResponseBean.getFileId());  
+                        HSSFCell cellC1 = row1.createCell((short) 2);
+                       
+                          cellC1.setCellValue(ltResponseBean.getPartnerName());  
+                        
+                        HSSFCell cellD1 = row1.createCell((short) 3);
+                         
+                           cellD1.setCellValue(ltResponseBean.getTransType());  
+                        HSSFCell cellE1 = row1.createCell((short) 4);
+                        
+                           cellE1.setCellValue(ltResponseBean.getDirection());  
+                        
+//                        HSSFCell cellF1 = row1.createCell((short) 5);
+//                        cellF1.setCellValue(logisticsLoadBean.getDirection());  
+//                          HSSFCell cellG1 = row1.createCell((short) 6);
+//                        cellG1.setCellValue(logisticsDocBean.getCheckAmount()); 
+                        
+                         // cellF1.setCellValue(shipmentBean.getStatus());   
+                        
+                       // HSSFCell cellG1 = row1.createCell((short) 5);
+                        HSSFCell cellF1 = row1.createCell((short) 5);
+                         if(ltResponseBean.getStatus()!=null) {
+                           //cellG1.setCellValue(purchaseOrderBean.getStatus());  
+                               if(ltResponseBean.getStatus().equalsIgnoreCase("SUCCESS")){
+                        
+                          
+                         font1.setColor(HSSFColor.GREEN.index);
+                           //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                         cellF1.setCellValue(ltResponseBean.getStatus().toUpperCase()); 
+                        cellStyle1.setFont(font1);
+                        cellF1.setCellStyle(cellStyle1);
+                          
+                        }else if(ltResponseBean.getStatus().equalsIgnoreCase("ERROR")){
+                            
+                           font2.setColor(HSSFColor.RED.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                            cellF1.setCellValue(ltResponseBean.getStatus().toUpperCase()); 
+                            cellStyle2.setFont(font2);
+                            cellF1.setCellStyle(cellStyle2);
+                         
+                        }else{
+                           
+                          font3.setColor(HSSFColor.ORANGE.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                          cellF1.setCellValue(ltResponseBean.getStatus().toUpperCase()); 
+                          cellStyle3.setFont(font3);
+                          cellF1.setCellStyle(cellStyle3);
+                        
+                        }
+                         } 
+                
+                        HSSFCell cellG1 = row1.createCell((short) 6);
+                          
+                         if(ltResponseBean.getAckStatus()!=null) {
+                           //cellG1.setCellValue(purchaseOrderBean.getStatus());  
+                               if(ltResponseBean.getAckStatus().equalsIgnoreCase("ACCEPTED")){
+                        
+                          
+                         font1.setColor(HSSFColor.GREEN.index);
+                           //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                         cellG1.setCellValue(ltResponseBean.getAckStatus().toUpperCase()); 
+                        cellStyle1.setFont(font1);
+                        cellG1.setCellStyle(cellStyle1);
+                          
+                        }else if(ltResponseBean.getAckStatus().equalsIgnoreCase("REJECTED")){
+                            
+                           font2.setColor(HSSFColor.RED.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                            cellG1.setCellValue(ltResponseBean.getAckStatus().toUpperCase()); 
+                            cellStyle2.setFont(font2);
+                            cellG1.setCellStyle(cellStyle2);
+                         
+                        }else{
+                           
+                          font3.setColor(HSSFColor.ORANGE.index);
+                            //cellG1.setCellValue(docRepositoryBean.getStatus());  
+                          cellG1.setCellValue(ltResponseBean.getAckStatus().toUpperCase()); 
+                          cellStyle3.setFont(font3);
+                          cellG1.setCellStyle(cellStyle3);
+                        
+                        }
+                        
+                        
+             }
+                         
+                         HSSFCell cellH1 = row1.createCell((short) 7);
+                        cellH1.setCellValue(ltResponseBean.getReprocess()); 
+             }      
+             } 
+			workbook.write(fileOut);
+			fileOut.flush();
+			fileOut.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        return filePath;
+    }
+    
+    
+    /**
+     * @return the downloadType
+     */
+    public String getDownloadType() {
+        return downloadType;
+    }
+
+    /**
+     * @param downloadType the downloadType to set
+     */
+    public void setDownloadType(String downloadType) {
+        this.downloadType = downloadType;
+    }
+
+    /**
+     * @return the sheetType
+     */
+    public String getSheetType() {
+        return sheetType;
+    }
+
+    /**
+     * @param sheetType the sheetType to set
+     */
+    public void setSheetType(String sheetType) {
+        this.sheetType = sheetType;
+    }
+    
+}

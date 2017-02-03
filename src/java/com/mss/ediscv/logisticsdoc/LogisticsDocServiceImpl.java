@@ -196,6 +196,40 @@ public class LogisticsDocServiceImpl implements LogisticsDocService {
                 documentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.FILENAME", corrvalue2.trim().toUpperCase()));
             }
         }
+        
+            //Instance Id
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Instance Id"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                documentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.FILE_ID", corrvalue.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Instance Id"))) {
+            if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
+                documentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.FILE_ID", corrvalue1.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute2 != null) && (corrattribute2.equalsIgnoreCase("Instance Id"))) {
+            if (corrvalue2 != null && !"".equals(corrvalue2.trim())) {
+                documentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.FILE_ID", corrvalue2.trim().toUpperCase()));
+            }
+        }
+        //Direction
+         if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Direction"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                documentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.DIRECTION", corrvalue.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Direction"))) {
+            if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
+                documentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.DIRECTION", corrvalue1.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute2 != null) && (corrattribute2.equalsIgnoreCase("Direction"))) {
+            if (corrvalue2 != null && !"".equals(corrvalue2.trim())) {
+                documentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.DIRECTION", corrvalue2.trim().toUpperCase()));
+            }
+        }
+        
         if (doctype != null && !"".equals(doctype.trim())) {
             documentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.TRANSACTION_TYPE", doctype.trim()));
         }

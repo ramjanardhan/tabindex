@@ -96,13 +96,7 @@
                 document.getElementById("corr").style.display = "block";
             else
                 document.getElementById("corr").style.display = "none";
-            var value2 = document.getElementById("corrattribute2").value;
-            if (value2 != "-1")
-                document.getElementById("corr1").style.display = "block";
-            else
-                document.getElementById("corr1").style.display = "none";
-
-        }
+                 }
         </script>
 
 
@@ -235,8 +229,7 @@
                                                         count++;
                                                         if (count == 1)
                                                             document.getElementById("corr").style.display = "block";
-                                                        else if (count == 2)
-                                                            document.getElementById("corr1").style.display = "block";
+                                                        
                                                         else
                                                             alert('Limit exceded.... cant add more fields');
                                                     })
@@ -255,18 +248,7 @@
 
                                                     </div>
                                                 </div>
-                                                <div id="corr1" style="display: none">
-                                                    <br>   <div class="row">
-                                                        <div class="col-sm-3">
-                                                            <label for="corrattribute2">Correlation</label>
-                                                            <s:select headerKey="-1" headerValue="Select Attribute" cssClass="form-control" list="correlationList" name="corrattribute2" id="corrattribute2" value="%{corrattribute2}"  />
-                                                        </div>
-                                                        <div class="col-sm-3">
-                                                            <label for="corrvalue2">Value</label>
-                                                            <s:textfield cssClass="form-control" name="corrvalue2" id="corrvalue2" value="%{corrvalue2}" />
-                                                        </div>
-
-                                                    </div></div>
+                                              s
                                             </div>
                                         </div>
                                         <br>

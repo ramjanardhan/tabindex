@@ -112,6 +112,30 @@ public class LtShipmentServiceImpl implements LtShipmentService {
                 ltShipmentSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_SHIPMENT.STOP_SEQ_NUM", corrvalue1.trim().toUpperCase()));
             }
         }
+             //Instance Id
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Instance Id"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                ltShipmentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.FILE_ID", corrvalue.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Instance Id"))) {
+            if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
+                ltShipmentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.FILE_ID", corrvalue1.trim().toUpperCase()));
+            }
+        }
+       
+        //Direction
+         if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Direction"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                ltShipmentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.DIRECTION", corrvalue.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Direction"))) {
+            if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
+                ltShipmentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.DIRECTION", corrvalue1.trim().toUpperCase()));
+            }
+        }
+       
         if (doctype != null && !"".equals(doctype.trim())) {
             ltShipmentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.TRANSACTION_TYPE", doctype.trim()));
         }

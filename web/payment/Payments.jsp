@@ -228,7 +228,7 @@
 
                                                 <div class="col-sm-2"><s:submit value="Search"  onclick="return checkCorrelation();" cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
 
-                                                <div class="col-sm-2"><strong><input type="reset" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetValues();"/></strong></div>
+                                                <div class="col-sm-2"><strong><input type="reset" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetValues1();"/></strong></div>
                                                 </td>
                                                 <s:hidden name="sampleValue" id="sampleValue" value="2"/>
 
@@ -642,7 +642,7 @@
                 return false;
             }
         }
-        function resetValues()
+        function resetValues1()
         {
             document.getElementById('paDateFrom').value="";
             document.getElementById('paDateTo').value="";
@@ -666,9 +666,9 @@
         {
             $('#hide-menu1').removeClass('show-menu');
         }
-        $('body,html').click(function(e){
-            $('#hide-menu1').removeClass('show-menu');
-        });
+//        $('body,html').click(function(e){
+//            $('#hide-menu1').removeClass('show-menu');
+//        });
     </script>
      <script>
      $("#addButton").click(function(){

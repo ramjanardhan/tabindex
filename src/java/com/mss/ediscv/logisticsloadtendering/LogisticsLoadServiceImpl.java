@@ -49,7 +49,7 @@ public class LogisticsLoadServiceImpl implements LogisticsLoadService {
         String docRecName = logisticsDocAction.getDocRecName();
         String docIsa = logisticsDocAction.getDocIsa();
         String doctype = "";
-        if (!logisticsDocAction.getDocType().equals("-1")) {
+        if ((logisticsDocAction.getDocType()!= null)&&(!logisticsDocAction.getDocType().equals("-1"))) {
             doctype = logisticsDocAction.getDocType();
         }
         String corrattribute = logisticsDocAction.getCorrattribute();
@@ -70,64 +70,64 @@ public class LogisticsLoadServiceImpl implements LogisticsLoadService {
                 + "LEFT OUTER JOIN TP TP2 ON(TP2.ID=TF.RECEIVER_ID)");
         documentSearchQuery.append(" WHERE 1=1 AND tf.FLOWFLAG LIKE '%L%'");
         // FOr PO
-        if (corrattribute.equalsIgnoreCase("Shipment Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Shipment Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 documentSearchQuery.append(WildCardSql.getWildCardSql1("tl.SHIPMENT_ID", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("Shipment Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Shipment Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 documentSearchQuery.append(WildCardSql.getWildCardSql1("tl.SHIPMENT_ID", corrvalue1.trim().toUpperCase()));
             }
         }
-        if (corrattribute2.equalsIgnoreCase("Shipment Number")) {
+        if ((corrattribute2 != null) && (corrattribute2.equalsIgnoreCase("Shipment Number"))) {
             if (corrvalue2 != null && !"".equals(corrvalue2.trim())) {
                 documentSearchQuery.append(WildCardSql.getWildCardSql1("tl.SHIPMENT_ID", corrvalue2.trim().toUpperCase()));
             }
         }
-        if (corrattribute.equalsIgnoreCase("BOL Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("BOL Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 documentSearchQuery.append(WildCardSql.getWildCardSql1("tl.BOL_NUMBER", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("BOL Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("BOL Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 documentSearchQuery.append(WildCardSql.getWildCardSql1("tl.BOL_NUMBER", corrvalue1.trim().toUpperCase()));
             }
         }
-        if (corrattribute2.equalsIgnoreCase("BOL Number")) {
+        if ((corrattribute2 != null) && (corrattribute2.equalsIgnoreCase("BOL Number"))) {
             if (corrvalue2 != null && !"".equals(corrvalue2.trim())) {
                 documentSearchQuery.append(WildCardSql.getWildCardSql1("tl.BOL_NUMBER", corrvalue2.trim().toUpperCase()));
             }
         }
         // isa 
-        if (corrattribute.equalsIgnoreCase("PO Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("PO Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 documentSearchQuery.append(WildCardSql.getWildCardSql1("tl.PO_NUMBER", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("PO Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("PO Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 documentSearchQuery.append(WildCardSql.getWildCardSql1("tl.PO_NUMBER", corrvalue1.trim().toUpperCase()));
             }
         }
-        if (corrattribute2.equalsIgnoreCase("PO Number")) {
+        if ((corrattribute2 != null) && (corrattribute2.equalsIgnoreCase("PO Number"))) {
             if (corrvalue2 != null && !"".equals(corrvalue2.trim())) {
                 documentSearchQuery.append(WildCardSql.getWildCardSql1("tl.PO_NUMBER", corrvalue2.trim().toUpperCase()));
             }
         }
         // bol
-        if (corrattribute.equalsIgnoreCase("CO Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("CO Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 documentSearchQuery.append(WildCardSql.getWildCardSql1("tl.CO_NUMBER", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("CO Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("CO Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 documentSearchQuery.append(WildCardSql.getWildCardSql1("tl.CO_NUMBER", corrvalue1.trim().toUpperCase()));
             }
         }
-        if (corrattribute2.equalsIgnoreCase("CO Number")) {
+        if ((corrattribute2 != null) && (corrattribute2.equalsIgnoreCase("CO Number"))) {
             if (corrvalue2 != null && !"".equals(corrvalue2.trim())) {
                 documentSearchQuery.append(WildCardSql.getWildCardSql1("tl.CO_NUMBER", corrvalue2.trim().toUpperCase()));
             }

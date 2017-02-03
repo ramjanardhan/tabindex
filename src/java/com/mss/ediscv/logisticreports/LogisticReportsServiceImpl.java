@@ -50,7 +50,7 @@ public class LogisticReportsServiceImpl implements LogisticReportsService {
         String docBusId = logisticreportsAction.getDocBusId();
         String docRecName = logisticreportsAction.getDocRecName();
         String doctype = "";
-        if (!logisticreportsAction.getDocType().equals("-1")) {
+        if ((logisticreportsAction.getDocType()!= null)&&(!logisticreportsAction.getDocType().equals("-1"))) {
             doctype = logisticreportsAction.getDocType();
         }
         String status = logisticreportsAction.getStatus();

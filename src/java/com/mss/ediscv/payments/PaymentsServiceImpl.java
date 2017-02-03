@@ -50,19 +50,19 @@ public class PaymentsServiceImpl implements PaymentsService {
         String paDateTo = paymentsAction.getPaDateTo();
         String paDateFrom = paymentsAction.getPaDateFrom();
         String paSenderId = "";
-        if (!paymentsAction.getPaSenderId().equals("-1")) {
+        if (paymentsAction.getPaSenderId()!=null && !paymentsAction.getPaSenderId().equals("-1")) {
             paSenderId = paymentsAction.getPaSenderId();
         }
         String paSenderName = "";
-        if (!paymentsAction.getPaSenderName().equals("-1")) {
+        if (paymentsAction.getPaSenderName()!=null && !paymentsAction.getPaSenderName().equals("-1")) {
             paSenderName = paymentsAction.getPaSenderName();
         }
         String paRecId = "";
-        if (!paymentsAction.getPaRecId().equals("-1")) {
+        if (paymentsAction.getPaRecId()!=null && !paymentsAction.getPaRecId().equals("-1")) {
             paRecId = paymentsAction.getPaRecId();
         }
         String paRecName = "";
-        if (!paymentsAction.getPaRecName().equals("-1")) {
+        if (paymentsAction.getPaRecName()!=null && !paymentsAction.getPaRecName().equals("-1")) {
             paRecName = paymentsAction.getPaRecName();
         }
         String status = paymentsAction.getStatus();
@@ -72,7 +72,7 @@ public class PaymentsServiceImpl implements PaymentsService {
         String corrattribute1 = paymentsAction.getCorrattribute1();
         String corrvalue1 = paymentsAction.getCorrvalue1();
         String doctype = "";
-        if (!paymentsAction.getDocType().equals("-1")) {
+        if (paymentsAction.getDocType()!=null && !paymentsAction.getDocType().equals("-1")) {
             doctype = paymentsAction.getDocType();
         }
         paymentSearchQuery.append("SELECT DISTINCT(PAYMENT.FILE_ID) as FILE_ID,FILES.TRANSACTION_TYPE,TP1.ID as Sender_ID, TP1.NAME as Sender_Name, "
@@ -95,24 +95,45 @@ public class PaymentsServiceImpl implements PaymentsService {
             tmp_Recieved_ToTime = DateUtility.getInstance().DateViewToDBCompare(paDateTo);
             paymentSearchQuery.append(" AND FILES.DATE_TIME_RECEIVED <= '" + tmp_Recieved_ToTime + "'");
         }
-        if (corrattribute.equalsIgnoreCase("Cheque Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Cheque Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 paymentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.PRI_KEY_VAL", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute.equalsIgnoreCase("Cheque Amount")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Cheque Amount"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 paymentSearchQuery.append(WildCardSql.getWildCardSql1("PAYMENT.Check_Amount", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("Cheque Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Cheque Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 paymentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.PRI_KEY_VAL", corrvalue1.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("Cheque Amount")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Cheque Amount"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 paymentSearchQuery.append(WildCardSql.getWildCardSql1("PAYMENT.Check_Amount", corrvalue1.trim().toUpperCase()));
+            }
+        }
+           if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Instance Id"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                paymentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.FILE_ID", corrvalue.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Instance Id"))) {
+            if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
+                paymentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.FILE_ID", corrvalue1.trim().toUpperCase()));
+            }
+        }
+         //Direction
+         if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Direction"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                paymentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.DIRECTION", corrvalue.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Direction"))) {
+            if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
+                paymentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.DIRECTION", corrvalue1.trim().toUpperCase()));
             }
         }
         //Doc Type

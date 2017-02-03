@@ -59,21 +59,22 @@
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <script type="text/javascript">
             function check()
-            {
+        {
             
-                var value1=document.getElementById("corrattribute").value;
+            var value1=document.getElementById("corrattribute1").value;
            
-                if (value1!="-1")
-                    document.getElementById("corr").style.display = "block";
-                else
-                    document.getElementById("corr").style.display = "none";
-                var value2=document.getElementById("corrattribute1").value;
-                if (value2!="-1")
-                    document.getElementById("corr1").style.display = "block";
-                else
-                    document.getElementById("corr1").style.display = "none";
+            if (value1!="-1")
+                document.getElementById("corr").style.display = "block";
+            else
+                document.getElementById("corr").style.display = "none";
           
-            }
+          
+        }
+
+        function getDetails(fileId)
+        {  
+            getPaymentDetails(fileId);
+        }
         </script>
         <div>
             <s:include value="../includes/template/header.jsp"/>

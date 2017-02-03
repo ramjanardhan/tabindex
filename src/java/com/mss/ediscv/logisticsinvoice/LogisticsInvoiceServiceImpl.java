@@ -48,7 +48,7 @@ public class LogisticsInvoiceServiceImpl implements LogisticsInvoiceService {
         String invRecId = logisticsInvoiceAction.getInvReceiverId();
         String invRecName = logisticsInvoiceAction.getInvReceiverName();
         String doctype = "";
-        if (!logisticsInvoiceAction.getDocType().equals("-1")) {
+        if ((logisticsInvoiceAction.getDocType()!= null)&&(!logisticsInvoiceAction.getDocType().equals("-1"))) {
             doctype = logisticsInvoiceAction.getDocType();
         }
         String corrattribute = logisticsInvoiceAction.getCorrattribute();
@@ -83,32 +83,32 @@ public class LogisticsInvoiceServiceImpl implements LogisticsInvoiceService {
             tmp_Recieved_ToTime = DateUtility.getInstance().DateViewToDBCompare(datepickerTo);
             invSearchQuery.append(" AND FILES.DATE_TIME_RECEIVED <= '" + tmp_Recieved_ToTime + "'");
         }
-        if (corrattribute.equalsIgnoreCase("Invoice Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Invoice Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 invSearchQuery.append(WildCardSql.getWildCardSql1("FILES.PRI_KEY_VAL", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("Invoice Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Invoice Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 invSearchQuery.append(WildCardSql.getWildCardSql1("FILES.PRI_KEY_VAL", corrvalue1.trim().toUpperCase()));
             }
         }
-        if (corrattribute.equalsIgnoreCase("PO Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("PO Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 invSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_INVOICE.PO_NUMBER", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("PO Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("PO Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 invSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_INVOICE.PO_NUMBER", corrvalue1.trim().toUpperCase()));
             }
         }
-        if (corrattribute.equalsIgnoreCase("Shipment Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Shipment Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 invSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_INVOICE.SHIPMENT_ID", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("Shipment Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Shipment Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 invSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_INVOICE.SHIPMENT_ID", corrvalue1.trim().toUpperCase()));
             }

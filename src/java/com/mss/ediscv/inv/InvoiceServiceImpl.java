@@ -45,19 +45,19 @@ public class InvoiceServiceImpl implements InvoiceService {
         String invdatepickerTO = invoiceAction.getInvdatepicker();
         String invdatepickerfrom = invoiceAction.getInvdatepickerfrom();
         String invSenderId = "";
-        if (!invoiceAction.getInvSenderId().equals("-1")) {
+        if (invoiceAction.getInvSenderId()!=null &&!invoiceAction.getInvSenderId().equals("-1")) {
             invSenderId = invoiceAction.getInvSenderId();
         }
         String invSenderName = "";
-        if (!invoiceAction.getInvSenderName().equals("-1")) {
+        if (invoiceAction.getInvSenderName()!=null && !invoiceAction.getInvSenderName().equals("-1")) {
             invSenderName = invoiceAction.getInvSenderName();
         }
         String invBusId = "";
-        if (!invoiceAction.getInvBusId().equals("-1")) {
+        if (invoiceAction.getInvBusId()!=null && !invoiceAction.getInvBusId().equals("-1")) {
             invBusId = invoiceAction.getInvBusId();
         }
         String invRecName = "";
-        if (!invoiceAction.getInvRecName().equals("-1")) {
+        if (invoiceAction.getInvRecName()!=null && !invoiceAction.getInvRecName().equals("-1")) {
             invRecName = invoiceAction.getInvRecName();
         }
         String invPoNum = invoiceAction.getInvPoNum();
@@ -67,7 +67,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         String corrattribute = invoiceAction.getCorrattribute();
         String corrvalue = invoiceAction.getCorrvalue();
         String doctype = "";
-        if (!invoiceAction.getDocType().equals("-1")) {
+        if (invoiceAction.getDocType()!=null && !invoiceAction.getDocType().equals("-1")) {
             doctype = invoiceAction.getDocType();
         }
         invoiceSearchQuery.append("SELECT DISTINCT(INVOICE.INVOICE_NUMBER) as INVOICE_NUMBER,FILES.FILE_ID as FILEID,FILES.DIRECTION as DIRECTION,"
@@ -88,11 +88,24 @@ public class InvoiceServiceImpl implements InvoiceService {
             invoiceSearchQuery.append(" AND FILES.DATE_TIME_RECEIVED <= '" + tmp_Recieved_ToTime + "'");
         }
 
-        if (corrattribute.equalsIgnoreCase("Invoice Number")) {
+        if (corrattribute!=null && corrattribute.equalsIgnoreCase("Invoice Number")) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 invoiceSearchQuery.append(WildCardSql.getWildCardSql1("FILES.PRI_KEY_VAL", corrvalue.trim().toUpperCase()));
             }
         }
+         //Direction
+         if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Direction"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                invoiceSearchQuery.append(WildCardSql.getWildCardSql1("FILES.DIRECTION", corrvalue.trim().toUpperCase()));
+            }
+        }
+        //Instance Id 
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Instance Id"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                invoiceSearchQuery.append(WildCardSql.getWildCardSql1("FILES.FILE_ID", corrvalue.trim().toUpperCase()));
+            }
+        }
+        
         //DocType
         if (doctype != null && !"".equals(doctype.trim())) {
             invoiceSearchQuery.append(WildCardSql.getWildCardSql1("FILES.TRANSACTION_TYPE", doctype.trim()));

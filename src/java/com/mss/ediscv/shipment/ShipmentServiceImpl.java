@@ -47,19 +47,19 @@ public class ShipmentServiceImpl implements ShipmentService {
         String datepickerTo = shipmentSearchbean.getDatepicker();
         String datePickerFrom = shipmentSearchbean.getDatepickerfrom();
         String senderId = "";
-        if (!shipmentSearchbean.getSenderId().equals("-1")) {
+        if (shipmentSearchbean.getSenderId()!=null && !shipmentSearchbean.getSenderId().equals("-1")) {
             senderId = shipmentSearchbean.getSenderId();
         }
         String senderName = "";
-        if (!shipmentSearchbean.getSenderName().equals("-1")) {
+        if (shipmentSearchbean.getSenderName()!=null && !shipmentSearchbean.getSenderName().equals("-1")) {
             senderName = shipmentSearchbean.getSenderName();
         }
         String recName = "";
-        if (!shipmentSearchbean.getRecName().equals("-1")) {
+        if (shipmentSearchbean.getRecName()!=null && !shipmentSearchbean.getRecName().equals("-1")) {
             recName = shipmentSearchbean.getRecName();
         }
         String recId = "";
-        if (!shipmentSearchbean.getBuId().equals("-1")) {
+        if (shipmentSearchbean.getBuId()!=null && !shipmentSearchbean.getBuId().equals("-1")) {
             recId = shipmentSearchbean.getBuId();
         }
         String bolNum = shipmentSearchbean.getBolNum();
@@ -71,7 +71,7 @@ public class ShipmentServiceImpl implements ShipmentService {
         String corrattribute1 = shipmentSearchbean.getCorrattribute1();
         String corrvalue1 = shipmentSearchbean.getCorrvalue1();
         String doctype = "";
-        if (!shipmentSearchbean.getDocType().equals("-1")) {
+        if (shipmentSearchbean.getDocType()!=null && !shipmentSearchbean.getDocType().equals("-1")) {
             doctype = shipmentSearchbean.getDocType();
         }
         shipmentSearchQuery.append("SELECT DISTINCT(ASN.FILE_ID) as FILE_ID,"
@@ -100,37 +100,59 @@ public class ShipmentServiceImpl implements ShipmentService {
             shipmentSearchQuery.append(" AND FILES.DATE_TIME_RECEIVED <= '" + tmp_Recieved_ToTime + "'");
         }
         //newly added for corrletionstart
-        if (corrattribute.equalsIgnoreCase("Shipment Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Shipment Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 shipmentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.PRI_KEY_VAL", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("Shipment Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Shipment Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 shipmentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.PRI_KEY_VAL", corrvalue1.trim().toUpperCase()));
             }
         }
-        if (corrattribute.equalsIgnoreCase("BOL Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("BOL Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 shipmentSearchQuery.append(WildCardSql.getWildCardSql1("ASN.BOL_NUMBER", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("BOL Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("BOL Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 shipmentSearchQuery.append(WildCardSql.getWildCardSql1("ASN.BOL_NUMBER", corrvalue1.trim().toUpperCase()));
             }
         }
         //PO NUMBER
-        if (corrattribute.equalsIgnoreCase("PO Number")) {
+        if ((corrattribute != null)  && (corrattribute.equalsIgnoreCase("PO Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 shipmentSearchQuery.append(WildCardSql.getWildCardSql1("ASN.PO_NUMBER", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("PO Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("PO Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 shipmentSearchQuery.append(WildCardSql.getWildCardSql1("ASN.PO_NUMBER", corrvalue1.trim().toUpperCase()));
             }
         }
+          if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Instance Id"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                shipmentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.FILE_ID", corrvalue.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Instance Id"))) {
+            if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
+                shipmentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.FILE_ID", corrvalue1.trim().toUpperCase()));
+            }
+        }
+         //Direction
+         if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Direction"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                shipmentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.DIRECTION", corrvalue.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Direction"))) {
+            if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
+                shipmentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.DIRECTION", corrvalue1.trim().toUpperCase()));
+            }
+        }
+        
         //Doc Type
         if (doctype != null && !"".equals(doctype.trim())) {
             shipmentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.TRANSACTION_TYPE", doctype.trim()));

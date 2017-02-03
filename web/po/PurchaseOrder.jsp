@@ -17,35 +17,13 @@
 <html>
     <head>
         <style>
-                #buttons{
+            #buttons{
                 display: inline-block;
                 float: right;
             }
-           
+
         </style>
-        <script>
-        
-    
-            function doOnLoad() {
-              
-                $("#purchaseorder").addClass("active");
-                $("#oredermanagement").addClass("active");
-                  
-                $("#manufacturing").addClass("active");
-                
-                $("#purchaseorder i").addClass("text-red");
-                document.getElementById('loadingAcoountSearch').style.display="none";
-            }
-               
-            function hide()
-            {
-                
-                $('#hide-menu1').removeClass('show-menu');
-            }
-            $('body,html').click(function(e){
-                $('#hide-menu1').removeClass('show-menu');
-            });
-        </script>
+
 
         <meta charset="utf-8">
 
@@ -54,13 +32,13 @@
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
         <link rel="stylesheet" href='<s:url value="/includes/plugins/daterangepicker/daterangepicker.css"/>'>
-      
+
 
 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-      
-        
-       
+
+
+
 
     </head>
     <%
@@ -70,27 +48,28 @@
         }
 
         //System.out.println("check-->"+check);
-%>
+    %>
 
-    <body class="hold-transition skin-blue sidebar-mini" onload="check();doOnLoad()" onclick="hide()">
+    <body class="hold-transition skin-blue sidebar-mini" onload="check();
+            doOnLoad()" onclick="hide()">
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <script type="text/javascript">
-            function check()
-            {
-            
-                var value1=document.getElementById("corrattribute1").value;
-           
-                if (value1!="-1")
-                    document.getElementById("corr").style.display = "block";
-                else
-                    document.getElementById("corr").style.display = "none";
-                var value2=document.getElementById("corrattribute2").value;
-                if (value2!="-1")
-                    document.getElementById("corr1").style.display = "block";
-                else
-                    document.getElementById("corr1").style.display = "none";
-          
-            }
+                function check()
+                {
+
+                    var value1 = document.getElementById("corrattribute1").value;
+
+                    if (value1 != "-1")
+                        document.getElementById("corr").style.display = "block";
+                    else
+                        document.getElementById("corr").style.display = "none";
+                    var value2 = document.getElementById("corrattribute2").value;
+                    if (value2 != "-1")
+                        document.getElementById("corr1").style.display = "block";
+                    else
+                        document.getElementById("corr1").style.display = "none";
+
+                }
         </script>
         <div>
             <s:include value="../includes/template/header.jsp"/>
@@ -144,11 +123,11 @@
                                                     </div>
                                                     <script type="text/javascript">
                                                         function Date1() {
-                                                            var date=document.purchaseForm.reportrange.value;
-                                                            var arr=date.split("-");
-                                                            var x=arr[1].trim();
+                                                            var date = document.purchaseForm.reportrange.value;
+                                                            var arr = date.split("-");
+                                                            var x = arr[1].trim();
                                                             document.getElementById("poDateFrom").value = arr[0];
-                                                            document.getElementById("poDateTo").value =x ;
+                                                            document.getElementById("poDateTo").value = x;
                                                         }
                                                     </script>
                                                     <div  class="col-sm-3">
@@ -213,19 +192,19 @@
                                                 </div>
 
                                                 <script>
-   
+
                                                 </script>                                      
 
                                                 <script>
-                                                    var count=0;
+                                                    var count = 0;
                                                 </script>                                          
 
                                                 <script>
-                                                    $("#addButton").click(function(){
+                                                    $("#addButton").click(function () {
                                                         count++;
-                                                        if(count==1)
+                                                        if (count == 1)
                                                             document.getElementById("corr").style.display = "block";
-                                                        else if(count==2)
+                                                        else if (count == 2)
                                                             document.getElementById("corr1").style.display = "block";
                                                         else
                                                             alert('Limit exceded.... cant add more fields');
@@ -321,13 +300,13 @@
                                                                     <th >InstanceId</th>
                                                                     <th >PO #</th>
                                                                     <th>DateTime</th> 
-                                                                    <%--   <th >SO #</th> --%>
-                                                                    <%--  <th >SAP IDOC</th>
-                                                                   <th>Item Qty</th> --%>
+                                                                        <%--   <th >SO #</th> --%>
+                                                                        <%--  <th >SAP IDOC</th>
+                                                                       <th>Item Qty</th> --%>
                                                                     <th>Partner</th>
-                                                                    <%--<th>ISA Control # </th>  --%>
-                                                                    <%--<th>GS_Control #</th>  --%>
-                                                                    <%-- <th>PO Status</th>  --%>
+                                                                        <%--<th>ISA Control # </th>  --%>
+                                                                        <%--<th>GS_Control #</th>  --%>
+                                                                        <%-- <th>PO Status</th>  --%>
                                                                     <th>Direction</th>
 
                                                                     <th>Status</th> 
@@ -417,7 +396,6 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-
                                                                             if (purchaseOrderBean.getStatus().equalsIgnoreCase("ERROR")) {
                                                                                 out.println("<font color='red'>" + purchaseOrderBean.getStatus().toUpperCase() + "</font>");
                                                                             } else if (purchaseOrderBean.getStatus().equalsIgnoreCase("SUCCESS")) {
@@ -429,7 +407,6 @@
                                                                     </td>  
                                                                     <td>
                                                                         <%
-
                                                                             //out.println(poLifeCycleBean.getAckStatus());
                                                                             if (purchaseOrderBean.getAckStatus().equalsIgnoreCase("REJECTED")) {
                                                                                 out.println("<font color='red'>" + purchaseOrderBean.getAckStatus().toUpperCase() + "</font>");
@@ -443,8 +420,7 @@
                                                                     </td>  
 
                                                                     <td>
-                                                                        <%
-                                                                            //out.println(purchaseOrderBean.getReProcessStatus());
+                                                                        <%                                                                            //out.println(purchaseOrderBean.getReProcessStatus());
                                                                             if (purchaseOrderBean.getReProcessStatus() != null) {
                                                                                 out.println(purchaseOrderBean.getReProcessStatus().toUpperCase());
 
@@ -454,8 +430,7 @@
 
                                                                         %>
                                                                     </td>
-                                                                    <%
-                                                                        if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104")) {
+                                                                    <%                                                                        if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104")) {
                                                                     %>
                                                                     <td> &nbsp; &nbsp; 
                                                                         <input type = "checkbox" name ="check_List<%=i%>" id = "check_List<%=i%>" value="<%= purchaseOrderBean.getPo()%>"/>&nbsp; &nbsp;  
@@ -470,7 +445,6 @@
                                                                 %>
                                                                 <tr><td>
                                                                         <%
-
                                                                                 out.println("<img  border='0' align='top'  src='" + contextPath + "/includes/images/alert.gif'/><b>No records found for the given search criteria. Please try a different search criteria!</b>");
                                                                             }
 
@@ -480,8 +454,7 @@
                                                         </table>
                                                     </td>
                                                 </tr>
-                                                <%
-                                                    if (list.size() != 0) {
+                                                <%                                                    if (list.size() != 0) {
                                                 %>
                                                 <tr >
                                                     <td align="right" colspan="28" style="background-color: white;">
@@ -503,16 +476,16 @@
                                     <div class="row">
                                         <div id="buttons">
 
-                                            <div class="col-sm-2" style="margin-right:10%"><input type="button" value="ReTransmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to ReTransmit.')" onmouseout="UnTip()" onclick="return getProces(this,document.getElementById('sec_po_list').value);" id="pre"/></div>
+                                            <div class="col-sm-2" style="margin-right:10%"><input type="button" value="ReTransmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to ReTransmit.')" onmouseout="UnTip()" onclick="return getProces(this, document.getElementById('sec_po_list').value);" id="pre"/></div>
 
 
-                                            <div class="col-sm-2" style="margin-right:5%"><input type="button" value="ReSubmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to Resubmit.')" onmouseout="UnTip()" onclick="return getProces(this,document.getElementById('sec_po_list').value);" id="post"/></div>
+                                            <div class="col-sm-2" style="margin-right:5%"><input type="button" value="ReSubmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to Resubmit.')" onmouseout="UnTip()" onclick="return getProces(this, document.getElementById('sec_po_list').value);" id="post"/></div>
 
 
                                             <div class="col-sm-2" style="margin-right:5%"><input type="button" value="LifeCycle" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to generate Life Cycle.')" onmouseout="UnTip()" onclick="return getLifeCycle(document.getElementById('sec_po_list').value);"/></div>ss
 
 
-                                            <div class="col-sm-2" style="margin-right:2%"><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('po','xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/> </div>  
+                                            <div class="col-sm-2" style="margin-right:2%"><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('po', 'xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/> </div>  
 
                                         </div>
                                     </div>
@@ -522,165 +495,165 @@
                                 </div>
                             </div>
                         </div></section>
-                                </s:if> </div>
-                    <div id="hide-menu1" class="hide-menu message ">
+                </s:if> </div>
+            <div id="hide-menu1" class="hide-menu message ">
+
+                <div class="row col-sm-12">
+
+
+                    <div class="col-sm-6"> <label class="labelw">Instance Id </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POInstanceId" name="POInstanceId" readonly="true"/>
+                    </div>
+
+
+                    <div class="col-sm-6"> <label class="labelw">PO # :</label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PONum" name="PONum" readonly="true"/>
+                    </div> <div class="row col-sm-12"> <br>
+                        <div class="col-sm-6"> <label class="labelw">Order_Date :</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODates" name="PODates" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw">PO Value :</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POValue" name="POValue" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw">POQuantity:</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POQty" name="POQty" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw">SHIP_DATE :</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POShipDate" name="POShipDate" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw">ROUTINGS :</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PORoutings" name="PORoutings" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw">INVOICED_AMOUNT</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="INVOICED_AMOUNT" name="INVOICED_AMOUNT" readonly="true"/>
+                        </div>
+
+
+                        <div class="col-sm-6"> <label class="labelw">PAYMENTRECEIVED:</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POPaymentReceived" name="POPaymentReceived" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw">SHIPADDRESSID</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POShipAddrId" name="POShipAddrId" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw">BILL_ADDRESS_ID:</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POBillAddrId" name="POBillAddrId" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw">SO&nbsp;# :</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSoNumber" name="POSoNumber" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw">SAPIDOC # :</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSapIdocNum" name="POSapIdocNum" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw">IDOC Status :</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODeilvaryName" name="PODeilvaryName" readonly="true"/>
+                        </div>
 
                         <div class="row col-sm-12">
-                          
-                           
-                            <div class="col-sm-6"> <label class="labelw">Instance Id </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POInstanceId" name="POInstanceId" readonly="true"/>
+                            <div class="col-sm-6"> <label class="labelw">DocumentType: </label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODocumentType" name="PODocumentType" readonly="true"/>
+                            </div>  
+                            <div class="col-sm-6"> <label class="labelw">TransactionType:</label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POTransactionType" name="POTransactionType" readonly="true"/>
+                            </div></div> <div class="row col-sm-12">
+                            <div class="col-sm-6"> <label class="labelw">ORDER_STATUS</label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POOrderStatus" name="POOrderStatus" readonly="true"/>
+                            </div>
+                        </div>
+                        <br>
+                        <div id="senderinfo">
+                            <div class="row col-sm-12">
+                                <div class="col-sm-6"> <h5>Sender Info :</h5></div>
+                                <div class="col-sm-6"></div>
+                                <div class="col-sm-6"></div>
+
+                            </div>
+                            <br>
+                            <div class="row col-sm-12">
+                                <div class="col-sm-6"> <label class="labelw">  Id </label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSenderId" name="POSenderId" readonly="true"/>
+                                </div>
+                                <div class="col-sm-6"> <label class="labelw"> Name </label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSenderName" name="POSenderName" readonly="true"/>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div id="receiverinfo">
+                            <div class="row col-sm-12">
+                                <div class="col-sm-6"> <h5>Receiver Info:</h5></div>
+                                <div class="col-sm-6"></div>
+                                <div class="col-sm-6"></div>
                             </div>
 
-
-                            <div class="col-sm-6"> <label class="labelw">PO # :</label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PONum" name="PONum" readonly="true"/>
-                            </div> <div class="row col-sm-12"> <br>
-                                <div class="col-sm-6"> <label class="labelw">Order_Date :</label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODates" name="PODates" readonly="true"/>
+                            <br>
+                            <div class="row col-sm-12 clear">
+                                <div class="col-sm-6"> <label class="labelw">  Id </label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POReceiverId" name="POReceiverId" readonly="true"/>
                                 </div>
-                                <div class="col-sm-6"> <label class="labelw">PO Value :</label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POValue" name="POValue" readonly="true"/>
+                                <div class="col-sm-6"> <label class="labelw"> Name </label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POReceiverName" name="POReceiverName" readonly="true"/>
                                 </div>
-                                <div class="col-sm-6"> <label class="labelw">POQuantity:</label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POQty" name="POQty" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label class="labelw">SHIP_DATE :</label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POShipDate" name="POShipDate" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label class="labelw">ROUTINGS :</label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PORoutings" name="PORoutings" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label class="labelw">INVOICED_AMOUNT</label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="INVOICED_AMOUNT" name="INVOICED_AMOUNT" readonly="true"/>
-                                </div>
-
-
-                                <div class="col-sm-6"> <label class="labelw">PAYMENTRECEIVED:</label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POPaymentReceived" name="POPaymentReceived" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label class="labelw">SHIPADDRESSID</label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POShipAddrId" name="POShipAddrId" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label class="labelw">BILL_ADDRESS_ID:</label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POBillAddrId" name="POBillAddrId" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label class="labelw">SO&nbsp;# :</label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSoNumber" name="POSoNumber" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label class="labelw">SAPIDOC # :</label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSapIdocNum" name="POSapIdocNum" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label class="labelw">IDOC Status :</label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODeilvaryName" name="PODeilvaryName" readonly="true"/>
-                                </div>
-
-                                <div class="row col-sm-12">
-                                    <div class="col-sm-6"> <label class="labelw">DocumentType: </label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODocumentType" name="PODocumentType" readonly="true"/>
-                                    </div>  
-                                    <div class="col-sm-6"> <label class="labelw">TransactionType:</label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POTransactionType" name="POTransactionType" readonly="true"/>
-                                    </div></div> <div class="row col-sm-12">
-                                        <div class="col-sm-6"> <label class="labelw">ORDER_STATUS</label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POOrderStatus" name="POOrderStatus" readonly="true"/>
-                                    </div>
-                                </div>
-                                <br>
-                                <div id="senderinfo">
-                                    <div class="row col-sm-12">
-                                        <div class="col-sm-6"> <h5>Sender Info :</h5></div>
-                                        <div class="col-sm-6"></div>
-                                        <div class="col-sm-6"></div>
-
-                                    </div>
-                                    <br>
-                                    <div class="row col-sm-12">
-                                        <div class="col-sm-6"> <label class="labelw">  Id </label>
-                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSenderId" name="POSenderId" readonly="true"/>
-                                        </div>
-                                        <div class="col-sm-6"> <label class="labelw"> Name </label>
-                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSenderName" name="POSenderName" readonly="true"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                                <div id="receiverinfo">
-                                    <div class="row col-sm-12">
-                                        <div class="col-sm-6"> <h5>Receiver Info:</h5></div>
-                                        <div class="col-sm-6"></div>
-                                        <div class="col-sm-6"></div>
-                                    </div>
-
-                                    <br>
-                                    <div class="row col-sm-12 clear">
-                                        <div class="col-sm-6"> <label class="labelw">  Id </label>
-                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POReceiverId" name="POReceiverId" readonly="true"/>
-                                        </div>
-                                        <div class="col-sm-6"> <label class="labelw"> Name </label>
-                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POReceiverName" name="POReceiverName" readonly="true"/>
-                                        </div>
-                                    </div>
-                                </div>  <div class="row col-sm-12 clear">
-                                    <div class="col-sm-6"> <label class="labelw">  ISA </label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsa" name="POIsa" readonly="true"/>
-                                    </div>
-                                    <div class="col-sm-6"> <label class="labelw"> GS </label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POGs" name="POGs" readonly="true"/>
-                                    </div>
-                                </div>
-
-                                <br/>
-
-                                <div class="row col-sm-12" style="margin-top:10px;" >
-                                    <div class="col-sm-6"> <label class="labelw">  ST </label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSt" name="POSt" readonly="true"/>
-                                    </div>
-                                    <div class="col-sm-6"> <label class="labelw">ISA DATE </label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsADate" name="POIsADate" readonly="true"/>
-                                    </div>
-
-                                    <div class="col-sm-6"> <label class="labelw">  ISA TIME  </label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsATime" name="POIsATime" readonly="true"/>
-                                    </div>
-                                    <div class="col-sm-6"> <label class="labelw"> STATUS </label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POStatus" name="POStatus" readonly="true"/>
-                                    </div>
-                                </div>
-
-                                <div class="row col-sm-12" >
-                                    <div class="col-sm-6"> <label class="labelw">  PreTranslation  </label></div>
-                                    <div class="col-sm-6"><div id="POPreTransition"></div></div>
-                                </div>
-                                    <div class="col-sm-6"> <label class="labelw"> PostTranslation </label></div>
-                                <div class="col-sm-6"><div id="POPostTransition"></div></div>
                             </div>
-                                    <div class="col-sm-6"> <label class="labelw">997ACKFile </label></div>                      
+                        </div>  <div class="row col-sm-12 clear">
+                            <div class="col-sm-6"> <label class="labelw">  ISA </label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsa" name="POIsa" readonly="true"/>
+                            </div>
+                            <div class="col-sm-6"> <label class="labelw"> GS </label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POGs" name="POGs" readonly="true"/>
+                            </div>
+                        </div>
 
-                            <div class="col-sm-6"><div id="POAckFileId"></div></div>
+                        <br/>
+
+                        <div class="row col-sm-12" style="margin-top:10px;" >
+                            <div class="col-sm-6"> <label class="labelw">  ST </label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSt" name="POSt" readonly="true"/>
+                            </div>
+                            <div class="col-sm-6"> <label class="labelw">ISA DATE </label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsADate" name="POIsADate" readonly="true"/>
+                            </div>
+
+                            <div class="col-sm-6"> <label class="labelw">  ISA TIME  </label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsATime" name="POIsATime" readonly="true"/>
+                            </div>
+                            <div class="col-sm-6"> <label class="labelw"> STATUS </label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POStatus" name="POStatus" readonly="true"/>
+                            </div>
                         </div>
-                                <div class="row col-sm-12 clear" style="visibility: hidden">
-                        <div class="col-sm-6"> <label class="labelw"> SAP_USER </label>
-                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="SAP_USER" name="ManStatus" readonly="true"/>
+
+                        <div class="row col-sm-12" >
+                            <div class="col-sm-6"> <label class="labelw">  PreTranslation  </label></div>
+                            <div class="col-sm-6"><div id="POPreTransition"></div></div>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw"> IDOC_NUMBER </label>
-                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_NUMBER" name="ManStatus" readonly="true"/>
-                        </div>
-                        <div class="col-sm-6"> <label class="labelw"> PO_NUMBER </label>
-                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PO_NUMBER" name="ManStatus" readonly="true"/>
-                        </div>
-                        <div class="col-sm-6"> <label class="labelw"> PO_DATE </label>
-                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PO_DATE" name="ManStatus" readonly="true"/>
-                        </div>
-                        <div class="col-sm-6"> <label class="labelw"> IDOC CODE </label>
-                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_CODE" name="ManStatus" readonly="true"/>
-                        </div>
-                        <div class="col-sm-6"> <label class="labelw"> IDOC DESCRIPTION </label>
-                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_DESCRIPTION" name="ManStatus" readonly="true"/>
-                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> PostTranslation </label></div>
+                        <div class="col-sm-6"><div id="POPostTransition"></div></div>
                     </div>
-                    <br><br><br><br><br><br>
-               
+                    <div class="col-sm-6"> <label class="labelw">997ACKFile </label></div>                      
+
+                    <div class="col-sm-6"><div id="POAckFileId"></div></div>
+                </div>
+                <div class="row col-sm-12 clear" style="visibility: hidden">
+                    <div class="col-sm-6"> <label class="labelw"> SAP_USER </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="SAP_USER" name="ManStatus" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw"> IDOC_NUMBER </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_NUMBER" name="ManStatus" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw"> PO_NUMBER </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PO_NUMBER" name="ManStatus" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw"> PO_DATE </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PO_DATE" name="ManStatus" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw"> IDOC CODE </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_CODE" name="ManStatus" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw"> IDOC DESCRIPTION </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_DESCRIPTION" name="ManStatus" readonly="true"/>
+                    </div>
+                </div>
+                <br><br><br><br><br><br>
+
                 <div class="row col-sm-12" id="errorDiv" style="display: none">
                     <div class="col-sm-6"> <label class="labelw"> Error&nbsp;Message </label></div>
                     <div class="col-sm-6" id="InvErrormessage" style="color: red"></div>
@@ -688,177 +661,199 @@
 
                 <div id="noresult"></div>
                 <div class="row col-sm-12">
-                      <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button>
+                    <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button>
                 </div>
-                 </div>
             </div>
-       
+        </div>
 
-    
 
-<script>
-    $(function () {
-        //$("#example1").DataTable();
-        $('#results').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false
-        });
-    });
-</script>
-</div>
-<div>
-    <s:include value="../includes/template/footer.jsp"/>
-</div>
 
- <script type="text/javascript" src='<s:url value="../includes/js/DateValidation.js"/>'></script>
- <script language="JavaScript"  src='<s:url value="/includes/js/generalValidations.js"/>'></script>
- <script language="JavaScript"  src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
- <script language="JavaScript"  src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
-<script type="text/javascript" src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script>
-<script src='<s:url value="/includes/bootstrap/js/app.min.js"/>'></script>
-<script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
-<script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
-<script type="text/javascript"> 
-    // New function to show the left grid
+        <script>
+            $(function () {
+                //$("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
+        </script>
+    </div>
+    <div>
+        <s:include value="../includes/template/footer.jsp"/>
+    </div>
 
-    function demo()
-    { 
-        $(function() {
-       
-            $('#detail_box').show();
-            return false;          
-        });
-  
-    }
-  
-    function getDetails(val,val1){  
-        getPoDetails(val,val1);
-    }
-  
-  
-    function getLifeCycle(checkList) {
-        var res = false;
-        var i = 0;
-        var po_Num = "";
-        for(var j=0; j<checkList;j++) {
-            if(document.getElementById("check_List"+j)!=null){
-            if(checkList==1)
+    <script type="text/javascript" src='<s:url value="../includes/js/DateValidation.js"/>'></script>
+    <script language="JavaScript"  src='<s:url value="/includes/js/generalValidations.js"/>'></script>
+    <script language="JavaScript"  src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
+    <script language="JavaScript"  src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
+    <script type="text/javascript" src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script>
+    <script src='<s:url value="/includes/bootstrap/js/app.min.js"/>'></script>
+    <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
+    <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
+
+    <script type="text/javascript">
+            // New function to show the left grid
+
+            function demo()
             {
-                res =document.getElementById("check_List"+j).checked;
-                    
-            }else
-            {
-                res = document.getElementById("check_List"+j).checked;
+                $(function () {
+
+                    $('#detail_box').show();
+                    return false;
+                });
+
             }
-             
-            if(res == true) {
-                i = i + 1;
-                if(i==1){
-                    po_Num =   po_Num + document.getElementById("text"+j).value;  
+
+            function getDetails(val, val1) {
+                getPoDetails(val, val1);
+            }
+
+
+            function getLifeCycle(checkList) {
+                var res = false;
+                var i = 0;
+                var po_Num = "";
+                for (var j = 0; j < checkList; j++) {
+                    if (document.getElementById("check_List" + j) != null) {
+                        if (checkList == 1)
+                        {
+                            res = document.getElementById("check_List" + j).checked;
+
+                        } else
+                        {
+                            res = document.getElementById("check_List" + j).checked;
+                        }
+
+                        if (res == true) {
+                            i = i + 1;
+                            if (i == 1) {
+                                po_Num = po_Num + document.getElementById("text" + j).value;
+                            }
+                        }
+                    }
+                }
+                if (i != 1) {
+                    alert("Please select one checkbox to get LifeCycle of PO !!");
+                    return false;
+                }
+                else {
+                    //alert(po_Num);
+                    //window.location = "../lfc/lifeCycle.action?poNumber="+po_Num; 
+                    //purchaseForm.action = "../lfc/lifeCycle.action?poNumber="+po_Num;
+                    location.href = "../lfc/lifecycle.action?poNumber=" + po_Num;
+                    return true;
                 }
             }
-        }
-        }
-        if(i != 1) {
-            alert("Please select one checkbox to get LifeCycle of PO !!");
-            return false;    
-        }
-        else {
-            //alert(po_Num);
-            //window.location = "../lfc/lifeCycle.action?poNumber="+po_Num; 
-            //purchaseForm.action = "../lfc/lifeCycle.action?poNumber="+po_Num;
-            location.href = "../lfc/lifecycle.action?poNumber="+po_Num;
-            return true;
-        }
-    }
-     
-    function resetvalues()
-    {
-        //document.getElementById('poNumber').value="";
-        document.getElementById('poDateFrom').value="";
-        document.getElementById('poDateTo').value="";
-        document.getElementById('reportrange').value=""
-        document.getElementById('docType').value="-1"; 
-        document.getElementById('poSenderId').value="-1";
-        document.getElementById('poSenderName').value="-1";
-        document.getElementById('poRecId').value="-1";
-        document.getElementById('poRecName').value="-1";  
-        document.getElementById('sampleValue').value="1";
-        //document.getElementById('ackStatus').value="-1";
-     
-        document.getElementById('ackStatus').value="-1";
-        document.getElementById('status').value="-1";
-     
-        document.getElementById('corrattribute').value="-1"; 
-        document.getElementById('corrvalue').value=""; 
-    
-        document.getElementById('corrattribute1').value="-1"; 
-        document.getElementById('corrvalue1').value=""; 
-        document.getElementById('corrattribute2').value="-1"; 
-        document.getElementById('corrvalue2').value=""; 
-        //  document.getElementById('docType').value="-1"; 
-     
-        $('#gridDiv').hide();
-    }
+
+            function resetvalues()
+            {
+                //document.getElementById('poNumber').value="";
+                document.getElementById('poDateFrom').value = "";
+                document.getElementById('poDateTo').value = "";
+                document.getElementById('reportrange').value = ""
+                document.getElementById('docType').value = "-1";
+                document.getElementById('poSenderId').value = "-1";
+                document.getElementById('poSenderName').value = "-1";
+                document.getElementById('poRecId').value = "-1";
+                document.getElementById('poRecName').value = "-1";
+                document.getElementById('sampleValue').value = "1";
+                //document.getElementById('ackStatus').value="-1";
+
+                document.getElementById('ackStatus').value = "-1";
+                document.getElementById('status').value = "-1";
+
+                document.getElementById('corrattribute').value = "-1";
+                document.getElementById('corrvalue').value = "";
+
+                document.getElementById('corrattribute1').value = "-1";
+                document.getElementById('corrvalue1').value = "";
+                document.getElementById('corrattribute2').value = "-1";
+                document.getElementById('corrvalue2').value = "";
+                //  document.getElementById('docType').value="-1"; 
+
+                $('#gridDiv').hide();
+            }
 
 
-    function enterDate()
-    {
-        alert("Please select from the Calender !");
-        document.getElementById('poDateFrom').value='';
-    }
+            function enterDate()
+            {
+                alert("Please select from the Calender !");
+                document.getElementById('poDateFrom').value = '';
+            }
 
 
-    function checkCorrelation() {
-     
-               
-        var corrattr = document.getElementById('corrattribute').value;
-        var corrval = document.getElementById('corrvalue').value;
-     
-        var corrattr1 = document.getElementById('corrattribute1').value;
-        var corrval1 = document.getElementById('corrvalue1').value;
-     
-        var corrattr2 = document.getElementById('corrattribute2').value;
-        var corrval2 = document.getElementById('corrvalue2').value;
-     
-  
-        if((corrattr!="-1")&&(corrval=="")) {
-            alert("please enter Correlation Value!!!");
-            return false;
-        }
-        if((corrattr=="-1")&&(corrval!="")) {
-            alert("please select Correlation!");
-            return false;
-        }
-     
-        if((corrattr1!="-1")&&(corrval1=="")) {
-            alert("please enter Correlation Value!!!");
-            return false;
-        }
-        if((corrattr1=="-1")&&(corrval1!="")) {
-            alert("please select Correlation!");
-            return false;
-        }
-     
-        if((corrattr2!="-1")&&(corrval2=="")) {
-            alert("please enter Correlation Value!!!");
-            return false;
-        }
-        if((corrattr2=="-1")&&(corrval2!="")) {
-            alert("please select Correlation!");
-            return false;
-        }
-     
-        var res = Formvalidation(document.getElementById('poDateFrom').value,document.getElementById('poDateTo').value);
-      
-    
-        return res;
-    }
-</script>
+            function checkCorrelation() {
+
+
+                var corrattr = document.getElementById('corrattribute').value;
+                var corrval = document.getElementById('corrvalue').value;
+
+                var corrattr1 = document.getElementById('corrattribute1').value;
+                var corrval1 = document.getElementById('corrvalue1').value;
+
+                var corrattr2 = document.getElementById('corrattribute2').value;
+                var corrval2 = document.getElementById('corrvalue2').value;
+
+
+                if ((corrattr != "-1") && (corrval == "")) {
+                    alert("please enter Correlation Value!!!");
+                    return false;
+                }
+                if ((corrattr == "-1") && (corrval != "")) {
+                    alert("please select Correlation!");
+                    return false;
+                }
+
+                if ((corrattr1 != "-1") && (corrval1 == "")) {
+                    alert("please enter Correlation Value!!!");
+                    return false;
+                }
+                if ((corrattr1 == "-1") && (corrval1 != "")) {
+                    alert("please select Correlation!");
+                    return false;
+                }
+
+                if ((corrattr2 != "-1") && (corrval2 == "")) {
+                    alert("please enter Correlation Value!!!");
+                    return false;
+                }
+                if ((corrattr2 == "-1") && (corrval2 != "")) {
+                    alert("please select Correlation!");
+                    return false;
+                }
+
+                var res = Formvalidation(document.getElementById('poDateFrom').value, document.getElementById('poDateTo').value);
+
+
+                return res;
+            }
+
+
+
+            function doOnLoad() {
+
+                $("#purchaseorder").addClass("active");
+                $("#oredermanagement").addClass("active");
+
+                $("#manufacturing").addClass("active");
+
+                $("#purchaseorder i").addClass("text-red");
+                document.getElementById('loadingAcoountSearch').style.display = "none";
+            }
+
+            function hide()
+            {
+
+                $('#hide-menu1').removeClass('show-menu');
+            }
+            //            $('body,html').click(function(e){
+            //                $('#hide-menu1').removeClass('show-menu');
+            //            });
+    </script>
 </body>
 </html>

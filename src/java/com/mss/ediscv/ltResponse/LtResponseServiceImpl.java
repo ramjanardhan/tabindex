@@ -51,7 +51,7 @@ public class LtResponseServiceImpl implements LtResponseService {
         String receiverId = ltResponse.getReceiverId();
         String receiverName = ltResponse.getReceiverName();
         String doctype = "";
-        if (!ltResponse.getDocType().equals("-1")) {
+        if ((ltResponse.getDocType()!= null)&&(!ltResponse.getDocType().equals("-1"))) {
             doctype = ltResponse.getDocType();
         }
         String corrattribute = ltResponse.getCorrattribute();
@@ -72,22 +72,22 @@ public class LtResponseServiceImpl implements LtResponseService {
                 + "LEFT OUTER JOIN TP TP2 ON (TP2.ID=FILES.RECEIVER_ID)");
         ltResponseSearchQuery.append(" WHERE 1=1 AND FILES.FLOWFLAG = 'L' ");
         // FOr PO
-        if (corrattribute.equalsIgnoreCase("Ref Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Ref Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 ltResponseSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_LT_RESPONSE.REF_ID", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("Ref Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Ref Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 ltResponseSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_LT_RESPONSE.REF_ID", corrvalue1.trim().toUpperCase()));
             }
         }
-        if (corrattribute.equalsIgnoreCase("Shipment Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Shipment Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 ltResponseSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_LT_RESPONSE.SHIPMENT_ID", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("Shipment Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Shipment Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 ltResponseSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_LT_RESPONSE.SHIPMENT_ID", corrvalue1.trim().toUpperCase()));
             }

@@ -178,7 +178,7 @@ public class TrackInOutServiceImpl implements TrackInOutService {
         String docdatepicker = trackInOutAction.getDocdatepicker();
         String docdatepickerfrom = trackInOutAction.getDocdatepickerfrom();
         String docNetworkvan = "";
-        if (!trackInOutAction.getDocNetworkvan().equals("-1")) {
+        if (trackInOutAction.getDocNetworkvan()!=null && !trackInOutAction.getDocNetworkvan().equals("-1")) {
             docNetworkvan = trackInOutAction.getDocNetworkvan();
         }
         docTypeList = DataSourceDataProvider.getInstance().getDocumentTypeList();
@@ -303,10 +303,10 @@ public class TrackInOutServiceImpl implements TrackInOutService {
         String docdatepickerfrom = trackInOutAction.getDocdatepickerfrom();
         String doctype = "";
         String partner = "";
-        if (!trackInOutAction.getDocType().equals("-1")) {
+        if (trackInOutAction.getDocType()!=null && !trackInOutAction.getDocType().equals("-1")) {
             doctype = trackInOutAction.getDocType();
         }
-        if (!trackInOutAction.getPartnerMapId().equals("-1")) {
+        if (trackInOutAction.getPartnerMapId()!=null && !trackInOutAction.getPartnerMapId().equals("-1")) {
             partner = trackInOutAction.getPartnerMapId();
         }
         documentSearchQuery.append("SELECT FILES.TRANSACTION_TYPE as TRANSACTION_TYPE,FILES.DIRECTION as DIRECTION, "

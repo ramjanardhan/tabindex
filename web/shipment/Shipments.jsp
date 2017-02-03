@@ -23,24 +23,9 @@
                 display: inline-block;
                 float:right;
             }
-            /*gnr*/
-           
+
         </style>
-        <script>
-            function doOnLoad() {
-                $("#shipments").addClass("active");
-                $("#supplychain").addClass("active");
-                $("#manufacturing").addClass("active");
-                $("#shipments i").addClass("text-red");
-                document.getElementById('loadingAcoountSearch').style.display = "none";
-            }
-            function hide() {
-                $('#hide-menu1').removeClass('show-menu');
-            }
-            $('body,html').click(function (e) {
-                $('#hide-menu1').removeClass('show-menu');
-            });
-        </script>
+
 
 
         <meta charset="utf-8">
@@ -55,7 +40,7 @@
         <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
         <link rel="stylesheet" href='<s:url value="/includes/plugins/daterangepicker/daterangepicker.css"/>' type="text/css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-       
+
     </head>
     <%
         String check = null;
@@ -64,27 +49,28 @@
         }
 
         //System.out.println("check-->"+check);
-%>
+    %>
 
-<body class="hold-transition skin-blue sidebar-mini" onload= "doOnLoad();check();" onclick="hide()"> 
+    <body class="hold-transition skin-blue sidebar-mini" onload= "doOnLoad();
+            check();" onclick="hide()"> 
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <script type="text/javascript">
-            function check()
-            {
-                var value1=document.getElementById("corrattribute1").value;
-           
-                if (value1!="-1")
-                    document.getElementById("corr").style.display = "block";
-                else
-                    document.getElementById("corr").style.display = "none";
-                var value2=document.getElementById("corrattribute2").value;
-                
-                if (value2!="-1")
-                    document.getElementById("corr1").style.display = "block";
-                else
-                    document.getElementById("corr1").style.display = "none";
-          
-            }
+                function check()
+                {
+                    var value1 = document.getElementById("corrattribute1").value;
+
+                    if (value1 != "-1")
+                        document.getElementById("corr").style.display = "block";
+                    else
+                        document.getElementById("corr").style.display = "none";
+                    var value2 = document.getElementById("corrattribute2").value;
+
+                    if (value2 != "-1")
+                        document.getElementById("corr1").style.display = "block";
+                    else
+                        document.getElementById("corr1").style.display = "none";
+
+                }
         </script>
 
         <div>
@@ -139,11 +125,11 @@
                                                     </div>
                                                     <script type="text/javascript">
                                                         function Date1() {
-                                                            var date=document.shipmentForm.reportrange.value;
-                                                            var arr=date.split("-");
-                                                            var x=arr[1].trim();
+                                                            var date = document.shipmentForm.reportrange.value;
+                                                            var arr = date.split("-");
+                                                            var x = arr[1].trim();
                                                             document.getElementById("datepickerfrom").value = arr[0];
-                                                            document.getElementById("datepicker").value =x ;
+                                                            document.getElementById("datepicker").value = x;
                                                         }
                                                     </script>
                                                     <div  class="col-sm-3">
@@ -204,17 +190,17 @@
                                                 </div>
 
                                                 <script>
-   
+
                                                 </script>                                      
 
                                                 <script>
-                                                    var count=0;
+                                                    var count = 0;
                                                 </script>                                          
 
                                                 <script>
-                                                    $("#addButton").click(function(){
+                                                    $("#addButton").click(function () {
                                                         count++;
-                                                        if(count==1)
+                                                        if (count == 1)
                                                             document.getElementById("corr").style.display = "block";
                                                         //                                                        else if(count==2)
                                                         //                                                            document.getElementById("corr1").style.display = "block";
@@ -426,8 +412,7 @@
                                                         </table>
                                                     </td>
                                                 </tr>
-                                                <%
-                                                    if (list.size() != 0) {
+                                                <%                                                    if (list.size() != 0) {
                                                 %>
                                                 <tr>
                                                     <!--                                            <td align="right" colspan="28" style="background-color: white;">
@@ -450,7 +435,7 @@
                                             <div id="gridButtons" >
 
 
-                                                <div class="col-sm-2"><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('shipment','xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()"  id="excel"/></div>
+                                                <div class="col-sm-2"><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('shipment', 'xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()"  id="excel"/></div>
                                             </div>
                                         </div>
 
@@ -602,7 +587,7 @@
                     <div class="col-sm-6" id="mserrormessage"></div>
                 </div>
                 <div id="noresult"></div>
-            <div class="row col-sm-12"> <br><br><br><button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" style="margin-left:12px;" value="X">Close</button></div>
+                <div class="row col-sm-12"> <br><br><br><button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" style="margin-left:12px;" value="X">Close</button></div>
             </div>
 
             <script>
@@ -624,7 +609,7 @@
         <div>
             <s:include value="../includes/template/footer.jsp"/>
         </div>
-        
+
 
         <script language="JavaScript"  src='<s:url value="/includes/js/DateValidation.js"/>'></script>
         <script language="JavaScript"  src='<s:url value="/includes/js/generalValidations.js"/>'></script>
@@ -635,69 +620,83 @@
         <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
         <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
-        <script type="text/javascript"> 
-  
-            function getDetails(val,ponum,fileid)
-            {
-                getAsnDetails(val,ponum,fileid);
-            }
-            function checkCorrelation() {
-     
-               
-                var corrattr = document.getElementById('corrattribute').value;
-                var corrval = document.getElementById('corrvalue').value;
-     
-                var corrattr1 = document.getElementById('corrattribute1').value;
-                var corrval1 = document.getElementById('corrvalue1').value;
-     
-  
-  
-                if((corrattr!="-1")&&(corrval=="")) {
-                    alert("please enter Correlation Value!!!");
-                    return false;
+        <script type="text/javascript">
+
+                function getDetails(val, ponum, fileid)
+                {
+                    getAsnDetails(val, ponum, fileid);
                 }
-                if((corrattr=="-1")&&(corrval!="")) {
-                    alert("please select Correlation!");
-                    return false;
+                function checkCorrelation() {
+
+
+                    var corrattr = document.getElementById('corrattribute').value;
+                    var corrval = document.getElementById('corrvalue').value;
+
+                    var corrattr1 = document.getElementById('corrattribute1').value;
+                    var corrval1 = document.getElementById('corrvalue1').value;
+
+
+
+                    if ((corrattr != "-1") && (corrval == "")) {
+                        alert("please enter Correlation Value!!!");
+                        return false;
+                    }
+                    if ((corrattr == "-1") && (corrval != "")) {
+                        alert("please select Correlation!");
+                        return false;
+                    }
+
+                    if ((corrattr1 != "-1") && (corrval1 == "")) {
+                        alert("please enter Correlation Value!!!");
+                        return false;
+                    }
+                    if ((corrattr1 == "-1") && (corrval1 != "")) {
+                        alert("please select Correlation!");
+                        return false;
+                    }
+
+
+
+                    var res = Formvalidation(document.getElementById('datepickerfrom').value, document.getElementById('datepicker').value);
+
+
+                    return res;
                 }
-     
-                if((corrattr1!="-1")&&(corrval1=="")) {
-                    alert("please enter Correlation Value!!!");
-                    return false;
+                function resetvalues()
+                {
+                    document.getElementById('buId').value = "-1";
+                    document.getElementById('datepickerfrom').value = "";
+                    document.getElementById('datepicker').value = "";
+                    document.getElementById('reportrange').value = ""
+                    document.getElementById('docType').value = "-1";
+                    document.getElementById('senderId').value = "-1";
+                    document.getElementById('senderName').value = "-1";
+                    document.getElementById('recName').value = "-1";
+                    document.getElementById('sampleValue').value = "1";
+                    document.getElementById('ackStatus').value = "-1";
+                    document.getElementById('status').value = "-1";
+                    document.getElementById('corrattribute').value = "-1";
+                    document.getElementById('corrvalue').value = "";
+                    document.getElementById('corrattribute1').value = "-1";
+                    document.getElementById('corrvalue1').value = "";
+                    //document.getElementById('corrattribute2').value="-1";
+                    //document.getElementById('corrvalue2').value="";
+                    $('#gridDiv').hide();
                 }
-                if((corrattr1=="-1")&&(corrval1!="")) {
-                    alert("please select Correlation!");
-                    return false;
+
+                function doOnLoad() {
+                    $("#shipments").addClass("active");
+                    $("#supplychain").addClass("active");
+                    $("#manufacturing").addClass("active");
+                    $("#shipments i").addClass("text-red");
+                    document.getElementById('loadingAcoountSearch').style.display = "none";
                 }
-     
-    
-     
-                var res = Formvalidation(document.getElementById('datepickerfrom').value,document.getElementById('datepicker').value);
-      
-    
-                return res;
-            }
-            function resetvalues()
-            {
-                document.getElementById('buId').value="-1";
-                document.getElementById('datepickerfrom').value="";
-                document.getElementById('datepicker').value="";
-                document.getElementById('reportrange').value=""
-                document.getElementById('docType').value="-1";
-                document.getElementById('senderId').value="-1";
-                document.getElementById('senderName').value="-1";
-                document.getElementById('recName').value="-1";
-                document.getElementById('sampleValue').value="1"; 
-                document.getElementById('ackStatus').value="-1"; 
-                document.getElementById('status').value="-1";
-                document.getElementById('corrattribute').value="-1";
-                document.getElementById('corrvalue').value="";
-                document.getElementById('corrattribute1').value="-1";
-                document.getElementById('corrvalue1').value="";
-                //document.getElementById('corrattribute2').value="-1";
-                //document.getElementById('corrvalue2').value="";
-                $('#gridDiv').hide();
-            }
+                function hide() {
+                    $('#hide-menu1').removeClass('show-menu');
+                }
+//            $('body,html').click(function (e) {
+//                $('#hide-menu1').removeClass('show-menu');
+//            });
         </script>
     </body>
 </html>

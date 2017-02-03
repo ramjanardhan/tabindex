@@ -46,23 +46,23 @@ public class ReportsServiceImpl implements ReportsService {
         String docdatepicker = reportsAction.getDocdatepicker();
         String docdatepickerfrom = reportsAction.getDocdatepickerfrom();
         String docSenderId = "";
-        if (!reportsAction.getDocSenderId().equals("-1")) {
+        if (reportsAction.getDocSenderId()!=null && !reportsAction.getDocSenderId().equals("-1")) {
             docSenderId = reportsAction.getDocSenderId();
         }
         String docSenderName = "";
-        if (!reportsAction.getDocSenderName().equals("-1")) {
+        if (reportsAction.getDocSenderName()!=null && !reportsAction.getDocSenderName().equals("-1")) {
             docSenderName = reportsAction.getDocSenderName();
         }
         String docBusId = "";
-        if (!reportsAction.getDocReceiverId().equals("-1")) {
+        if (reportsAction.getDocReceiverId()!=null && !reportsAction.getDocReceiverId().equals("-1")) {
             docBusId = reportsAction.getDocReceiverId();
         }
         String docRecName = "";
-        if (!reportsAction.getDocReceiverName().equals("-1")) {
+        if (reportsAction.getDocReceiverName()!=null && !reportsAction.getDocReceiverName().equals("-1")) {
             docRecName = reportsAction.getDocReceiverName();
         }
         String doctype = "";
-        if (!reportsAction.getDocType().equals("-1")) {
+        if (reportsAction.getDocType()!=null && !reportsAction.getDocType().equals("-1")) {
             doctype = reportsAction.getDocType();
         }
         String status = reportsAction.getStatus();

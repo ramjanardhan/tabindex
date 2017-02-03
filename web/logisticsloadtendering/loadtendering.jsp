@@ -714,9 +714,7 @@
 
             $('#hide-menu1').removeClass('show-menu');
         }
-        $('body,html').click(function (e) {
-            $('#hide-menu1').removeClass('show-menu');
-        });
+        
 
     </script>
 </body>

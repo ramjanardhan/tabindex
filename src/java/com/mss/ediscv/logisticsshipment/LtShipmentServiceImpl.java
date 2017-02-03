@@ -51,7 +51,7 @@ public class LtShipmentServiceImpl implements LtShipmentService {
         String receiverId = logisticsShipmentAction.getReceiverId();
         String receiverName = logisticsShipmentAction.getReceiverName();
         String doctype = "";
-        if (!logisticsShipmentAction.getDocType().equals("-1")) {
+        if ((logisticsShipmentAction.getDocType()!= null)&&(!logisticsShipmentAction.getDocType().equals("-1"))) {
             doctype = logisticsShipmentAction.getDocType();
         }
         String corrattribute = logisticsShipmentAction.getCorrattribute();
@@ -72,42 +72,42 @@ public class LtShipmentServiceImpl implements LtShipmentService {
                 + "LEFT OUTER JOIN TP TP2 ON (TP2.ID=FILES.RECEIVER_ID)");
         ltShipmentSearchQuery.append(" WHERE 1=1 AND FILES.FLOWFLAG = 'L' ");
         // FOr PO
-        if (corrattribute.equalsIgnoreCase("BOL Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("BOL Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 ltShipmentSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_SHIPMENT.BOL_NUMBER", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("BOL Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("BOL Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 ltShipmentSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_SHIPMENT.BOL_NUMBER", corrvalue1.trim().toUpperCase()));
             }
         }
-        if (corrattribute.equalsIgnoreCase("Shipment Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Shipment Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 ltShipmentSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_SHIPMENT.SHIPMENT_ID", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("Shipment Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Shipment Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 ltShipmentSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_SHIPMENT.SHIPMENT_ID", corrvalue1.trim().toUpperCase()));
             }
         }
-        if (corrattribute.equalsIgnoreCase("PO Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("PO Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 ltShipmentSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_SHIPMENT.PO_NUMBER", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("PO Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("PO Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 ltShipmentSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_SHIPMENT.PO_NUMBER", corrvalue1.trim().toUpperCase()));
             }
         }
-        if (corrattribute.equalsIgnoreCase("Stop Seq Number")) {
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Stop Seq Number"))) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
                 ltShipmentSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_SHIPMENT.STOP_SEQ_NUM", corrvalue.trim().toUpperCase()));
             }
         }
-        if (corrattribute1.equalsIgnoreCase("Stop Seq Number")) {
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Stop Seq Number"))) {
             if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
                 ltShipmentSearchQuery.append(WildCardSql.getWildCardSql1("TRANSPORT_SHIPMENT.STOP_SEQ_NUM", corrvalue1.trim().toUpperCase()));
             }

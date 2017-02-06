@@ -244,7 +244,7 @@
 
 
                                 <div style="overflow-x:auto;">       
-
+                                    <div id="loadingImage" align="center" style="color: green;display: none;"><img  src="../includes/images/ajax-loader.gif" /></div>
                                     <table align="left" width="100%"
                                            border="0" cellpadding="0" cellspacing="0">
                                         <tr>

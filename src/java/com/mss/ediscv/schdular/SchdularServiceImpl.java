@@ -57,7 +57,7 @@ public class SchdularServiceImpl implements SchdularService {
         documentSearchQuery.append("WHERE 1=1 ");
         //Status
         if (status != null && !"-1".equals(status.trim())) {
-            documentSearchQuery.append(WildCardSql.getWildCardSql1("SCH_STATUS", status.trim()));
+            documentSearchQuery.append(" AND SCHEDULER.SCH_STATUS='" + status + "' ");
         }
         String searchQuery = documentSearchQuery.toString();
         try {

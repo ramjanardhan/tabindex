@@ -648,7 +648,7 @@ function getDocDetails(number, ponum, id) {
     var num = number;
     var ponum = ponum;
     var id = id;
-
+alert(ponum);
     $(function () {
 
         $('#detail_box').show();
@@ -673,9 +673,9 @@ function getDocDetails(number, ponum, id) {
 
 function populateDocDetails(responseXML)
 {
-//    alert("responseXML--->"+responseXML.toString());
+    alert("responseXML--->"+responseXML.toString());
     var details = responseXML.getElementsByTagName("DETAILS")[0];
-//    alert("details--->"+details);
+   alert("details--->"+details);
     var detail = details.childNodes[0];
 //    alert("responseXML--->"+detail.getElementsByTagName("SEC_KEY_VAL")[0].childNodes[0].nodeValue);
     var chk = detail.getElementsByTagName("VALID")[0];
@@ -739,12 +739,10 @@ function populateDocDetails(responseXML)
             document.getElementById('ManShipment').value = PRI_KEY_VAL;
 //            alert("ManShipment-------------" +PRI_KEY_VAL);
 
-            if (SEC_KEY_VAL != "NULL" && SEC_KEY_VAL != "")
-            {
                 document.getElementById('ManPurchaseOrder').value = SEC_KEY_VAL;
-//                alert("SEC_KEY_VAL-------------" +SEC_KEY_VAL);
+              alert("SEC_KEY_VAL-------------" +SEC_KEY_VAL);
 
-            }
+        
             //            if(PRI_KEY_TYPE != "NULL"&&PRI_KEY_TYPE!=""){
             //                document.getElementById('ManPriKeyType').value=PRI_KEY_TYPE;
             //            }
@@ -2981,7 +2979,7 @@ function drawOutboundChart() {
 
 //  new classe for schdular tasks
 function getDeleteReport(id) {
-    document.getElementById("load").style.display = 'block';
+    //document.getElementById("load").style.display = 'block';
     var req = getXMLHttpRequest();
     req.onreadystatechange = readyStateHandlerLoadText(req, populateReportDeleteDetails);
 

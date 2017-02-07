@@ -679,9 +679,7 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                 } else {
                     sb.append("<SEC_KEY_VAL>--</SEC_KEY_VAL>");
                 }
-                if (resultSet.getString("PRI_KEY_TYPE") != null && resultSet.getString("PRI_KEY_TYPE").equalsIgnoreCase("PO")) {
-                    sb.append("<PRI_KEY_TYPE>PO</PRI_KEY_TYPE>");
-                } else if (resultSet.getString("PRI_KEY_TYPE") != null && resultSet.getString("PRI_KEY_TYPE").equalsIgnoreCase("ASN")) {
+                 if (resultSet.getString("PRI_KEY_TYPE") != null && resultSet.getString("PRI_KEY_TYPE").equalsIgnoreCase("ASN")) {
                     sb.append("<PRI_KEY_TYPE> ASN </PRI_KEY_TYPE>");
                 } else if (resultSet.getString("PRI_KEY_TYPE") != null && resultSet.getString("PRI_KEY_TYPE").equalsIgnoreCase("IN")) {
                     sb.append("<PRI_KEY_TYPE> Invoice </PRI_KEY_TYPE>");

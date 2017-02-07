@@ -648,7 +648,7 @@ function getDocDetails(number, ponum, id) {
     var num = number;
     var ponum = ponum;
     var id = id;
-alert(ponum);
+//alert(ponum);
     $(function () {
 
         $('#detail_box').show();
@@ -673,9 +673,9 @@ alert(ponum);
 
 function populateDocDetails(responseXML)
 {
-    alert("responseXML--->"+responseXML.toString());
+    //alert("responseXML--->"+responseXML.toString());
     var details = responseXML.getElementsByTagName("DETAILS")[0];
-   alert("details--->"+details);
+    //alert("details--->"+details);
     var detail = details.childNodes[0];
 //    alert("responseXML--->"+detail.getElementsByTagName("SEC_KEY_VAL")[0].childNodes[0].nodeValue);
     var chk = detail.getElementsByTagName("VALID")[0];
@@ -732,154 +732,155 @@ function populateDocDetails(responseXML)
             PO_DATE = detail.getElementsByTagName("PO_DATE")[0].childNodes[0].nodeValue;
             IDOC_STATUS_CODE = detail.getElementsByTagName("IDOC_STATUS_CODE")[0].childNodes[0].nodeValue;
             IDOC_STATUS_DESCRIPTION = detail.getElementsByTagName("IDOC_STATUS_DESCRIPTION")[0].childNodes[0].nodeValue;
+            
+        }
 
-
-            document.getElementById('ManFileId').value = fileid;
+        document.getElementById('ManFileId').value = fileid;
 //            alert("instanceid-------------" +fileid);
-            document.getElementById('ManShipment').value = PRI_KEY_VAL;
+        document.getElementById('ManShipment').value = PRI_KEY_VAL;
 //            alert("ManShipment-------------" +PRI_KEY_VAL);
 
-                document.getElementById('ManPurchaseOrder').value = SEC_KEY_VAL;
-              alert("SEC_KEY_VAL-------------" +SEC_KEY_VAL);
+        document.getElementById('ManPurchaseOrder').value = SEC_KEY_VAL;
+        // alert("SEC_KEY_VAL-------------" +SEC_KEY_VAL);
 
-        
-            //            if(PRI_KEY_TYPE != "NULL"&&PRI_KEY_TYPE!=""){
-            //                document.getElementById('ManPriKeyType').value=PRI_KEY_TYPE;
-            //            }
-            //            if(PRI_KEY_VAL=="NO"){
-            //                PRI_KEY_VAL="-";
-            //            }
 
-            //            if(DIRECTION == "inbound"){
-            //                document.getElementById('senderinfo').value="";
-            //            }else{
-            //                document.getElementById('senderinfo').value="";
-            //            }
-            //        
-            //            if(DIRECTION == "outbound"){
-            //                document.getElementById('receiverinfo').value="";
-            //            }else{
-            //                document.getElementById('receiverinfo').value="";
-            //            }
+        //            if(PRI_KEY_TYPE != "NULL"&&PRI_KEY_TYPE!=""){
+        //                document.getElementById('ManPriKeyType').value=PRI_KEY_TYPE;
+        //            }
+        //            if(PRI_KEY_VAL=="NO"){
+        //                PRI_KEY_VAL="-";
+        //            }
 
-            if (SENDER_NAME == "NULL") {
-                SENDER_NAME = "Null";
-            }
+        //            if(DIRECTION == "inbound"){
+        //                document.getElementById('senderinfo').value="";
+        //            }else{
+        //                document.getElementById('senderinfo').value="";
+        //            }
+        //        
+        //            if(DIRECTION == "outbound"){
+        //                document.getElementById('receiverinfo').value="";
+        //            }else{
+        //                document.getElementById('receiverinfo').value="";
+        //            }
 
-            if (RECEIVER_NAME == "NULL") {
-                RECEIVER_NAME = "Null";
-            }
-            document.getElementById('ManDocumentType').value = docType;
+        if (SENDER_NAME == "NULL") {
+            SENDER_NAME = "Null";
+        }
+
+        if (RECEIVER_NAME == "NULL") {
+            RECEIVER_NAME = "Null";
+        }
+        document.getElementById('ManDocumentType').value = docType;
 //            alert("docType-------------" +docType);
 
-            document.getElementById('ManTransactionType').value = TRANSACTION_TYPE;
+        document.getElementById('ManTransactionType').value = TRANSACTION_TYPE;
 //            alert("TRANSACTION_TYPE-------------" +TRANSACTION_TYPE);
 
-            document.getElementById('ManSenderId').value = SENDER_ID;
+        document.getElementById('ManSenderId').value = SENDER_ID;
 //            alert("SENDER_ID-------------" +SENDER_ID);
 
-            document.getElementById('ManSenderName').value = SENDER_NAME;
+        document.getElementById('ManSenderName').value = SENDER_NAME;
 //            alert("SENDER_NAME-------------" +SENDER_NAME);
 
-            document.getElementById('ManReceiverId').value = RECEIVER_ID;
+        document.getElementById('ManReceiverId').value = RECEIVER_ID;
 //            alert("RECEIVER_ID-------------" +RECEIVER_ID);
 
-            document.getElementById('ManReceiverName').value = RECEIVER_NAME;
+        document.getElementById('ManReceiverName').value = RECEIVER_NAME;
 //            alert("RECEIVER_NAME-------------" +RECEIVER_NAME);
 
-            document.getElementById('ManISA').value = ISA_NUMBER;
+        document.getElementById('ManISA').value = ISA_NUMBER;
 //            alert("ISA_NUMBER-------------" +ISA_NUMBER);
 
 
-            if (GS_CONTROL_NUMBER != "No GS CONTROL NUMBER")
-            {
-                document.getElementById('ManGs').value = " ";
-            }
-            else
-            {
-                document.getElementById('ManGs').value = GS_CONTROL_NUMBER;
+        if (GS_CONTROL_NUMBER != "No GS CONTROL NUMBER")
+        {
+            document.getElementById('ManGs').value = " ";
+        }
+        else
+        {
+            document.getElementById('ManGs').value = GS_CONTROL_NUMBER;
 //                alert("GS_CONTROL_NUMBER-------------" +GS_CONTROL_NUMBER);
 
-            }
-            document.getElementById('ManSt').value = ST_CONTROL_NUMBER;
+        }
+        document.getElementById('ManSt').value = ST_CONTROL_NUMBER;
 //            alert("ST_CONTROL_NUMBER-------------" +ST_CONTROL_NUMBER);
 
-            document.getElementById('ManIsADate').value = ISA_DATE;
+        document.getElementById('ManIsADate').value = ISA_DATE;
 //            alert("ISA_DATE-------------" +ISA_DATE);
 
-            document.getElementById('ManIsATime').value = ISA_TIME;
+        document.getElementById('ManIsATime').value = ISA_TIME;
 //            alert("ISA_TIME-------------" +ISA_TIME);
 
 
-            if (STATUS.toUpperCase() == "ERROR") {
-                document.getElementById('ManStatus').value = STATUS;
-            } else if (STATUS.toUpperCase() == "SUCCESS") {
-                document.getElementById('ManStatus').value = STATUS;
-            } else {
-                document.getElementById('ManStatus').value = STATUS;
+        if (STATUS.toUpperCase() == "ERROR") {
+            document.getElementById('ManStatus').value = STATUS;
+        } else if (STATUS.toUpperCase() == "SUCCESS") {
+            document.getElementById('ManStatus').value = STATUS;
+        } else {
+            document.getElementById('ManStatus').value = STATUS;
 //                alert("ISA_TIME-------------" +ISA_TIME);
 
-            }
+        }
 
 
-            if (PRE_TRANS_FILEPATH == "No File") {
-                document.getElementById('ManPreTranslation').innerHTML = "--";
-            } else {
-                document.getElementById('ManPreTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + PRE_TRANS_FILEPATH + "\">Download</a>";
+        if (PRE_TRANS_FILEPATH == "No File") {
+            document.getElementById('ManPreTranslation').innerHTML = "--";
+        } else {
+            document.getElementById('ManPreTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + PRE_TRANS_FILEPATH + "\">Download</a>";
 //                alert("ManPreTranslation-------------" +PRE_TRANS_FILEPATH);
 
-            }
-            if (POST_TRANS_FILEPATH == "No File") {
-                document.getElementById('ManPostTranslation').innerHTML = "--";
+        }
+        if (POST_TRANS_FILEPATH == "No File") {
+            document.getElementById('ManPostTranslation').innerHTML = "--";
 
-            } else {
-                document.getElementById('ManPostTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
+        } else {
+            document.getElementById('ManPostTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
 //                alert("ManPostTranslation-------------" +POST_TRANS_FILEPATH);
 
-            }
-            if (ACKFILEID == "No File") {
-                document.getElementById('ManAckFileId').innerHTML = "--";
+        }
+        if (ACKFILEID == "No File") {
+            document.getElementById('ManAckFileId').innerHTML = "--";
 
-            } else {
-                document.getElementById('ManAckFileId').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
+        } else {
+            document.getElementById('ManAckFileId').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
 
 //                alert("ManAckFileId-------------" +ACKFILEID);
-            }
+        }
 
-            if (ERRMESSAGE != "NO MSG") {
-                document.getElementById('errorDiv').value = ERRMESSAGE;
+        if (ERRMESSAGE != "NO MSG") {
+            document.getElementById('errorDiv').value = ERRMESSAGE;
 //                alert("errorDiv-------------" +ERRMESSAGE);
 
-            }
+        }
 
-            if (SAP_DETAILS != 'NO') {
+        if (SAP_DETAILS != 'NO') {
 //                alert("SAP_DETAILS-------------" +SAP_DETAILS);
 
-                document.getElementById('SAP_USER').value = SAP_USER;
+            document.getElementById('SAP_USER').value = SAP_USER;
 //                alert("SAP_USER-------------" +SAP_USER);
 
-                document.getElementById('IDOC_NUMBER').value = IDOC_NUMBER;
+            document.getElementById('IDOC_NUMBER').value = IDOC_NUMBER;
 //                alert("IDOC_NUMBER-------------" +IDOC_NUMBER);
 
 
-                document.getElementById('PO_NUMBER').value = PO_NUMBER;
+            document.getElementById('PO_NUMBER').value = PO_NUMBER;
 //                alert("PO_NUMBER-------------" +PO_NUMBER);
 
-                document.getElementById('PO_DATE').value = PO_DATE;
+            document.getElementById('PO_DATE').value = PO_DATE;
 //                alert("PO_DATE-------------" +PO_DATE);
 
-                document.getElementById('IDOC_STATUS_CODE').value = IDOC_STATUS_CODE;
+            document.getElementById('IDOC_STATUS_CODE').value = IDOC_STATUS_CODE;
 //                alert("IDOC_STATUS_CODE-------------" +IDOC_STATUS_CODE);
 
 
-                document.getElementById('IDOC_STATUS_DESCRIPTION').value = IDOC_STATUS_DESCRIPTION;
+            document.getElementById('IDOC_STATUS_DESCRIPTION').value = IDOC_STATUS_DESCRIPTION;
 //                alert("IDOC_STATUS_DESCRIPTION-------------" +IDOC_STATUS_DESCRIPTION);
 
 
-            }
-//            alert('after SAP');
-            document.getElementById('ManNullValues').innerHTML = "<a href=\"javascript:getNullValues('<%=docRepositoryBean.getId()%>');\">Dispalay Null</a></td></tr>";
         }
+//            alert('after SAP');
+        document.getElementById('ManNullValues').innerHTML = "<a href=\"javascript:getNullValues('<%=docRepositoryBean.getId()%>');\">Dispalay Null</a></td></tr>";
+
     }
     if (chk.childNodes[0].nodeValue == "false") {
         document.getElementById('noresult').value = " <h5 >Sorry ! No Results Found</h5>";
@@ -1894,7 +1895,7 @@ function populateLogisticsDocDetails(responseXML)
         }
         if (ERRMESSAGE != "NO MSG") {
             document.getElementById('LogDocErrorMessage').innerHTML = "<font color='red'>" + ERRMESSAGE + "</font>";
-        }else{
+        } else {
             document.getElementById('LogDocErrorMessage').innerHTML = "--";
         }
     }

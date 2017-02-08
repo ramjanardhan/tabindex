@@ -51,7 +51,7 @@
     %>
 
     <body class="hold-transition skin-blue sidebar-mini" onload="check();
-            doOnLoad()" onclick="hide()">
+            doOnLoad()">
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <script type="text/javascript">
                 function check()

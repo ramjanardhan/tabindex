@@ -66,7 +66,7 @@
         //System.out.println("check-->"+check);
     %>
 
-    <body class="hold-transition skin-blue sidebar-mini" onload="doOnLoad();" onclick="hide();"> 
+    <body class="hold-transition skin-blue sidebar-mini" onload="doOnLoad();"> 
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
 
         <div>

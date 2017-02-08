@@ -67,7 +67,7 @@
         //System.out.println("check-->"+check);
     %>
     <body class="hold-transition skin-blue sidebar-mini"  onload="doOnLoad();
-                setStyle('mainTp', 'delChnInfo')" onclick="hide();">
+                setStyle('mainTp', 'delChnInfo')" >
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <div>
             <s:include value="/includes/template/header.jsp"/>  

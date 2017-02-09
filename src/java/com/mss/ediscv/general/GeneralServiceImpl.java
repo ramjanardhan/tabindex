@@ -54,7 +54,7 @@ public class GeneralServiceImpl implements GeneralService {
                     byte[] bytes = IOUtils.toByteArray(is);
                     userInfoBean.setUserImage(bytes);
                 } else {
-                    File imagefile = new File("C:/Users/miracle/Documents/Downloads/LifeCycle.jpg");
+                    File imagefile = new File("C:/MSCVP_DEMO/User_Image/user-icon.png");
                     FileInputStream fis = new FileInputStream(imagefile);
                     byte[] bytes = IOUtils.toByteArray(fis);
                     userInfoBean.setUserImage(bytes);

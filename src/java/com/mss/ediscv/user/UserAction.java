@@ -523,7 +523,7 @@ public class UserAction extends ActionSupport implements ServletRequestAware, Se
                     InputStream is = resultSet.getBinaryStream("IMAGE");
                     imgData = IOUtils.toByteArray(is);
                 } else {
-                    File imagefile = new File("C:/Users/miracle/Documents/Downloads/LifeCycle.jpg");
+                    File imagefile = new File("C:/MSCVP_DEMO/User_Image/user-icon.png");
                     FileInputStream fis = new FileInputStream(imagefile);
                     imgData = IOUtils.toByteArray(fis);
                 }

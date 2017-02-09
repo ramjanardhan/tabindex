@@ -25,7 +25,7 @@
 
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.5 -->
-        <link rel="stylesheet" href='<s:url value="/includes/bootstrap/css/userdefined.css"/>'>
+       
         <link rel="stylesheet" href='<s:url value="/includes/plugins/daterangepicker/daterangepicker.css"/>'/>
         <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -53,8 +53,7 @@
 
         //System.out.println("check-->"+check);
     %>
-    <body onload="doOnLoad();
-            check();" class="hold-transition skin-blue sidebar-mini">
+    <body onload="doOnLoad();check();" class="hold-transition skin-blue sidebar-mini">
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <div>
             <s:include value="../includes/template/header.jsp"/>

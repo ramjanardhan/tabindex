@@ -26,8 +26,8 @@ import javax.mail.PasswordAuthentication;
  * @author miracle1
  */
 public class MailManager {
-    private static final String SMTP_AUTH_USER = "hbethireddy@miraclesoft.com";
-     private static final String SMTP_AUTH_PWD  = "Likesh@1613";
+    private static final String SMTP_AUTH_USER = "mscvp_alerts@miraclesoft.com";
+     private static final String SMTP_AUTH_PWD  = "Miracle@123";
      private static final String SMTP_HOST  = "smtp.miraclesoft.com";
      private static final String PORT="587";
      
@@ -35,10 +35,9 @@ public class MailManager {
         // SUBSTITUTE YOUR EMAIL ADDRESSES HERE!!!
         /** The to is used for storing the user mail id to send details. */
         String to = email;
-        //String to = "mthokachichu@miraclesoft.com";
         
         /** The from is used for storing the from address. */
-        String from = "hubbleapp@miraclesoft.com";
+        String from = "mscvp_alerts@miraclesoft.com";
         
         // SUBSTITUTE YOUR ISP'S MAIL SERVER HERE!!!
         
@@ -71,7 +70,7 @@ public class MailManager {
             message.setSubject("Miracle Supply Chain Visibility Portal Password Details");
             message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
-            message.addRecipient(Message.RecipientType.BCC,new InternetAddress("nseerapu@miraclesoft.com"));
+            message.addRecipient(Message.RecipientType.BCC,new InternetAddress("cjakkampudi@miraclesoft.com"));
             
             // This HTML mail have to 2 part, the BODY and the embedded image
             MimeMultipart multipart = new MimeMultipart("related");
@@ -394,14 +393,14 @@ public class MailManager {
 
             htmlText.append("<p style='text-align: justify; font-size: 14px;'><font color='#000000' face='trebuchet ms'>");
             htmlText.append("<b>Thanks & Regards,</b><br/>");
-            htmlText.append("<b>Corporate Application Support Team,</b><br/>");
+            htmlText.append("<b>Miracle Supply Chain Visibility Portal Team,</b><br/>");
             htmlText.append("Miracle Software Systems, Inc.<br/>");
             htmlText.append("<b> Email: </b>");
-            htmlText.append("<a href='mailto:hubbleapp@miraclesoft.com '>");
-            htmlText.append("hubbleapp@miraclesoft.com </a>");
+            htmlText.append("<a href='mailto:mscvp_alerts@miraclesoft.com '>");
+            htmlText.append("mscvp_alerts@miraclesoft.com </a>");
             htmlText.append("<br/>");
             htmlText.append("<b>Phone: </b>");
-            htmlText.append("(+1)248-233-1814");
+            htmlText.append("(+1)248-232-0224");
             htmlText.append("</p>");
             htmlText.append("</td>");
             htmlText.append("</tr>");
@@ -463,7 +462,7 @@ public class MailManager {
             htmlText.append("<div class='contentEditable' style='text-align: center;color:#AAAAAA;'>");
             htmlText.append("<p style='text-align: center; font-size: 14px;'>");
             htmlText.append("<font color='#ffffff' face='Open Sans'>");
-            htmlText.append(" ©Copyright 2016 Miracle Software Systems, Inc.<br>");
+            htmlText.append(" ©Copyright 2017 Miracle Software Systems, Inc.<br>");
             htmlText.append("45625 Grand River Avenue<br>");
             htmlText.append("Novi, MI - USA");
             htmlText.append("</font>");
@@ -640,7 +639,7 @@ public class MailManager {
         String to = loginId+"@miraclesoft.com";
         
         /** The from is used for storing the from address. */
-        String from = "hubbleapp@miraclesoft.com";
+        String from = "mscvp_alerts@miraclesoft.com";
         
         // SUBSTITUTE YOUR ISP'S MAIL SERVER HERE!!!
         
@@ -670,7 +669,7 @@ public class MailManager {
             message.setSubject("Miracle Supply Chain Visibility Portal Password Details");
             message.setFrom(new InternetAddress(from));
             message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
-            message.addRecipient(Message.RecipientType.BCC,new InternetAddress("nseerapu@miraclesoft.com"));
+            message.addRecipient(Message.RecipientType.BCC,new InternetAddress("cjakkampudi@miraclesoft.com"));
             // This HTML mail have to 2 part, the BODY and the embedded image
             MimeMultipart multipart = new MimeMultipart("related");
             // first part  (the html)
@@ -991,14 +990,14 @@ public class MailManager {
 
             htmlText.append("<p style='text-align: justify; font-size: 14px;'><font color='#000000' face='trebuchet ms'>");
             htmlText.append("<b>Thanks & Regards,</b><br/>");
-            htmlText.append("<b>Corporate Application Support Team,</b><br/>");
+            htmlText.append("<bMiracle Supply Chain Visibility Portal Team,</b><br/>");
             htmlText.append("Miracle Software Systems, Inc.<br/>");
             htmlText.append("<b> Email: </b>");
-            htmlText.append("<a href='mailto:hubbleapp@miraclesoft.com '>");
-            htmlText.append("hubbleapp@miraclesoft.com </a>");
+            htmlText.append("<a href='mailto:mscvp_alerts@miraclesoft.com '>");
+            htmlText.append("mscvp_alerts@miraclesoft.com </a>");
             htmlText.append("<br/>");
             htmlText.append("<b>Phone: </b>");
-            htmlText.append("(+1)248-233-1814");
+            htmlText.append("(+1)248-232-0224");
             htmlText.append("</p>");
             htmlText.append("</td>");
             htmlText.append("</tr>");
@@ -1060,7 +1059,7 @@ public class MailManager {
             htmlText.append("<div class='contentEditable' style='text-align: center;color:#AAAAAA;'>");
             htmlText.append("<p style='text-align: center; font-size: 14px;'>");
             htmlText.append("<font color='#ffffff' face='Open Sans'>");
-            htmlText.append(" ©Copyright 2016 Miracle Software Systems, Inc.<br>");
+            htmlText.append(" ©Copyright 2017 Miracle Software Systems, Inc.<br>");
             htmlText.append("45625 Grand River Avenue<br>");
             htmlText.append("Novi, MI - USA");
             htmlText.append("</font>");
@@ -1243,7 +1242,7 @@ public class MailManager {
       */
      public static void sendCreatedIssueDetails(String assignedBy,String assignTo,String category,String priority,String devTime,String summary,String desc) throws ServiceLocatorException {
         String cc= assignedBy+"@miraclesoft.com";
-        String from = "hubbleapp@miraclesoft.com";
+        String from = "mscvp_alerts@miraclesoft.com";
         Properties props = new Properties();
         /**Here set smtp protocal to props */
         props.setProperty("mail.transport.protocol", "smtp");
@@ -1266,7 +1265,7 @@ public class MailManager {
              message.addRecipient(Message.RecipientType.TO,new InternetAddress(st.nextToken()+"@miraclesoft.com"));
             }          
             message.addRecipient(Message.RecipientType.CC,new InternetAddress(cc));
-            message.addRecipient(Message.RecipientType.BCC,new InternetAddress("atummapala@miraclesoft.com"));
+            message.addRecipient(Message.RecipientType.BCC,new InternetAddress("cjakkampudi@miraclesoft.com"));
             MimeMultipart multipart = new MimeMultipart("related");
             // first part  (the html)
             BodyPart messageBodyPart = new MimeBodyPart();
@@ -1307,7 +1306,7 @@ public class MailManager {
      
        public static String sendMail(String loginId,String fname){
             String to =loginId;
-            String from = "hubbleapp@miraclesoft.com";      
+            String from = "mscvp_alerts@miraclesoft.com";      
             Properties props = new Properties();
             props.setProperty("mail.transport.protocol", "smtp");
             props.setProperty("mail.host", SMTP_HOST);

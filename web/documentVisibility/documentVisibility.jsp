@@ -592,7 +592,7 @@
                     <div id="errormessage"></div>
                 </div>
                 <div id="noresult"></div>
-                <div class="col-sm-12">  <button type="button" class="btn btn-primary col-sm-11" id="hide-menu" value="X">Close</button></div>
+                <div class="col-sm-12">  <button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" value="X">Close</button></div>
             </div>
 
             <%-- Side box ends--%>

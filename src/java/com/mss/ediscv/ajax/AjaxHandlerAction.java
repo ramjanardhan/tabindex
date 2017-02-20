@@ -241,6 +241,19 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
         return null;
     }
 
+    public String getLtLifecycleDetails() {
+        if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
+            try {
+                System.out.println("into life cycle action");
+                responseString = ServiceLocator.getAjaxHandlerService().getLtLifecycleDetails(getPoNumber(), getFileId(), getType()).toString();
+                httpServletResponse.setContentType("text/xml");
+                httpServletResponse.getWriter().write(responseString);
+            } catch (Exception ex) {
+                 //ex.printStackTrace();
+            }
+        }
+        return null;
+    }
     /**
      * Tp Add and Update*
      */

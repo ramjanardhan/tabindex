@@ -9,13 +9,18 @@
 
         <default-interceptor-ref name="crudStack"/>
         
-         <action name="lifecycle" class="com.mss.ediscv.lfc.LifecycleAction" method="prepare">
+        <action name="lifecycle" class="com.mss.ediscv.lfc.LifecycleAction" method="prepare">
             <result>/lfc/Lifecycle.jsp</result>
             <result name="error" type="redirect" >../exception/exception.action</result> 
             <result type="redirect" name="login">../general/login.action</result>
-         </action>
+        </action>
+        <action name="ltlifecycle" class="com.mss.ediscv.lfc.LifecycleAction" method="ltPrepare">
+            <result>/lfc/LtLifecycle.jsp</result>
+            <result name="error" type="redirect" >../exception/exception.action</result> 
+            <result type="redirect" name="login">../general/login.action</result>
+        </action>
             
-           <!-- <action name="documentSearch" class="com.mss.ediscv.doc.DocRepositoryAction" method="getDocumentSearchQuery">
+        <!-- <action name="documentSearch" class="com.mss.ediscv.doc.DocRepositoryAction" method="getDocumentSearchQuery">
                <result>/doc/DocRepository.jsp</result>
                 <result name="error" type="redirect" >../general/exception.action</result> 
                 <result type="redirect" name="login">../general/login.action</result>       

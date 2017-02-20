@@ -13,4 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 public interface LifecycleService {
 
     public void buildLifeCycleBeans(LifecycleAction docbean, HttpServletRequest httpServletRequest) throws ServiceLocatorException;
+    //Life Cycle for logistics
+    public void buildLtLifeCycleBeans(LifecycleAction docbean, HttpServletRequest httpServletRequest) throws ServiceLocatorException;
 }

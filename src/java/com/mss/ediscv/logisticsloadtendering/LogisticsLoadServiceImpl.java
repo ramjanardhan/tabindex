@@ -62,7 +62,8 @@ public class LogisticsLoadServiceImpl implements LogisticsLoadService {
         String ackStatus = logisticsDocAction.getAckStatus();
         documentSearchQuery.append("SELECT tf.FILE_ID as file_id,tf.ISA_NUMBER as isa_number,tl.SHIPMENT_ID as SHIPMENT_ID,"
                 + "tf.FILE_TYPE as file_type,tf.FILE_ORIGIN as file_origin,tf.TRANSACTION_TYPE as tran_type,"
-                + "tf.ACK_STATUS as ack_status,tf.DIRECTION as direction,tf.DATE_TIME_RECEIVED as datetime,"
+                + "tf.ACK_STATUS as ack_status,tf.DIR"
+                + "ECTION as direction,tf.DATE_TIME_RECEIVED as datetime,"
                 + "tf.STATUS as status,tp2.NAME as name,tf.SEC_KEY_VAL as secval,tf.REPROCESSSTATUS as REPROCESSSTATUS "
                 + "FROM Transport_loadtender tl LEFT OUTER JOIN FILES TF ON "
                 + "(tl.FILE_ID=tf.FILE_ID and tl.SHIPMENT_ID=tf.SEC_KEY_VAL)  "

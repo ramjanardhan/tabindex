@@ -39,6 +39,8 @@ public interface AjaxHandlerService {
      *  Life cycle Actions
      */
     public String getLifeCycleDetails(String poNumber, String fileId, String type) throws ServiceLocatorException;
+    
+    public String getLtLifecycleDetails(String poNumber, String fileId, String type) throws ServiceLocatorException;
 
     /**
      * TP Ajax cals

@@ -67,28 +67,36 @@ public class FileUtility {
         Iterator it = files.entrySet().iterator();
         while (it.hasNext()) {
             try {
-                Map.Entry pairs = (Map.Entry) it.next();
-                String destinationDetails = (String) pairs.getValue();
-                String path = destinationDetails.substring(0, destinationDetails.lastIndexOf("\\") + 1);
-                String fullToken = destinationDetails.substring(destinationDetails.lastIndexOf("\\") + 1, destinationDetails.length());
-                StringTokenizer st = new StringTokenizer(fullToken, "|");
-                String poNum = st.nextToken();
-                String fileId = st.nextToken();
-                String senderId = st.nextToken();
-                String recv = st.nextToken();
-                String tranc = st.nextToken();
-                File destinationDirectory = new File(path);
+                        Map.Entry pairs = (Map.Entry) it.next();
+                File destinationDirectory = (File) pairs.getValue();
                 File srcFile = (File) pairs.getKey();
                 if (!destinationDirectory.exists()) {
                     destinationDirectory.mkdirs();
                 }
+//                Map.Entry pairs = (Map.Entry) it.next();
+//                String destinationDetails = (String) pairs.getValue();
+//                String path = destinationDetails.substring(0, destinationDetails.lastIndexOf("\\") + 1);
+//                String fullToken = destinationDetails.substring(destinationDetails.lastIndexOf("\\") + 1, destinationDetails.length());
+//                StringTokenizer st = new StringTokenizer(fullToken, "|");
+//                String poNum = st.nextToken();
+//                String fileId = st.nextToken();
+//                String senderId = st.nextToken();
+//                String recv = st.nextToken();
+//                String tranc = st.nextToken();
+//                File destinationDirectory = new File(path);
+//                File srcFile = (File) pairs.getKey();
+//                if (!destinationDirectory.exists()) {
+//                    destinationDirectory.mkdirs();
+//                }
                 FileUtils.copyFileToDirectory(srcFile, destinationDirectory);
                 String newFile = destinationDirectory + "\\" + srcFile.getName();
+                System.out.println("newFile--------  "+newFile);
                 File renameFile = new File(newFile);
                 int mid = renameFile.getName().lastIndexOf(".");
                 String fname = renameFile.getName().substring(0, mid);
                 String ext = renameFile.getName().substring(mid + 1, renameFile.getName().length());
-                String newName = poNum.trim() + "_" + senderId.trim() + "_" + recv.trim() + "_" + tranc.trim() + "_Reprocess." + ext;
+               // String newName = poNum.trim() + "_" + senderId.trim() + "_" + recv.trim() + "_" + tranc.trim() + "_Reprocess." + ext;
+                String newName = fname + "_Reprocess." + ext;
                 renameFile.renameTo(new File(destinationDirectory + "\\" + newName));
                 fileCopyStatus = "Success";
                 if (fileCopyStatus.equals("Success")) {

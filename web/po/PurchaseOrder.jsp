@@ -482,7 +482,7 @@
                                             <div class="col-sm-2" style="margin-right:5%"><input type="button" value="ReSubmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to Resubmit.')" onmouseout="UnTip()" onclick="return getProces(this, document.getElementById('sec_po_list').value);" id="post"/></div>
 
 
-                                            <div class="col-sm-2" style="margin-right:5%"><input type="button" value="LifeCycle" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to generate Life Cycle.')" onmouseout="UnTip()" onclick="return getLifeCycle(document.getElementById('sec_po_list').value);"/></div>ss
+                                            <div class="col-sm-2" style="margin-right:5%"><input type="button" value="LifeCycle" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to generate Life Cycle.')" onmouseout="UnTip()" onclick="return getLifeCycle(document.getElementById('sec_po_list').value,'manufacturing');"/></div>ss
 
 
                                             <div class="col-sm-2" style="margin-right:2%"><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('po', 'xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/> </div>  
@@ -688,6 +688,7 @@
     </div>
 
     <script type="text/javascript" src='<s:url value="../includes/js/DateValidation.js"/>'></script>
+    <script type="text/javascript" src='<s:url value="../includes/js/lifeCycle.js"/>'></script>
     <script language="JavaScript"  src='<s:url value="/includes/js/generalValidations.js"/>'></script>
     <script language="JavaScript"  src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
     <script language="JavaScript"  src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
@@ -714,41 +715,7 @@
             }
 
 
-            function getLifeCycle(checkList) {
-                var res = false;
-                var i = 0;
-                var po_Num = "";
-                for (var j = 0; j < checkList; j++) {
-                    if (document.getElementById("check_List" + j) != null) {
-                        if (checkList == 1)
-                        {
-                            res = document.getElementById("check_List" + j).checked;
-
-                        } else
-                        {
-                            res = document.getElementById("check_List" + j).checked;
-                        }
-
-                        if (res == true) {
-                            i = i + 1;
-                            if (i == 1) {
-                                po_Num = po_Num + document.getElementById("text" + j).value;
-                            }
-                        }
-                    }
-                }
-                if (i != 1) {
-                    alert("Please select one checkbox to get LifeCycle of PO !!");
-                    return false;
-                }
-                else {
-                    //alert(po_Num);
-                    //window.location = "../lfc/lifeCycle.action?poNumber="+po_Num; 
-                    //purchaseForm.action = "../lfc/lifeCycle.action?poNumber="+po_Num;
-                    location.href = "../lfc/lifecycle.action?poNumber=" + po_Num;
-                    return true;
-                }
-            }
+           
 
             function resetvalues()
             {

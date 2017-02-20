@@ -39,7 +39,7 @@ public class ReportsAction extends ActionSupport implements ServletRequestAware 
     private List receiverIdList;
     private List senderNameList;
     private List receiverNameList;
-    private List reportrange;
+    private String reportrange;
     private List<ReportsBean> documentList;
     private Map partnerMap;
 
@@ -360,11 +360,13 @@ public class ReportsAction extends ActionSupport implements ServletRequestAware 
         this.senderNameList = senderNameList;
     }
 
-    public List getReportrange() {
+    public String getReportrange() {
         return reportrange;
     }
 
-    public void setReportrange(List reportrange) {
+    public void setReportrange(String reportrange) {
         this.reportrange = reportrange;
     }
+
+   
 }

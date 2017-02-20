@@ -60,7 +60,8 @@
 
         //System.out.println("check-->"+check);
     %>
-    <body onload="check();doOnLoad()" class="hold-transition skin-blue sidebar-mini">
+    <body onload="checkCorr();
+            doOnLoad()" class="hold-transition skin-blue sidebar-mini">
         <div>
             <s:include value="../includes/template/header.jsp"/>
         </div>
@@ -152,6 +153,7 @@
                                                         <s:select headerKey="-1" headerValue="Select Type" cssClass="form-control" list="{'Success','Error','Warning'}" name="status" id="status" value="%{status}"  /> 
                                                     </div>
                                                 </div>
+                                                <br>
                                                 <div class="row">
                                                     <div class="col-sm-3">
                                                         <label for="corrattribute">Correlation</label>
@@ -197,7 +199,7 @@
 
                                                     </div>
                                                 </div>
-                                               
+
                                             </div>
                                         </div>
                                         <div id="loadingAcoountSearch" class="loadingImg">
@@ -565,7 +567,6 @@
 <script language="JavaScript" src='<s:url value="/includes/js/DateValidation.js"/>'></script>
 <script language="JavaScript" src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
 <script language="JavaScript" src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
-<script type="text/javascript" src='<s:url value="../includes/js/Correlation.js"/>'></script>
 <!-- Bootstrap 3.3.5 -->
 <script src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script>
 <script src='<s:url value="../includes/bootstrap/js/app.min.js"/>'></script>
@@ -625,6 +626,17 @@
         document.getElementById('status').value = "-1";
 
         $('#gridDiv').hide();
+    }
+
+    function checkCorr()
+    {
+        var value1 = document.getElementById("corrattribute1").value;
+
+        if (value1 != "-1")
+            document.getElementById("corr").style.display = "block";
+        else
+            document.getElementById("corr").style.display = "none";
+
     }
 </script>
 

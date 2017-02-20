@@ -25,6 +25,7 @@ public class LifecycleAction extends ActionSupport implements ServletRequestAwar
     private LifecycleBeans lifeCycleBeans;
     private String currentDsnName;
     private String poNumber;
+    private String shipmentNumber;
     private PoLifecycleBean poLifecycleBean;
     private static Logger logger = Logger.getLogger(LifecycleAction.class.getName());
 
@@ -34,6 +35,21 @@ public class LifecycleAction extends ActionSupport implements ServletRequestAwar
             HttpSession httpSession = httpServletRequest.getSession(false);
             try {
                 ServiceLocator.getLifeCycleService().buildLifeCycleBeans(this, httpServletRequest);
+                resultType = SUCCESS;
+            } catch (Exception ex) {
+                httpServletRequest.getSession(false).setAttribute(AppConstants.REQ_EXCEPTION_MSG, ex.getMessage());
+                resultType = "error";
+            }
+        }
+        return resultType;
+    }
+    //Life Cycle for logistics
+    public String ltPrepare() throws Exception {
+        resultType = LOGIN;
+        if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
+            HttpSession httpSession = httpServletRequest.getSession(false);
+            try {
+                ServiceLocator.getLifeCycleService().buildLtLifeCycleBeans(this, httpServletRequest);
                 resultType = SUCCESS;
             } catch (Exception ex) {
                 httpServletRequest.getSession(false).setAttribute(AppConstants.REQ_EXCEPTION_MSG, ex.getMessage());
@@ -135,4 +151,13 @@ public class LifecycleAction extends ActionSupport implements ServletRequestAwar
     public void setPoLifecycleBean(PoLifecycleBean poLifecycleBean) {
         this.poLifecycleBean = poLifecycleBean;
     }
+
+    public String getShipmentNumber() {
+        return shipmentNumber;
+    }
+
+    public void setShipmentNumber(String shipmentNumber) {
+        this.shipmentNumber = shipmentNumber;
+    }
+    
 }

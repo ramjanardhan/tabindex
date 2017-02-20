@@ -25,7 +25,7 @@
 
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.5 -->
-       
+
         <link rel="stylesheet" href='<s:url value="/includes/plugins/daterangepicker/daterangepicker.css"/>'/>
         <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -53,7 +53,8 @@
 
         //System.out.println("check-->"+check);
     %>
-    <body onload="doOnLoad();check();" class="hold-transition skin-blue sidebar-mini">
+    <body onload="doOnLoad();
+            check();" class="hold-transition skin-blue sidebar-mini">
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <div>
             <s:include value="../includes/template/header.jsp"/>
@@ -330,9 +331,9 @@
                                                                             } else {
                                                                                 out.println("-");
                                                                             }
-                                                                            
+
                                                                         %>
-                                                                         <input type="hidden" name="Instance<%=i%>" id="Instance<%=i%>" value="<%=logisticsLoadBean.getFile_id()%>"/>  
+                                                                        <input type="hidden" name="Instance<%=i%>" id="Instance<%=i%>" value="<%=logisticsLoadBean.getFile_id()%>"/>  
                                                                     </td>
 
                                                                     <td><a href="javascript:getLoadTenderingDetails('<%=logisticsLoadBean.getFile_id()%>','<%=logisticsLoadBean.getPoNumber()%>');">
@@ -346,7 +347,7 @@
 
 
                                                                             %>
-                                                                           <input type="hidden" name="text<%=i%>" id="text<%=i%>" value="<%=logisticsLoadBean.getPoNumber()%>"/>  
+                                                                            <input type="hidden" name="text<%=i%>" id="text<%=i%>" value="<%=logisticsLoadBean.getShipmentId()%>"/>  
                                                                         </a>   
                                                                     </td>
                                                                     <td>
@@ -474,9 +475,10 @@
 
                                             if ((session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104")) && list.size() != 0) {
                                         %><br>
-                                        <div class="row" style="margin-left: 73%">
+                                        <div class="row" style="margin-left: 65%">
                                             <strong><input type="button" value="ReTransmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to ReTransmit.')" onmouseout="UnTip()" onclick="return getloadTenderProcess(this, document.getElementById('sec_lt_list').value);" id="pre"/></strong>
                                             <strong><input type="button" value="ReSubmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to Resubmit.')" onmouseout="UnTip()" onclick="return getloadTenderProcess(this, document.getElementById('sec_lt_list').value);" id="post"/></strong>
+                                            <strong><input type="button" value="LifeCycle" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to life cycle.')" onmouseout="UnTip()" onclick="return getLifeCycle(document.getElementById('sec_lt_list').value, 'logistics');" id="post"/></strong>
                                             <strong><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('loadTendering', 'xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/> </strong>  
                                         </div>
 
@@ -634,7 +636,7 @@
     <script language="JavaScript" src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
     <script language="JavaScript" src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
     <script language="JavaScript" src='<s:url value="/includes/js/Correlation.js"/>'></script>
-
+    <script type="text/javascript" src='<s:url value="../includes/js/lifeCycle.js"/>'></script>
     <script src='<s:url value="../includes/bootstrap/js/bootstrap.min.js"/>'></script>
     <script src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script>
     <script src='<s:url value="../includes/bootstrap/js/app.min.js"/>'></script>
@@ -713,7 +715,7 @@
 
             $('#hide-menu1').removeClass('show-menu');
         }
-        
+
 
     </script>
 </body>

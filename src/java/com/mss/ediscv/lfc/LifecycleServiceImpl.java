@@ -1,7 +1,7 @@
 /**
- * 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ *
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
 package com.mss.ediscv.lfc;
 
@@ -25,6 +25,10 @@ public class LifecycleServiceImpl implements LifecycleService {
     private ArrayList<AsnLifecycleBean> asnLifecycleBeanList;
     private ArrayList<InvoiceLifecycleBean> invoiceLifecycleBeanList;
     private ArrayList<PaymentLifecycleBean> PaymentLifecycleBeanList;
+    private ArrayList<LtTenderBean> loadTenderBeanList;
+    private ArrayList<LtTenderBean> ltshipLifecycleBeanList;
+    private ArrayList<LtTenderBean> ltInvoiceLifecycleBeanList;
+    private ArrayList<LtTenderBean> ltResponseLifecycleBeanList;
     private static Logger logger = Logger.getLogger(com.mss.ediscv.shipment.ShipmentServiceImpl.class.getName());
 
     //@Override
@@ -34,14 +38,57 @@ public class LifecycleServiceImpl implements LifecycleService {
         LifecycleUtility lifecycleUtility = new LifecycleUtility();
         poLifecycleBeanList = lifecycleUtility.addPoLifeCycleBean(Ponum);
         httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_PO_LIST, poLifecycleBeanList);
-        /** ASN process**/
+        /**
+         * ASN process*
+         */
         asnLifecycleBeanList = lifecycleUtility.addAsnLifecycleBean(Ponum);
         httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_ASN_LIST, asnLifecycleBeanList);
-        /** INVOICE **/
+        /**
+         * INVOICE *
+         */
         invoiceLifecycleBeanList = lifecycleUtility.addInvoiceLifecycleBean(Ponum);
         httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_INVOICE_LIST, invoiceLifecycleBeanList);
-        /** PAYMENT **/
+        /**
+         * PAYMENT *
+         */
         PaymentLifecycleBeanList = lifecycleUtility.addPaymentLifecycleBean(Ponum);
         httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_PAYMENT_LIST, PaymentLifecycleBeanList);
+    }
+
+    //Life Cycle for Logistics
+
+    public void buildLtLifeCycleBeans(LifecycleAction lifecycleAction, HttpServletRequest httpServletRequest) throws ServiceLocatorException {
+        lifecycleBeans = new LifecycleBeans();
+        String shipmentNum = lifecycleAction.getShipmentNumber();
+        LifecycleUtility lifecycleUtility = new LifecycleUtility();
+        loadTenderBeanList = lifecycleUtility.getLtLoadtender(shipmentNum);
+        // httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_PO_LIST, loadTenderBeanList);
+        /**
+         * ASN process*
+         */
+        ltshipLifecycleBeanList = lifecycleUtility.getLtShipment(shipmentNum);
+        //httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_ASN_LIST, ltshipLifecycleBeanList);
+        /**
+         * INVOICE *
+         */
+        ltInvoiceLifecycleBeanList = lifecycleUtility.getLtInvoice(shipmentNum);
+        // httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_INVOICE_LIST, ltInvoiceLifecycleBeanList);
+        /**
+         * PAYMENT *
+         */
+        ltResponseLifecycleBeanList = lifecycleUtility.getLtResponse(shipmentNum);
+       // httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_PAYMENT_LIST, ltResponseLifecycleBeanList);
+
+        ArrayList LfcList = new ArrayList();
+        LfcList.addAll(loadTenderBeanList);
+        LfcList.addAll(ltshipLifecycleBeanList);
+        LfcList.addAll(ltInvoiceLifecycleBeanList);
+        LfcList.addAll(ltResponseLifecycleBeanList);
+        System.out.println("impl LfcList" + LfcList.size());
+
+            //Collections.sort(LfcList,new DateTimeComparator()); 
+        //  LfcList.get
+        httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_LTTENDER_LIST, LfcList);
+
     }
 }

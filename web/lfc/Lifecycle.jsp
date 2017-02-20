@@ -29,67 +29,67 @@
 
         <script language="JavaScript"
         src='<s:url value="/includes/js/jquery-1.9.1.js"></s:url>'></script>
-        <script language="JavaScript"
-        src='<s:url value="/includes/js/jquery-ui.js"/>'></script>
+            <script language="JavaScript"
+            src='<s:url value="/includes/js/jquery-ui.js"/>'></script>
         <script language="JavaScript"
         src='<s:url value="/includes/js/LfcAjax.js"/>'></script>
 
 
 
-        <script type="text/javascript"> 
-            $(function() {
-                $('#attach_box').click(function() {
+        <script type="text/javascript">
+            $(function () {
+                $('#attach_box').click(function () {
                     $('#sec_box').show();
                     return false;
-                });        
+                });
             });
-            $(function() {
-                $('#detail_link').click(function() {
+            $(function () {
+                $('#detail_link').click(function () {
                     $('#detail_box').show();
                     return false;
-                });        
+                });
             });
-   
+
             // New function to show the left grid
 
-            function demo(){ 
-                $(function() {
-       
+            function demo() {
+                $(function () {
+
                     $('#detail_box').show();
-                    return false;          
+                    return false;
                 });
-  
-            } 
-            function getDetails(ponum,fileid,type){
-     
+
+            }
+            function getDetails(ponum, fileid, type) {
+
                 // alert("hiiiiii---->"+val+"------"+type);
-                getlfcPODetails(ponum,fileid,type);
-            } 
+                getlfcPODetails(ponum, fileid, type);
+            }
             function goBack()
             {
                 window.history.go(-1)
             }
-            
+
             function hide()
             {
-                
+
                 $('#hide-menu1').removeClass('show-menu');
             }
 //            $('body,html').click(function(e){
 //                $('#hide-menu1').removeClass('show-menu');
 //            });
-            
+
             function doOnLoad() {
-              
+
                 $("#purchaseorder").addClass("active");
                 $("#oredermanagement").addClass("active");
-                  
+
                 $("#manufacturing").addClass("active");
-                
+
                 $("#purchaseorder i").addClass("text-red");
-                document.getElementById('loadingAcoountSearch').style.display="none";
+                document.getElementById('loadingAcoountSearch').style.display = "none";
             }
-            
+
         </script>
 
 
@@ -141,9 +141,8 @@
                                                             //LifecycleBeans lifecycleBeans = (LifecycleBeans) 
                                                             // PoLifecycleBean poLifeCycleBean = (PoLifecycleBean) session.getAttribute(AppConstants.SES_LifecycleBeansList);
                                                        /* AsnLifecycleBean asnLifecycleBean = (AsnLifecycleBean) lifecycleBeans.getAsnLifecycleBean();
-                                                            InvoiceLifecycleBean invoiceLifecycleBean = (InvoiceLifecycleBean) lifecycleBeans.getInvoiceLifecycleBean();
-                                                            PaymentLifecycleBean paymentLifecycleBean = (PaymentLifecycleBean) lifecycleBeans.getPaymentLifecycleBean();*/
-
+                                                             InvoiceLifecycleBean invoiceLifecycleBean = (InvoiceLifecycleBean) lifecycleBeans.getInvoiceLifecycleBean();
+                                                             PaymentLifecycleBean paymentLifecycleBean = (PaymentLifecycleBean) lifecycleBeans.getPaymentLifecycleBean();*/
                                                             java.util.List list = (java.util.List) session.getAttribute(AppConstants.LFC_SES_PO_LIST);
                                                             //   out.println("NAG-----PO LIST size--->"+list.size()+"\n");
 
@@ -158,8 +157,8 @@
                                                                 <th>Type</th>
                                                                 <th>Direction</th>
                                                                 <th>DateTime</th>  
-                                                                <%--<td >SENDER_ID</td>
-                                                                <td >RECEIVER_ID</td>   --%>
+                                                                    <%--<td >SENDER_ID</td>
+                                                                    <td >RECEIVER_ID</td>   --%>
                                                                 <th>Status</th>
                                                                 <th>Ack Status</th> 
                                                                 <th>Reprocess</th> 
@@ -237,9 +236,7 @@
                                                                     %>
                                                                 </td>
                                                                 <td>
-                                                                    <%
-
-                                                                        //out.println(poLifeCycleBean.getAckStatus());
+                                                                    <%                                                                        //out.println(poLifeCycleBean.getAckStatus());
                                                                         if (poLifeCycleBean.getAckStatus().equalsIgnoreCase("REJECTED")) {
                                                                             out.println("<font color='red'>" + poLifeCycleBean.getAckStatus().toUpperCase() + "</font>");
                                                                         } else if (poLifeCycleBean.getAckStatus().equalsIgnoreCase("ACCEPTED")) {
@@ -251,8 +248,7 @@
                                                                     %>
                                                                 </td> 
                                                                 <td>
-                                                                    <%
-                                                                        // out.println(poLifeCycleBean.getReProcessStatus());
+                                                                    <%                                                                        // out.println(poLifeCycleBean.getReProcessStatus());
                                                                         if (poLifeCycleBean.getReProcessStatus() != null) {
                                                                             out.println(poLifeCycleBean.getReProcessStatus().toUpperCase());
 
@@ -264,7 +260,7 @@
 
                                                             </tr>
                                                             <%} //PO FOR loop END
-%>
+                                                            %>
 
                                                             <%-- Po End--%>
                                                             <%-- ASN start --%>
@@ -361,7 +357,7 @@
                                                                     }// ASN for loop end
 
                                                                 }// ASN if end
-%>
+                                                            %>
                                                             <%-- INVOICE START --%>
                                                             <%
                                                                 java.util.List invoicelist = (java.util.List) session.getAttribute(AppConstants.LFC_SES_INVOICE_LIST);
@@ -469,7 +465,7 @@
                                                             <%
                                                                     }// INVOICE FOR
                                                                 } //INVOICE IF
-%>
+                                                            %>
 
                                                             <%-- payment start --%>
                                                             <%
@@ -548,7 +544,6 @@
                                                                 <td>
                                                                     <%
                                                                         //out.println("hiiiii");
-
                                                                         //out.println(paymentLifecycleBean.getAckStatus());
                                                                         if (paymentLifecycleBean.getAckStatus().equalsIgnoreCase("REJECT")) {
                                                                             out.println("<font color='red'>" + paymentLifecycleBean.getAckStatus().toUpperCase() + "</font>");
@@ -593,8 +588,7 @@
 
                                                 </td>
                                             </tr>
-                                            <%
-                                                if (list.size() != 0) {
+                                            <%                                                if (list.size() != 0) {
                                             %>
                                             <tr >
 

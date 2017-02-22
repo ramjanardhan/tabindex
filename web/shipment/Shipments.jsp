@@ -543,7 +543,7 @@
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="msisaTime" name="msisaTime" readonly="true"/>
                     </div>
                 </div>
-                <div id="sapDiv" style="display: none">
+                <%--<div id="sapDiv" style="display: none">
                     <div class="row col-sm-12">
                         <div class="col-sm-6">  <label class="labelw">  SAP_USER&nbsp;# </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="msapUser" name="msapUser" readonly="true"/>
@@ -568,7 +568,7 @@
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="msidocStatusDesc" name="msidocStatusDesc" readonly="true"/>
                         </div>
                     </div>
-                </div>
+                </div> --%>
                 <div class="row col-sm-12">
                     <div class="col-sm-6"> <label class="labelw">  Pre-Translation </label></div>
                     <div class="col-sm-6" id="mspreTransFilepath"></div>
@@ -584,7 +584,7 @@
                 <br><br>
                 <div class="row col-sm-12" id="errorDiv" style="display: none">
                     <div class="col-sm-6">  <label class="labelw">  Error&nbsp;Message </label></div>
-                    <div class="col-sm-6" id="mserrormessage"></div>
+                    <div class="col-sm-6" id="mserrormessage" style="color: red"></div>
                 </div>
                 <div id="noresult"></div>
                 <div class="row col-sm-12"> <br><br><br><button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" style="margin-left:12px;" value="X">Close</button></div>

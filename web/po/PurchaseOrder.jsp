@@ -632,7 +632,7 @@
 
                     <div class="col-sm-6"><div id="POAckFileId"></div></div>
                 </div>
-                <div class="row col-sm-12 clear" style="visibility: hidden">
+<%--                <div class="row col-sm-12 clear" style="visibility: hidden">
                     <div class="col-sm-6"> <label class="labelw"> SAP_USER </label>
                         <s:textfield  cssClass="form-control"  required="required" placeholder="" id="SAP_USER" name="ManStatus" readonly="true"/>
                     </div>
@@ -651,9 +651,7 @@
                     <div class="col-sm-6"> <label class="labelw"> IDOC DESCRIPTION </label>
                         <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_DESCRIPTION" name="ManStatus" readonly="true"/>
                     </div>
-                </div>
-                <br><br><br><br><br><br>
-
+                </div>--%>
                 <div class="row col-sm-12" id="errorDiv" style="display: none">
                     <div class="col-sm-6"> <label class="labelw"> Error&nbsp;Message </label></div>
                     <div class="col-sm-6" id="InvErrormessage" style="color: red"></div>

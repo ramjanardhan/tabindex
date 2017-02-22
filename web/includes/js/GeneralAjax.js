@@ -296,28 +296,31 @@ function populatePoDetails(responseXML)
         }
 
         if (ERRMESSAGE != "NO MSG") {
+            document.getElementById('errorDiv').style.display = "block";
             document.getElementById('InvErrormessage').innerHTML = ERRMESSAGE;
-
+        }else{
+            document.getElementById('InvErrormessage').innerHTML = "--";
         }
+        
 
 //        alert('before sap details');
-        if (SAP_DETAILS != 'NO') {
-            document.getElementById('SAP_USER').value = SAP_USER;
-            document.getElementById('IDOC_NUMBER').value = IDOC_NUMBER;
-            document.getElementById('PO_NUMBER').value = PO_NUMBER;
-            document.getElementById('PO_DATE').value = PO_DATE;
-            document.getElementById('IDOC_STATUS_CODE').value = IDOC_STATUS_CODE;
-            document.getElementById('IDOC_STATUS_DESCRIPTION').value = IDOC_STATUS_DESCRIPTION;
-        }
-        else
-        {
-            document.getElementById('SAP_USER').value = '--';
-            document.getElementById('IDOC_NUMBER').value = '--';
-            document.getElementById('PO_NUMBER').value = '--';
-            document.getElementById('PO_DATE').value = '--';
-            document.getElementById('IDOC_STATUS_CODE').value = '--';
-            document.getElementById('IDOC_STATUS_DESCRIPTION').value = '--';
-        }
+//        if (SAP_DETAILS != 'NO') {
+//            document.getElementById('SAP_USER').value = SAP_USER;
+//            document.getElementById('IDOC_NUMBER').value = IDOC_NUMBER;
+//            document.getElementById('PO_NUMBER').value = PO_NUMBER;
+//            document.getElementById('PO_DATE').value = PO_DATE;
+//            document.getElementById('IDOC_STATUS_CODE').value = IDOC_STATUS_CODE;
+//            document.getElementById('IDOC_STATUS_DESCRIPTION').value = IDOC_STATUS_DESCRIPTION;
+//        }
+//        else
+//        {
+//            document.getElementById('SAP_USER').value = '--';
+//            document.getElementById('IDOC_NUMBER').value = '--';
+//            document.getElementById('PO_NUMBER').value = '--';
+//            document.getElementById('PO_DATE').value = '--';
+//            document.getElementById('IDOC_STATUS_CODE').value = '--';
+//            document.getElementById('IDOC_STATUS_DESCRIPTION').value = '--';
+//        }
 //        alert('after sap details');
 
     }
@@ -433,19 +436,19 @@ function populateASNDetails(responseXML) {
 
         document.getElementById('msstatus').value = STATUS.toUpperCase();
 
-        if (SAP_DETAILS != 'NO') {
-
-            document.getElementById('msapDiv').style.display = "block";
-
-            document.getElementById('mssapUser').value = SAP_USER;
-            document.getElementById('msidocNo').value = IDOC_NUMBER;
-
-            document.getElementById('mspoNo').value = PO_NUMBER;
-            document.getElementById('mspoDate').value = PO_DATE;
-
-            document.getElementById('msidocStatusCode').value = IDOC_STATUS_CODE;
-            document.getElementById('msidocStatusDesc').value = IDOC_STATUS_DESCRIPTION;
-        }
+//        if (SAP_DETAILS != 'NO') {
+//
+//            document.getElementById('msapDiv').style.display = "block";
+//
+//            document.getElementById('mssapUser').value = SAP_USER;
+//            document.getElementById('msidocNo').value = IDOC_NUMBER;
+//
+//            document.getElementById('mspoNo').value = PO_NUMBER;
+//            document.getElementById('mspoDate').value = PO_DATE;
+//
+//            document.getElementById('msidocStatusCode').value = IDOC_STATUS_CODE;
+//            document.getElementById('msidocStatusDesc').value = IDOC_STATUS_DESCRIPTION;
+//        }
 
         if (PRE_TRANS_FILEPATH == "No File") {
             document.getElementById('mspreTransFilepath').innerHTML = "--";
@@ -470,6 +473,8 @@ function populateASNDetails(responseXML) {
         if (ERRMESSAGE != "NO MSG") {
             document.getElementById('errorDiv').style.display = "block";
             document.getElementById('mserrormessage').innerHTML = ERRMESSAGE;
+        }else{
+            document.getElementById('mserrormessage').innerHTML = "--";
         }
 
     }
@@ -846,36 +851,38 @@ function populateDocDetails(responseXML)
         }
 
         if (ERRMESSAGE != "NO MSG") {
-            document.getElementById('errorDiv').value = ERRMESSAGE;
-//                alert("errorDiv-------------" +ERRMESSAGE);
-
+            document.getElementById('errorDiv').style.display = "block";
+            document.getElementById('InvErrormessage').innerHTML = ERRMESSAGE;
+        }else{
+            document.getElementById('InvErrormessage').innerHTML = "--";
         }
+        
 
-        if (SAP_DETAILS != 'NO') {
-//                alert("SAP_DETAILS-------------" +SAP_DETAILS);
-
-            document.getElementById('SAP_USER').value = SAP_USER;
-//                alert("SAP_USER-------------" +SAP_USER);
-
-            document.getElementById('IDOC_NUMBER').value = IDOC_NUMBER;
-//                alert("IDOC_NUMBER-------------" +IDOC_NUMBER);
-
-
-            document.getElementById('PO_NUMBER').value = PO_NUMBER;
-//                alert("PO_NUMBER-------------" +PO_NUMBER);
-
-            document.getElementById('PO_DATE').value = PO_DATE;
-//                alert("PO_DATE-------------" +PO_DATE);
-
-            document.getElementById('IDOC_STATUS_CODE').value = IDOC_STATUS_CODE;
-//                alert("IDOC_STATUS_CODE-------------" +IDOC_STATUS_CODE);
-
-
-            document.getElementById('IDOC_STATUS_DESCRIPTION').value = IDOC_STATUS_DESCRIPTION;
-//                alert("IDOC_STATUS_DESCRIPTION-------------" +IDOC_STATUS_DESCRIPTION);
-
-
-        }
+//        if (SAP_DETAILS != 'NO') {
+////                alert("SAP_DETAILS-------------" +SAP_DETAILS);
+//
+//            document.getElementById('SAP_USER').value = SAP_USER;
+////                alert("SAP_USER-------------" +SAP_USER);
+//
+//            document.getElementById('IDOC_NUMBER').value = IDOC_NUMBER;
+////                alert("IDOC_NUMBER-------------" +IDOC_NUMBER);
+//
+//
+//            document.getElementById('PO_NUMBER').value = PO_NUMBER;
+////                alert("PO_NUMBER-------------" +PO_NUMBER);
+//
+//            document.getElementById('PO_DATE').value = PO_DATE;
+////                alert("PO_DATE-------------" +PO_DATE);
+//
+//            document.getElementById('IDOC_STATUS_CODE').value = IDOC_STATUS_CODE;
+////                alert("IDOC_STATUS_CODE-------------" +IDOC_STATUS_CODE);
+//
+//
+//            document.getElementById('IDOC_STATUS_DESCRIPTION').value = IDOC_STATUS_DESCRIPTION;
+////                alert("IDOC_STATUS_DESCRIPTION-------------" +IDOC_STATUS_DESCRIPTION);
+//
+//
+//        }
 //            alert('after SAP');
         document.getElementById('ManNullValues').innerHTML = "<a href=\"javascript:getNullValues('<%=docRepositoryBean.getId()%>');\">Dispalay Null</a></td></tr>";
 

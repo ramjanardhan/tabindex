@@ -512,7 +512,7 @@
                         <div class="col-sm-6"> <label class="labelw">Order_Date :</label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODates" name="PODates" readonly="true"/>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw">PO Value :</label>
+                        <%--<div class="col-sm-6"> <label class="labelw">PO Value :</label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POValue" name="POValue" readonly="true"/>
                         </div>
                         <div class="col-sm-6"> <label class="labelw">POQuantity:</label>
@@ -540,13 +540,13 @@
                         </div>
                         <div class="col-sm-6"> <label class="labelw">SO&nbsp;# :</label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSoNumber" name="POSoNumber" readonly="true"/>
-                        </div>
+                        </div> --%>
                         <div class="col-sm-6"> <label class="labelw">SAPIDOC # :</label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSapIdocNum" name="POSapIdocNum" readonly="true"/>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw">IDOC Status :</label>
+                        <%--<div class="col-sm-6"> <label class="labelw">IDOC Status :</label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODeilvaryName" name="PODeilvaryName" readonly="true"/>
-                        </div>
+                        </div>--%>
 
                         <div class="row col-sm-12">
                             <div class="col-sm-6"> <label class="labelw">DocumentType: </label>
@@ -555,9 +555,9 @@
                             <div class="col-sm-6"> <label class="labelw">TransactionType:</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POTransactionType" name="POTransactionType" readonly="true"/>
                             </div></div> <div class="row col-sm-12">
-                            <div class="col-sm-6"> <label class="labelw">ORDER_STATUS</label>
+                            <%--<div class="col-sm-6"> <label class="labelw">ORDER_STATUS</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POOrderStatus" name="POOrderStatus" readonly="true"/>
-                            </div>
+                            </div>--%>
                         </div>
                         <br>
                         <div id="senderinfo">

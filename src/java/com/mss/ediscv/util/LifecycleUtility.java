@@ -67,7 +67,7 @@ public class LifecycleUtility {
                 + " FILES.PRE_TRANS_FILEPATH,FILES.POST_TRANS_FILEPATH,"
                 + "FILES.ORG_FILEPATH,FILES.REPROCESSSTATUS,"
                 + "FILES.ACK_FILE_ID as ACK_FILE_ID "
-                + "FROM PO LEFT OUTER JOIN FILES ON "
+                + "FROM FILES LEFT OUTER JOIN PO ON "
                 + "(PO.PO_NUMBER = FILES.PRI_KEY_VAL AND PO.FILE_ID = FILES.FILE_ID) "
                 + "WHERE PO.PO_NUMBER LIKE '%" + poNum + "%'"
                 + " ORDER BY FILES.DATE_TIME_RECEIVED");

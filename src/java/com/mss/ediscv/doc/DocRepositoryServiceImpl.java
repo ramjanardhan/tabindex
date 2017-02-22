@@ -247,6 +247,7 @@ public class DocRepositoryServiceImpl implements DocRepositoryService {
         }
         documentSearchQuery.append(" order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
         String searchQuery = documentSearchQuery.toString();
+        System.out.println("search query is "+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();

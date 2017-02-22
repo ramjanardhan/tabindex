@@ -171,7 +171,7 @@ function populatePoDetails(responseXML)
 
 
         document.getElementById('POInstanceId').value = fileID;
-        document.getElementById('POQty').value = itemQty;
+        //document.getElementById('POQty').value = itemQty;
         if (poNUM != "NO") {
             document.getElementById('PONum').value = poNUM;
         }
@@ -186,6 +186,7 @@ function populatePoDetails(responseXML)
         {
             document.getElementById('PODates').value = "--";
         }
+        /*
         if (poValue != "NO") {
             document.getElementById('POValue').value = poValue;
         }
@@ -238,18 +239,20 @@ function populatePoDetails(responseXML)
         else {
             document.getElementById('POSoNumber').value = "--";
         }
+        */
+        
         if (sapIdocNum != "NO") {
             document.getElementById('POSapIdocNum').value = sapIdocNum;
         }
         else {
             document.getElementById('POSapIdocNum').value = "--";
         }
-        if (deilvaryName != "NO") {
-            document.getElementById('PODeilvaryName').value = deilvaryName;
-        }
-        else {
-            document.getElementById('PODeilvaryName').value = "--";
-        }
+//        if (deilvaryName != "NO") {
+//            document.getElementById('PODeilvaryName').value = deilvaryName;
+//        }
+//        else {
+//            document.getElementById('PODeilvaryName').value = "--";
+//        }
         document.getElementById('PODocumentType').value = FILE_TYPE;
         document.getElementById('POTransactionType').value = TRANSACTION_TYPE;
         document.getElementById('POSenderId').value = SENDER_ID;
@@ -268,12 +271,12 @@ function populatePoDetails(responseXML)
         } else {
             document.getElementById('POStatus').value = STATUS;
         }
-        if (ORDER_STATUS != "NO") {
-            document.getElementById('POOrderStatus').value = ORDER_STATUS;
-        }
-        else {
-            document.getElementById('POOrderStatus').value = "--";
-        }
+//        if (ORDER_STATUS != "NO") {
+//            document.getElementById('POOrderStatus').value = ORDER_STATUS;
+//        }
+//        else {
+//            document.getElementById('POOrderStatus').value = "--";
+//        }
         if (PRE_TRANS_FILEPATH == "No File") {
             document.getElementById('POPreTransition').innerHTML = "--";
         } else {

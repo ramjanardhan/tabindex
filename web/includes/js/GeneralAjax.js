@@ -792,16 +792,11 @@ function populateDocDetails(responseXML)
 //            alert("ISA_NUMBER-------------" +ISA_NUMBER);
 
 
-        if (GS_CONTROL_NUMBER != "No GS CONTROL NUMBER")
-        {
-            document.getElementById('ManGs').value = " ";
-        }
-        else
-        {
+       
             document.getElementById('ManGs').value = GS_CONTROL_NUMBER;
 //                alert("GS_CONTROL_NUMBER-------------" +GS_CONTROL_NUMBER);
 
-        }
+        
         document.getElementById('ManSt').value = ST_CONTROL_NUMBER;
 //            alert("ST_CONTROL_NUMBER-------------" +ST_CONTROL_NUMBER);
 

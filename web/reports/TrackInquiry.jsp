@@ -116,12 +116,12 @@
             <!-- Content Header (Page header) -->  
             <section class="content-header">
                 <h1>
-                    EDI Track Enquiry
+                    EDI Track Inquiry
                     <small>Manufacturing</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-wrench"></i>Manufacturing</a></li>
-                    <li class="active">EDI Track Enquiry</li>
+                    <li class="active">EDI Track Inquiry</li>
                 </ol>
             </section>
             <br>
@@ -149,7 +149,7 @@
 
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-sm-3"> <label>Date range</label>
+                                                <div class="col-sm-3"> <label>Date Range</label>
 
                                                     <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}"  /> 
                                                 </div>

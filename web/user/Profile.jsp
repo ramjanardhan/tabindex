@@ -14,7 +14,7 @@
         <title>Miracle Supply Chain Visibility Portal</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        
+
         <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
 
         <link rel="stylesheet" href='<s:url value="/includes/plugins/plugins/datepicker/datepicker3_1.css"/>' type="text/css">
@@ -31,19 +31,20 @@
             {
                 $("#profile").addClass("active");
                 $("#profile i").addClass("text-red");
-                
-                document.getElementById('loadingAcoountSearch').style.display="none";
+
+                document.getElementById('loadingAcoountSearch').style.display = "none";
             }
             function fileValidation() {
                 var imagePath = document.imageForm.imagePath;
                 alert(imagePath);
-                if(imagePath.value != null && (imagePath.value !="")) {
+                if (imagePath.value != null && (imagePath.value != "")) {
                     document.imageForm.imagePath.focus();
                     return (true);
                 }
-                
+
                 return (false);
-            };
+            }
+            ;
             function validateForm() {
                 var education = document.forms["profileForm"]["education"].value;
                 var designation = document.getElementById('designation').value;
@@ -52,91 +53,98 @@
                 var dob = document.forms["profileForm"]["dob"].value;
                 var gender = document.forms["profileForm"]["gender"].checked;
                 var phonenumber = document.forms["profileForm"]["phonenumber"].value;
-                if(education.length==0 || education == "" || education==null){
+                if (education.length == 0 || education == "" || education == null) {
                     document.getElementById('resultMessage').innerHTML = "<font color=red>Please enter your education.</font>";
                     // document.getElementById('education').style.borderColor = "red";
-                    return (false);   
-                }else if(designation.length==0 || designation == "" || designation==null){
+                    return (false);
+                } else if (designation.length == 0 || designation == "" || designation == null) {
                     document.getElementById('resultMessage').innerHTML = "<font color=red>Please enter your designation.</font>";
                     // document.getElementById('designation').style.borderColor = "red";
-                    return (false);   
-                }else if(location.length==0 || location == "" || location==null){
+                    return (false);
+                } else if (location.length == 0 || location == "" || location == null) {
                     document.getElementById('resultMessage').innerHTML = "<font color=red>Please enter your location.</font>";
                     // document.getElementById('location').style.borderColor = "red";
-                    return (false);   
-                } else if(organization.length==0 || organization == "" || organization==null){
+                    return (false);
+                } else if (organization.length == 0 || organization == "" || organization == null) {
                     document.getElementById('resultMessage').innerHTML = "<font color=red>Please enter your organization.</font>";
                     // document.getElementById('organization').style.borderColor = "red";
                     return (false);
                     //document.getElementById("reportCheckbox").checked = true;
-                } else if(dob.length==0 || dob == "" || dob==null){
+                } else if (dob.length == 0 || dob == "" || dob == null) {
                     document.getElementById('resultMessage').innerHTML = "<font color=red>Please enter your date of birth.</font>";
                     // document.getElementById('dob').style.borderColor = "red";
-                    return (false);   
-                } else if(gender == false){
+                    return (false);
+                } else if (gender == false) {
                     document.getElementById('resultMessage').innerHTML = "<font color=red>Please select gender.</font>";
                     //  document.getElementById('gender').style.borderColor = "red";
-                    return (false);   
-                } else if(phonenumber.length==0 || phonenumber == "" || phonenumber==null){
+                    return (false);
+                } else if (phonenumber.length == 0 || phonenumber == "" || phonenumber == null) {
                     document.getElementById('resultMessage').innerHTML = "<font color=red>Please enter your phonenumber.</font>";
                     //  document.getElementById('phonenumber').style.borderColor = "red";
-                    return (false);   
-                }           
-            };
-            
-            function formatPhone(element){
-                str=new String(element.value);
-                element.value=str.replace(/[A-Za-z\(\)\.\-\x\s,]/g,"");
-                num=element.value;
+                    return (false);
+                }
+            }
+            ;
+
+            function formatPhone(element) {
+                str = new String(element.value);
+                element.value = str.replace(/[A-Za-z\(\)\.\-\x\s,]/g, "");
+                        num = element.value;
                 var _return;
-                if(num.length==10){_return="(";
-                    var ini=num.substring(0,3);
-                    _return+=ini+")";
-                    var st=num.substring(3,6);
-                    _return+="-"+st+"-";
-                    var end=num.substring(6,10);
-                    _return+=end;
-                    element.value="";
-                    element.value=_return;
-                }else{if(num.length>10){
+                if (num.length == 10) {
+                    _return = "(";
+                    var ini = num.substring(0, 3);
+                    _return += ini + ")";
+                    var st = num.substring(3, 6);
+                    _return += "-" + st + "-";
+                    var end = num.substring(6, 10);
+                    _return += end;
+                    element.value = "";
+                    element.value = _return;
+                } else {
+                    if (num.length > 10) {
                         document.getElementById('resultMessage').innerHTML = "<font color=red>Phone Number should be 10 characters.</font>";
-                        element.value=_return;
-                        element.value="";
+                        element.value = _return;
+                        element.value = "";
                         element.focus();
                         return false;
-                    }else{if(num.length<10){
+                    } else {
+                        if (num.length < 10) {
                             document.getElementById('resultMessage').innerHTML = "<font color=red>Please give atleast  10 charcters in PhoneNumber.</font>";
-                            element.value="";
-                        }}}return _return;
+                            element.value = "";
+                        }
+                    }
+                }
+                return _return;
             }
-            
+
             function ValidateFileUpload() {
                 var file = $("#imageUpdate").val();
-    
+
                 if (file == '') {
                     $("imageErrorMsg").html("<font color='red'>Please Upload an image</font>");
                     return false;
                 }
-    
+
                 if (file != '')
                 {
                     var size = document.getElementById('imageUpdate').files[0].size;
-                    var leafname= file.split('\\').pop().split('/').pop();
-                    var extension = file.substring(file.lastIndexOf('.')+1);
-                    if(extension=="jpg"||extension=="png"||extension=="gif" ){
+                    var leafname = file.split('\\').pop().split('/').pop();
+                    var extension = file.substring(file.lastIndexOf('.') + 1);
+                    if (extension == "jpg" || extension == "png" || extension == "gif") {
                         var size = document.getElementById('imageUpdate').files[0].size;
-                        if(leafname.length>30){
+                        if (leafname.length > 30) {
                             document.getElementById('imageUpdate').value = '';
                             $("imageErrorMsg").html("<font color='red'>File name length must be less than 30 characters!</font>");
                             // document.getElementById('InsertContactInfo').innerHTML = "<font color=red>File name length must be less than 30 characters!</font>"
                             // showAlertModal("File size must be less than 2 MB");
                             return false;
                         }
-                        else 
+                        else
                         {
-                            if(parseInt(size)<2097152) {
+                            if (parseInt(size) < 2097152) {
                                 $("imageErrorMsg").html("");
-                            }else {
+                            } else {
                                 document.getElementById('imageUpdate').value = '';
                                 $("imageErrorMsg").html("<font color='red'>File size must be less than 2 MB</font>");
                                 // document.getElementById('InsertContactInfo').innerHTML = "<font color=red>File size must be less than 2 MB</font>"
@@ -145,7 +153,7 @@
                             }
                         }
                     }
-                    else 
+                    else
                     {
                         document.getElementById('imageUpdate').value = "";
                         //document.getElementById('InsertContactInfo').innerHTML = "<font color=red>Invalid file extension!Please select pdf or doc or docx or gif or jpg or png or jpeg file.</font>"
@@ -158,8 +166,8 @@
                 return true;
             }
 
-            function removeValue(){
-                document.getElementById("imageUpdate").value="";
+            function removeValue() {
+                document.getElementById("imageUpdate").value = "";
             }
         </script>
         <style>
@@ -265,15 +273,15 @@
                                                         </div>
                                                         <div class="col-sm-2"> <label for="dob">DOB</label> </div>
                                                         <div class="col-sm-4"><div class="inner-addon left-addon"><s:textfield name="dob" data-provide="datepicker"  id="dob" cssClass="form-control pull-left" placeholder="MM/DD/YYYY  &#xf063;"  value="%{userBean.dob}" style="padding: 0px 34px;"  /><i class="fa fa-calendar glyphicon glyphicon-calendar" style="position: relative;right: -9px;top: -26px;"></i></div> 
-                                                       <%-- <div class="col-sm-4"><div class="inner-addon"><s:textfield name="dob" data-provide="datepicker"  id="dob" cssClass="form-control pull-left" placeholder="MM/DD/YYYY"  value="%{userBean.dob}"  /></div> --%>
+                                                                <%-- <div class="col-sm-4"><div class="inner-addon"><s:textfield name="dob" data-provide="datepicker"  id="dob" cssClass="form-control pull-left" placeholder="MM/DD/YYYY"  value="%{userBean.dob}"  /></div> --%>
 
                                                         </div>
-                                                       
+
                                                     </div>
                                                     <script type="text/javascript">
                                                         $('#dob').datepicker();
                                                     </script>
-                                                    
+
                                                     <div class="row">
                                                         <div class="col-sm-2"><label for="gender">Gender</label></div> 
                                                         <div class="col-sm-4" style="padding:13px">
@@ -354,7 +362,7 @@
                                             <div class="form-group" >
                                                 <label for="oldpassword" class="col-sm-2">Old Password</label>
                                                 <div class="col-sm-4">
-                                                    <s:password cssClass="form-control" placeholder="OldPassword" name="oldPwd" id="oldPwd"/>
+                                                    <s:password cssClass="form-control" placeholder="Old Password" name="oldPwd" id="oldPwd"/>
                                                 </div> 
                                                 <div class="col-sm-3"></div>
                                                 <div class="col-sm-3"></div>
@@ -365,7 +373,7 @@
                                             <div class="form-group">
                                                 <label for="newpassword" class="col-sm-2">New Password</label>
                                                 <div class="col-sm-4">
-                                                    <s:password cssClass="form-control" placeholder="NewPassword" name="newPwd" id="newPwd"/>
+                                                    <s:password cssClass="form-control" placeholder="New Password" name="newPwd" id="newPwd"/>
                                                 </div>
                                                 <div class="col-sm-3"></div>
                                                 <div class="col-sm-3"></div>
@@ -376,7 +384,7 @@
                                             <div class="form-group">
                                                 <label for="confirmpassword" class="col-sm-2">Confirm Password</label>
                                                 <div class="col-sm-4">
-                                                    <s:password cssClass="form-control" placeholder="ConfirmPassword" name="confirmPwd" id="confirmPwd"/>
+                                                    <s:password cssClass="form-control" placeholder="Confirm Password" name="confirmPwd" id="confirmPwd"/>
                                                 </div>
                                                 <div class="col-sm-3"></div>
                                                 <div class="col-sm-3"></div>
@@ -411,7 +419,7 @@
         <div>
             <s:include value="../includes/template/footer.jsp"/>
         </div>
-        
+
         <!-- Bootstrap 3.3.5 -->
         <script src='<s:url value="../includes/bootstrap/js/bootstrap.min.js"/>'></script>
         <!-- AdminLTE App -->

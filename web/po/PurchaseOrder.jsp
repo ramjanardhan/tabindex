@@ -118,7 +118,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="row">
-                                                    <div class="col-sm-3"> <label>Date range</label>
+                                                    <div class="col-sm-3"> <label>Date Range</label>
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="Date1();" /> 
                                                     </div>
                                                     <script type="text/javascript">
@@ -482,7 +482,7 @@
                                             <div class="col-sm-2" style="margin-right:5%"><input type="button" value="ReSubmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to Resubmit.')" onmouseout="UnTip()" onclick="return getProces(this, document.getElementById('sec_po_list').value);" id="post"/></div>
 
 
-                                            <div class="col-sm-2" style="margin-right:5%"><input type="button" value="LifeCycle" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to generate Life Cycle.')" onmouseout="UnTip()" onclick="return getLifeCycle(document.getElementById('sec_po_list').value,'manufacturing');"/></div>ss
+                                            <div class="col-sm-2" style="margin-right:5%"><input type="button" value="LifeCycle" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to generate Life Cycle.')" onmouseout="UnTip()" onclick="return getLifeCycle(document.getElementById('sec_po_list').value,'manufacturing');"/></div>
 
 
                                             <div class="col-sm-2" style="margin-right:2%"><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('po', 'xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/> </div>  

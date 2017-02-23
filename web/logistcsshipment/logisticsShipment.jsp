@@ -149,7 +149,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="row">
-                                                    <div class="col-sm-3"> <label>Date range</label>
+                                                    <div class="col-sm-3"> <label>Date Range</label>
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="Date1();" /> 
                                                     </div>
 
@@ -517,13 +517,13 @@
                     <div class="col-sm-6"> <label class="labelw"> Shipment Volume </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="LSAsnvolume" name="LSAsnvolume" readonly="true" />
                     </div>
-                    <div class="col-sm-6"> <label class="labelw">IS A Number</label>
+                    <div class="col-sm-6"> <label class="labelw">ISA Number</label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="LSIsANumber" name="LSIsANumber" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw">IS A Date</label>
+                    <div class="col-sm-6"> <label class="labelw">ISA Date</label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="LSIsADate" name="LSIsADate" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw">IS A Time</label>
+                    <div class="col-sm-6"> <label class="labelw">ISA Time</label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="LSIsATime" name="LSIsATime" readonly="true"/>
                     </div>
                 </div>
@@ -583,11 +583,11 @@
                 </div>
 
                 <div class="row col-sm-12" >
-                    <div class="col-sm-6"> <label class="labelw">  Pre Transition  </label></div>
+                    <div class="col-sm-6"> <label class="labelw">  Pre Translation  </label></div>
                     <div class="col-sm-6">  <div id="LSPreTranslation"></div>
                     </div>
                     <div class="row col-sm-12" >
-                        <div class="col-sm-6"> <label class="labelw"> Post Transition </label></div>
+                        <div class="col-sm-6"> <label class="labelw"> Post Translation </label></div>
                         <div class="col-sm-6"><div id="LSPostTranslation"></div>
                         </div></div>
                     <div class="row col-sm-12" >

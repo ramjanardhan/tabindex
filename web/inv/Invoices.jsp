@@ -139,7 +139,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="row">
-                                                <div class="col-sm-3"> <label for="reportrange">Date range</label>
+                                                <div class="col-sm-3"> <label for="reportrange">Date Range</label>
                                                     <s:textfield  id="reportrange" name="reportrange" cssClass="form-control" class="form-control pull-left"  value="%{reportrange}" onchange="MyDate();"/>  
                                                 </div>
 

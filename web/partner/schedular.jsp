@@ -142,30 +142,30 @@
         <section class="content-header">
             <s:if test="%{configFlowFlag == 'manufacturing'}">
                 <% if (request.getAttribute("userPageId").toString().equals("0")) {%>
-                <h1>Schdular Creation<small> Manufacturing</small></h1>    
+                <h1>Scheduler Creation<small> Manufacturing</small></h1>    
                 <%} else {%>
-                <h1>Update Schdular<small> Manufacturing</small></h1> 
+                <h1>Update Scheduler<small> Manufacturing</small></h1> 
                 <%}%>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-wrench"></i>Manufacturing</a></li>
                     <% if (request.getAttribute("userPageId").toString().equals("0")) {%>
-                    <li class="active"> Schdular Creation </li>
+                    <li class="active"> Scheduler Creation </li>
                     <%} else {%>
-                    <li class="active">  Update Schdular </li>
+                    <li class="active">  Update Scheduler </li>
                     <%}%>
                 </ol>
             </s:if><s:elseif test="%{configFlowFlag == 'logistics'}">
                 <% if (request.getAttribute("userPageId").toString().equals("0")) {%>
-                <h1>Schdular Creation<small> Logistics</small></h1>    
+                <h1>Scheduler Creation<small> Logistics</small></h1>    
                 <%} else {%>
-                <h1>Update Schdular<small> Logistics</small></h1> 
+                <h1>Update Scheduler<small> Logistics</small></h1> 
                 <%}%>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-truck"></i>Logistics</a></li>
                     <% if (request.getAttribute("userPageId").toString().equals("0")) {%>
-                    <li class="active"> Schdular Creation </li>
+                    <li class="active"> Scheduler Creation </li>
                     <%} else {%>
-                    <li class="active">  Update Schdular </li>
+                    <li class="active">  Update Scheduler </li>
                     <%}%>
                 </ol>
             </s:elseif>
@@ -244,7 +244,7 @@
 
                                                             </div>
                                                             <div class="col-sm-4">
-                                                                <label for="extranalmailids">ExternalUserEmailIds</label>
+                                                                <label for="extranalmailids">External User EmailIds</label>
                                                                 <s:textarea  name="extranalmailids" id="extranalmailids"  value="%{extranalmailids}" tabindex="7" cssClass="form-control" onchange="SchEmailValidator(this);checkEmails(this);"/>
                                                             </div>  
 

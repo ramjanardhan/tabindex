@@ -102,7 +102,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="row">
-                                                    <div class="col-sm-3"> <label>Date range</label>
+                                                    <div class="col-sm-3"> <label>Date Range</label>
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="Date1();" /> 
                                                     </div>
 
@@ -509,10 +509,10 @@
                 <div class="row col-sm-12">
 
                     <br>
-                    <div class="col-sm-6"> <label class="labelw"> Instance Id#: </label>
+                    <div class="col-sm-6"> <label class="labelw"> Instance Id #: </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="instanceid" name="instanceid" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> Shipment#: </label>
+                    <div class="col-sm-6"> <label class="labelw"> Shipment #: </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="shipment" name="shipment" readonly="true"/>
                     </div>
                 </div>
@@ -601,15 +601,15 @@
                 </div>
 
                 <div class="row col-sm-12" >
-                    <div class="col-sm-6"> <label class="labelw">  Pre Transition:  </label></div>
+                    <div class="col-sm-6"> <label class="labelw">  Pre Translation:  </label></div>
                     <div class="col-sm-6"> <div id="pretranslation"> </div></div>
                 </div>
                 <div class="row col-sm-12">     
-                    <div class="col-sm-6"> <label class="labelw"> Post Transition: </label></div>
+                    <div class="col-sm-6"> <label class="labelw"> Post Translation: </label></div>
                     <div class="col-sm-6">   <div id="posttranslation"></div></div>
                 </div>
                 <div class="row col-sm-12">
-                    <div class="col-sm-6"> <label class="labelw"> ACK FileId: </label></div>
+                    <div class="col-sm-6"> <label class="labelw"> Ack FileId: </label></div>
                     <div class="col-sm-6">    <div id="ackfileid"></div></div>
                 </div>
                 <br><br><br><br><br><br>

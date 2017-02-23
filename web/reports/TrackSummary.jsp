@@ -205,7 +205,7 @@
 
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-sm-3"> <label>Date range</label>
+                                                    <div class="col-sm-3"> <label>Date Range</label>
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}"  /> 
                                                     </div>
 

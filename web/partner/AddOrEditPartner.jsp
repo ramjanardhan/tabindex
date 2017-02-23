@@ -199,7 +199,7 @@
                                                                 <s:textfield cssClass="form-control" name="applicationId" id="applicationId" value="%{applicationId}" tabindex="4" />
                                                             </div>
                                                             <div class="col-xs-3">
-                                                                <label for="corrvalue">countryCode</label>
+                                                                <label for="corrvalue">Country Code</label>
                                                                 <s:textfield cssClass="form-control" name="countryCode" id="countryCode" value="%{countryCode}" tabindex="5" />
                                                             </div>
 

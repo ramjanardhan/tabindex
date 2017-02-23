@@ -23,57 +23,57 @@
         <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script type="text/javascript">
-            function doOnLoad() 
+            function doOnLoad()
             {
-                 
+
                 var configFlowFlag = $('#configFlowFlag').val();
                 //alert('configFlowFlag'+configFlowFlag);
-                if(configFlowFlag == 'manufacturing'){
+                if (configFlowFlag == 'manufacturing') {
                     $("#manufacturing").addClass("active");
                     $("#partner").addClass("active");
                     $("#config").addClass("active");
                     $("#partner i").addClass("text-red");
-                } else if(configFlowFlag == 'logistics'){
+                } else if (configFlowFlag == 'logistics') {
                     $("#logistics").addClass("active");
                     $("#ltpartner").addClass("active");
                     $("#ltconfig").addClass("active");
                     $("#ltpartner i").addClass("text-red");
                 }
-              document.getElementById('loadingAcoountSearch').style.display="none";
-	
-            // $("#config i").addClass("text-red");
+                document.getElementById('loadingAcoountSearch').style.display = "none";
+
+                // $("#config i").addClass("text-red");
             }
-  
+
             function goToAddPartner() {
                 var configFlowFlag = document.getElementById("configFlowFlag").value;
                 //alert(configFlowFlag);
-                window.location="../partner/addPartner.action?configFlowFlag="+configFlowFlag;
+                window.location = "../partner/addPartner.action?configFlowFlag=" + configFlowFlag;
             }
             function resetvalues()
             {
-                document.getElementById("partnerName").value="";
-                document.getElementById("status").value="ACTIVE";
-                document.getElementById("partnerIdentifier").value="";
-                document.getElementById("internalIdentifier").value="";
-                document.getElementById("applicationId").value="";
-                document.getElementById("countryCode").value="";
-    
+                document.getElementById("partnerName").value = "";
+                document.getElementById("status").value = "ACTIVE";
+                document.getElementById("partnerIdentifier").value = "";
+                document.getElementById("internalIdentifier").value = "";
+                document.getElementById("applicationId").value = "";
+                document.getElementById("countryCode").value = "";
+
                 $('#gridDiv').hide();
                 // alert("test");
             }
         </script>
-             <script type="text/javascript">
- function hide()
+        <script type="text/javascript">
+            function hide()
             {
-                
+
                 $('#hide-menu1').removeClass('show-menu');
             }
-           // $('html').click(function(e){
-              //  $('#hide-menu1').removeClass('show-menu');
+            // $('html').click(function(e){
+            //  $('#hide-menu1').removeClass('show-menu');
             //});
 
-</script> 
-        
+        </script> 
+
 
 
     </head>
@@ -85,8 +85,9 @@
         }
 
         //System.out.println("check-->"+check);
-%>
-    <body class="hold-transition skin-blue sidebar-mini" onload="doOnLoad();setStyle('mainTp','partnerList')">
+    %>
+    <body class="hold-transition skin-blue sidebar-mini" onload="doOnLoad();
+            setStyle('mainTp', 'partnerList')">
 
         <div>
             <s:include value="../includes/template/header.jsp"/>
@@ -140,7 +141,7 @@
                         <!--box-->
                         <div class="box box-primary">
                             <div class="box-header with-border">
-                              
+
 
 
                                 <div class="box-tools pull-right">
@@ -192,9 +193,9 @@
                                                                 <label for="partnerIdentifier">Partner Identifier </label>  
                                                                 <s:textfield cssClass="form-control" name="partnerIdentifier" id="partnerIdentifier" tabindex="3" value="%{partnerIdentifier}" onchange="fieldLengthValidator(this);makeUpperCase(this);"/>
                                                             </div>
- <div id="loadingAcoountSearch" class="loadingImg">
-                                                    <span id ="LoadingContent" > <img src="<s:url value="/includes/images/Loader2.gif"/>"   ></span>
-                                                </div>
+                                                            <div id="loadingAcoountSearch" class="loadingImg">
+                                                                <span id ="LoadingContent" > <img src="<s:url value="/includes/images/Loader2.gif"/>"   ></span>
+                                                            </div>
 
                                                         </div>
                                                         <br>
@@ -204,7 +205,7 @@
                                                                 <s:textfield cssClass="form-control" name="applicationId" id="applicationId" value="%{applicationId}" tabindex="4" onchange="fieldLengthValidator(this);"/>
                                                             </div>
                                                             <div class="col-xs-3">
-                                                                <label for="corrvalue">countryCode</label>
+                                                                <label for="corrvalue">Country Code</label>
                                                                 <s:textfield cssClass="form-control" name="countryCode" id="countryCode" value="%{countryCode}" tabindex="5" onchange="fieldLengthValidator(this);"/>
                                                             </div>
 
@@ -285,8 +286,8 @@
                                                                     <th>CountryCode </th>
                                                                     <th>Status </th>
                                                                     <th>CreatedDate </th> </tr></thead><tbody>
-                                                                    <%--     <td>Changed Date</td>
-                                                                         <td>ChangesUser </td> --%>
+                                                                        <%--     <td>Changed Date</td>
+                                                                             <td>ChangesUser </td> --%>
 
 
 
@@ -308,8 +309,8 @@
                                                                         %>
                                                                         <s:url var="myUrl" action="../partner/partnerEdit.action">
                                                                             <s:param name="partnerIdentifier"><%=id%></s:param>
-                                                                             <s:param name="configFlowFlag1" value="%{configFlowFlag}"></s:param>
-                                                                               <%--    <s:param name="tpname" value="%{tpname}"></s:param> --%>
+                                                                            <s:param name="configFlowFlag1" value="%{configFlowFlag}"></s:param>
+                                                                            <%--    <s:param name="tpname" value="%{tpname}"></s:param> --%>
 
                                                                         </s:url>
 
@@ -410,53 +411,53 @@
                                         <%-- Grid End --%>
 
                                     </div></section>
-                                        
-                                        <div id="hide-menu1" class="hide-menu message ">
 
-                        <div class="row col-sm-12">
-                           
-                            <br>
-                            <div class="col-sm-6"> <label class="labelw"> Partner ID : </label>
-                                <s:textfield cssClass="form-control"  required="required" placeholder="" id="dpartnerId" name="dpartnerId"  readonly="true"/>
-                            </div>
-                            <div class="col-sm-6"><label class="labelw"> Partner Name : </label>
-                                <s:textfield cssClass="form-control"  required="required" placeholder="" id="dpartnerName" name="dpartnerName" readonly="true"/>
-                            </div>
-                        </div>
-                        <div class="row col-sm-12"> <br>
-                            <div class="col-sm-6"> <label class="labelw">  Internal Identifier : </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="dinternalIdentifier" name="dinternalIdentifier" readonly="true"/>
-                            </div>
-                            <div class="col-sm-6"> <label class="labelw"> Application Id :</label>
-                                <s:textfield   cssClass="form-control"  required="required" placeholder="" id="dapplicationId" name="dapplicationId" readonly="true"/>
+                                    <div id="hide-menu1" class="hide-menu message ">
 
-                            </div>
-                        </div>
-                        <div class="row col-sm-12">
-                            <div class="col-sm-6"> <label class="labelw"> State :</label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="dcountryCode" name="dcountryCode" readonly="true"/>
-                            </div>
-                            <div class="col-sm-6"> <label class="labelw"> Created Date :</label>
-                                <s:textfield cssClass="form-control"  required="required" placeholder="" id="dcreatedDate" name="dcreatedDate" readonly="true"/>
-                            </div>
-                        </div>
-                   
-                        <div class="row col-sm-12 clear">
-                            <div class="col-sm-6"> <label class="labelw"> Changed Date :</label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="dchangedDate" name="dchangedDate" readonly="true"/>
-                            </div>
-                            <div class="col-sm-6"><label class="labelw">  Changed By :</label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="dchangedBy" name="changedBy" readonly="true"/>
-                            </div>
-                        </div>
-                            
-                        <div id="noresult"></div>
-                        <div class="row col-sm-12">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>    
+                                        <div class="row col-sm-12">
 
-                       
-                    </div>
-                                        
-                                        
+                                            <br>
+                                            <div class="col-sm-6"> <label class="labelw"> Partner ID : </label>
+                                                <s:textfield cssClass="form-control"  required="required" placeholder="" id="dpartnerId" name="dpartnerId"  readonly="true"/>
+                                            </div>
+                                            <div class="col-sm-6"><label class="labelw"> Partner Name : </label>
+                                                <s:textfield cssClass="form-control"  required="required" placeholder="" id="dpartnerName" name="dpartnerName" readonly="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-12"> <br>
+                                            <div class="col-sm-6"> <label class="labelw">  Internal Identifier : </label>
+                                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="dinternalIdentifier" name="dinternalIdentifier" readonly="true"/>
+                                            </div>
+                                            <div class="col-sm-6"> <label class="labelw"> Application Id :</label>
+                                                <s:textfield   cssClass="form-control"  required="required" placeholder="" id="dapplicationId" name="dapplicationId" readonly="true"/>
+
+                                            </div>
+                                        </div>
+                                        <div class="row col-sm-12">
+                                            <div class="col-sm-6"> <label class="labelw"> State :</label>
+                                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="dcountryCode" name="dcountryCode" readonly="true"/>
+                                            </div>
+                                            <div class="col-sm-6"> <label class="labelw"> Created Date :</label>
+                                                <s:textfield cssClass="form-control"  required="required" placeholder="" id="dcreatedDate" name="dcreatedDate" readonly="true"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="row col-sm-12 clear">
+                                            <div class="col-sm-6"> <label class="labelw"> Changed Date :</label>
+                                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="dchangedDate" name="dchangedDate" readonly="true"/>
+                                            </div>
+                                            <div class="col-sm-6"><label class="labelw">  Changed By :</label>
+                                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="dchangedBy" name="changedBy" readonly="true"/>
+                                            </div>
+                                        </div>
+
+                                        <div id="noresult"></div>
+                                        <div class="row col-sm-12">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>    
+
+
+                                    </div>
+
+
                                 </s:if> 
                             </div>
                         </div><!-- ./wrapper -->

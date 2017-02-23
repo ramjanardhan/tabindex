@@ -204,6 +204,8 @@
 
                                                                 <td>
                                                                     <%
+                                                                        System.out.print("poLifeCycleBean.getDirection().toUpperCase() -->"+poLifeCycleBean.getDirection().toUpperCase());
+                                                                        System.out.print("poLifeCycleBean.getDirection() -->"+poLifeCycleBean.getDirection());
                                                                         out.println(poLifeCycleBean.getDirection().toUpperCase());
                                                                     %>
                                                                 </td>

@@ -2847,7 +2847,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             my_sheet.addMergedRegion(CellRangeAddress.valueOf("F2:N2"));
             if (inbounddata.size() != 0) {
                 //System.out.println("inbound_chart_data"+inbound_chart_data);
-                JFreeChart inboundPieChart = ChartFactory.createPieChart("Partner Inbound Transcations", inbound_chart_data, true, true, false);
+                JFreeChart inboundPieChart = ChartFactory.createPieChart("Partner Inbound Transactions", inbound_chart_data, true, true, false);
                 /* We don't want to create an intermediate file. So, we create a byte array output stream 
                 and byte array input stream
                 And we pass the chart data directly to input stream through this */
@@ -2872,7 +2872,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             }
             if (outbounddata.size() != 0) {
                 ByteArrayOutputStream outbound_out = new ByteArrayOutputStream();
-                JFreeChart outboundPieChart = ChartFactory.createPieChart("Partner Outbound Transcations", outbound_chart_data, true, true, false);
+                JFreeChart outboundPieChart = ChartFactory.createPieChart("Partner Outbound Transactions", outbound_chart_data, true, true, false);
                 ChartUtilities.writeChartAsJPEG(outbound_out, quality, outboundPieChart, width, height);
                 int outbound_picture_id = workbook.addPicture(outbound_out.toByteArray(), workbook.PICTURE_TYPE_JPEG);
                 outbound_out.close();
@@ -2992,7 +2992,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             if (inbounddata.size() != 0) {
                 //System.out.println("inbound_chart_data"+inbound_chart_data);
 
-                JFreeChart inboundPieChart = ChartFactory.createPieChart("Partner Inbound Transcations", inbound_chart_data, true, true, false);
+                JFreeChart inboundPieChart = ChartFactory.createPieChart("Partner Inbound Transactions", inbound_chart_data, true, true, false);
                 PdfContentByte contentByte = writer.getDirectContent();
                 PdfTemplate template = contentByte.createTemplate(width, height);
                 Graphics2D graphics2d = template.createGraphics(width, height,
@@ -3015,7 +3015,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             }
             if (outbounddata.size() != 0) {
                 // document.newPage();      
-                JFreeChart outboundPieChart = ChartFactory.createPieChart("Partner Outbound Transcations", outbound_chart_data, true, true, false);
+                JFreeChart outboundPieChart = ChartFactory.createPieChart("Partner Outbound Transactions", outbound_chart_data, true, true, false);
                 PdfContentByte contentByte = writer.getDirectContent();
                 PdfTemplate template = contentByte.createTemplate(width, height);
                 Graphics2D graphics2d = template.createGraphics(width, height,

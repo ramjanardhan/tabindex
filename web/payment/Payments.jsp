@@ -123,7 +123,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="row">
-                                                    <div class="col-sm-3"> <label for="reportrange">Date range</label>
+                                                    <div class="col-sm-3"> <label for="reportrange">Date Range</label>
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="MyDate();" /> 
                                                     </div>
 
@@ -277,17 +277,17 @@
                                                             <input type="hidden" name="sec_payment_list" id="sec_payment_list" value="<%=list.size()%>"/>
                                                             <thead> <tr>
 
-                                                                    <td>Partner</td>
-                                                                    <td >InstanceId</td>
+                                                                    <th>Partner</th>
+                                                                    <th >InstanceId</th>
                                                                     <%-- <td >Check #</td>  --%>
-                                                                    <td>PO #</td>
-                                                                    <td>Inv #</td>
-                                                                    <td >Date&nbsp;Time</td>
+                                                                    <th>PO #</th>
+                                                                    <th>Inv #</th>
+                                                                    <th >Date&nbsp;Time</th>
                                                                     <%-- <td>Trans Type</td> --%>
-                                                                    <td>Cheque #</td>
-                                                                    <td>Cheque Amount</td>
-                                                                    <td>Status</td>
-                                                                    <td>ACK Status</td>
+                                                                    <th>Cheque #</th>
+                                                                    <th>Cheque Amount</th>
+                                                                    <th>Status</th>
+                                                                    <th>ACK Status</th>
                                                                 </tr></thead>
                                                             <tbody>
                                                                 <tr>

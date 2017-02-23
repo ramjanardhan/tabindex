@@ -23,59 +23,59 @@
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
         <script>
-            google.load("visualization", "1", {packages:["corechart"]});
+            google.load("visualization", "1", {packages: ["corechart"]});
             function doOnLoad() {
                 $("#dashboardLM").addClass("active");
                 //  $("#dashboard2").addClass("active");
                 $("#dashboard").addClass("active");
                 $("#dashboard i").addClass("text-red");
-                  document.getElementById('loadingAcoountSearch').style.display="none";
+                document.getElementById('loadingAcoountSearch').style.display = "none";
             }
-            $(function() {
-                $('#attach_box').click(function() {
+            $(function () {
+                $('#attach_box').click(function () {
                     $('#sec_box').show();
                     return false;
-                });        
+                });
             });
-            $(function() {
-                $('#detail_link').click(function() {
+            $(function () {
+                $('#detail_link').click(function () {
                     $('#detail_box').show();
                     return false;
-                });        
+                });
             });
-   
+
             // New function to show the left grid
 
-            function demo(){ 
-                $(function() {
-       
+            function demo() {
+                $(function () {
+
                     $('#detail_box').show();
-                    return false;          
+                    return false;
                 });
-  
+
             }
-  
-  
- 
+
+
+
             function resetvaluesManuDash()
             {
-                document.getElementById('docType').value="-1"; 
-                document.getElementById('reportrange').value="";
-                document.getElementById('status').value="-1"; 
-                document.getElementById('ackStatus').value="-1"; 
+                document.getElementById('docType').value = "-1";
+                document.getElementById('reportrange').value = "";
+                document.getElementById('status').value = "-1";
+                document.getElementById('ackStatus').value = "-1";
                 $('#gridDiv').hide();
                 $('#detail_box').hide();
-    
+
             }
             /* $(document).ready(function() {
-              $('ul.sf-menu').sooperfish();
-            });*/
-    
-    
-   
-    
-    
-    
+             $('ul.sf-menu').sooperfish();
+             });*/
+
+
+
+
+
+
         </script>
 
         <style>
@@ -90,7 +90,7 @@
             .space_1{
                 padding-top: 2%;
             }
-            
+
         </style>
 
 
@@ -149,28 +149,28 @@
 
                                         <div class="col-sm-12">
                                             <div class="row">
-                                                <div class="col-sm-3"> <label>Date range</label>
+                                                <div class="col-sm-3"> <label>Date Range</label>
                                                     <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}"  /> 
                                                 </div>
 
                                                 <script type="text/javascript">
-                                                    function Date1()
-                                                    {
-                                                        // alert("in to date1");
-                                                        var date=document.dashboardForm.reportrange.value;
-                                                        // alert(date);
-                                                        var arr=date.split("-");
-                                                          
-                                                        var x=arr[1].trim();
-                                                        //alert("assigning");
-                                                        document.getElementById("docdatepickerfrom").value = arr[0];
-                                                        document.getElementById("docdatepicker").value =x ;
-                                                                                                                                                                     
-                                                        var datefrom=document.getElementById("docdatepickerfrom").value;
-                                                        //alert(datefrom);
-                                                        var dateto=document.getElementById("docdatepicker").value;
-                                                        // alert(dateto);
-                                                    }
+        function Date1()
+        {
+            // alert("in to date1");
+            var date = document.dashboardForm.reportrange.value;
+            // alert(date);
+            var arr = date.split("-");
+
+            var x = arr[1].trim();
+            //alert("assigning");
+            document.getElementById("docdatepickerfrom").value = arr[0];
+            document.getElementById("docdatepicker").value = x;
+
+            var datefrom = document.getElementById("docdatepickerfrom").value;
+            //alert(datefrom);
+            var dateto = document.getElementById("docdatepicker").value;
+            // alert(dateto);
+        }
                                                 </script>
 
                                                 <s:hidden id="docdatepickerfrom" name="docdatepickerfrom" />
@@ -201,7 +201,7 @@
                                                     <s:select headerKey="-1" headerValue="Select Type" list="docTypeList" name="docType" id="docType" value="%{docType}" tabindex="13" cssClass="form-control"/>
                                                 </div>
 
-                                                <div class="col-sm-3">  <label for="partnerMapId">Trending Partner Name </label>
+                                                <div class="col-sm-3">  <label for="partnerMapId">Trading Partner Name </label>
                                                     <s:select  
                                                         name="partnerMapId" 
                                                         id="partnerMapId"
@@ -217,7 +217,7 @@
                                             <br>
                                             <div class="row">
 
-                                                <div class="col-sm-3" for="ackStatus"><label>Ask Status</label>
+                                                <div class="col-sm-3" for="ackStatus"><label>Ack Status</label>
                                                     <s:select headerKey="-1" headerValue="Select Type" list="{'Overdue','Accepted','Rejected'}" name="ackStatus" id="ackStatus" value="%{ackStatus}" tabindex="15" cssClass="form-control"/> 
                                                 </div>
                                                 <div class="col-sm-3" >   <label for="status">Status</label>
@@ -229,7 +229,8 @@
                                     </div>  
                                     <br>    
                                     <div class="row">
-                                        <div class="col-sm-2"> <strong><input type="button" value="Generate" class="btn btn-primary col-sm-12" tabindex="16" onclick="getDashboardDeatls();Date1()"/></strong>
+                                        <div class="col-sm-2"> <strong><input type="button" value="Generate" class="btn btn-primary col-sm-12" tabindex="16" onclick="getDashboardDeatls();
+                                                Date1()"/></strong>
 
                                         </div>
                                         <div class="col-sm-2"><strong><input type="reset" value="Reset" class="btn btn-primary col-sm-12" tabindex="17" onclick="return resetvaluesManuDash();"/></strong> </div>
@@ -269,8 +270,8 @@
 
                             <div id="dashboardButtons" class="col-sm-12">
                                 <div class="col-sm-10" class="space_1" style="margin-top:2%"> 
-                                    <strong class="col-sm-2 pull-right"><input type="button" value="Generate Excel" class="btn btn-primary" onclick="return gridDashboardDownload('dash','xls',document.getElementById('inboundTrans').value,document.getElementById('outboundTrans').value);" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()"/> </strong> 
-                                    <strong class="col-sm-2 pull-right"><input type="button" value="Generate PDF" class="btn btn-primary" onclick="return gridDashboardDownload('dash','pdf',document.getElementById('inboundTrans').value,document.getElementById('outboundTrans').value);" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()"/> </strong>  
+                                    <strong class="col-sm-2 pull-right"><input type="button" value="Generate Excel" class="btn btn-primary" onclick="return gridDashboardDownload('dash', 'xls', document.getElementById('inboundTrans').value, document.getElementById('outboundTrans').value);" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()"/> </strong> 
+                                    <strong class="col-sm-2 pull-right"><input type="button" value="Generate PDF" class="btn btn-primary" onclick="return gridDashboardDownload('dash', 'pdf', document.getElementById('inboundTrans').value, document.getElementById('outboundTrans').value);" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()"/> </strong>  
                                 </div>
 
                             </div>
@@ -285,9 +286,9 @@
 
 
         <script type="text/javascript">
-            var pager = new Pager('results', 10); 
-            pager.init(); 
-            pager.showPageNav('pager', 'pageNavPosition'); 
+            var pager = new Pager('results', 10);
+            pager.init();
+            pager.showPageNav('pager', 'pageNavPosition');
             pager.showPage(1);
         </script>
 
@@ -309,5 +310,5 @@
         <script src='<s:url value="../includes/bootstrap/js/app.min.js"/>'></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         <script src='<s:url value="../includes/bootstrap/js/pages/dashboard.js"/>'></script>
-       </body>
+    </body>
 </html>

@@ -160,7 +160,7 @@
 
                                             <div class="col-sm-12">
                                                 <div class="row">
-                                                    <div class="col-sm-3"> <label>Date range</label>
+                                                    <div class="col-sm-3"> <label>Date Range</label>
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}"  /> 
                                                     </div>
                                                     <script type="text/javascript">
@@ -185,7 +185,7 @@
                                                     <s:hidden id="docdatepickerfrom" name="docdatepickerfrom" />
                                                     <s:hidden id="docdatepicker" name="docdatepicker"/>
 
-                                                    <div class="col-sm-3">  <label for="partnerMapId">Trending Partner Name </label>
+                                                    <div class="col-sm-3">  <label for="partnerMapId">Trading Partner Name </label>
                                                         <s:select  
                                                             name="partnerMapId" 
                                                             id="partnerMapId"

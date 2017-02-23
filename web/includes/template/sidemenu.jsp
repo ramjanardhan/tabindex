@@ -217,7 +217,7 @@
                                 <li id="excelreports"><a href="<s:url action="../reports/getReports"/>"><i class="fa fa-circle-o"></i>Excel Reports</a></li>
                                 <li id="editrackinginout"><a href="<s:url action="../reports/getTrackInOut"/>"><i class="fa fa-circle-o"></i>EDI Tracking IN/OUT</a></li>
                                 <li id="editrackingsummary"><a href="<s:url action="../reports/getTrackSummary"/>"><i class="fa fa-circle-o"></i>EDI Tracking Summary</a></li>
-                                <li id="editrackingenquiry"><a href="<s:url action="../reports/getTrackInquiry"/>"><i class="fa fa-circle-o"></i>EDI Tracking Enquiry</a></li>
+                                <li id="editrackingenquiry"><a href="<s:url action="../reports/getTrackInquiry"/>"><i class="fa fa-circle-o"></i>EDI Tracking Inquiry</a></li>
                                 <%--  <li id="dashboard"><a href="<s:url action="../reports/dashboard.action"/>"><i class="fa fa-circle-o"></i>Dashboard</a></li>  --%>
                             </ul>
                         </li>

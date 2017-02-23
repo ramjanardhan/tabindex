@@ -2935,7 +2935,7 @@ function drawInboundChart() {
     var data = google.visualization.arrayToDataTable(arraydata);
 
     var options = {
-        title: 'Partner Inbound Transcations'
+        title: 'Partner Inbound Transactions'
 
     };
 
@@ -2973,7 +2973,7 @@ function drawOutboundChart() {
     var data = google.visualization.arrayToDataTable(arraydata);
 
     var options = {
-        title: 'Partner Outbound Transcations'
+        title: 'Partner Outbound Transactions'
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('outboundPiechart'));

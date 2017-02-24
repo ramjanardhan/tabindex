@@ -34,6 +34,7 @@ public class PurgeServiceImpl implements PurgeService {
     private static Logger logger = Logger.getLogger(PurgeServiceImpl.class.getName());
     String responseString = null;
 
+
     public String purgeProcess(PurgeAction purgeAction) throws ServiceLocatorException {
         String dayCount = purgeAction.getDayCount();
         String transType = purgeAction.getTransType();
@@ -42,12 +43,15 @@ public class PurgeServiceImpl implements PurgeService {
         StringBuffer queryString = new StringBuffer("");
         try {
             connection = ConnectionProvider.getInstance().getConnection();
-            queryString.append("select Id, Transaction_Type,FILE_ID   from FILES  where (CURRENT TIMESTAMP -DATE_TIME_RECEIVED) > " + dayCount);
+            //queryString.append("select Id, Transaction_Type, FILE_ID   from FILES  where (CURRENT TIMESTAMP -DATE_TIME_RECEIVED) > " + dayCount);
+            queryString.append("select Id, Transaction_Type,FILE_ID,DATE_TIME_RECEIVED   from FILES where DATE(DATE_TIME_RECEIVED) <  DATE(CURRENT TIMESTAMP - " +dayCount+ " DAYS)");
             if (!transType.equals("-1")) {
                 queryString.append(" AND Transaction_Type = '" + transType + "'");
             }
+            System.out.println("queryString purge process --> "+queryString);
             preparedStatement = connection.prepareStatement(queryString.toString());
             resultSet = preparedStatement.executeQuery();
+            
             while (resultSet.next()) {
                 deleteMap.put(resultSet.getString("FILE_ID"), resultSet.getString("Transaction_Type"));
             }
@@ -59,9 +63,11 @@ public class PurgeServiceImpl implements PurgeService {
             }
             responseString = "<font color='green'>Purge Process Completed Successfully</font>";
         } catch (SQLException e) {
+            e.printStackTrace();
             responseString = "<font color='red'>Please try Again</font>";
             e.printStackTrace();
         } catch (Exception ex) {
+            ex.printStackTrace();
             responseString = "<font color='red'>Please try again!</font>";
         } finally {
             try {
@@ -94,23 +100,32 @@ public class PurgeServiceImpl implements PurgeService {
             String fileQuery = "DELETE FROM FILES WHERE File_ID='" + fileId + "'";
             statement.addBatch(fileQuery);
             //'204':'Loadtender','990':'Response','210':'Shipment','214':'Invoice'}
+            System.out.println("fileQuery delete records -->"+fileQuery);
             String transQuery = "";
             if (transType.equals("204")) {
                 transQuery = "DELETE FROM TRANSPORT_LOADTENDER WHERE File_ID='" + fileId + "'";
             } else if (transType.equals("990")) {
                 transQuery = "DELETE FROM TRANSPORT_LT_RESPONSE WHERE File_ID='" + fileId + "'";
-            } else if (transType.equals("210")) {
-                transQuery = "DELETE FROM TRANSPORT_SHIPMENT WHERE File_ID='" + fileId + "'";
             } else if (transType.equals("214")) {
+                transQuery = "DELETE FROM TRANSPORT_SHIPMENT WHERE File_ID='" + fileId + "'";
+            } else if (transType.equals("210")) {
                 transQuery = "DELETE FROM TRANSPORT_INVOICE WHERE File_ID='" + fileId + "'";
+            } else if (transType.equals("850")) {
+                transQuery = "DELETE FROM PO WHERE File_ID='" + fileId + "'";
+            } else if (transType.equals("856")) {
+                transQuery = "DELETE FROM ASN WHERE File_ID='" + fileId + "'";
+            } else if (transType.equals("810")) {
+                transQuery = "DELETE FROM INVOICE WHERE File_ID='" + fileId + "'";
+            } else if (transType.equals("820")) {
+                transQuery = "DELETE FROM PAYMENT WHERE File_ID='" + fileId + "'";
             }
+            System.out.println("transQuery deleter trans -->"+transQuery);
             statement.addBatch(transQuery);
             int[] count = statement.executeBatch();
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception ex) {
-
             ex.printStackTrace();
         } finally {
             try {

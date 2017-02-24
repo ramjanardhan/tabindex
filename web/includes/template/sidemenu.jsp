@@ -121,6 +121,16 @@
                         <% }%>
                     </ul>
                 </li>
+                
+                <li class=" treeview" id="purging">
+                    <a href="#">
+                        <i class="fa fa-remove"></i> <span>Purging</span> 
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                <ul class="treeview-menu">
+                <li id="purgeProcess" class=" treeview"><a href="<s:url action="../purge/purging.action"/>"><i class="fa fa-circle-o"></i>Purge Process</a></li>
+                </ul>
+                </li>
                 <% }%>
                 <%
                     if (usrFlowMap.containsValue("Logistics")) {
@@ -173,6 +183,7 @@
                                 <li id="ltb2bchannel"><a href="<s:url action="../b2bchannel/getB2BChannelList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>B2B Channel</a></li>
                                 <li id="ltdeliverychannel"><a href="<s:url action="../partner/deliveryChannelList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>Delivery Channel</a></li>
                                 <li id="ltscheduler"><a href="<s:url action="../partner/getSchedular.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>Scheduler</a></li>
+                                <%--<li id="purgeProcess"><a href="<s:url action="../purge/purging.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>Purge Process</a></li>--%>
                                 </ul>
                             </li>
                         </ul>

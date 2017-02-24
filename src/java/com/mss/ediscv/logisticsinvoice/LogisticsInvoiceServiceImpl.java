@@ -57,9 +57,8 @@ public class LogisticsInvoiceServiceImpl implements LogisticsInvoiceService {
         String corrvalue1 = logisticsInvoiceAction.getCorrvalue1();
         String status = logisticsInvoiceAction.getStatus();
         String ackStatus = logisticsInvoiceAction.getAckStatus();
-        invSearchQuery.append("SELECT DISTINCT("
-                + "TRANSPORT_INVOICE.INVOICE_NUMBER ) as INVOICE_NUMBER,"
-                + "FILES.FILE_ID as FILE_ID,TRANSPORT_INVOICE.ID as ID,"
+        invSearchQuery.append("SELECT DISTINCT(FILES.FILE_ID) as FILE_ID, "
+                + "TRANSPORT_INVOICE.INVOICE_NUMBER as INVOICE_NUMBER,TRANSPORT_INVOICE.ID as ID,"
                 + "TP2.NAME as REC_NAME,"
                 + "TRANSPORT_INVOICE.PO_NUMBER as PO_NUMBER,"
                 + "TRANSPORT_INVOICE.SHIPMENT_ID as SHIPMENT_ID,"
@@ -163,6 +162,7 @@ public class LogisticsInvoiceServiceImpl implements LogisticsInvoiceService {
         }
         invSearchQuery.append(" order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
         String searchQuery = invSearchQuery.toString();
+        System.out.println("searchQuery inv search --> "+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();

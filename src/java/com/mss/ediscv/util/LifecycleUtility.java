@@ -65,7 +65,7 @@ public class LifecycleUtility {
                 + "WHERE PO.PO_NUMBER LIKE '%" + poNum + "%'"
                 + " ORDER BY FILES.DATE_TIME_RECEIVED");
         String searchQuery = lifeCycleQuery.toString();
-        //System.out.println("searchQuery Po------   "+searchQuery);
+        System.out.println("searchQuery Po------   "+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();
@@ -150,7 +150,7 @@ public class LifecycleUtility {
                 + "(ASN.FILE_ID=FILES.FILE_ID) WHERE ASN.PO_NUMBER LIKE '%" + poNum + "%'"
                 + " ORDER BY FILES.DATE_TIME_RECEIVED");
         String searchQuery = lifeCycleQuery.toString();
-        //System.out.println("searchQuery ASN------   "+searchQuery);
+        System.out.println("searchQuery ASN------   "+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();
@@ -229,7 +229,7 @@ public class LifecycleUtility {
                 + "FILES ON (INVOICE.FILE_ID=FILES.FILE_ID) WHERE INVOICE.PO_NUMBER LIKE '%" + poNum + "%'"
                 + " ORDER BY FILES.DATE_TIME_RECEIVED");
         String searchQuery = lifeCycleQuery.toString();
-        //System.out.println("searchQuery Invoice------   "+searchQuery);
+        System.out.println("searchQuery Invoice------   "+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();
@@ -308,7 +308,7 @@ public class LifecycleUtility {
                 + " FILES ON (PAYMENT.FILE_ID=FILES.FILE_ID) WHERE PAYMENT.PO_NUMBER LIKE '%" + poNum + "%'"
                 + " ORDER BY FILES.DATE_TIME_RECEIVED");
         String searchQuery = lifeCycleQuery.toString();
-        //System.out.println("searchQuery PAYMENT------   "+searchQuery);
+        System.out.println("searchQuery PAYMENT------   "+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();

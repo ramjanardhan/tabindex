@@ -130,8 +130,16 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
             sb.append("<DETAILS>");
             while (resultSet.next()) {
                 sb.append("<DETAIL><VALID>true</VALID>");
+                if (resultSet.getString("FILE_ID") != null && !"".equals(resultSet.getString("FILE_ID"))) {
                 sb.append("<FILEID>" + resultSet.getString("FILE_ID") + "</FILEID>");
+                }else{
+                    sb.append("<FILEID>NO</FILEID>");
+                }
+                if (resultSet.getString("PO_Number") != null && !"".equals(resultSet.getString("PO_Number"))) {
                 sb.append("<PONUM>" + resultSet.getString("PO_Number") + "</PONUM>");
+                }else{
+                    sb.append("<PONUM>NO</PONUM>");
+                }
                 if (resultSet.getString("Order_Date") != null && !"".equals(resultSet.getString("Order_Date"))) {
                     sb.append("<PODATE>" + resultSet.getString("Order_Date") + "</PODATE>");
                 } else {
@@ -172,28 +180,72 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                 } else {
                     sb.append("<BILL_ADDRESS_ID>NO</BILL_ADDRESS_ID>");
                 }
+                if (resultSet.getString("ISA_NUMBER") != null && !"".equals(resultSet.getString("ISA_NUMBER"))) {
                 sb.append("<ISA_NUMBER>" + resultSet.getString("ISA_NUMBER") + "</ISA_NUMBER>");
+                }else{
+                    sb.append("<ISA_NUMBER>NO</ISA_NUMBER>");
+                }
                 //FILE_TYPE
+                if (resultSet.getString("FILE_TYPE") != null && !"".equals(resultSet.getString("FILE_TYPE"))) {
                 sb.append("<FILE_TYPE>" + resultSet.getString("FILE_TYPE") + "</FILE_TYPE>");
+                }else{
+                    sb.append("<FILE_TYPE>NO</FILE_TYPE>");
+                }
+                if (resultSet.getString("GS_CONTROL_NUMBER") != null && !"".equals(resultSet.getString("GS_CONTROL_NUMBER"))) {
                 sb.append("<GS_CONTROL_NUMBER>" + resultSet.getString("GS_CONTROL_NUMBER") + "</GS_CONTROL_NUMBER>");
+                }else{
+                    sb.append("<GS_CONTROL_NUMBER>NO</GS_CONTROL_NUMBER>");
+                }
+                if (resultSet.getString("ST_CONTROL_NUMBER") != null && !"".equals(resultSet.getString("ST_CONTROL_NUMBER"))) {
                 sb.append("<ST_CONTROL_NUMBER>" + resultSet.getString("ST_CONTROL_NUMBER") + "</ST_CONTROL_NUMBER>");
+                }else{
+                    sb.append("<ST_CONTROL_NUMBER>NO</ST_CONTROL_NUMBER>");
+                }
                 if (resultSet.getString("SAP_IDOC_Number") != null && !"".equals(resultSet.getString("SAP_IDOC_Number"))) {
                     sb.append("<SAPIDOCNUM>" + resultSet.getString("SAP_IDOC_Number") + "</SAPIDOCNUM>");
                 } else {
                     sb.append("<SAPIDOCNUM>NO</SAPIDOCNUM>");
                 }
+                if (resultSet.getString("SENDER_ID") != null && !"".equals(resultSet.getString("SENDER_ID"))) {
                 sb.append("<SENDER_ID>" + resultSet.getString("SENDER_ID") + "</SENDER_ID>");
+                }else{
+                    sb.append("<SENDER_ID>NO</SENDER_ID>");
+                }
+                if (resultSet.getString("RECEIVER_ID") != null && !"".equals(resultSet.getString("RECEIVER_ID"))) {
                 sb.append("<RECEIVER_ID>" + resultSet.getString("RECEIVER_ID") + "</RECEIVER_ID>");
+                }else{
+                    sb.append("<RECEIVER_ID>NO</RECEIVER_ID>");
+                }
+                if (resultSet.getString("SENDER_NAME") != null && !"".equals(resultSet.getString("SENDER_NAME"))) {
                 sb.append("<SENDER_NAME>" + resultSet.getString("SENDER_NAME") + "</SENDER_NAME>");
+                }else{
+                    sb.append("<SENDER_NAME>NO</SENDER_NAME>");
+                }
+                if (resultSet.getString("RECEIVER_NAME") != null && !"".equals(resultSet.getString("RECEIVER_NAME"))) {
                 sb.append("<RECEIVER_NAME>" + resultSet.getString("RECEIVER_NAME") + "</RECEIVER_NAME>");
+                }else{
+                    sb.append("<RECEIVER_NAME>NO</RECEIVER_NAME>");
+                }
                 if (resultSet.getString("DELIVERY_STATUS") != null && !"".equals(resultSet.getString("DELIVERY_STATUS"))) {
                     sb.append("<DELSTATUS>" + resultSet.getString("DELIVERY_STATUS").toUpperCase() + "</DELSTATUS>");
                 } else {
                     sb.append("<DELSTATUS>NO</DELSTATUS>");
                 }
+                if (resultSet.getString("ITEM_QTY") != null && !"".equals(resultSet.getString("ITEM_QTY"))) {
                 sb.append("<ITEMQTY>" + resultSet.getString("ITEM_QTY") + "</ITEMQTY>");
+                } else {
+                    sb.append("<ITEMQTY>NO</ITEMQTY>");
+                }
+                if (resultSet.getString("STATUS") != null && !"".equals(resultSet.getString("STATUS"))) {
                 sb.append("<STATUS>" + resultSet.getString("STATUS") + "</STATUS>");
+                } else {
+                    sb.append("<STATUS>NO</STATUS>");
+                }
+                if (resultSet.getString("TRANSACTION_TYPE") != null && !"".equals(resultSet.getString("TRANSACTION_TYPE"))) {
                 sb.append("<TRANSACTION_TYPE>" + resultSet.getString("TRANSACTION_TYPE") + "</TRANSACTION_TYPE>");
+                } else {
+                    sb.append("<TRANSACTION_TYPE>NO</TRANSACTION_TYPE>");
+                }
                 if (resultSet.getString("PRE_TRANS_FILEPATH") != null) {
                     if (new File(resultSet.getString("PRE_TRANS_FILEPATH")).exists() && new File(resultSet.getString("PRE_TRANS_FILEPATH")).isFile()) {
                         sb.append("<PRETRANSFILEPATH>" + resultSet.getString("PRE_TRANS_FILEPATH") + "</PRETRANSFILEPATH>");
@@ -744,7 +796,6 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                     sb.append("<ERR_MESSAGE>NO MSG</ERR_MESSAGE>");
                 }
                 String sapDetails = DataSourceDataProvider.getInstance().getSapDetails(instanceid, ponum);
-
                 if (!sapDetails.equals("None")) {
                     sb.append("<SAP_DETAILS>YES</SAP_DETAILS>");
                     String sapDetailsInfo[] = sapDetails.split("\\|");

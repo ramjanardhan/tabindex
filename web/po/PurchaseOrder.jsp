@@ -54,22 +54,22 @@
             doOnLoad()">
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <script type="text/javascript">
-                function check()
-                {
+        function check()
+        {
 
-                    var value1 = document.getElementById("corrattribute1").value;
+            var value1 = document.getElementById("corrattribute1").value;
 
-                    if (value1 != "-1")
-                        document.getElementById("corr").style.display = "block";
-                    else
-                        document.getElementById("corr").style.display = "none";
-                    var value2 = document.getElementById("corrattribute2").value;
-                    if (value2 != "-1")
-                        document.getElementById("corr1").style.display = "block";
-                    else
-                        document.getElementById("corr1").style.display = "none";
+            if (value1 != "-1")
+                document.getElementById("corr").style.display = "block";
+            else
+                document.getElementById("corr").style.display = "none";
+            var value2 = document.getElementById("corrattribute2").value;
+            if (value2 != "-1")
+                document.getElementById("corr1").style.display = "block";
+            else
+                document.getElementById("corr1").style.display = "none";
 
-                }
+        }
         </script>
         <div>
             <s:include value="../includes/template/header.jsp"/>
@@ -338,14 +338,23 @@
                                                                 <tr>
                                                                     <td>
                                                                         <%
-                                                                            out.println(purchaseOrderBean.getFileId());
+                                                                            if (purchaseOrderBean.getFileId() != null) {
+                                                                                out.println(purchaseOrderBean.getFileId());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                         <input type="hidden" name="Instance<%=i%>" id="Instance<%=i%>" value="<%=purchaseOrderBean.getFileId()%>"/>   
 
                                                                     </td>
                                                                     <td><a href="javascript:getDetails('<%=purchaseOrderBean.getPo()%>','<%=purchaseOrderBean.getFileId()%>');"  >
                                                                             <%
-                                                                                out.println(purchaseOrderBean.getPo());
+                                                                                if (purchaseOrderBean.getPo() != null) {
+                                                                                    out.println(purchaseOrderBean.getPo());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+
                                                                             %> 
 
                                                                             <%--  <input type="hidden" name="text<%=i%>" id="text<%=i%>" value="<%=purchaseOrderBean.getPo()%>"/>  --%>
@@ -354,12 +363,20 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            out.println(purchaseOrderBean.getDate_time_rec().toString().substring(0, purchaseOrderBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            if (purchaseOrderBean.getDate_time_rec().toString().substring(0, purchaseOrderBean.getDate_time_rec().toString().lastIndexOf(":")) != null) {
+                                                                                out.println(purchaseOrderBean.getDate_time_rec().toString().substring(0, purchaseOrderBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td>  
                                                                     <td>
                                                                         <%
-                                                                            out.println(purchaseOrderBean.getPname());
+                                                                            if (purchaseOrderBean.getPname() != null) {
+                                                                                out.println(purchaseOrderBean.getPname());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td>
                                                                     <%--    <td>
@@ -391,7 +408,11 @@
 
                                                                     <td>
                                                                         <%
-                                                                            out.println(purchaseOrderBean.getDirection().toUpperCase());
+                                                                            if (purchaseOrderBean.getDirection() != null) {
+                                                                                out.println(purchaseOrderBean.getDirection().toUpperCase());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td>
                                                                     <td>
@@ -482,7 +503,7 @@
                                             <div class="col-sm-2" style="margin-right:5%"><input type="button" value="ReSubmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to Resubmit.')" onmouseout="UnTip()" onclick="return getProces(this, document.getElementById('sec_po_list').value);" id="post"/></div>
 
 
-                                            <div class="col-sm-2" style="margin-right:5%"><input type="button" value="LifeCycle" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to generate Life Cycle.')" onmouseout="UnTip()" onclick="return getLifeCycle(document.getElementById('sec_po_list').value,'manufacturing');"/></div>
+                                            <div class="col-sm-2" style="margin-right:5%"><input type="button" value="LifeCycle" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to generate Life Cycle.')" onmouseout="UnTip()" onclick="return getLifeCycle(document.getElementById('sec_po_list').value, 'manufacturing');"/></div>
 
 
                                             <div class="col-sm-2" style="margin-right:2%"><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('po', 'xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/> </div>  
@@ -497,36 +518,34 @@
                         </div></section>
                 </s:if> </div>
             <div id="hide-menu1" class="hide-menu message ">
-
+                <br>
                 <div class="row col-sm-12">
-
-
                     <div class="col-sm-6"> <label class="labelw">Instance Id </label>
                         <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POInstanceId" name="POInstanceId" readonly="true"/>
                     </div>
-
-
-                    <div class="col-sm-6"> <label class="labelw">PO # :</label>
+                    <div class="col-sm-6"> <label class="labelw">PO # </label>
                         <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PONum" name="PONum" readonly="true"/>
-                    </div> <div class="row col-sm-12"> <br>
-                        <div class="col-sm-6"> <label class="labelw">Order_Date :</label>
-                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODates" name="PODates" readonly="true"/>
-                        </div>
-                        <%--<div class="col-sm-6"> <label class="labelw">PO Value :</label>
-                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POValue" name="POValue" readonly="true"/>
-                        </div>
-                        <div class="col-sm-6"> <label class="labelw">POQuantity:</label>
-                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POQty" name="POQty" readonly="true"/>
-                        </div>
-                        <div class="col-sm-6"> <label class="labelw">SHIP_DATE :</label>
-                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POShipDate" name="POShipDate" readonly="true"/>
-                        </div>
-                        <div class="col-sm-6"> <label class="labelw">ROUTINGS :</label>
-                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PORoutings" name="PORoutings" readonly="true"/>
-                        </div>
-                        <div class="col-sm-6"> <label class="labelw">INVOICED_AMOUNT</label>
-                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="INVOICED_AMOUNT" name="INVOICED_AMOUNT" readonly="true"/>
-                        </div>
+                    </div> 
+                </div>
+                <div class="row col-sm-12"> 
+                    <div class="col-sm-6"> <label class="labelw">Order_Date </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODates" name="PODates" readonly="true"/>
+                    </div>
+                    <%--<div class="col-sm-6"> <label class="labelw">PO Value :</label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POValue" name="POValue" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw">POQuantity:</label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POQty" name="POQty" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw">SHIP_DATE :</label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POShipDate" name="POShipDate" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw">ROUTINGS :</label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PORoutings" name="PORoutings" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw">INVOICED_AMOUNT</label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="INVOICED_AMOUNT" name="INVOICED_AMOUNT" readonly="true"/>
+                    </div>
 
 
                         <div class="col-sm-6"> <label class="labelw">PAYMENTRECEIVED:</label>
@@ -541,98 +560,103 @@
                         <div class="col-sm-6"> <label class="labelw">SO&nbsp;# :</label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSoNumber" name="POSoNumber" readonly="true"/>
                         </div> --%>
-                        <div class="col-sm-6"> <label class="labelw">SAPIDOC # :</label>
-                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSapIdocNum" name="POSapIdocNum" readonly="true"/>
-                        </div>
-                        <%--<div class="col-sm-6"> <label class="labelw">IDOC Status :</label>
-                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODeilvaryName" name="PODeilvaryName" readonly="true"/>
-                        </div>--%>
-
-                        <div class="row col-sm-12">
-                            <div class="col-sm-6"> <label class="labelw">DocumentType: </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODocumentType" name="PODocumentType" readonly="true"/>
-                            </div>  
-                            <div class="col-sm-6"> <label class="labelw">TransactionType:</label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POTransactionType" name="POTransactionType" readonly="true"/>
-                            </div></div> <div class="row col-sm-12">
-                            <%--<div class="col-sm-6"> <label class="labelw">ORDER_STATUS</label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POOrderStatus" name="POOrderStatus" readonly="true"/>
-                            </div>--%>
-                        </div>
-                        <br>
-                        <div id="senderinfo">
-                            <div class="row col-sm-12">
-                                <div class="col-sm-6"> <h5>Sender Info :</h5></div>
-                                <div class="col-sm-6"></div>
-                                <div class="col-sm-6"></div>
-
-                            </div>
-                            <br>
-                            <div class="row col-sm-12">
-                                <div class="col-sm-6"> <label class="labelw">  Id </label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSenderId" name="POSenderId" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label class="labelw"> Name </label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSenderName" name="POSenderName" readonly="true"/>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div id="receiverinfo">
-                            <div class="row col-sm-12">
-                                <div class="col-sm-6"> <h5>Receiver Info:</h5></div>
-                                <div class="col-sm-6"></div>
-                                <div class="col-sm-6"></div>
-                            </div>
-
-                            <br>
-                            <div class="row col-sm-12 clear">
-                                <div class="col-sm-6"> <label class="labelw">  Id </label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POReceiverId" name="POReceiverId" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label class="labelw"> Name </label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POReceiverName" name="POReceiverName" readonly="true"/>
-                                </div>
-                            </div>
-                        </div>  <div class="row col-sm-12 clear">
-                            <div class="col-sm-6"> <label class="labelw">  ISA </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsa" name="POIsa" readonly="true"/>
-                            </div>
-                            <div class="col-sm-6"> <label class="labelw"> GS </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POGs" name="POGs" readonly="true"/>
-                            </div>
-                        </div>
-
-                        <br/>
-
-                        <div class="row col-sm-12" style="margin-top:10px;" >
-                            <div class="col-sm-6"> <label class="labelw">  ST </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSt" name="POSt" readonly="true"/>
-                            </div>
-                            <div class="col-sm-6"> <label class="labelw">ISA DATE </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsADate" name="POIsADate" readonly="true"/>
-                            </div>
-
-                            <div class="col-sm-6"> <label class="labelw">  ISA TIME  </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsATime" name="POIsATime" readonly="true"/>
-                            </div>
-                            <div class="col-sm-6"> <label class="labelw"> STATUS </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POStatus" name="POStatus" readonly="true"/>
-                            </div>
-                        </div>
-
-                        <div class="row col-sm-12" >
-                            <div class="col-sm-6"> <label class="labelw">  PreTranslation  </label></div>
-                            <div class="col-sm-6"><div id="POPreTransition"></div></div>
-                        </div>
-                        <div class="col-sm-6"> <label class="labelw"> PostTranslation </label></div>
-                        <div class="col-sm-6"><div id="POPostTransition"></div></div>
+                    <div class="col-sm-6"> <label class="labelw">SAPIDOC # </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSapIdocNum" name="POSapIdocNum" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw">997ACKFile </label></div>                      
+                </div>
+                <%--<div class="col-sm-6"> <label class="labelw">IDOC Status :</label>
+                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODeilvaryName" name="PODeilvaryName" readonly="true"/>
+                </div>--%>
 
+                <div class="row col-sm-12">
+                    <div class="col-sm-6"> <label class="labelw">DocumentType </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PODocumentType" name="PODocumentType" readonly="true"/>
+                    </div>  
+                    <div class="col-sm-6"> <label class="labelw">TransactionType</label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POTransactionType" name="POTransactionType" readonly="true"/>
+                    </div>
+                </div> 
+                <div class="row col-sm-12">
+                    <%--<div class="col-sm-6"> <label class="labelw">ORDER_STATUS</label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POOrderStatus" name="POOrderStatus" readonly="true"/>
+                    </div>--%>
+                </div>
+                <br>
+                <div id="senderinfo">
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6"> <h4>Sender Info :</h4></div>
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-6"></div>
+
+                    </div>
+                    <br>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6"> <label class="labelw">  Id </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSenderId" name="POSenderId" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> Name </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSenderName" name="POSenderName" readonly="true"/>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div id="receiverinfo">
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6"> <h4>Receiver Info:</h4></div>
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-6"></div>
+                    </div>
+
+                    <br>
+                    <div class="row col-sm-12 clear">
+                        <div class="col-sm-6"> <label class="labelw">  Id </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POReceiverId" name="POReceiverId" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> Name </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POReceiverName" name="POReceiverName" readonly="true"/>
+                        </div>
+                    </div>
+                </div>  
+                <div class="row col-sm-12 clear">
+                    <div class="col-sm-6"> <label class="labelw">  ISA </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsa" name="POIsa" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw"> GS </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POGs" name="POGs" readonly="true"/>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row col-sm-12">
+                    <div class="col-sm-6"> <label class="labelw">  ST </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSt" name="POSt" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw">ISA DATE </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsADate" name="POIsADate" readonly="true"/>
+                    </div>
+
+                    <div class="col-sm-6"> <label class="labelw">  ISA TIME  </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsATime" name="POIsATime" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw"> STATUS </label>
+                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POStatus" name="POStatus" readonly="true"/>
+                    </div>
+                </div>
+                <br/>
+                <div class="row col-sm-12" style="margin-top:10px;">
+                    <div class="col-sm-6"> <label class="labelw">  PreTranslation  </label></div>
+                    <div class="col-sm-6"><div id="POPreTransition"></div></div>
+                </div>
+                <div class="row col-sm-12" >
+                    <div class="col-sm-6"> <label class="labelw"> PostTranslation </label></div>
+                    <div class="col-sm-6"><div id="POPostTransition"></div></div>
+                </div>
+                <div class="row col-sm-12" >
+                    <div class="col-sm-6"> <label class="labelw">997ACKFile </label></div>                      
                     <div class="col-sm-6"><div id="POAckFileId"></div></div>
                 </div>
-<%--                <div class="row col-sm-12 clear" style="visibility: hidden">
+                <div class="row col-sm-12 clear" id="sapDiv" style="display: none;margin-top:10px;">
                     <div class="col-sm-6"> <label class="labelw"> SAP_USER </label>
                         <s:textfield  cssClass="form-control"  required="required" placeholder="" id="SAP_USER" name="ManStatus" readonly="true"/>
                     </div>
@@ -651,16 +675,14 @@
                     <div class="col-sm-6"> <label class="labelw"> IDOC DESCRIPTION </label>
                         <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_DESCRIPTION" name="ManStatus" readonly="true"/>
                     </div>
-                </div>--%>
+                </div>
                 <div class="row col-sm-12" id="errorDiv" style="display: none">
                     <div class="col-sm-6"> <label class="labelw"> Error&nbsp;Message </label></div>
                     <div class="col-sm-6" id="InvErrormessage" style="color: red"></div>
                 </div>
 
                 <div id="noresult"></div>
-                <div class="row col-sm-12">
-                    <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button>
-                </div>
+                <div class="row col-sm-12" style="margin-top:10px;">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
             </div>
         </div>
 
@@ -713,7 +735,7 @@
             }
 
 
-           
+
 
             function resetvalues()
             {

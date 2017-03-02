@@ -456,8 +456,8 @@
                                                 <%                                                    if (list.size() != 0) {
                                                 %>
                                                 <tr >
-                                                    <!--                                                                        <td align="right" colspan="28" style="background-color: white;">
-                                                                                                                                <div align="right" id="pageNavPosition"></div>-->
+                                                    <td align="right" colspan="28" style="background-color: white;">
+                                                        <div align="right" id="pageNavPosition"></div>
                                                     </td>
                                                 </tr> 
 

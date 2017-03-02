@@ -1097,8 +1097,8 @@ public class DataSourceDataProvider {
      
      public String getSapDetails(String instanceId,String poNumber) throws ServiceLocatorException{
          
-         System.out.println("instanceId-->"+instanceId);
-         System.out.println("poNumber-->"+poNumber);
+         //System.out.println("instanceId DSDP SAP Details --> "+instanceId);
+         //System.out.println("poNumber DSDP SAP Details --> "+poNumber);
           Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;

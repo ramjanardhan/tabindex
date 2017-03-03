@@ -299,7 +299,7 @@
 
                                                                     <th>Direction</th>
                                                                     <th>Status</th>
-                                                                    <th>Ack Status</th>
+                                                                    <th>Ack&nbsp;Status</th>
 
                                                             </thead>
 

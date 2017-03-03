@@ -82,7 +82,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         if ((purchaseOrderAction.getDocType()!=null) && (!purchaseOrderAction.getDocType().equals("-1"))) {
             doctype = purchaseOrderAction.getDocType();
         }
-        purchaseSearchQuery.append("SELECT DISTINCT(FILES.FILE_ID) as FILE_ID,PO.PO_NUMBER as PO_NUMBER,PO.SO_NUMBER as SO_NUMBER,"
+         purchaseSearchQuery.append("SELECT DISTINCT(FILES.FILE_ID) as FILE_ID,PO.PO_NUMBER as PO_NUMBER,FILES.TRANSACTION_TYPE as TRANSACTION_TYPE,PO.SO_NUMBER as SO_NUMBER,"
                 + "PO.SAP_IDOC_NUMBER as SAP_IDOC_NUMBER,PO.ORDER_DATE as ORDER_DATE,PO.SHIP_DATE as SHIP_DATE,"
                 + "PO.ORDER_STATUS AS ORDER_STATUS,PO.ISA_CONTROL_NUMBER as ISA_CONTROL_NUMBER,PO.ITEM_QTY as ITEM_QTY,"
                 + "FILES.DIRECTION as DIRECTION,FILES.GS_CONTROL_NUMBER as GS_CONTROL_NUMBER,FILES.STATUS as STATUS ,FILES.ACK_STATUS as ACK_STATUS ,TP2.NAME as RECEIVER_NAME,TP1.NAME as SENDER_NAME,"
@@ -216,6 +216,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
                 PurchaseOrderBean purchaseOrderBean = new PurchaseOrderBean();
                 purchaseOrderBean.setFileId(resultSet.getString("FILE_ID"));
                 purchaseOrderBean.setPo(resultSet.getString("PO_Number"));
+                purchaseOrderBean.setTransactionType(resultSet.getString("TRANSACTION_TYPE"));
                 purchaseOrderBean.setSo(resultSet.getString("SO_Number"));
                 purchaseOrderBean.setSapIdoc(resultSet.getString("SAP_IDOC_Number"));
                 purchaseOrderBean.setPoDate(resultSet.getString("Order_Date"));

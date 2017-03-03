@@ -261,7 +261,7 @@
                                                     <thead> <tr>
                                                             <th>Title</th>                
                                                             <th>Type</th> 
-                                                            <th>Scheduler Time</th>
+                                                            <th>Scheduler&nbsp;Time</th>
                                                             <th>Status</th>
                                                             <th>Delete</th>
                                                             <th>Download</th>

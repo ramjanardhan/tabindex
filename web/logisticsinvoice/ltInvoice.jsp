@@ -259,7 +259,7 @@
                                                             %>
                                                             <thead> <tr>
 
-                                                                    <th>Instance&nbsp;Id</th>
+                                                                    <th>InstanceId</th>
                                                                     <th>Partner</th>
 
                                                                     <th>Invoice#</th>

@@ -58,6 +58,8 @@ import com.mss.ediscv.tradingPartner.TradingPartnerService;
 import com.mss.ediscv.tradingPartner.TradingPartnerServiceImpl;
 import com.mss.ediscv.user.UserService;
 import com.mss.ediscv.user.UserServiceImpl;
+import com.mss.ediscv.utilities.CertMonitorService;
+import com.mss.ediscv.utilities.CertMonitorServiceImpl;
 
 /*
  * This Class Creates instances of all classes.
@@ -214,5 +216,9 @@ public class ServiceLocator {
     public static LogisticTrackInOutService getLogisticTrackInOutService() throws ServiceLocatorException {
         LogisticTrackInOutService logistictrackInOutService = new LogisticTrackInOutServiceImpl();
         return logistictrackInOutService;
+    }
+     public static CertMonitorService getCertMonitorService() throws ServiceLocatorException {
+        CertMonitorService  certMonitorService  = new CertMonitorServiceImpl();
+        return certMonitorService;
     }
 }

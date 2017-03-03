@@ -28,7 +28,7 @@ public class PurchaseOrderBean {
     private String reProcessStatus;
     private String ackStatus;
     private Timestamp date_time_rec;
-
+     private String TransactionType;
     /**
      * @return the po
      */
@@ -266,4 +266,13 @@ public class PurchaseOrderBean {
     public void setDate_time_rec(Timestamp date_time_rec) {
         this.date_time_rec = date_time_rec;
     }
+
+    public String getTransactionType() {
+        return TransactionType;
+    }
+
+    public void setTransactionType(String TransactionType) {
+        this.TransactionType = TransactionType;
+    }
+    
 }

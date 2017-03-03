@@ -60,4 +60,5 @@
      <include file="b2bchannel.xml"/>
      <include file="reports.xml"/>
      <include file="logisticReport.xml"/>
+       <include file="utilities.xml"/>
 </struts>

@@ -76,5 +76,6 @@ public class AppConstants {
     public static final String SES_SCHDULAR_LIST = "schdularList";
     public static final String SESSION_USER_IMAGE = "userImage";
     public static final String LFC_SES_LTTENDER_LIST = "LfcList";
+    public static final String CERTMONITOR_LIST = "certmonitorList";
   
    }

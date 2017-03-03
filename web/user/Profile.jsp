@@ -235,7 +235,7 @@
                             <ul class="nav nav-tabs">
                                 <li class="active"><a href="#about-me" data-toggle="tab">About Me</a></li>
                                 <li><a href="#avatar" data-toggle="tab">Avatar</a></li>
-                                <li><a href="#change-password" data-toggle="tab">Change password</a></li>
+                                <li><a href="#change-password" data-toggle="tab">Change Password</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="active tab-pane" id="about-me">

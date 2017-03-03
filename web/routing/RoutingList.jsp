@@ -233,7 +233,7 @@
                                                                 <th >Name </th>
                                                                 <%--   <td >TP INBOUND PATH</td>
                                                                    <td >TP OUTBOUND PATH</td>  --%>
-                                                                <th>Acceptor&nbsp;Lookup&nbsp;Alias</th>
+                                                                <th>AcceptorLookupAlias</th>
                                                                 <%-- <td>Envelope</td> --%>
                                                                 <th>Direction </th>
                                                                 <th>InternalRouteEmail </th>

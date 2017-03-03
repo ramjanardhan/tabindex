@@ -258,7 +258,18 @@
                             </a></li>
                     </ul>
                 </li>
-                <% }
+                <% }%>
+                <li class="treeview" id="utilities">
+                    <a href="#">
+                        <i class="fa fa-gavel"></i> <span>Utilities</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li id="certMonitoring"><a href="<s:url action="../utilities/certMonitor.action"/>"><i class="fa fa-circle-o"></i> Certificate Monitoring
+                            </a></li>
+                    </ul>
+                </li>
+                <%
                         }
                     }
                 %>

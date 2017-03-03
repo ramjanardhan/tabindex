@@ -319,7 +319,7 @@
                                                                     <th>InstanceId</th>
                                                                     <th >Shipment #</th>
                                                                     <th >Partner</th>  
-                                                                    <th >Carrier Status</th>  
+                                                                    <th >Carrier&nbsp;Status</th>  
                                                                         <%-- <th>Ship Date</th> --%>
                                                                     <th>DateTime</th>
                                                                         <%--<th>ISA #</th> --%>

@@ -213,7 +213,7 @@ if (thischeck.is (':checked'))
                 <td >Name </td>
               <%--   <td >TP INBOUND PATH</td>
                  <td >TP OUTBOUND PATH</td>  --%>
-              <td>Contact Info</td>
+              <td>Contact&nbsp;Info</td>
               <td>Phone #</td>
                
                

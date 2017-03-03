@@ -335,11 +335,11 @@
                                                            border="0" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
                                                         <thead><tr>
 
-                                                                <th>TRANSACTION TYPE</th> 
+                                                                <th>Trans&nbsp;Type</th> 
                                                                 <th>Partner</th>
-                                                                <th>FILE_SIZE</th>
-                                                                <th>IN</th>
-                                                                <th>OUT</th>
+                                                                <th>File&nbsp;Size</th>
+                                                                <th>In</th>
+                                                                <th>Out</th>
                                                                 <th>Total</th>
                                                             </tr></thead>
 

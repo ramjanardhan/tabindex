@@ -282,12 +282,12 @@
                                                                     <%-- <td >Check #</td>  --%>
                                                                     <th>PO #</th>
                                                                     <th>Inv #</th>
-                                                                    <th >Date&nbsp;Time</th>
+                                                                    <th >DateTime</th>
                                                                     <%-- <td>Trans Type</td> --%>
                                                                     <th>Cheque #</th>
-                                                                    <th>Cheque Amount</th>
+                                                                    <th>Cheque&nbsp;Amount</th>
                                                                     <th>Status</th>
-                                                                    <th>ACK Status</th>
+                                                                    <th>Ack&nbStatus</th>
                                                                 </tr></thead>
                                                             <tbody>
                                                                 <tr>

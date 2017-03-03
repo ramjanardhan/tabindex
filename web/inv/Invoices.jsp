@@ -265,11 +265,11 @@
                                                                             <th >Invoice #</th>
                                                                             <th >Partner</th>
                                                                             <th >PO #</th>
-                                                                            <th >Item Qty</th>
-                                                                            <th>Invoice Amount</th>
+                                                                            <th >Item&nbsp;Qty</th>
+                                                                            <th>Invoice&nbsp;Amount</th>
                                                                             <th>DateTime</th>
                                                                             <th>Status</th>
-                                                                            <th>Ack Status</th>
+                                                                            <th>Ack&nbsp;Status</th>
                                                                         </tr></thead>
                                                                     <tr>
 

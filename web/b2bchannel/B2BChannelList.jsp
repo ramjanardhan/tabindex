@@ -205,8 +205,8 @@
                                                                 B2BChannelBean b2BChannelBean;
                                                         %>
                                                         <thead>  <tr>
-                                                                <th >ACTION</th>
-                                                                <th >PartnerName </th>
+                                                                <th>Action</th>
+                                                                <th>PartnerName </th>
                                                                 <th>Protocol</th>
                                                                 <th>Site</th>
                                                                 <th>Status </th>

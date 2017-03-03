@@ -300,6 +300,7 @@
                                                                     <th >InstanceId</th>
                                                                     <th >PO #</th>
                                                                     <th>DateTime</th> 
+                                                                    <th>Transaction Type</th>
                                                                         <%--   <th >SO #</th> --%>
                                                                         <%--  <th >SAP IDOC</th>
                                                                        <th>Item Qty</th> --%>
@@ -370,6 +371,11 @@
                                                                             }
                                                                         %>
                                                                     </td>  
+                                                                     <td>
+                                                                        <%
+                                                                            out.println(purchaseOrderBean.getTransactionType());
+                                                                        %>
+                                                                    </td>
                                                                     <td>
                                                                         <%
                                                                             if (purchaseOrderBean.getPname() != null) {

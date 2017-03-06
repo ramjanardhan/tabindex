@@ -217,7 +217,7 @@
                                                                         %>
                                                                         <font style='color:red'> <%out.println(sb.append(str).append(sb2));%></font>
                                                                         <%} else if ((days > 0) && (days < 30)) {
-                                                                        %><font style='color:green'> <%out.println(sb.append(str).append(sb2));%></font>
+                                                                        %><font style='color:magenta'> <%out.println(sb1.append(str).append(sb2));%></font>
                                                                         <%} else {
                                                                                 out.println(sb1.append(days).append(sb2));
                                                                             }%>

@@ -33,12 +33,12 @@
         <script>
             function doOnLoad()
             {
-                
+
                 $("#utilities").addClass("active");
                 $("#certMonitoring").addClass("active");
                 $("#certMonitoring i").addClass("text-red");
                 document.getElementById('loadingAcoountSearch').style.display = "none";
-                
+
             }
             $(function () {
                 $('#results').DataTable({
@@ -99,14 +99,14 @@
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="Date1();" /> 
                                                     </div>
                                                     <script type="text/javascript">
-                                                        function Date1()
-                                                        {
-                                                            var date = document.certForm.reportrange.value;
-                                                            var arr = date.split("-");
-                                                            var x = arr[1].trim();
-                                                            document.getElementById("docdatepickerfrom").value = arr[0];
-                                                            document.getElementById("docdatepicker").value = x;
-                                                        }
+        function Date1()
+        {
+            var date = document.certForm.reportrange.value;
+            var arr = date.split("-");
+            var x = arr[1].trim();
+            document.getElementById("docdatepickerfrom").value = arr[0];
+            document.getElementById("docdatepicker").value = x;
+        }
                                                     </script>
                                                     <div class="col-sm-3">
                                                         <label for="certType">Certificate Type <font style="color: red">*</font></label>
@@ -193,9 +193,7 @@
                                                                 %>
                                                                 <tr>
                                                                     <td>
-                                                                        <%
-
-                                                                            out.println(valuesarray[0]);
+                                                                        <%                                                                            out.println(valuesarray[0]);
                                                                         %>
                                                                     </td>
                                                                     <td>
@@ -207,18 +205,22 @@
                                                                         %>
                                                                     </td>  
                                                                     <td>
-                                                                        <% 
-                                                                           int days= Integer.parseInt(valuesarray[3].toString());
-                                                                           if(days<0)
-                                                                           {%><font style='color:red'>
-                                                                           <% out.println(days);%></font>
-                                                                              <%
-                                                                           }
-                                                                           else
-                                                                           {%><font style='color:green'><%
-                                                                                out.println(days);%></font>
-                                                                           <%}
+                                                                        <%
+                                                                            String str = (String) valuesarray[3].toString();
+                                                                            StringBuffer sb = new StringBuffer("Expired Since ");
+                                                                            StringBuffer sb1 = new StringBuffer("Will Expire in ");
+                                                                            StringBuffer sb2 = new StringBuffer(" Days");
+                                                                            int days = Integer.parseInt(str);
+
+                                                                            if (days < 0) {
+                                                                                str = str.replaceAll("-", "");
                                                                         %>
+                                                                        <font style='color:red'> <%out.println(sb.append(str).append(sb2));%></font>
+                                                                        <%} else if ((days > 0) && (days < 30)) {
+                                                                        %><font style='color:green'> <%out.println(sb.append(str).append(sb2));%></font>
+                                                                        <%} else {
+                                                                                out.println(sb1.append(days).append(sb2));
+                                                                            }%>
                                                                     </td>
                                                                 </tr>
 
@@ -276,16 +278,16 @@
     <script>
         function validateCertType()
         {
-            var certType= document.getElementById('certType').value;
-            if(certType=="-1")
+            var certType = document.getElementById('certType').value;
+            if (certType == "-1")
             {
                 alert("please select certificate type");
                 return false;
             }
             return true;
         }
-      
-       
+
+
         function resetvalues()
         {
             document.getElementById('docdatepickerfrom').value = "";
@@ -297,11 +299,11 @@
 
 
         }
-       
-   
-     
 
-       
+
+
+
+
     </script>
 </body>
 </html>

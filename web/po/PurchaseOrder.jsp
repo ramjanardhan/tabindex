@@ -371,7 +371,7 @@
                                                                             }
                                                                         %>
                                                                     </td>  
-                                                                     <td>
+                                                                    <td>
                                                                         <%
                                                                             out.println(purchaseOrderBean.getTransactionType());
                                                                         %>

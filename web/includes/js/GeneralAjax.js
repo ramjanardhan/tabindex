@@ -265,7 +265,6 @@ function populatePoDetails(responseXML)
         }else {
             document.getElementById('POSenderId').value = "--";
         }
-        //alert("SENDER_NAME --> "+SENDER_NAME+" RECEIVER_NAME "+RECEIVER_NAME);
         if (SENDER_NAME != "NO") {
         document.getElementById('POSenderName').value = SENDER_NAME;
         }else {
@@ -447,46 +446,91 @@ function populateASNDetails(responseXML) {
             IDOC_STATUS_DESCRIPTION = detail.getElementsByTagName("IDOC_STATUS_DESCRIPTION")[0].childNodes[0].nodeValue;
 
         }
+        if (fileID != "NO") {
         document.getElementById('msfileID').value = fileID;
+        }else{
+            document.getElementById('msfileID').value = "--";
+        }
+        if (asnNum != "NO") {
         document.getElementById('msasnNum').value = asnNum;
-
+        }else{
+            document.getElementById('msasnNum').value = "--";
+        }
+        if (poNum != "NO") {
         document.getElementById('mspoNum').value = poNum;
+        }else{
+            document.getElementById('mspoNum').value = "--";
+        }
+        if (bolNum != "NO") { 
         document.getElementById('msbolNum').value = bolNum;
-
+        }else{
+            document.getElementById('msbolNum').value = "--";
+        }
+        if (SHIPDATE != "NO") {
         document.getElementById('msshipDate').value = SHIPDATE;
+        }else{
+            document.getElementById('msshipDate').value = "--";
+        }
+        if (FILE_TYPE != "NO") {
         document.getElementById('msdocType').value = FILE_TYPE;
-
+        }else{
+            document.getElementById('msdocType').value = "--";
+        }
+        if (TRANSACTION_TYPE != "NO") {
         document.getElementById('mstransType').value = TRANSACTION_TYPE;
+        }else{
+            document.getElementById('mstransType').value = "--";
+        }
+        if (isaNum != "NO") {
         document.getElementById('msisaNum').value = isaNum;
-
+        }else{
+            document.getElementById('msisaNum').value = "--";
+        }
+        if (SENDER_ID != "NO") {
         document.getElementById('mssenderId').value = SENDER_ID;
+        }else{
+            document.getElementById('mssenderId').value = "--";
+        }
+        if (SENDER_NAME != "NO") {
         document.getElementById('mssenderName').value = SENDER_NAME;
-
+        }else{
+            document.getElementById('mssenderName').value = "--";
+        }
+        if (RECEIVER_ID != "NO") {
         document.getElementById('msreceiverId').value = RECEIVER_ID;
+        }else{
+            document.getElementById('msreceiverId').value = "--";
+        }
+        if (RECEIVER_NAME != "NO") {
         document.getElementById('msreceiverName').value = RECEIVER_NAME;
-
+        }else{
+            document.getElementById('msreceiverName').value = "--";
+        }
+        if (GS_CONTROL_NUMBER != "NO") {
         document.getElementById('msgsControlNo').value = GS_CONTROL_NUMBER;
+        }else{
+            document.getElementById('msgsControlNo').value = "--";
+        }
+        if (ST_CONTROL_NUMBER != "NO") {
         document.getElementById('msstControlNo').value = ST_CONTROL_NUMBER;
-
+        }else{
+            document.getElementById('msstControlNo').value = "--";
+        }
+        if (isaDate != "NO") {
         document.getElementById('msisaDate').value = isaDate;
+        }else{
+            document.getElementById('msisaDate').value = "--";
+        }
+        if (isaTime != "NO") {
         document.getElementById('msisaTime').value = isaTime;
-
+        }else{
+            document.getElementById('msisaTime').value = "--";
+        }
+        if (STATUS != "NO") {
         document.getElementById('msstatus').value = STATUS.toUpperCase();
-
-//        if (SAP_DETAILS != 'NO') {
-//
-//            document.getElementById('msapDiv').style.display = "block";
-//
-//            document.getElementById('mssapUser').value = SAP_USER;
-//            document.getElementById('msidocNo').value = IDOC_NUMBER;
-//
-//            document.getElementById('mspoNo').value = PO_NUMBER;
-//            document.getElementById('mspoDate').value = PO_DATE;
-//
-//            document.getElementById('msidocStatusCode').value = IDOC_STATUS_CODE;
-//            document.getElementById('msidocStatusDesc').value = IDOC_STATUS_DESCRIPTION;
-//        }
-
+        }else{
+            document.getElementById('msstatus').value = "--";
+        }
         if (PRE_TRANS_FILEPATH == "No File") {
             document.getElementById('mspreTransFilepath').innerHTML = "--";
         } else {
@@ -513,7 +557,6 @@ function populateASNDetails(responseXML) {
         } else {
             document.getElementById('mserrormessage').innerHTML = "--";
         }
-
     }
     if (chk.childNodes[0].nodeValue == "false") {
         document.getElementById('noresult').value = " <h5 >Sorry ! No Results Found</h5>";

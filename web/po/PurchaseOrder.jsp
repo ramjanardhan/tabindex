@@ -434,7 +434,6 @@
                                                                     </td>  
                                                                     <td>
                                                                         <%
-                                                                            //out.println(poLifeCycleBean.getAckStatus());
                                                                             if (purchaseOrderBean.getAckStatus().equalsIgnoreCase("REJECTED")) {
                                                                                 out.println("<font color='red'>" + purchaseOrderBean.getAckStatus().toUpperCase() + "</font>");
                                                                             } else if (purchaseOrderBean.getAckStatus().equalsIgnoreCase("ACCEPTED")) {
@@ -442,7 +441,6 @@
                                                                             } else {
                                                                                 out.println("<font color='orange'>" + purchaseOrderBean.getAckStatus().toUpperCase() + "</font>");
                                                                             }
-
                                                                         %>
                                                                     </td>  
 
@@ -688,6 +686,7 @@
                 </div>
 
                 <div id="noresult"></div>
+                <br>
                 <div class="row col-sm-12" style="margin-top:10px;">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
             </div>
         </div>

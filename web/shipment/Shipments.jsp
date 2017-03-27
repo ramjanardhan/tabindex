@@ -55,22 +55,22 @@
             check();"> 
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <script type="text/javascript">
-                function check()
-                {
-                    var value1 = document.getElementById("corrattribute1").value;
+        function check()
+        {
+            var value1 = document.getElementById("corrattribute1").value;
 
-                    if (value1 != "-1")
-                        document.getElementById("corr").style.display = "block";
-                    else
-                        document.getElementById("corr").style.display = "none";
-                    var value2 = document.getElementById("corrattribute2").value;
+            if (value1 != "-1")
+                document.getElementById("corr").style.display = "block";
+            else
+                document.getElementById("corr").style.display = "none";
+            var value2 = document.getElementById("corrattribute2").value;
 
-                    if (value2 != "-1")
-                        document.getElementById("corr1").style.display = "block";
-                    else
-                        document.getElementById("corr1").style.display = "none";
+            if (value2 != "-1")
+                document.getElementById("corr1").style.display = "block";
+            else
+                document.getElementById("corr1").style.display = "none";
 
-                }
+        }
         </script>
 
         <div>
@@ -319,54 +319,51 @@
                                                                 <%-- <td><a href="#" onclick="return demo();" > --%>
                                                                 <td>
                                                                     <%
-                                                                        out.println(shipmentBean.getFile_id());
+                                                                        if (shipmentBean.getFile_id() != null) {
+                                                                            out.println(shipmentBean.getFile_id());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                     <input type="hidden" name="Instance<%=i%>" id="Instance<%=i%>" value="<%=shipmentBean.getFile_id()%>"/> 
                                                                 </td>
                                                                 <td>  <a href="javascript:getDetails('<%=shipmentBean.getAsnNo()%>','<%=shipmentBean.getPoNo()%>','<%=shipmentBean.getFile_id()%>');">
                                                                         <%
+                                                                        if (shipmentBean.getAsnNo() != null) {
                                                                             out.println(shipmentBean.getAsnNo());
+                                                                        }else{
+                                                                            out.println("-");
+                                                                        }
                                                                         %>
                                                                         <input type="hidden" name="text<%=i%>" id="text<%=i%>" value="<%=shipmentBean.getAsnNo()%>"/> 
                                                                     </a>
                                                                 </td>
                                                                 <td>
                                                                     <%
+                                                                    if (shipmentBean.getPname() != null) {
                                                                         out.println(shipmentBean.getPname());
+                                                                    }else{
+                                                                        out.println("-");
+                                                                    }
                                                                     %>
                                                                 </td>
-
-
-                                                                <%-- <td>
-                                                                    <%
-                                                            out.println(shipmentBean.getShipmentDate());
-                                                            %>
-                                                                </td>  --%>
                                                                 <td>
                                                                     <%
+                                                                    if (shipmentBean.getDate_time_rec().toString().substring(0, shipmentBean.getDate_time_rec().toString().lastIndexOf(":")) != null) {
                                                                         //  out.println(shipmentBean.getDate_time_rec());
                                                                         out.println(shipmentBean.getDate_time_rec().toString().substring(0, shipmentBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                    }else{
+                                                                        out.println("-");
+                                                                    }
                                                                     %>
                                                                 </td>
-
-                                                                <%-- <td>
-                                                                     <%
-                                                             out.println(shipmentBean.getIsa());
-                                                             %>
-                                                                 </td>  --%>
-                                                                <%--  <td>
-                                                                      <%
-                                                              out.println(shipmentBean.getGsCtrl());
-                                                              %>
-                                                                  </td>  --%>
-                                                                <%--  <td>
-                                                                      <%
-                                                              out.println(shipmentBean.getStCtrl());
-                                                              %>
-                                                                  </td>  --%>
                                                                 <td>
                                                                     <%
+                                                                    if (shipmentBean.getDirection() != null) {
                                                                         out.println(shipmentBean.getDirection().toUpperCase());
+                                                                    }else{
+                                                                        out.println("-");
+                                                                    }
                                                                     %>
                                                                 </td>
                                                                 <td>
@@ -382,7 +379,6 @@
                                                                 </td>
                                                                 <td>
                                                                     <%
-                                                                        //out.println(shipmentBean.getAckStatus());
                                                                         if (shipmentBean.getAckStatus().equalsIgnoreCase("REJECTED")) {
                                                                             out.println("<font color='red'>" + shipmentBean.getAckStatus().toUpperCase() + "</font>");
                                                                         } else if (shipmentBean.getAckStatus().equalsIgnoreCase("ACCEPTED")) {
@@ -412,7 +408,7 @@
                                                         </table>
                                                     </td>
                                                 </tr>
-                                                <%                                                    if (list.size() != 0) {
+                                                <%--<%                                                    if (list.size() != 0) {
                                                 %>
                                                 <tr>
                                                     <!--                                            <td align="right" colspan="28" style="background-color: white;">
@@ -420,7 +416,7 @@
                                                                                                 </td>-->
                                                 </tr> 
 
-                                                <%}%></tbody>
+                                                <%}%>--%></tbody>
 
                                             </table></div>
 
@@ -543,33 +539,8 @@
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="msisaTime" name="msisaTime" readonly="true"/>
                     </div>
                 </div>
-                <%--<div id="sapDiv" style="display: none">
-                    <div class="row col-sm-12">
-                        <div class="col-sm-6">  <label class="labelw">  SAP_USER&nbsp;# </label>
-                            <s:textfield cssClass="form-control"  required="required" placeholder="" id="msapUser" name="msapUser" readonly="true"/>
-                        </div>
-                        <div class="col-sm-6">  <label class="labelw"> IDOC&nbsp;# </label>
-                            <s:textfield cssClass="form-control"  required="required" placeholder="" id="msidocNo" name="msidocNo" readonly="true"/>
-                        </div>
-                    </div>
-                    <div class="row col-sm-12">
-                        <div class="col-sm-6">  <label class="labelw">  PO&nbsp;# </label>
-                            <s:textfield cssClass="form-control"  required="required" placeholder="" id="mspoNo" name="mspoNo" readonly="true"/>
-                        </div>
-                        <div class="col-sm-6">  <label class="labelw">  PO_DATE&nbsp;# </label>
-                            <s:textfield cssClass="form-control"  required="required" placeholder="" id="mspoDate" name="mspoDate" readonly="true"/>
-                        </div>
-                    </div>
-                    <div class="row col-sm-12">
-                        <div class="col-sm-6">  <label class="labelw">  IDOC&nbsp;STATUS </label>
-                            <s:textfield cssClass="form-control"  required="required" placeholder="" id="msidocStatusCode" name="msidocStatusCode" readonly="true"/>
-                        </div>
-                        <div class="col-sm-6">  <label class="labelw">  DESCRIPTION&nbsp;# </label>
-                            <s:textfield cssClass="form-control"  required="required" placeholder="" id="msidocStatusDesc" name="msidocStatusDesc" readonly="true"/>
-                        </div>
-                    </div>
-                </div> --%>
-                <div class="row col-sm-12">
+                <br/>
+                <div class="row col-sm-12" style="margin-top:10px;">
                     <div class="col-sm-6"> <label class="labelw">  Pre-Translation </label></div>
                     <div class="col-sm-6" id="mspreTransFilepath"></div>
                 </div>
@@ -581,13 +552,13 @@
                     <div class="col-sm-6">  <label class="labelw">  997&nbsp;Ack&nbsp;File </label></div>
                     <div class="col-sm-6" id="msackFileId"></div>
                 </div>
-                <br><br>
                 <div class="row col-sm-12" id="errorDiv" style="display: none">
                     <div class="col-sm-6">  <label class="labelw">  Error&nbsp;Message </label></div>
                     <div class="col-sm-6" id="mserrormessage" style="color: red"></div>
                 </div>
                 <div id="noresult"></div>
-                <div class="row col-sm-12"> <br><br><br><button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" style="margin-left:12px;" value="X">Close</button></div>
+                <br/>
+                <div class="row col-sm-12"> <button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" style="margin-left:12px;" value="X">Close</button></div>
             </div>
 
             <script>
@@ -654,6 +625,7 @@
                         alert("please select Correlation!");
                         return false;
                     }
+
 
 
 

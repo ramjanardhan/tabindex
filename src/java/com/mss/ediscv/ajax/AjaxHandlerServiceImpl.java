@@ -369,21 +369,81 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
             sb.append("<DETAILS>");
             while (resultSet.next()) {
                 sb.append("<DETAIL><VALID>true</VALID>");
+                if (resultSet.getString("FILE_ID") != null && !"".equals(resultSet.getString("FILE_ID"))) {
                 sb.append("<FILEID>" + resultSet.getString("FILE_ID") + "</FILEID>");
+                }else{
+                    sb.append("<FILEID>NO</FILEID>");
+                }
+                if (resultSet.getString("ASN_NUMBER") != null && !"".equals(resultSet.getString("ASN_NUMBER"))) {
                 sb.append("<ASNNUMBER>" + resultSet.getString("ASN_NUMBER") + "</ASNNUMBER>");
+                }else{
+                    sb.append("<ASNNUMBER>NO</ASNNUMBER>");
+                }
+                if (resultSet.getString("PO_NUMBER") != null && !"".equals(resultSet.getString("PO_NUMBER"))) {
                 sb.append("<PONUMBER>" + resultSet.getString("PO_NUMBER") + "</PONUMBER>");
+                }else{
+                    sb.append("<PONUMBER>NO</PONUMBER>");
+                }
+                if (resultSet.getString("BOL_NUMBER") != null && !"".equals(resultSet.getString("BOL_NUMBER"))) {
                 sb.append("<BOLNUMBER>" + resultSet.getString("BOL_NUMBER") + "</BOLNUMBER>");
+                }else{
+                    sb.append("<BOLNUMBER>NO</BOLNUMBER>");
+                }
+                if (resultSet.getString("ISA_NUMBER") != null && !"".equals(resultSet.getString("ISA_NUMBER"))) {
                 sb.append("<ISANUMBER>" + resultSet.getString("ISA_NUMBER") + "</ISANUMBER>");
+                }else{
+                    sb.append("<ISANUMBER>NO</ISANUMBER>");
+                }
+                if (resultSet.getString("ISA_DATE") != null && !"".equals(resultSet.getString("ISA_DATE"))) {
                 sb.append("<ISADATE>" + resultSet.getString("ISA_DATE") + "</ISADATE>");
+                }else{
+                    sb.append("<ISADATE>NO</ISADATE>");
+                }
+                if (resultSet.getString("ISA_TIME") != null && !"".equals(resultSet.getString("ISA_TIME"))) {
                 sb.append("<ISATIME>" + resultSet.getString("ISA_TIME") + "</ISATIME>");
+                }else{
+                    sb.append("<ISATIME>NO</ISATIME>");
+                }
+                if (resultSet.getString("STATUS") != null && !"".equals(resultSet.getString("STATUS"))) {
                 sb.append("<STATUS>" + resultSet.getString("STATUS") + "</STATUS>");
+                }else{
+                    sb.append("<STATUS>NO</STATUS>");
+                }
+                if (resultSet.getString("SHIP_DATE") != null && !"".equals(resultSet.getString("SHIP_DATE"))) {
                 sb.append("<SHIPDATE>" + resultSet.getString("SHIP_DATE") + "</SHIPDATE>");
+                }else{
+                    sb.append("<SHIPDATE>NO</SHIPDATE>");
+                }
+                if (resultSet.getString("TRANSACTION_TYPE") != null && !"".equals(resultSet.getString("TRANSACTION_TYPE"))) {
                 sb.append("<TRANSACTION_TYPE>" + resultSet.getString("TRANSACTION_TYPE") + "</TRANSACTION_TYPE>");
+                }else{
+                    sb.append("<TRANSACTION_TYPE>NO</TRANSACTION_TYPE>");
+                }
+                if (resultSet.getString("SENDER_ID") != null && !"".equals(resultSet.getString("SENDER_ID"))) {
                 sb.append("<SENDER_ID>" + resultSet.getString("SENDER_ID") + "</SENDER_ID>");
+                }else{
+                    sb.append("<SENDER_ID>NO</SENDER_ID>");
+                }
+                if (resultSet.getString("RECEIVER_ID") != null && !"".equals(resultSet.getString("RECEIVER_ID"))) {
                 sb.append("<RECEIVER_ID>" + resultSet.getString("RECEIVER_ID") + "</RECEIVER_ID>");
+                }else{
+                    sb.append("<RECEIVER_ID>NO</RECEIVER_ID>");
+                }
+                if (resultSet.getString("FILE_TYPE") != null && !"".equals(resultSet.getString("FILE_TYPE"))) {
                 sb.append("<FILE_TYPE>" + resultSet.getString("FILE_TYPE") + "</FILE_TYPE>");
+                }else{
+                    sb.append("<FILE_TYPE>NO</FILE_TYPE>");
+                }
+                if (resultSet.getString("SENDER_NAME") != null && !"".equals(resultSet.getString("SENDER_NAME"))) {
                 sb.append("<SENDER_NAME>" + resultSet.getString("SENDER_NAME") + "</SENDER_NAME>");
+                }else{
+                    sb.append("<SENDER_NAME>NO</SENDER_NAME>");
+                }
+                if (resultSet.getString("RECEIVER_NAME") != null && !"".equals(resultSet.getString("RECEIVER_NAME"))) {
                 sb.append("<RECEIVER_NAME>" + resultSet.getString("RECEIVER_NAME") + "</RECEIVER_NAME>");
+                }else{
+                    sb.append("<RECEIVER_NAME>NO</RECEIVER_NAME>");
+                }
                 if (resultSet.getString("PRE_TRANS_FILEPATH") != null) {
                     if (new File(resultSet.getString("PRE_TRANS_FILEPATH")).exists() && new File(resultSet.getString("PRE_TRANS_FILEPATH")).isFile()) {
                         sb.append("<PRETRANSFILEPATH>" + resultSet.getString("PRE_TRANS_FILEPATH") + "</PRETRANSFILEPATH>");
@@ -429,13 +489,13 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                 if (resultSet.getString("ST_CONTROL_NUMBER") != null && !"".equals(resultSet.getString("ST_CONTROL_NUMBER"))) {
                     sb.append("<ST_CONTROL_NUMBER>" + resultSet.getString("ST_CONTROL_NUMBER") + "</ST_CONTROL_NUMBER>");
                 } else {
-                    sb.append("<ST_CONTROL_NUMBER>--</ST_CONTROL_NUMBER>");
+                    sb.append("<ST_CONTROL_NUMBER>NO</ST_CONTROL_NUMBER>");
                 }
                 //GS_CONTROL_NUMBER,
                 if (resultSet.getString("GS_CONTROL_NUMBER") != null && !"".equals(resultSet.getString("GS_CONTROL_NUMBER"))) {
                     sb.append("<GS_CONTROL_NUMBER>" + resultSet.getString("GS_CONTROL_NUMBER") + "</GS_CONTROL_NUMBER>");
                 } else {
-                    sb.append("<GS_CONTROL_NUMBER>--</GS_CONTROL_NUMBER>");
+                    sb.append("<GS_CONTROL_NUMBER>NO</GS_CONTROL_NUMBER>");
                 }
                 String sapDetails = DataSourceDataProvider.getInstance().getSapDetails(resultSet.getString("FILE_ID"), resultSet.getString("PO_NUMBER"));
                 if (!sapDetails.equals("None")) {

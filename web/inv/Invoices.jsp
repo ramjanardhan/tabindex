@@ -74,22 +74,22 @@
             check();">
     <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
     <script type="text/javascript">
-                function check()
-                {
+        function check()
+        {
 
-                    var value1 = document.getElementById("corrattribute1").value;
+            var value1 = document.getElementById("corrattribute1").value;
 
-                    if (value1 != "-1")
-                        document.getElementById("corr").style.display = "block";
-                    else
-                        document.getElementById("corr").style.display = "none";
-                    var value2 = document.getElementById("corrattribute2").value;
-                    if (value2 != "-1")
-                        document.getElementById("corr1").style.display = "block";
-                    else
-                        document.getElementById("corr1").style.display = "none";
+            if (value1 != "-1")
+                document.getElementById("corr").style.display = "block";
+            else
+                document.getElementById("corr").style.display = "none";
+            var value2 = document.getElementById("corrattribute2").value;
+            if (value2 != "-1")
+                document.getElementById("corr1").style.display = "block";
+            else
+                document.getElementById("corr1").style.display = "none";
 
-                }
+        }
     </script>
 
     <div>
@@ -285,45 +285,70 @@
                                                                         %>
                                                                         <td>
                                                                             <%
-                                                                                out.println(invoiceBean.getFileId());
+                                                                                if (invoiceBean.getFileId() != null && !"".equals(invoiceBean.getFileId())) {
+                                                                                    out.println(invoiceBean.getFileId());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
                                                                             %>
                                                                             <input type="hidden" name="Instance<%=i%>" id="Instance<%=i%>" value="<%=invoiceBean.getFileId()%>"/>
                                                                         </td>
                                                                         <td>  <a href="javascript:getInvDetails('<%=invoiceBean.getInvNumber()%>','<%=invoiceBean.getPoNumber()%>','<%=invoiceBean.getFileId()%>');"  >
                                                                                 <%
-                                                                                    out.println(invoiceBean.getInvNumber());
+                                                                                    if (invoiceBean.getInvNumber() != null && !"".equals(invoiceBean.getInvNumber())) {
+                                                                                        out.println(invoiceBean.getInvNumber());
+                                                                                    } else {
+                                                                                        out.println("-");
+                                                                                    }
                                                                                 %>
                                                                                 <input type="hidden" name="text<%=i%>" id="text<%=i%>" value="<%=invoiceBean.getInvNumber()%>"/>
                                                                             </a>
                                                                         </td>
                                                                         <td>
                                                                             <%
-                                                                                out.println(invoiceBean.getPname());
-                                                                            %>
-                                                                        </td>
-                                                                        <td>
-                                                                            <%
-                                                                                out.println(invoiceBean.getPoNumber());
-                                                                            %>
-                                                                        </td>
-                                                                        <td>
-                                                                            <%
-                                                                                out.println(invoiceBean.getItemQty());
-                                                                            %>
-
-                                                                        </td>
-                                                                        <td>
-                                                                            <%
-                                                                                if (invoiceBean.getInvAmount() != null) {
-                                                                                    out.println("$" + invoiceBean.getInvAmount());
+                                                                                if (invoiceBean.getPname() != null && !"".equals(invoiceBean.getPname())) {
+                                                                                    out.println(invoiceBean.getPname());
                                                                                 } else {
-                                                                                    out.println(invoiceBean.getInvAmount());
+                                                                                    out.println("-");
                                                                                 }
                                                                             %>
                                                                         </td>
                                                                         <td>
                                                                             <%
-                                                                                out.println(invoiceBean.getDate_time_rec().toString().substring(0, invoiceBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                                if (invoiceBean.getPoNumber() != null && !"".equals(invoiceBean.getPoNumber())) {
+                                                                                    out.println(invoiceBean.getPoNumber());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                            %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%
+                                                                                if (invoiceBean.getItemQty() != null && !"".equals(invoiceBean.getItemQty())) {
+                                                                                    out.println(invoiceBean.getItemQty());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                            %>
+
+                                                                        </td>
+                                                                        <td>
+                                                                            <%
+                                                                                if (invoiceBean.getInvAmount() != null && !"".equals(invoiceBean.getInvAmount())) {
+                                                                                    out.println("$" + invoiceBean.getInvAmount());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                            %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%
+                                                                                if (invoiceBean.getDate_time_rec().toString().substring(0, invoiceBean.getDate_time_rec().toString().lastIndexOf(":")) != null
+                                                                                        && !"".equals(invoiceBean.getDate_time_rec().toString().substring(0, invoiceBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                                    out.println(invoiceBean.getDate_time_rec().toString().substring(0, invoiceBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
                                                                             %>
 
                                                                         </td>
@@ -397,7 +422,6 @@
                     <div id="hide-menu1" class="hide-menu message ">
 
                         <div class="row col-sm-12">
-
                             <br>
                             <div class="col-sm-6"> <label class="labelw"> Instance Id </label>
                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="mifileID" name="mifileID" readonly="true"/>
@@ -406,7 +430,7 @@
                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="miinvNum" name="miinvNum" readonly="true"/>
                             </div>
                         </div>
-                        <div class="row col-sm-12"> <br>
+                        <div class="row col-sm-12">
                             <div class="col-sm-6"> <label class="labelw"> PO # </label>
                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="mipoNum" name="mipoNum" readonly="true"/>
                             </div>
@@ -488,51 +512,51 @@
                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="mifileType" name="mifileType" readonly="true"/>
                             </div>
                         </div>
-                        <div id="sapDiv" style="display: none">
-                            <div class="row col-sm-12">
-                                <div class="col-sm-6"> <label class="labelw"> SAP User </label>
-                                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="misapUser" name="misapUser" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label class="labelw"> iDoc # </label>
-                                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="miidocNo" name="miidocNo" readonly="true"/>
-                                </div>
-                            </div>
-                            <div class="row col-sm-12">
-                                <div class="col-sm-6"> <label class="labelw"> PO # </label>
-                                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="mipoNo" name="mipoNo" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label class="labelw"> PO Date </label>
-                                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="mipoDate" name="mipoDate" readonly="true"/>
-                                </div>
-                            </div>
-                            <div class="row col-sm-12">
-                                <div class="col-sm-6"> <label labelw> iDoc Status Code </label>
-                                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="miidocStatusCode" name="miidocStatusCode" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label labelw> iDoc Status Desc </label>
-                                    <input type="Text"  class="form-control"  required="required" placeholder="" id="miidocStatusDesc" name="miidocStatusDesc" readonly="true"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row col-sm-12">
+                        <%-- <div id="sapDiv" style="display: none">
+                             <div class="row col-sm-12">
+                                 <div class="col-sm-6"> <label class="labelw"> SAP User </label>
+                                     <s:textfield cssClass="form-control"  required="required" placeholder="" id="misapUser" name="misapUser" readonly="true"/>
+                                 </div>
+                                 <div class="col-sm-6"> <label class="labelw"> iDoc # </label>
+                                     <s:textfield cssClass="form-control"  required="required" placeholder="" id="miidocNo" name="miidocNo" readonly="true"/>
+                                 </div>
+                             </div>
+                             <div class="row col-sm-12">
+                                 <div class="col-sm-6"> <label class="labelw"> PO # </label>
+                                     <s:textfield cssClass="form-control"  required="required" placeholder="" id="mipoNo" name="mipoNo" readonly="true"/>
+                                 </div>
+                                 <div class="col-sm-6"> <label class="labelw"> PO Date </label>
+                                     <s:textfield cssClass="form-control"  required="required" placeholder="" id="mipoDate" name="mipoDate" readonly="true"/>
+                                 </div>
+                             </div>
+                             <div class="row col-sm-12">
+                                 <div class="col-sm-6"> <label labelw> iDoc Status Code </label>
+                                     <s:textfield cssClass="form-control"  required="required" placeholder="" id="miidocStatusCode" name="miidocStatusCode" readonly="true"/>
+                                 </div>
+                                 <div class="col-sm-6"> <label labelw> iDoc Status Desc </label>
+                                     <input type="Text"  class="form-control"  required="required" placeholder="" id="miidocStatusDesc" name="miidocStatusDesc" readonly="true"/>
+                                 </div>
+                             </div>
+                         </div> --%>
+                        <div class="row col-sm-12" style="margin-top:10px;">
                             <div class="col-sm-6"> <label class="labelw"> Pre-Translation </label></div>
-                            <div class="col-sm-6" id="mipreTransFilepath" style="color: blue"></div>
+                            <div class="col-sm-6" id="mipreTransFilepath"></div>
                         </div>
                         <div class="row col-sm-12">
                             <div class="col-sm-6"> <label class="labelw"> Post-Translation </label></div>
-                            <div class="col-sm-6" id="mipostTransFilepath" style="color: blue"></div>
+                            <div class="col-sm-6" id="mipostTransFilepath"></div>
                         </div>
                         <div class="row col-sm-12">
                             <div class="col-sm-6"> <label class="labelw"> 997&nbsp;Ack&nbsp;File </label></div>
-                            <div class="col-sm-6" id="miackFileId" style="color: blue"></div>
+                            <div class="col-sm-6" id="miackFileId"></div>
                         </div>
-                        <br><br>
                         <div class="row col-sm-12" id="errorDiv" style="display: none">
                             <div class="col-sm-6"> <label class="labelw"> Error&nbsp;Message </label></div>
                             <div class="col-sm-6" id="mierrormessage" style="color: red"></div>
                         </div>
                         <div id="noresult"></div>
-                        <div class="row col-sm-12"> <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
+                        <br>
+                        <div class="row col-sm-12" style="margin-top:10px;"> <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
                     </div>
 
                     <script>

@@ -26,50 +26,50 @@
         <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
         <link rel="stylesheet" href='<s:url value="/includes/plugins/daterangepicker/daterangepicker.css"/>' type="text/css"> 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        
+
 
         <script>
             var myCalendar;
             function doOnLoad() {
                 $("#editrackingenquiry").addClass("active");
                 $("#reports").addClass("active");
-                  
+
                 $("#manufacturing").addClass("active");
-                
-            
+
+
                 $("#editrackingenquiry i").addClass("text-red");
-                        document.getElementById('loadingAcoountSearch').style.display="none";
-	
+                document.getElementById('loadingAcoountSearch').style.display = "none";
+
             }
         </script>
-        <script type="text/javascript"> 
-  
-  
- 
+        <script type="text/javascript">
+
+
+
             function resetValues()
             {
-   
-                document.getElementById('docdatepickerfrom').value="";
-                document.getElementById('docdatepicker').value="";
-                document.getElementById('docType').value="-1";
-                document.getElementById('partnerMapId').value="-1";
-                document.getElementById('reportrange').value="";
+
+                document.getElementById('docdatepickerfrom').value = "";
+                document.getElementById('docdatepicker').value = "";
+                document.getElementById('docType').value = "-1";
+                document.getElementById('partnerMapId').value = "-1";
+                document.getElementById('reportrange').value = "";
                 $('#gridDiv').hide();
-    
+
             }
             /* $(document).ready(function() {
-              $('ul.sf-menu').sooperfish();
-            });*/
-    
-    
-   
-    
-    
-    
+             $('ul.sf-menu').sooperfish();
+             });*/
+
+
+
+
+
+
         </script>
 
-<style>
-              .loadingImg {
+        <style>
+            .loadingImg {
                 width: 100%;
                 height: 100%;
                 top: 0px;
@@ -130,7 +130,7 @@
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <%String contextPath = request.getContextPath();
-                            %> 
+                        %> 
                         <div class="box-tools pull-right">
 
                         </div>
@@ -155,15 +155,15 @@
                                                 </div>
 
                                                 <script type="text/javascript">
-                                                    function Date1()
-                                                    {
-                                                        //                                                            alert("into date1");
-                                                        var date=document.trackInquiryForm.reportrange.value;
-                                                        var arr=date.split("-");
-                                                        var x=arr[1].trim();
-                                                        document.getElementById("docdatepickerfrom").value = arr[0];
-                                                        document.getElementById("docdatepicker").value =x ;
-                                                    }
+        function Date1()
+        {
+            //                                                            alert("into date1");
+            var date = document.trackInquiryForm.reportrange.value;
+            var arr = date.split("-");
+            var x = arr[1].trim();
+            document.getElementById("docdatepickerfrom").value = arr[0];
+            document.getElementById("docdatepicker").value = x;
+        }
                                                 </script>
 
                                                 <s:hidden id="docdatepickerfrom" name="docdatepickerfrom" />
@@ -187,9 +187,9 @@
                                                 <div class="col-sm-2"> <strong><input type="button" value="Reset" class="btn btn-primary col-sm-12" tabindex="3" onclick="return resetValues();"/></strong> </div>
                                             </div>
                                             <s:hidden name="sampleValue" id="sampleValue" value="2"/>
-                                             <div id="loadingAcoountSearch" class="loadingImg">
-                                                    <span id ="LoadingContent" > <img src="<s:url value="/includes/images/Loader2.gif"/>"   ></span>
-                                                </div>
+                                            <div id="loadingAcoountSearch" class="loadingImg">
+                                                <span id ="LoadingContent" > <img src="<s:url value="/includes/images/Loader2.gif"/>"   ></span>
+                                            </div>
 
                                         </s:form>
                                     </div>
@@ -207,7 +207,7 @@
                     <%--- GRid start --%>
 
                     <%!String cssValue = "whiteStripe";
-                                                int resultsetTotal;%>
+                        int resultsetTotal;%>
 
                     <section class="content">
                         <div class="row">
@@ -220,28 +220,28 @@
 
                                         <div style="overflow-x:auto;">                 
 
-                                        <table align="left" width="100%"
-                                               border="0" cellpadding="0" cellspacing="0" >
-                                            <tr>
-                                                <td style="background-color: white;">
-                                                    <div id="grid_overflow">
+                                            <table align="left" width="100%"
+                                                   border="0" cellpadding="0" cellspacing="0" >
+                                                <tr>
+                                                    <td style="background-color: white;">
+                                                        <div id="grid_overflow">
 
-                                                        <table align="left" id="results" width="100%"
-                                                               border="0" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
-                                                            <%
-                                                                java.util.List list = (java.util.List) session.getAttribute(AppConstants.SES_DOCREPORT_LIST);
+                                                            <table align="left" id="results" width="100%"
+                                                                   border="0" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
+                                                                <%
+                                                                    java.util.List list = (java.util.List) session.getAttribute(AppConstants.SES_DOCREPORT_LIST);
 
-                                                                if (list.size() != 0) {
-                                                                    TrackInOutBean trackInOutBean;
-                                                            %>
-                                                            <thead> <tr>
-                                                                    <th>Trans&nbsp;Type</th>
-                                                                    <th>Date Sent</th>
-                                                                    <th>Date Acked</th>
-                                                                    <th>ACK Code</th>
-                                                                    <th>Partner</th>
-                                                                </tr></thead>
-                                                         
+                                                                    if (list.size() != 0) {
+                                                                        TrackInOutBean trackInOutBean;
+                                                                %>
+                                                                <thead> <tr>
+                                                                        <th>Trans&nbsp;Type</th>
+                                                                        <th>Date Sent</th>
+                                                                        <th>Date Acked</th>
+                                                                        <th>ACK Code</th>
+                                                                        <th>Partner</th>
+                                                                    </tr></thead>
+
                                                                 <tr>
 
                                                                     <%
@@ -258,7 +258,11 @@
 
                                                                     <td>
                                                                         <%
-                                                                            out.println(trackInOutBean.getTransaction_type());
+                                                                            if (trackInOutBean.getTransaction_type() != null && !"".equals(trackInOutBean.getTransaction_type())) {
+                                                                                out.println(trackInOutBean.getTransaction_type());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
 
                                                                     </td>
@@ -266,20 +270,29 @@
 
                                                                     <td>
                                                                         <%
-                                                                            out.println(trackInOutBean.getDate_time_rec().toString().substring(0, trackInOutBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            if (trackInOutBean.getDate_time_rec().toString().substring(0, trackInOutBean.getDate_time_rec().toString().lastIndexOf(":")) != null
+                                                                                    && !"".equals(trackInOutBean.getDate_time_rec().toString().substring(0, trackInOutBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                                out.println(trackInOutBean.getDate_time_rec().toString().substring(0, trackInOutBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
 
                                                                     </td>  
                                                                     <td>
                                                                         <%
-                                                                            out.println(trackInOutBean.getDate_time_rec().toString().substring(0, trackInOutBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            if (trackInOutBean.getDate_time_rec().toString().substring(0, trackInOutBean.getDate_time_rec().toString().lastIndexOf(":")) != null
+                                                                                    && !"".equals(trackInOutBean.getDate_time_rec().toString().substring(0, trackInOutBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                                out.println(trackInOutBean.getDate_time_rec().toString().substring(0, trackInOutBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
 
                                                                     </td>
 
                                                                     <td>
                                                                         <%
-
                                                                             //out.println(poLifeCycleBean.getAckStatus());
                                                                             if (trackInOutBean.getAckStatus().equalsIgnoreCase("REJECTED")) {
                                                                                 out.println("REJECTED");
@@ -293,8 +306,11 @@
                                                                     </td> 
 
                                                                     <td> 
-                                                                        <%
-                                                                            out.println(trackInOutBean.getPname());
+                                                                        <%                                                                            if (trackInOutBean.getPname() != null && !"".equals(trackInOutBean.getPname())) {
+                                                                                out.println(trackInOutBean.getPname());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
 
                                                                     </td> 
@@ -309,25 +325,23 @@
                                                                         <%
                                                                                 // String contextPath = request.getContextPath();
                                                                                 // out.println("<img  border='0' align='top'  src='"+contextPath+"/includes/images/alert.gif'/><b> No Records Found to Display!</b>");
-
                                                                                 out.println("<img  border='0' align='top'  src='" + contextPath + "/includes/images/alert.gif'/><b>No records found for the given search criteria. Please try a different search criteria!</b>");
                                                                             }
 
                                                                         %>
                                                                     </td>
                                                                 </tr>
-                                                        </table></td></tr>
-                                                        <%
-                                                            if (list.size() != 0) {
-                                                        %>
-                                            <tr >
-                                                <!--<td align="right" colspan="28" style="background-color: white;">-->
-                                                <!--                                                        <div align="right" id="pageNavPosition">hello</div>-->
-<!--                                                </td>-->
-                                            </tr> 
-                                         
-                                            <% }%></tbody>
-                                        </table> </div> 
+                                                            </table></td></tr>
+                                                            <%                                                            if (list.size() != 0) {
+                                                            %>
+                                                <tr >
+                                                    <!--<td align="right" colspan="28" style="background-color: white;">-->
+                                                    <!--                                                        <div align="right" id="pageNavPosition">hello</div>-->
+                                                    <!--                                                </td>-->
+                                                </tr> 
+
+                                                <% }%></tbody>
+                                            </table> </div> 
 
 
 
@@ -340,7 +354,7 @@
                                         <table align="right">
                                             <tr>
                                                 <td>
-                                                    <strong><input type="button" value="Generate Excel" class="btn btn-primary col-sm-12" onclick="return gridDownload('trackInquiry','xls');" data-toggle="tooltip" title="Click here to generate an excel Report." onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/></strong>
+                                                    <strong><input type="button" value="Generate Excel" class="btn btn-primary col-sm-12" onclick="return gridDownload('trackInquiry', 'xls');" data-toggle="tooltip" title="Click here to generate an excel Report." onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/></strong>
                                                 </td>
                                             </tr>
                                         </table> 
@@ -384,7 +398,7 @@
 
 
         <script>
-            $('input[name="daterange"]').daterangepicker();
+                $('input[name="daterange"]').daterangepicker();
         </script>
 
         <script src='<s:url value="../includes/bootstrap/js/bootstrap.min.js"/>'></script>

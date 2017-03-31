@@ -235,26 +235,69 @@
                                                                     </s:a>
                                                                 </td>
                                                                 <td style="text-align: left">
+                                                                    <%
+                                                                        if (b2BChannelBean.getPartnerName() != null && !"".equals(b2BChannelBean.getPartnerName())) {%>
                                                                     <a href="#" onclick="getB2bDetailInformation('<%=b2BChannelBean.getB2bChannelId()%>')" onmouseover="Tip('Click here to view Detail Info.')" onmouseout="UnTip()"> 
                                                                         <% out.println(b2BChannelBean.getPartnerName());%>
-                                                                    </a> 
+                                                                    </a>
+                                                                    <%
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
+                                                                    %>
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    <% out.println(b2BChannelBean.getProtocol());%>
+                                                                    <%
+                                                                        if (b2BChannelBean.getProtocol() != null && !"".equals(b2BChannelBean.getProtocol())) {
+                                                                            out.println(b2BChannelBean.getProtocol());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
+                                                                    %>
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    <%  out.println(b2BChannelBean.getHost());%>
+                                                                    <%
+                                                                        if (b2BChannelBean.getHost() != null && !"".equals(b2BChannelBean.getHost())) {
+                                                                            out.println(b2BChannelBean.getHost());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
+                                                                    %>
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    <% out.println(b2BChannelBean.getStatus());%>
+                                                                    <%
+                                                                        if (b2BChannelBean.getStatus() != null && !"".equals(b2BChannelBean.getStatus())) {
+                                                                            out.println(b2BChannelBean.getStatus());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
+                                                                    %>
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    <% out.println(b2BChannelBean.getCreatedDate());%>
+                                                                    <%
+                                                                        if (b2BChannelBean.getCreatedDate() != null && !"".equals(b2BChannelBean.getCreatedDate())) {
+                                                                            out.println(b2BChannelBean.getCreatedDate());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
+                                                                    %>
                                                                 </td> <td style="text-align: left">
-                                                                    <% out.println(b2BChannelBean.getModifiedDate());%>
+                                                                    <%
+                                                                        if (b2BChannelBean.getModifiedDate() != null && !"".equals(b2BChannelBean.getModifiedDate())) {
+                                                                            out.println(b2BChannelBean.getModifiedDate());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
+                                                                    %>
                                                                 </td>
                                                                 <td style="text-align: left">
-                                                                    <% out.println(b2BChannelBean.getModifiedBy());%>
+                                                                    <%
+                                                                        if (b2BChannelBean.getModifiedBy() != null && !"".equals(b2BChannelBean.getModifiedBy())) {
+                                                                            out.println(b2BChannelBean.getModifiedBy());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
+                                                                    %>
                                                                 </td>
                                                             </tr>
                                                             <%
@@ -301,7 +344,7 @@
                                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="b2bstatus" name="b2bstatus" readonly="true"/>
                                         </div>
                                     </div>
-                                    <div class="row col-sm-12"> <br>
+                                    <div class="row col-sm-12"> 
                                         <div class="col-sm-6"> <label class="labelw">  Direction : </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="b2bdirection" name="b2bdirection" readonly="true"/>
                                         </div>
@@ -323,7 +366,7 @@
                                         <div class="col-sm-6"> <label class="labelw"> ProduceMailBox :</label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="b2bproducermailbox" name="b2bproducermailbox" readonly="true"/>
                                         </div>
-                                        <div class="col-sm-6"><label class="labelw">  ConsumerMailBox :</label>
+                                        <div class="col-sm-6"><label class="labelw"> ConsumerMailBox :</label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="b2bconsumermailbox" name="b2bconsumermailbox" readonly="true"/>
                                         </div>
                                     </div>
@@ -331,7 +374,7 @@
                                         <div class="col-sm-6"> <label class="labelw"> PoolingCode :</label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="b2bpoolingcode" name="b2bpoolingcode" readonly="true"/>
                                         </div>
-                                        <div class="col-sm-6"><label class="labelw">  AppId :</label>
+                                        <div class="col-sm-6"><label class="labelw"> AppId :</label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="b2bappid" name="b2bappid" readonly="true"/>
                                         </div>
                                     </div>
@@ -339,12 +382,12 @@
                                         <div class="col-sm-6"> <label class="labelw"> SenderId :</label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="b2bsenderid" name="b2bsenderid" readonly="true"/>
                                         </div>
-                                        <div class="col-sm-6"><label class="labelw">  ReceiverId :</label>
+                                        <div class="col-sm-6"><label class="labelw"> ReceiverId :</label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="b2breceiverid" name="b2breceiverid" readonly="true"/>
                                         </div>
                                     </div>
                                     <div id="noresult"></div>
-                                    <div class="row col-sm-12">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>    
+                                    <div class="row col-sm-12" style="margin-top:10px;">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>    
 
 
                                 </div>

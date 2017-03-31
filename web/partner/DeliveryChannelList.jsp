@@ -304,15 +304,25 @@
                                                                 </td>
 
                                                                 <td style="text-align: left">
+                                                                    <% if (partnerBean.getPartnerName() != null && !"".equals(partnerBean.getPartnerName())) {%>
                                                                     <a href="#" onclick="getDeliveryChannelDetails('<%=partnerBean.getDeliveryChannelId()%>')" onmouseover="Tip('Click here to view Detail Info.')" onmouseout="UnTip()"> 
                                                                         <%
                                                                             out.println(partnerBean.getPartnerName());
                                                                         %></a>
+                                                                        <%
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
+                                                                        %>
                                                                 </td>
 
                                                                 <td style="text-align: left">
                                                                     <%
-                                                                        out.println(partnerBean.getRoutingName());
+                                                                        if (partnerBean.getRoutingName() != null && !"".equals(partnerBean.getRoutingName())) {
+                                                                            out.println(partnerBean.getRoutingName());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
                                                                 <td style="text-align: left">
@@ -322,16 +332,28 @@
                                                                 </td>
                                                                 <td style="text-align: left">
                                                                     <%
-                                                                        out.println(partnerBean.getBusinessProcessName());
+                                                                        if (partnerBean.getBusinessProcessName() != null && !"".equals(partnerBean.getBusinessProcessName())) {
+                                                                            out.println(partnerBean.getBusinessProcessName());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
                                                                 <td style="text-align: left">
                                                                     <%
-                                                                        out.println(partnerBean.getTranslationMapName());
+                                                                        if (partnerBean.getTranslationMapName() != null && !"".equals(partnerBean.getTranslationMapName())) {
+                                                                            out.println(partnerBean.getTranslationMapName());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td> <td style="text-align: left">
                                                                     <%
-                                                                        out.println(partnerBean.getStatus());
+                                                                        if (partnerBean.getStatus() != null && !"".equals(partnerBean.getStatus())) {
+                                                                            out.println(partnerBean.getStatus());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td> <%-- <td style="text-align: left">
                                                                     <%
@@ -394,59 +416,59 @@
                 <div class="row col-sm-12">
 
                     <br>
-                    <div class="col-sm-6"> <label class="labelw">Partner&nbsp;Name:</label>
+                    <div class="col-sm-6"> <label class="labelw">Partner&nbsp;Name :</label>
                         <s:textfield cssClass="form-control"  type="Text"  required="required" placeholder="" id="partnerName" name="partnerName" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw">RoutingName:</label>
+                    <div class="col-sm-6"> <label class="labelw">Routing Name :</label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="routingName" name="routingName" readonly="true"/>
                     </div>
                 </div>
-                <div class="row col-sm-12"> <br>
-                    <div class="col-sm-6"> <label class="labelw">BPName:</label>
+                <div class="row col-sm-12"> 
+                    <div class="col-sm-6"> <label class="labelw">BPName :</label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="bpName" name="bpName" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw">TranlationMapName:</label>
+                    <div class="col-sm-6"> <label class="labelw">Trans Map Name :</label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="translationMapName" name="translationMapName" readonly="true"/>
                     </div>
                 </div>
                 <div class="row col-sm-12">
-                    <div class="col-sm-6"> <label class="labelw">Status:</label>
+                    <div class="col-sm-6"> <label class="labelw">Status :</label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="deliveryStatus" name="deliveryStatus" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw">  Encoding: </label>
+                    <div class="col-sm-6"> <label class="labelw">  Encoding : </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="encoding" name="encoding" readonly="true"/>
                     </div>
                 </div>
                 <br>
 
                 <div class="row col-sm-12">
-                    <div class="col-sm-6"> <label class="labelw">ProducerMailBox:</label>
+                    <div class="col-sm-6"> <label class="labelw">Prod Mail Box :</label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="producerMailBox" name="producerMailBox" readonly="true"/>
                     </div>
 
-                    <div class="col-sm-6"> <label class="labelw"> Sequence: </label>
+                    <div class="col-sm-6"> <label class="labelw"> Sequence : </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="sequence" name="sequence" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="row col-sm-12 clear">
-                    <div class="col-sm-6"> <label class="labelw">  ArchiveFlag: </label>
+                    <div class="col-sm-6"> <label class="labelw">  Arch Flag : </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="archiveFlag" name="archiveFlag" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> ArchiveDirectory: </label>
+                    <div class="col-sm-6"> <label class="labelw"> Arch Directory : </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="archiveDirectory" name="archiveDirectory" readonly="true"/>
                     </div>
                 </div>
                 <div class="row col-sm-12 clear">
-                    <div class="col-sm-6"> <label class="labelw">  OutputFileName: </label>
+                    <div class="col-sm-6"> <label class="labelw">  Output FileName : </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="outputFileName" name="outputFileName" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> OutputFormat: </label>
+                    <div class="col-sm-6"> <label class="labelw"> Output Format : </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="outputFormat" name="outputFormat" readonly="true"/>
                     </div>
                 </div>
                 <div class="row col-sm-12 clear">
-                    <div class="col-sm-6"> <label class="labelw">DocumentExtractMapName:</label>
+                    <div class="col-sm-6"> <label class="labelw">Doc Extract Map Name :</label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="documentExtraxctMapName" name="documentExtraxctMapName" readonly="true"/>
                     </div>
 
@@ -455,7 +477,7 @@
                     <br><br><br><br>
                     <div id="noresult"></div>
                     `</div><div class="row">
-                    <div class="row col-sm-12">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>    
+                    <div class="row col-sm-12" style="margin-top:10px;">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>    
                 </div>
             </div>
 

@@ -302,21 +302,34 @@
 
 
                                                             <td>
+
                                                                 <%
-                                                                    out.println(schdularBean.getSchtype());
+                                                                    if (schdularBean.getSchtype() != null && !"".equals(schdularBean.getSchtype())) {
+                                                                        out.println(schdularBean.getSchtype());
+                                                                    } else {
+                                                                        out.println("-");
+                                                                    }
+
                                                                 %>
 
                                                             </td>   
 
                                                             <td>
-                                                                <%
-                                                                    out.println(schdularBean.getSchhrFormat());
+                                                                <%                                                                    if (schdularBean.getSchhrFormat() != null && !"".equals(schdularBean.getSchhrFormat())) {
+                                                                        out.println(schdularBean.getSchhrFormat());
+                                                                    } else {
+                                                                        out.println("-");
+                                                                    }
                                                                 %>
 
                                                             </td>
                                                             <td>
                                                                 <%
-                                                                    out.println(schdularBean.getStatus());
+                                                                    if (schdularBean.getStatus() != null && !"".equals(schdularBean.getStatus())) {
+                                                                        out.println(schdularBean.getStatus());
+                                                                    } else {
+                                                                        out.println("-");
+                                                                    }
                                                                 %>
 
                                                             </td> 

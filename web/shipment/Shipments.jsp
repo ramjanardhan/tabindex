@@ -319,7 +319,7 @@
                                                                 <%-- <td><a href="#" onclick="return demo();" > --%>
                                                                 <td>
                                                                     <%
-                                                                        if (shipmentBean.getFile_id() != null) {
+                                                                        if (shipmentBean.getFile_id() != null && !"".equals(shipmentBean.getFile_id())) {
                                                                             out.println(shipmentBean.getFile_id());
                                                                         } else {
                                                                             out.println("-");
@@ -329,41 +329,41 @@
                                                                 </td>
                                                                 <td>  <a href="javascript:getDetails('<%=shipmentBean.getAsnNo()%>','<%=shipmentBean.getPoNo()%>','<%=shipmentBean.getFile_id()%>');">
                                                                         <%
-                                                                        if (shipmentBean.getAsnNo() != null) {
-                                                                            out.println(shipmentBean.getAsnNo());
-                                                                        }else{
-                                                                            out.println("-");
-                                                                        }
+                                                                            if (shipmentBean.getAsnNo() != null && !"".equals(shipmentBean.getAsnNo())) {
+                                                                                out.println(shipmentBean.getAsnNo());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                         <input type="hidden" name="text<%=i%>" id="text<%=i%>" value="<%=shipmentBean.getAsnNo()%>"/> 
                                                                     </a>
                                                                 </td>
                                                                 <td>
                                                                     <%
-                                                                    if (shipmentBean.getPname() != null) {
-                                                                        out.println(shipmentBean.getPname());
-                                                                    }else{
-                                                                        out.println("-");
-                                                                    }
+                                                                        if (shipmentBean.getPname() != null && !"".equals(shipmentBean.getPname())) {
+                                                                            out.println(shipmentBean.getPname());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
                                                                 <td>
                                                                     <%
-                                                                    if (shipmentBean.getDate_time_rec().toString().substring(0, shipmentBean.getDate_time_rec().toString().lastIndexOf(":")) != null) {
-                                                                        //  out.println(shipmentBean.getDate_time_rec());
-                                                                        out.println(shipmentBean.getDate_time_rec().toString().substring(0, shipmentBean.getDate_time_rec().toString().lastIndexOf(":")));
-                                                                    }else{
-                                                                        out.println("-");
-                                                                    }
+                                                                        if (shipmentBean.getDate_time_rec().toString().substring(0, shipmentBean.getDate_time_rec().toString().lastIndexOf(":")) != null
+                                                                                && !"".equals(shipmentBean.getDate_time_rec().toString().substring(0, shipmentBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                            out.println(shipmentBean.getDate_time_rec().toString().substring(0, shipmentBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
                                                                 <td>
                                                                     <%
-                                                                    if (shipmentBean.getDirection() != null) {
-                                                                        out.println(shipmentBean.getDirection().toUpperCase());
-                                                                    }else{
-                                                                        out.println("-");
-                                                                    }
+                                                                        if (shipmentBean.getDirection() != null && !"".equals(shipmentBean.getDirection())) {
+                                                                            out.println(shipmentBean.getDirection().toUpperCase());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
                                                                 <td>
@@ -421,9 +421,7 @@
                                             </table></div>
 
                                         <%-- Process butttons  start --%>
-                                        <%
-                                            // out.println(session.getAttribute(AppConstants.SES_ROLE_ID));
-
+                                        <%                                            // out.println(session.getAttribute(AppConstants.SES_ROLE_ID));
                                             if ((session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104")) && list.size() != 0) {
                                         %><br>
                                         <div class="row">
@@ -558,7 +556,7 @@
                 </div>
                 <div id="noresult"></div>
                 <br/>
-                <div class="row col-sm-12"> <button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" style="margin-left:12px;" value="X">Close</button></div>
+                <div class="row col-sm-12" style="margin-top:10px;"> <button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" style="margin-left:12px;" value="X">Close</button></div>
             </div>
 
             <script>

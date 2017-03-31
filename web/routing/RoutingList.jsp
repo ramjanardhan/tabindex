@@ -14,38 +14,38 @@
 <html>
     <head>
 
-        <script type="text/javascript"> 
+        <script type="text/javascript">
             function doOnLoad() {
                 var configFlowFlag = $('#configFlowFlag').val();
-                if(configFlowFlag == 'manufacturing'){
+                if (configFlowFlag == 'manufacturing') {
                     $("#manufacturing").addClass("active");
                     $("#routing").addClass("active");
                     $("#config").addClass("active");
                     $("#routing i").addClass("text-red");
-                } else if(configFlowFlag == 'logistics'){
+                } else if (configFlowFlag == 'logistics') {
                     $("#logistics").addClass("active");
                     $("#ltrouting").addClass("active");
                     $("#ltconfig").addClass("active");
                     $("#ltrouting i").addClass("text-red");
                 }
-                document.getElementById('loadingAcoountSearch').style.display="none";
+                document.getElementById('loadingAcoountSearch').style.display = "none";
             }
-  
+
             function goToAddRouting() {
                 var configFlowFlag = document.getElementById("configFlowFlag").value;
                 //alert(configFlowFlag);
-                window.location="../routing/addRouting.action?configFlowFlag="+configFlowFlag;
+                window.location = "../routing/addRouting.action?configFlowFlag=" + configFlowFlag;
             }
-            
+
             function hide()
             {
                 $('#hide-menu1').removeClass('show-menu');
             }
-             
+
 
 
         </script>
-       
+
 
 
         <meta charset="utf-8">
@@ -231,17 +231,17 @@
                                                         <thead>  <tr>
                                                                 <th >Action</th>
                                                                 <th >Name </th>
-                                                                <%--   <td >TP INBOUND PATH</td>
-                                                                   <td >TP OUTBOUND PATH</td>  --%>
+                                                                    <%--   <td >TP INBOUND PATH</td>
+                                                                       <td >TP OUTBOUND PATH</td>  --%>
                                                                 <th>AcceptorLookupAlias</th>
-                                                                <%-- <td>Envelope</td> --%>
+                                                                    <%-- <td>Envelope</td> --%>
                                                                 <th>Direction </th>
                                                                 <th>InternalRouteEmail </th>
                                                                 <th>DestinationMailBox </th>
                                                                 <th>SystemType</th>
                                                                 <th>Status</th>
-                                                                <%--   <td>CreatedDate</td>
-                                                                     <td>Changeddate</td> --%>
+                                                                    <%--   <td>CreatedDate</td>
+                                                                         <td>Changeddate</td> --%>
                                                             </tr></thead> <tbody>
                                                             <tr >
 
@@ -272,16 +272,27 @@
                                                                 </td>
 
                                                                 <td style="text-align: left">
+                                                                    <%
+                                                                        if (routingBean.getName() != null && !"".equals(routingBean.getName())) {%>
                                                                     <a href="#" onclick="getRoutingDetails('<%=routingBean.getRoutingId()%>')" onmouseover="Tip('Click here to view Detail Info.')" onmouseout="UnTip()"> 
                                                                         <%
                                                                             out.println(routingBean.getName());
                                                                         %>
                                                                     </a> 
+                                                                    <%
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
+                                                                    %>
                                                                 </td>
 
                                                                 <td style="text-align: left">
                                                                     <%
-                                                                        out.println(routingBean.getAcceptorLookupAlias());
+                                                                        if (routingBean.getAcceptorLookupAlias() != null && !"".equals(routingBean.getAcceptorLookupAlias())) {
+                                                                            out.println(routingBean.getAcceptorLookupAlias());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
                                                                 <%-- <td style="text-align: left">
@@ -291,25 +302,45 @@
                                                                 </td> --%>
                                                                 <td style="text-align: left">
                                                                     <%
-                                                                        out.println(routingBean.getDirection());
+                                                                        if (routingBean.getDirection() != null && !"".equals(routingBean.getDirection())) {
+                                                                            out.println(routingBean.getDirection());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
 
                                                                 <td style="text-align: left">
                                                                     <%
-                                                                        out.println(routingBean.getInternalRouteEmail());
+                                                                        if (routingBean.getInternalRouteEmail() != null && !"".equals(routingBean.getInternalRouteEmail())) {
+                                                                            out.println(routingBean.getInternalRouteEmail());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td> <td style="text-align: left">
                                                                     <%
-                                                                        out.println(routingBean.getDestMailBox());
+                                                                        if (routingBean.getDestMailBox() != null && !"".equals(routingBean.getDestMailBox())) {
+                                                                            out.println(routingBean.getDestMailBox());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td> <td style="text-align: left">
                                                                     <%
-                                                                        out.println(routingBean.getSystemType());
+                                                                        if (routingBean.getSystemType() != null && !"".equals(routingBean.getSystemType())) {
+                                                                            out.println(routingBean.getSystemType());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td> <td style="text-align: left">
                                                                     <%
-                                                                        out.println(routingBean.getStatus());
+                                                                        if (routingBean.getStatus() != null && !"".equals(routingBean.getStatus())) {
+                                                                            out.println(routingBean.getStatus());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td><%-- <td style="text-align: left">
                                                                     <%
@@ -368,63 +399,63 @@
                                     <%-- Grid End --%>
 
                                 </div></section>
-                                    
-                                    <div id="hide-menu1" class="hide-menu message ">
 
-                                <div class="row col-sm-12">
+                                <div id="hide-menu1" class="hide-menu message ">
 
+                                    <div class="row col-sm-12">
+
+                                        <br>
+                                        <div class="col-sm-6"> <label class="labelw"> Roter&nbsp;Name :</label>
+                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rrouterName" name="rrouterName"  readOnly="true"/>
+                                        </div>
+                                        <div class="col-sm-6"> <label class="labelw">Status :</label>
+                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rrouterStatus" name="rrouterStatus" readOnly="true"/>
+                                        </div>
+                                    </div>
+                                    <div class="row col-sm-12"> 
+                                        <div class="col-sm-6"> <label class="labelw">Acceptor Lookup Alias :</label>
+                                            <<s:textfield  cssClass="form-control"  required="required" placeholder="" id="racceptorLookUpAlias" name="racceptorLookUpAlias" readonly="true"/>
+                                        </div>
+                                        <div class="col-sm-6"> <label class="labelw">Internal Route Email :</label>
+                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rinternalRouteEmail" name="rinternalRouteEmail"  readonly="true"/>
+                                        </div>
+                                    </div>
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-6"> <label class="labelw">DestMailBox :</label>
+                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rdestMailBox" name="rdestMailBox" readonly="true"/>
+                                        </div>
+                                        <div class="col-sm-6"> <label class="labelw">SystemType :</label>
+                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rsystemType" name="rsystemType" readonly="true"/>
+                                        </div>
+                                    </div>
                                     <br>
-                                    <div class="col-sm-6"> <label class="labelw"> Roter&nbsp;Name:</label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rrouterName" name="rrouterName"  readOnly="true"/>
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-6"> <label class="labelw"> Direction :</label>
+                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rdirection" name="rdirection" readonly="true"/>
+                                        </div>
+                                        <div class="col-sm-6"> <label class="labelw">Envelope :</label>
+                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="renvelope" name="renvelope" readonly="true"/>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-6"> <label class="labelw">Status:</label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rrouterStatus" name="rrouterStatus" readOnly="true"/>
+
+                                    <div class="row col-sm-12 clear">
+                                        <div class="col-sm-6"> <label class="labelw">  CreatedDate : </label>
+                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rcreatedDate" name="rcreatedDate" readonly="true"/>
+                                        </div>
+                                        <div class="col-sm-6"> <label class="labelw"> ChangedDate : </label>
+                                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rchangedDate" name="rchangedDate" readonly="true"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row col-sm-12"> <br>
-                                    <div class="col-sm-6"> <label class="labelw">Acceptor Lookup Alias:</label>
-                                        <<s:textfield  cssClass="form-control"  required="required" placeholder="" id="racceptorLookUpAlias" name="racceptorLookUpAlias" readonly="true"/>
-                                    </div>
-                                    <div class="col-sm-6"> <label class="labelw">Internal Route Email:</label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rinternalRouteEmail" name="rinternalRouteEmail"  readonly="true"/>
-                                    </div>
-                                </div>
-                                <div class="row col-sm-12">
-                                    <div class="col-sm-6"> <label class="labelw">DestMailBox:</label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rdestMailBox" name="rdestMailBox" readonly="true"/>
-                                    </div>
-                                    <div class="col-sm-6"> <label class="labelw">SystemType:</label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rsystemType" name="rsystemType" readonly="true"/>
-                                    </div>
-                                </div>
-                                <br>
-                                <div class="row col-sm-12">
-                                    <div class="col-sm-6"> <label class="labelw"> Direction:</label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rdirection" name="rdirection" readonly="true"/>
-                                    </div>
-                                    <div class="col-sm-6"> <label class="labelw">Envelope:</label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="renvelope" name="renvelope" readonly="true"/>
-                                    </div>
+                                    <br><br>
+                                    <br><br>
+                                    <div id="noresult"></div>
+                                    <div class="row col-sm-12" style="margin-top:10px;">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>    
+
                                 </div>
 
-                                <div class="row col-sm-12 clear">
-                                    <div class="col-sm-6"> <label class="labelw">  CreatedDate: </label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rcreatedDate" name="rcreatedDate" readonly="true"/>
-                                    </div>
-                                    <div class="col-sm-6"> <label class="labelw"> ChangedDate: </label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rchangedDate" name="rchangedDate" readonly="true"/>
-                                    </div>
-                                </div>
-                                <br><br>
-                                <br><br>
-                                <div id="noresult"></div>
-                                <div class="row col-sm-12">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>    
-
-                            </div>
-                                    
                             </s:if> 
 
-                            
+
 
 
                         </div></div>      

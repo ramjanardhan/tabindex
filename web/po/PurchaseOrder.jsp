@@ -339,7 +339,7 @@
                                                                 <tr>
                                                                     <td>
                                                                         <%
-                                                                            if (purchaseOrderBean.getFileId() != null) {
+                                                                            if (purchaseOrderBean.getFileId() != null && !"".equals(purchaseOrderBean.getFileId())) {
                                                                                 out.println(purchaseOrderBean.getFileId());
                                                                             } else {
                                                                                 out.println("-");
@@ -350,7 +350,7 @@
                                                                     </td>
                                                                     <td><a href="javascript:getDetails('<%=purchaseOrderBean.getPo()%>','<%=purchaseOrderBean.getFileId()%>');"  >
                                                                             <%
-                                                                                if (purchaseOrderBean.getPo() != null) {
+                                                                                if (purchaseOrderBean.getPo() != null && !"".equals(purchaseOrderBean.getPo())) {
                                                                                     out.println(purchaseOrderBean.getPo());
                                                                                 } else {
                                                                                     out.println("-");
@@ -364,7 +364,8 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (purchaseOrderBean.getDate_time_rec().toString().substring(0, purchaseOrderBean.getDate_time_rec().toString().lastIndexOf(":")) != null) {
+                                                                            if (purchaseOrderBean.getDate_time_rec().toString().substring(0, purchaseOrderBean.getDate_time_rec().toString().lastIndexOf(":")) != null
+                                                                                    && !"".equals(purchaseOrderBean.getDate_time_rec().toString().substring(0, purchaseOrderBean.getDate_time_rec().toString().lastIndexOf(":")))) {
                                                                                 out.println(purchaseOrderBean.getDate_time_rec().toString().substring(0, purchaseOrderBean.getDate_time_rec().toString().lastIndexOf(":")));
                                                                             } else {
                                                                                 out.println("-");
@@ -373,12 +374,16 @@
                                                                     </td>  
                                                                     <td>
                                                                         <%
-                                                                            out.println(purchaseOrderBean.getTransactionType());
+                                                                            if (purchaseOrderBean.getTransactionType() != null && !"".equals(purchaseOrderBean.getTransactionType())) {
+                                                                                out.println(purchaseOrderBean.getTransactionType());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (purchaseOrderBean.getPname() != null) {
+                                                                            if (purchaseOrderBean.getPname() != null && !"".equals(purchaseOrderBean.getPname())) {
                                                                                 out.println(purchaseOrderBean.getPname());
                                                                             } else {
                                                                                 out.println("-");
@@ -414,7 +419,7 @@
 
                                                                     <td>
                                                                         <%
-                                                                            if (purchaseOrderBean.getDirection() != null) {
+                                                                            if (purchaseOrderBean.getDirection() != null && !"".equals(purchaseOrderBean.getDirection())) {
                                                                                 out.println(purchaseOrderBean.getDirection().toUpperCase());
                                                                             } else {
                                                                                 out.println("-");
@@ -446,7 +451,7 @@
 
                                                                     <td>
                                                                         <%                                                                            //out.println(purchaseOrderBean.getReProcessStatus());
-                                                                            if (purchaseOrderBean.getReProcessStatus() != null) {
+                                                                            if (purchaseOrderBean.getReProcessStatus() != null && !"".equals(purchaseOrderBean.getReProcessStatus())) {
                                                                                 out.println(purchaseOrderBean.getReProcessStatus().toUpperCase());
 
                                                                             } else {

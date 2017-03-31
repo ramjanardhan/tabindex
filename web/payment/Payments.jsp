@@ -23,13 +23,13 @@
                 float: right;
             }
         </style>
-  <script>
+        <script>
             function doOnLoad() {
                 $("#payments").addClass("active");
                 $("#financials").addClass("active");
                 $("#manufacturing").addClass("active");
                 $("#payments i").addClass("text-red");
-                document.getElementById('loadingAcoountSearch').style.display="none";
+                document.getElementById('loadingAcoountSearch').style.display = "none";
             }
         </script>
 
@@ -46,7 +46,7 @@
         <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
         <link rel="stylesheet" href='<s:url value="/includes/plugins/daterangepicker/daterangepicker.css"/>' type="text/css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-   
+
     </head>
     <%
         String check = null;
@@ -55,26 +55,22 @@
         }
     %>
 
-    <body class="hold-transition skin-blue sidebar-mini" onload="doOnLoad();check();">
+    <body class="hold-transition skin-blue sidebar-mini" onload="doOnLoad();
+                check();">
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <script type="text/javascript">
             function check()
-        {
-            
-            var value1=document.getElementById("corrattribute1").value;
-           
-            if (value1!="-1")
-                document.getElementById("corr").style.display = "block";
-            else
-                document.getElementById("corr").style.display = "none";
-          
-          
-        }
+            {
 
-        function getDetails(fileId)
-        {  
-            getPaymentDetails(fileId);
-        }
+                var value1 = document.getElementById("corrattribute1").value;
+
+                if (value1 != "-1")
+                    document.getElementById("corr").style.display = "block";
+                else
+                    document.getElementById("corr").style.display = "none";
+
+
+            }
         </script>
         <div>
             <s:include value="../includes/template/header.jsp"/>
@@ -129,11 +125,11 @@
 
                                                     <script type="text/javascript">
                                                         function MyDate() {
-                                                            var date=document.paymentForm.reportrange.value;
-                                                            var arr=date.split("-");
-                                                            var x=arr[1].trim();
+                                                            var date = document.paymentForm.reportrange.value;
+                                                            var arr = date.split("-");
+                                                            var x = arr[1].trim();
                                                             document.getElementById("paDateFrom").value = arr[0];
-                                                            document.getElementById("paDateTo").value =x ;
+                                                            document.getElementById("paDateTo").value = x;
                                                         }
                                                     </script>
 
@@ -193,14 +189,14 @@
                                                 </div>
 
                                                 <script>
-   
+
                                                 </script>    
                                                 <script>
-                                                    var count=0;
+                                                    var count = 0;
                                                 </script>
 
 
-                                               
+
 
                                                 <div id="corr" style="display: none">
                                                     <br>   <div class="row">
@@ -279,11 +275,11 @@
 
                                                                     <th>Partner</th>
                                                                     <th >InstanceId</th>
-                                                                    <%-- <td >Check #</td>  --%>
+                                                                        <%-- <td >Check #</td>  --%>
                                                                     <th>PO #</th>
                                                                     <th>Inv #</th>
                                                                     <th >DateTime</th>
-                                                                    <%-- <td>Trans Type</td> --%>
+                                                                        <%-- <td>Trans Type</td> --%>
                                                                     <th>Cheque #</th>
                                                                     <th>Cheque&nbsp;Amount</th>
                                                                     <th>Status</th>
@@ -307,30 +303,52 @@
 
                                                                     <td>
                                                                         <%
-                                                                            out.println(paymentBean.getReceiverName());
+                                                                            if (paymentBean.getReceiverName() != null && !"".equals(paymentBean.getReceiverName())) {
+                                                                                out.println(paymentBean.getReceiverName());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
+
                                                                         %>
                                                                     </td>
-                                                                    <td><a href="javascript:getDetails(<%=paymentBean.getFileId()%>);" >
+                                                                    <td><a href="javascript:getPaymentDetails(<%=paymentBean.getFileId()%>);" >
                                                                             <%
-                                                                                out.println(paymentBean.getFileId());
+                                                                                if (paymentBean.getFileId() != null && !"".equals(paymentBean.getFileId())) {
+                                                                                    out.println(paymentBean.getFileId());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
                                                                             %>
                                                                             <input type="hidden" name="Instance<%=i%>" id="Instance<%=i%>" value="<%=paymentBean.getFileId()%>"/>
                                                                         </a>
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            out.println(paymentBean.getPonumber());
+                                                                            if (paymentBean.getPonumber() != null && !"".equals(paymentBean.getPonumber())) {
+                                                                                out.println(paymentBean.getPonumber());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            out.println(paymentBean.getInvNumber());
+                                                                            if (paymentBean.getInvNumber() != null && !"".equals(paymentBean.getInvNumber())) {
+                                                                                out.println(paymentBean.getInvNumber());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
 
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            out.println(paymentBean.getDate_time_rec().toString().substring(0, paymentBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            if (paymentBean.getDate_time_rec().toString().substring(0, paymentBean.getDate_time_rec().toString().lastIndexOf(":")) != null
+                                                                                    && !"".equals(paymentBean.getDate_time_rec().toString().substring(0, paymentBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                                out.println(paymentBean.getDate_time_rec().toString().substring(0, paymentBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
 
                                                                     </td>
@@ -342,10 +360,10 @@
                                                                      </td> --%>
                                                                     <td>
                                                                         <%
-                                                                            if (paymentBean.getCheckNumber() != null && !paymentBean.getCheckNumber().equals("")) {
+                                                                            if (paymentBean.getCheckNumber() != null && !"".equals(paymentBean.getCheckNumber())) {
                                                                                 out.println(paymentBean.getCheckNumber());
                                                                             } else {
-                                                                                out.println("--");
+                                                                                out.println("-");
                                                                             }
 
                                                                         %>
@@ -357,10 +375,10 @@
                                                                     <td>
                                                                         <%
 
-                                                                            if (paymentBean.getCheckAmount() != null) {
+                                                                            if (paymentBean.getCheckAmount() != null && !"".equals(paymentBean.getCheckAmount())) {
                                                                                 out.println("$" + paymentBean.getCheckAmount());
                                                                             } else {
-                                                                                out.println(paymentBean.getCheckAmount());
+                                                                                out.println("-");
                                                                             }
                                                                         %>
                                                                     </td>
@@ -395,7 +413,6 @@
                                                                 %>
                                                                 <tr><td>
                                                                         <%
-
                                                                                 //out.println("<img  border='0' align='top'  src='"+contextPath+"/includes/images/alert.gif'/><b> No Records Found to Display!</b>");
                                                                                 out.println("<img  border='0' align='top'  src='" + contextPath + "/includes/images/alert.gif'/><b>No records found for the given search criteria. Please try a different search criteria!</b>");
                                                                             }
@@ -408,8 +425,7 @@
                                                         </table>
                                                     </td>
                                                 </tr>
-                                                <%
-                                                    if (list.size() != 0) {
+                                                <%                                                    if (list.size() != 0) {
                                                 %>
 
                                                 <tr>
@@ -428,7 +444,7 @@
                                         <br>
                                         <div class="row">
                                             <div id="pay_buttons">
-                                                <div class="col-sm-2" ><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('payment','xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/></div>
+                                                <div class="col-sm-2" ><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('payment', 'xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/></div>
                                             </div> 
                                         </div>
 
@@ -447,7 +463,6 @@
             <div id="hide-menu1" class="hide-menu message ">
 
                 <div class="row col-sm-12">
-                    
                     <br>
                     <div class="col-sm-6"> <label class="labelw"> Instance Id: </label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="instanceid" name="Full Name" readonly="true"/>
@@ -456,7 +471,7 @@
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="Check_Number" name="Check_Number" readonly="true"/>
                     </div>
                 </div>
-                <div class="row col-sm-12"> <br>
+                <div class="row col-sm-12">
                     <div class="col-sm-6"> <label class="labelw"> PO #: </label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="po" name="po" readonly="true"/>
                     </div>
@@ -517,9 +532,7 @@
                     </div>
                 </div>    
 
-                <br/>
-
-                <div class="row col-sm-12" style="margin-top:10px;" >
+                <div class="row col-sm-12" >
                     <div class="col-sm-6"> <label class="labelw">  ST #:</label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="st" name="st" readonly="true"/>
                     </div>
@@ -534,7 +547,8 @@
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="togglestatus" name="togglestatus" readonly="true"/>
                     </div>
                 </div>
-                <div class="row col-sm-12 clear">
+
+                <%--<div class="row col-sm-12 clear">
                     <div class="col-sm-6"> <label class="labelw"> SAP_USER:</label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="SAP_USER" name="SAP_USER" readonly="true"/>
                     </div>
@@ -559,8 +573,8 @@
                         <div class="col-sm-6"> <label class="labelw">  IDOC_DESC:</label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="IDOC_STATUS_DESCRIPTION" name="IDOC_STATUS_DESCRIPTION" readonly="true"/>
                     </div>
-                </div>
-                <div class="row col-sm-12" >
+                </div> --%>
+                <div class="row col-sm-12" style="margin-top:10px;">
                     <div class="col-sm-6"> <label class="labelw">  Pre Translation:  </label></div>
                     <div class="col-sm-6">    <div id="pretranfilepath"></div></div>
                 </div>
@@ -572,13 +586,15 @@
                     <div class="col-sm-6"> <label class="labelw"> 997 ACK File: </label></div>
                     <div class="col-sm-6"><div id="ackfileid"></div></div>
                 </div>
-                <br><br><br><br><br><br>
-            
-            <div id="errormessage"></div>
-            <div id="noresult"></div>
-            <div class="col-sm-12"><button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
+                <%--<div id="errormessage"></div>--%>
+                <div class="row col-sm-12" id="errorDiv" style="display: none">
+                    <div class="col-sm-6"> <label class="labelw"> Error&nbsp;Message </label></div>
+                    <div class="col-sm-6" id="errormessage" style="color: red"></div>
+                </div>
+                <div id="noresult"></div>
+                <div class="row col-sm-12" style="margin-top:10px;"><button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
+            </div>
         </div>
-</div>
 
 
         <script>
@@ -591,7 +607,7 @@
                     "ordering": true,
                     "info": true,
                     "autoWidth": false
-                                   
+
                 });
             });
         </script>
@@ -604,9 +620,9 @@
     <script>
         $('input[name="daterange"]').daterangepicker();
     </script>
-     <script type="text/javascript" src='<s:url value="../includes/js/DateValidation.js"/>'></script>
-     <script language="JavaScript"  src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
-     <script language="JavaScript"  src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
+    <script type="text/javascript" src='<s:url value="../includes/js/DateValidation.js"/>'></script>
+    <script language="JavaScript"  src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
+    <script language="JavaScript"  src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
     <!-- Bootstrap 3.3.5 -->
     <script src='<s:url value="../includes/bootstrap/js/bootstrap.min.js"/>'></script>
     <!-- Morris.js charts -->
@@ -615,53 +631,53 @@
     <script src='<s:url value="../includes/bootstrap/js/app.min.js"/>'></script>
     <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
     <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
-    <script type="text/javascript"> 
-        function getDetails(fileId)
-        {  
-            getPaymentDetails(fileId);
-        } 
+    <script type="text/javascript">
+//        function getDetails(fileId)
+//        {  
+//            getPaymentDetails(fileId);
+//        } 
         function checkCorrelation() {
             var corrattr = document.getElementById('corrattribute').value;
             var corrval = document.getElementById('corrvalue').value;
             var corrattr1 = document.getElementById('corrattribute1').value;
             var corrval1 = document.getElementById('corrvalue1').value;
-            if((corrattr!="-1")&&(corrval=="")) {
+            if ((corrattr != "-1") && (corrval == "")) {
                 alert("please enter Correlation Value!!!");
                 return false;
             }
-            if((corrattr=="-1")&&(corrval!="")) {
+            if ((corrattr == "-1") && (corrval != "")) {
                 alert("please select Correlation!");
                 return false;
             }
-            if((corrattr1!="-1")&&(corrval1=="")) {
+            if ((corrattr1 != "-1") && (corrval1 == "")) {
                 alert("please enter Correlation Value!!!");
                 return false;
             }
-            if((corrattr1=="-1")&&(corrval1!="")) {
+            if ((corrattr1 == "-1") && (corrval1 != "")) {
                 alert("please select Correlation!");
                 return false;
             }
         }
         function resetValues1()
         {
-            document.getElementById('paDateFrom').value="";
-            document.getElementById('paDateTo').value="";
-            document.getElementById('paSenderId').value="-1";
-            document.getElementById('paSenderName').value="-1";
-            document.getElementById('paRecId').value="-1";
-            document.getElementById('paRecName').value="-1";
-            document.getElementById('sampleValue').value="1"; 
-            document.getElementById('ackStatus').value="-1"; 
-            document.getElementById('status').value="-1";
-            document.getElementById('docType').value="-1"; 
-            document.getElementById('corrattribute').value="-1"; 
-            document.getElementById('corrvalue').value=""; 
-            document.getElementById('corrattribute1').value="-1";
-            document.getElementById('corrvalue1').value="";
-            document.getElementById('reportrange').value="";
+            document.getElementById('paDateFrom').value = "";
+            document.getElementById('paDateTo').value = "";
+            document.getElementById('paSenderId').value = "-1";
+            document.getElementById('paSenderName').value = "-1";
+            document.getElementById('paRecId').value = "-1";
+            document.getElementById('paRecName').value = "-1";
+            document.getElementById('sampleValue').value = "1";
+            document.getElementById('ackStatus').value = "-1";
+            document.getElementById('status').value = "-1";
+            document.getElementById('docType').value = "-1";
+            document.getElementById('corrattribute').value = "-1";
+            document.getElementById('corrvalue').value = "";
+            document.getElementById('corrattribute1').value = "-1";
+            document.getElementById('corrvalue1').value = "";
+            document.getElementById('reportrange').value = "";
             $('#gridDiv').hide();
         }
-            
+
         function hide()
         {
             $('#hide-menu1').removeClass('show-menu');
@@ -670,15 +686,15 @@
 //            $('#hide-menu1').removeClass('show-menu');
 //        });
     </script>
-     <script>
-     $("#addButton").click(function(){
-     count++;
-     if(count==1)
-      document.getElementById("corr").style.display = "block";
-     else
-      alert('Limit exceded.... cant add more fields');
-     })
-     </script>
+    <script>
+        $("#addButton").click(function () {
+            count++;
+            if (count == 1)
+                document.getElementById("corr").style.display = "block";
+            else
+                alert('Limit exceded.... cant add more fields');
+        })
+    </script>
 
 </body>
 </html>

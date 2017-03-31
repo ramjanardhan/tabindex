@@ -679,19 +679,19 @@ function populateInvDetails(responseXML) {
         document.getElementById('mifileType').value = FILETYPE;
 
 
-        if (SAP_DETAILS != 'NO') {
-
-            document.getElementById('sapDiv').style.display = "block";
-
-            document.getElementById('misapUser').value = SAP_USER;
-            document.getElementById('miidocNo').value = IDOC_NUMBER;
-
-            document.getElementById('mipoNo').value = PO_NUMBER;
-            document.getElementById('mipoDate').value = PO_DATE;
-
-            document.getElementById('miidocStatusCode').value = IDOC_STATUS_CODE;
-            document.getElementById('miidocStatusDesc').value = IDOC_STATUS_DESCRIPTION;
-        }
+//        if (SAP_DETAILS != 'NO') {
+//
+//            document.getElementById('sapDiv').style.display = "block";
+//
+//            document.getElementById('misapUser').value = SAP_USER;
+//            document.getElementById('miidocNo').value = IDOC_NUMBER;
+//
+//            document.getElementById('mipoNo').value = PO_NUMBER;
+//            document.getElementById('mipoDate').value = PO_DATE;
+//
+//            document.getElementById('miidocStatusCode').value = IDOC_STATUS_CODE;
+//            document.getElementById('miidocStatusDesc').value = IDOC_STATUS_DESCRIPTION;
+//        }
 
         if (PRE_TRANS_FILEPATH == "No File") {
             document.getElementById('mipreTransFilepath').innerHTML = "--";
@@ -714,6 +714,8 @@ function populateInvDetails(responseXML) {
         if (ERRMESSAGE != "NO MSG") {
             document.getElementById('errorDiv').style.display = "block";
             document.getElementById('mierrormessage').innerHTML = ERRMESSAGE;
+        }else {
+            document.getElementById('mierrormessage').innerHTML = "--";
         }
 
     }
@@ -1506,27 +1508,29 @@ function populatePaymentDetails(responseXML)
         }
 
         if (ERRMESSAGE != "NO MSG") {
+            document.getElementById('errorDiv').style.display = "block";
             document.getElementById('errormessage').innerHTML = ERRMESSAGE;
-
+        }else {
+            document.getElementById('errormessage').innerHTML = "--";
         }
 
-        if (SAP_DETAILS != 'NO') {
-            document.getElementById('SAP_USER').value = SAP_USER;
-            document.getElementById('IDOC_NUMBER').value = IDOC_NUMBER;
-            document.getElementById('PO_NUMBER').value = PO_NUMBER;
-            document.getElementById('PO_DATE').value = PO_DATE;
-            document.getElementById('IDOC_STATUS_CODE').value = IDOC_STATUS_CODE;
-            document.getElementById('IDOC_STATUS_DESCRIPTION').value = IDOC_STATUS_DESCRIPTION;
-        }
-        else
-        {
-            document.getElementById('SAP_USER').value = '--';
-            document.getElementById('IDOC_NUMBER').value = '--';
-            document.getElementById('PO_NUMBER').value = '--';
-            document.getElementById('PO_DATE').value = '--';
-            document.getElementById('IDOC_STATUS_CODE').value = '--';
-            document.getElementById('IDOC_STATUS_DESCRIPTION').value = '--';
-        }
+//        if (SAP_DETAILS != 'NO') {
+//            document.getElementById('SAP_USER').value = SAP_USER;
+//            document.getElementById('IDOC_NUMBER').value = IDOC_NUMBER;
+//            document.getElementById('PO_NUMBER').value = PO_NUMBER;
+//            document.getElementById('PO_DATE').value = PO_DATE;
+//            document.getElementById('IDOC_STATUS_CODE').value = IDOC_STATUS_CODE;
+//            document.getElementById('IDOC_STATUS_DESCRIPTION').value = IDOC_STATUS_DESCRIPTION;
+//        }
+//        else
+//        {
+//            document.getElementById('SAP_USER').value = '--';
+//            document.getElementById('IDOC_NUMBER').value = '--';
+//            document.getElementById('PO_NUMBER').value = '--';
+//            document.getElementById('PO_DATE').value = '--';
+//            document.getElementById('IDOC_STATUS_CODE').value = '--';
+//            document.getElementById('IDOC_STATUS_DESCRIPTION').value = '--';
+//        }
 
     }
     if (chk.childNodes[0].nodeValue == "false") {

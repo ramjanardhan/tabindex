@@ -320,38 +320,69 @@
                                                                     </td>
 
                                                                     <td style="text-align: left">
+                                                                        <%
+                                                                            if (partnerBean.getPartnerName() != null && !"".equals(partnerBean.getPartnerName())) {%>
                                                                         <a href="#" onclick="getPartnerDetails('<%=partnerBean.getPartnerIdentifier()%>')" onmouseover="Tip('Click here to view Detail Info.')" onmouseout="UnTip()"> 
                                                                             <%
                                                                                 out.println(partnerBean.getPartnerName());
                                                                             %></a>
+                                                                            <%
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                            %>
                                                                     </td>
 
                                                                     <td style="text-align: left">
                                                                         <%
-                                                                            out.println(partnerBean.getInternalIdentifier());
+                                                                            if (partnerBean.getInternalIdentifier() != null && !"".equals(partnerBean.getInternalIdentifier())) {
+                                                                                out.println(partnerBean.getInternalIdentifier());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td>
                                                                     <td style="text-align: left">
                                                                         <%
-                                                                            out.println(partnerBean.getPartnerIdentifier());
+                                                                            if (partnerBean.getPartnerIdentifier() != null && !"".equals(partnerBean.getPartnerIdentifier())) {
+                                                                                out.println(partnerBean.getPartnerIdentifier());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td>
                                                                     <td style="text-align: left">
                                                                         <%
-                                                                            out.println(partnerBean.getApplicationId());
+                                                                            if (partnerBean.getApplicationId() != null && !"".equals(partnerBean.getApplicationId())) {
+                                                                                out.println(partnerBean.getApplicationId());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td>
                                                                     <td style="text-align: left">
                                                                         <%
-                                                                            out.println(partnerBean.getCountryCode());
+                                                                            if (partnerBean.getCountryCode() != null && !"".equals(partnerBean.getCountryCode())) {
+                                                                                out.println(partnerBean.getCountryCode());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td> <td style="text-align: left">
                                                                         <%
-                                                                            out.println(partnerBean.getStatus());
+                                                                            if (partnerBean.getStatus() != null && !"".equals(partnerBean.getStatus())) {
+                                                                                out.println(partnerBean.getStatus());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td> <td style="text-align: left">
                                                                         <%
-                                                                            out.println(partnerBean.getCreatedDate());
+                                                                            if (partnerBean.getCreatedDate() != null && !"".equals(partnerBean.getCreatedDate())) {
+                                                                                out.println(partnerBean.getCreatedDate());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td><%-- <td style="text-align: left">
                                                                         <%
@@ -424,8 +455,8 @@
                                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="dpartnerName" name="dpartnerName" readonly="true"/>
                                             </div>
                                         </div>
-                                        <div class="row col-sm-12"> <br>
-                                            <div class="col-sm-6"> <label class="labelw">  Internal Identifier : </label>
+                                        <div class="row col-sm-12"> 
+                                            <div class="col-sm-6"> <label class="labelw">  Intern Identifier : </label>
                                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="dinternalIdentifier" name="dinternalIdentifier" readonly="true"/>
                                             </div>
                                             <div class="col-sm-6"> <label class="labelw"> Application Id :</label>
@@ -452,7 +483,7 @@
                                         </div>
 
                                         <div id="noresult"></div>
-                                        <div class="row col-sm-12">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>    
+                                        <div class="row col-sm-12" style="margin-top:10px;">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>    
 
 
                                     </div>

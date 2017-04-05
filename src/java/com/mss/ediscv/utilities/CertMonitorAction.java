@@ -91,4 +91,16 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
         return resultType;
 
     }
+     public String codeList() 
+    {
+        String resultType = LOGIN;
+        if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
+           // hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
+            System.out.println("into action before getting codeList");
+            //setListNameMap(DataSourceDataProvider.getInstance().getListName());
+            System.out.println("into action after getting codeList");
+            resultType = SUCCESS;
+        }
+        return resultType;
+    }
 }

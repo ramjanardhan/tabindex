@@ -24,6 +24,12 @@ and open the template in the editor.
             <result name="error" type="redirect" >../general/exception.action</result> 
             <result type="redirect" name="login">../general/login.action</result>
         </action>
+        
+        <action name="codeList" class="com.mss.ediscv.utilities.CertMonitorAction" method="codeList">
+            <result>/utilities/codeList.jsp</result>
+            <result name="error" type="redirect" >../general/exception.action</result> 
+            <result type="redirect" name="login">../general/login.action</result>
+        </action>
     </package>
 
 </struts>

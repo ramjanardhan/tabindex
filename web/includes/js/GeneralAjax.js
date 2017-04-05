@@ -2397,7 +2397,6 @@ function populateLogisticsShipmentDetails(responseXML)
         }
         if (POST_TRANS_FILEPATH == "No File") {
             document.getElementById('LSPostTranslation').innerHTML = "--";
-
         } else {
             document.getElementById('LSPostTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
         }
@@ -2414,9 +2413,16 @@ function populateLogisticsShipmentDetails(responseXML)
             document.getElementById('LSAckFileid').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
         }
 
+//        if (ERRMESSAGE != "NO MSG") {
+//            
+//            document.getElementById('LSErrorMessage').innerHTML = ERRMESSAGE;
+//
+//        }
         if (ERRMESSAGE != "NO MSG") {
+            document.getElementById('errorDiv').style.display = "block";
             document.getElementById('LSErrorMessage').innerHTML = ERRMESSAGE;
-
+        } else {
+            document.getElementById('LSErrorMessage').innerHTML = "--";
         }
     }
     if (chk.childNodes[0].nodeValue == "false") {

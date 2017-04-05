@@ -53,18 +53,18 @@
 <%-- <s:include value="/includes/template/header.jsp"/> --%>   
 
 <div class="wrapper">
-    
-   
+
+
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="main-sidebar" style="padding-top: 0%;z-index: 1000;">
         <header class="main-header">
-         <a href="index2.html" class="logo">
-            <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>SCV</b></span>
-            <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><strong>Miracle </strong> SCVP</span>
-        </a>
-             </header> 
+            <a href="index2.html" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>SCV</b></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><strong>Miracle </strong> SCVP</span>
+            </a>
+        </header> 
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- Sidebar user panel -->
@@ -86,7 +86,7 @@
             %>
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
-               
+
                 <li class=" treeview" id="profile">
                     <a href="<s:url action="../user/getProfile.action"/>">
                         <i class="fa fa-user"></i> <span>Profile</span> 
@@ -115,21 +115,21 @@
                     <ul class="treeview-menu">
                         <% if (usrFlowMap.containsValue("Logistics")) {%>
                         <li id="ltdashboard"><a href="<s:url action="../logisticsReports/dashboard.action"/>"><i class="fa fa-circle-o"></i>Logistics Dashboard</a></li> 
-                        <% }
+                            <% }
                             if (usrFlowMap.containsValue("Manufacturing")) {%> 
                         <li id="dashboard"><a href="<s:url action="../reports/dashboard.action"/>"><i class="fa fa-circle-o"></i>Manufacturing Dashboard</a></li>
-                        <% }%>
+                            <% }%>
                     </ul>
                 </li>
-                
+
                 <li class=" treeview" id="purging">
                     <a href="#">
                         <i class="fa fa-remove"></i> <span>Purging</span> 
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
-                <ul class="treeview-menu">
-                <li id="purgeProcess" class=" treeview"><a href="<s:url action="../purge/purging.action"/>"><i class="fa fa-circle-o"></i>Purge Process</a></li>
-                </ul>
+                    <ul class="treeview-menu">
+                        <li id="purgeProcess" class=" treeview"><a href="<s:url action="../purge/purging.action"/>"><i class="fa fa-circle-o"></i>Purge Process</a></li>
+                    </ul>
                 </li>
                 <% }%>
                 <%
@@ -144,14 +144,14 @@
                         <% //100,101,0,0,106,107
                             if (!session.getAttribute(AppConstants.SES_ROLE_ID).equals("1")) {%>
                         <li id="ltdocrepository"><a href="<s:url action="../logisticsdoc/Logistics.action"/>"><i class="fa fa-circle-o"></i> Doc Repository</a></li>
-                        <%} //100,101,0,0,106,107
+                            <%} //100,101,0,0,106,107
                             if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("101") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("106") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("107")) {%>
                         <li id="ltloadtendering">
                             <a href="<s:url action="../logisticsloadtendering/loadtendering.action"/>"><i class="fa fa-circle-o"></i> Load Tendering</a></li>
                             <%} //100,0,102,0,106,107
                                 if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("102") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("106") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("107")) {%>
                         <li id="ltresponse"><a href="<s:url action="../ltResponse/ltResponse.action"/>"><i class="fa fa-circle-o"></i> Response</a></li>
-                        <%} //L_SHIPMENT = 100,0,102,103,106,107
+                            <%} //L_SHIPMENT = 100,0,102,103,106,107
                             if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("102") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("103") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("106") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("107")) {%>
                         <li id="ltsupplychain">
                             <a href="#"><i class="fa fa-circle-o"></i> Supply Chain <i class="fa fa-angle-left pull-right"></i></a>
@@ -172,7 +172,7 @@
                             <a href="#"><i class="fa fa-circle-o"></i> Logistic&nbsp;Reports <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
                                 <li id="ltexcelreports"><a href="<s:url action="../logisticsReports/getLogisticReports"/>"><i class="fa fa-circle-o"></i> Excel&nbsp;Reports </a></li>
-                                <%--    <li id="ltdashboard"><a href="<s:url action="../logisticsReports/dashboard.action"/>"><i class="fa fa-circle-o"></i> Dashboard</a></li> --%>
+                                    <%--    <li id="ltdashboard"><a href="<s:url action="../logisticsReports/dashboard.action"/>"><i class="fa fa-circle-o"></i> Dashboard</a></li> --%>
                             </ul>
                         </li>
                         <li id="ltconfig">
@@ -183,11 +183,11 @@
                                 <li id="ltb2bchannel"><a href="<s:url action="../b2bchannel/getB2BChannelList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>B2B Channel</a></li>
                                 <li id="ltdeliverychannel"><a href="<s:url action="../partner/deliveryChannelList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>Delivery Channel</a></li>
                                 <li id="ltscheduler"><a href="<s:url action="../partner/getSchedular.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>Scheduler</a></li>
-                                <%--<li id="purgeProcess"><a href="<s:url action="../purge/purging.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>Purge Process</a></li>--%>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
+                                    <%--<li id="purgeProcess"><a href="<s:url action="../purge/purging.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>Purge Process</a></li>--%>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
                 <%  }
                     if (usrFlowMap.containsValue("Manufacturing")) {%>
                 <li class="treeview" id="manufacturing">
@@ -197,7 +197,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li id="docrepository"><a href="<s:url action="../doc/orderToCash"/>"><i class="fa fa-circle-o"></i> Document Repository</a></li>
-                        <% if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("101") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("105")) {%>
+                            <% if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("101") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("105")) {%>
                         <li id="oredermanagement">
                             <a href="#"><i class="fa fa-circle-o"></i> Order Management <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
@@ -229,7 +229,7 @@
                                 <li id="editrackinginout"><a href="<s:url action="../reports/getTrackInOut"/>"><i class="fa fa-circle-o"></i>EDI Tracking IN/OUT</a></li>
                                 <li id="editrackingsummary"><a href="<s:url action="../reports/getTrackSummary"/>"><i class="fa fa-circle-o"></i>EDI Tracking Summary</a></li>
                                 <li id="editrackingenquiry"><a href="<s:url action="../reports/getTrackInquiry"/>"><i class="fa fa-circle-o"></i>EDI Tracking Inquiry</a></li>
-                                <%--  <li id="dashboard"><a href="<s:url action="../reports/dashboard.action"/>"><i class="fa fa-circle-o"></i>Dashboard</a></li>  --%>
+                                    <%--  <li id="dashboard"><a href="<s:url action="../reports/dashboard.action"/>"><i class="fa fa-circle-o"></i>Dashboard</a></li>  --%>
                             </ul>
                         </li>
                         <% if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100")) {%>
@@ -267,6 +267,7 @@
                     <ul class="treeview-menu">
                         <li id="certMonitoring"><a href="<s:url action="../utilities/certMonitor.action"/>"><i class="fa fa-circle-o"></i> Certificate Monitoring
                             </a></li>
+                        <li id="codeList"><a href="<s:url action="../utilities/codeList.action"/>"><i class="fa fa-circle-o"></i> Code List</a></li>
                     </ul>
                 </li>
                 <%

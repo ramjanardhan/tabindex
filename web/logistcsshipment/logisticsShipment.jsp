@@ -96,7 +96,7 @@
                 document.getElementById("corr").style.display = "block";
             else
                 document.getElementById("corr").style.display = "none";
-                 }
+        }
         </script>
 
 
@@ -229,7 +229,7 @@
                                                         count++;
                                                         if (count == 1)
                                                             document.getElementById("corr").style.display = "block";
-                                                        
+
                                                         else
                                                             alert('Limit exceded.... cant add more fields');
                                                     })
@@ -248,7 +248,7 @@
 
                                                     </div>
                                                 </div>
-                                              
+
                                             </div>
                                         </div>
                                         <br>
@@ -397,6 +397,8 @@
                                                                                     out.println(ltShipmentBean.getCarrierStatus() + "_Completed Unloading Delivery Location");
                                                                                 } else if (ltShipmentBean.getCarrierStatus().equalsIgnoreCase("CD")) {
                                                                                     out.println(ltShipmentBean.getCarrierStatus() + "_Carrier Departed Delivery Location");
+                                                                                } else {
+                                                                                    out.println("-");
                                                                                 }
                                                                             } else {
                                                                                 out.println("-");
@@ -505,7 +507,7 @@
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="LSAsnnumber" name="LSAsnnumber" readonly="true" />
                     </div>
                 </div>
-                <div class="row col-sm-12"> <br>
+                <div class="row col-sm-12"> 
                     <div class="col-sm-6"> <label class="labelw"> PO # </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="LSPo" name="LSPo" readonly="true" />
                     </div>
@@ -582,31 +584,34 @@
                     </div>
                 </div>
 
-                <div class="row col-sm-12" >
+                <div class="row col-sm-12" style="margin-top:10px;">
                     <div class="col-sm-6"> <label class="labelw">  Pre Translation  </label></div>
-                    <div class="col-sm-6">  <div id="LSPreTranslation"></div>
-                    </div>
-                    <div class="row col-sm-12" >
-                        <div class="col-sm-6"> <label class="labelw"> Post Translation </label></div>
-                        <div class="col-sm-6"><div id="LSPostTranslation"></div>
-                        </div></div>
-                    <div class="row col-sm-12" >
-                        <div class="col-sm-6"> <label class="labelw"> Org File Path </label></div>
-                        <div class="col-sm-6">  <div id="LSOrgFilePath"></div>
-                        </div></div>
-                    <div class="row col-sm-12" >
-                        <div class="col-sm-6"> <label class="labelw"> 997 ACK File </label></div>
-                        <div class="col-sm-6">   <div id="LSAckFileid"></div>
-                        </div></div>
-                    <br><br><br><br><br><br>
+                    <div class="col-sm-6">  <div id="LSPreTranslation"></div></div>
                 </div>
                 <div class="row col-sm-12" >
-                    <div class="col-sm-6"> <label class="labelw"> Error Message </label></div>
-                    <div id="LSErrorMessage"></div>
+                    <div class="col-sm-6"> <label class="labelw"> Post Translation </label></div>
+                    <div class="col-sm-6"><div id="LSPostTranslation"></div></div>
+                </div>
+                <div class="row col-sm-12" >
+                    <div class="col-sm-6"> <label class="labelw"> Org File Path </label></div>
+                    <div class="col-sm-6">  <div id="LSOrgFilePath"></div></div>
+                </div>
+                <div class="row col-sm-12" >
+                    <div class="col-sm-6"> <label class="labelw"> 997 ACK File </label></div>
+                    <div class="col-sm-6">   <div id="LSAckFileid"></div></div>
+                </div>
+
+                <!--<div class="row col-sm-12" >
+                                        <div class="col-sm-6"> <label class="labelw"> Error Message </label></div>
+                                        <div id="LSErrorMessage"></div>
+                                    </div>-->
+                <div class="row col-sm-12" id="errorDiv" style="display: none">
+                    <div class="col-sm-6"> <label class="labelw"> Error&nbsp;Message </label></div>
+                    <div class="col-sm-6" id="LSErrorMessage" style="color: red"></div>
                 </div>
                 <div id="noresult"></div>
 
-                <div class="col-sm-12"> <button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" style="margin-left:12px;" value="X">Close</button></div>
+                <div class="col-sm-12" style="margin-top:10px;"> <button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" style="margin-left:12px;" value="X">Close</button></div>
             </div>    </div>
 
 
@@ -653,10 +658,10 @@
     <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
     <script type="text/javascript">
-        function getDetails(val, ponum, id)
-        {
-            getLogisticsShipmentDetails(val, ponum, id);
-        }
+//        function getDetails(val, ponum, id)
+//        {
+//            getLogisticsShipmentDetails(val, ponum, id);
+//        }
         function resetvaluesLtShipment()
         {
             document.getElementById('datepickerfrom').value = "";
@@ -671,9 +676,8 @@
             document.getElementById('corrvalue').value = "";
             document.getElementById('corrattribute1').value = "-1";
             document.getElementById('corrvalue1').value = "";
-            document.getElementById('corrattribute2').value = "-1";
-            document.getElementById('corrvalue2').value = "";
             document.getElementById('reportrange').value = "";
+
             //  document.getElementById('gridDiv').style.display = 'none'; 
             $('#gridDiv').hide();
         }

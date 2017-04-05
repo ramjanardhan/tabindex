@@ -353,16 +353,16 @@
                                                                     <%-- <td><a href="#" onclick="return demo();" > --%>
                                                                     <td>
                                                                         <%
-                                                                            if (ltShipmentBean.getInstanceId() != null) {
+                                                                            if (ltShipmentBean.getInstanceId() != null && !"".equals(ltShipmentBean.getInstanceId())) {
                                                                                 out.println(ltShipmentBean.getInstanceId());
                                                                             } else {
                                                                                 out.println("-");
                                                                             }
                                                                         %>
                                                                     </td>
-                                                                    <td>  <a href="javascript:getDetails('<%=ltShipmentBean.getAsnNum()%>','<%=ltShipmentBean.getPoNum()%>','<%=ltShipmentBean.getId()%>');">
+                                                                    <td>  <a href="javascript:getLogisticsShipmentDetails('<%=ltShipmentBean.getAsnNum()%>','<%=ltShipmentBean.getPoNum()%>','<%=ltShipmentBean.getId()%>');">
                                                                             <%
-                                                                                if (ltShipmentBean.getAsnNum() != null) {
+                                                                                if (ltShipmentBean.getAsnNum() != null && !"".equals(ltShipmentBean.getAsnNum())) {
                                                                                     out.println(ltShipmentBean.getAsnNum());
                                                                                 } else {
                                                                                     out.println("-");
@@ -373,7 +373,7 @@
 
                                                                     <td>
                                                                         <%
-                                                                            if (ltShipmentBean.getPartner() != null) {
+                                                                            if (ltShipmentBean.getPartner() != null && !"".equals(ltShipmentBean.getPartner())) {
                                                                                 out.println(ltShipmentBean.getPartner());
                                                                             } else {
                                                                                 out.println("-");
@@ -382,7 +382,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (ltShipmentBean.getCarrierStatus() != null) {
+                                                                            if (ltShipmentBean.getCarrierStatus() != null && !"".equals(ltShipmentBean.getCarrierStatus())) {
                                                                                 if (ltShipmentBean.getCarrierStatus().equalsIgnoreCase("AA")) {
                                                                                     out.println(ltShipmentBean.getCarrierStatus() + "_pick_up appointment");
                                                                                 } else if (ltShipmentBean.getCarrierStatus().equalsIgnoreCase("AB")) {
@@ -405,7 +405,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (ltShipmentBean.getDateTime() != null) {
+                                                                            if (ltShipmentBean.getDateTime() != null && !"".equals(ltShipmentBean.getDateTime())) {
                                                                                 out.println(ltShipmentBean.getDateTime().toString().substring(0, ltShipmentBean.getDateTime().toString().lastIndexOf(":")));
                                                                             } else {
                                                                                 out.println("-");
@@ -414,7 +414,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (ltShipmentBean.getDirection() != null) {
+                                                                            if (ltShipmentBean.getDirection() != null && !"".equals(ltShipmentBean.getDirection())) {
                                                                                 out.println(ltShipmentBean.getDirection().toUpperCase());
                                                                             } else {
                                                                                 out.println("-");
@@ -423,7 +423,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (ltShipmentBean.getStatus() != null) {
+                                                                            if (ltShipmentBean.getStatus() != null && !"".equals(ltShipmentBean.getStatus())) {
                                                                                 if (ltShipmentBean.getStatus().equalsIgnoreCase("ERROR")) {
                                                                                     out.println("<font color='red'>" + ltShipmentBean.getStatus().toUpperCase() + "</font>");
                                                                                 } else if (ltShipmentBean.getStatus().equalsIgnoreCase("SUCCESS")) {

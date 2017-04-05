@@ -448,36 +448,36 @@
                                         <div class="row col-sm-12">
 
                                             <br>
-                                            <div class="col-sm-6"> <label class="labelw"> Partner ID : </label>
+                                            <div class="col-sm-6"> <label class="labelw"> Partner ID  </label>
                                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="dpartnerId" name="dpartnerId"  readonly="true"/>
                                             </div>
-                                            <div class="col-sm-6"><label class="labelw"> Partner Name : </label>
+                                            <div class="col-sm-6"><label class="labelw"> Partner Name  </label>
                                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="dpartnerName" name="dpartnerName" readonly="true"/>
                                             </div>
                                         </div>
                                         <div class="row col-sm-12"> 
-                                            <div class="col-sm-6"> <label class="labelw">  Intern Identifier : </label>
+                                            <div class="col-sm-6"> <label class="labelw">  Intern Identifier  </label>
                                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="dinternalIdentifier" name="dinternalIdentifier" readonly="true"/>
                                             </div>
-                                            <div class="col-sm-6"> <label class="labelw"> Application Id :</label>
+                                            <div class="col-sm-6"> <label class="labelw"> Application Id </label>
                                                 <s:textfield   cssClass="form-control"  required="required" placeholder="" id="dapplicationId" name="dapplicationId" readonly="true"/>
 
                                             </div>
                                         </div>
                                         <div class="row col-sm-12">
-                                            <div class="col-sm-6"> <label class="labelw"> State :</label>
+                                            <div class="col-sm-6"> <label class="labelw"> State </label>
                                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="dcountryCode" name="dcountryCode" readonly="true"/>
                                             </div>
-                                            <div class="col-sm-6"> <label class="labelw"> Created Date :</label>
+                                            <div class="col-sm-6"> <label class="labelw"> Created Date </label>
                                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="dcreatedDate" name="dcreatedDate" readonly="true"/>
                                             </div>
                                         </div>
 
                                         <div class="row col-sm-12 clear">
-                                            <div class="col-sm-6"> <label class="labelw"> Changed Date :</label>
+                                            <div class="col-sm-6"> <label class="labelw"> Changed Date </label>
                                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="dchangedDate" name="dchangedDate" readonly="true"/>
                                             </div>
-                                            <div class="col-sm-6"><label class="labelw">  Changed By :</label>
+                                            <div class="col-sm-6"><label class="labelw">  Changed By </label>
                                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="dchangedBy" name="changedBy" readonly="true"/>
                                             </div>
                                         </div>

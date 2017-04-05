@@ -464,26 +464,26 @@
 
                 <div class="row col-sm-12">
                     <br>
-                    <div class="col-sm-6"> <label class="labelw"> Instance Id: </label>
+                    <div class="col-sm-6"> <label class="labelw"> Instance Id </label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="instanceid" name="Full Name" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> Cheque #: </label>
+                    <div class="col-sm-6"> <label class="labelw"> Cheque # </label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="Check_Number" name="Check_Number" readonly="true"/>
                     </div>
                 </div>
                 <div class="row col-sm-12">
-                    <div class="col-sm-6"> <label class="labelw"> PO #: </label>
+                    <div class="col-sm-6"> <label class="labelw"> PO # </label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="po" name="po" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> Invoice #: </label>
+                    <div class="col-sm-6"> <label class="labelw"> Invoice # </label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="invoice" name="invoice" readonly="true"/>
                     </div>
                 </div>
                 <div class="row col-sm-12">
-                    <div class="col-sm-6"> <label class="labelw"> Document Type: </label>
+                    <div class="col-sm-6"> <label class="labelw"> Document Type </label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="documenttype" name="documenttype" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw">Transaction Type: </label>
+                    <div class="col-sm-6"> <label class="labelw">Transaction Type </label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="transactiontype" name="transactiontype" readonly="true"/>
                     </div>
                 </div>
@@ -497,10 +497,10 @@
                     </div>
                     <br>
                     <div class="row col-sm-12">
-                        <div class="col-sm-6"> <label class="labelw">  Id: </label>
+                        <div class="col-sm-6"> <label class="labelw">  Id </label>
                             <input type="Text"  class="form-control"  required="required" placeholder="" id="senderid" name="senderid" readonly="true"/>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw"> Name: </label>
+                        <div class="col-sm-6"> <label class="labelw"> Name </label>
                             <input type="Text"  class="form-control"  required="required" placeholder="" id="sendername" name="sendername" readonly="true"/>
                         </div>
                     </div>
@@ -515,35 +515,35 @@
 
                     <br>
                     <div class="row col-sm-12 clear">
-                        <div class="col-sm-6"> <label class="labelw">  Id: </label>
+                        <div class="col-sm-6"> <label class="labelw">  Id </label>
                             <input type="Text"  class="form-control"  required="required" placeholder="" id="receiverid" name="receiverid" readonly="true" />
                         </div>
-                        <div class="col-sm-6"> <label class="labelw"> Name: </label>
+                        <div class="col-sm-6"> <label class="labelw"> Name </label>
                             <input type="Text"  class="form-control"  required="required" placeholder="" id="receivername" name="receivername" readonly="true"/>
                         </div>
                     </div>
                 </div>
                 <div class="row col-sm-12 clear">
-                    <div class="col-sm-6"> <label class="labelw">  ISA #:</label>
+                    <div class="col-sm-6"> <label class="labelw">  ISA #</label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="isa" name="isa" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> GS #:</label>
+                    <div class="col-sm-6"> <label class="labelw"> GS #</label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="gs" name="gs" readonly="true"/>
                     </div>
                 </div>    
 
                 <div class="row col-sm-12" >
-                    <div class="col-sm-6"> <label class="labelw">  ST #:</label>
+                    <div class="col-sm-6"> <label class="labelw">  ST #</label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="st" name="st" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw">ISA DATE: </label>
+                    <div class="col-sm-6"> <label class="labelw">ISA DATE </label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="isadate" name="isadate" readonly="true"/>
                     </div>
 
-                    <div class="col-sm-6"> <label class="labelw">  ISA TIME:  </label>
+                    <div class="col-sm-6"> <label class="labelw">  ISA TIME  </label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="isatime" name="isatime" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> STATUS: </label>
+                    <div class="col-sm-6"> <label class="labelw"> STATUS </label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="togglestatus" name="togglestatus" readonly="true"/>
                     </div>
                 </div>
@@ -575,15 +575,15 @@
                     </div>
                 </div> --%>
                 <div class="row col-sm-12" style="margin-top:10px;">
-                    <div class="col-sm-6"> <label class="labelw">  Pre Translation:  </label></div>
+                    <div class="col-sm-6"> <label class="labelw">  Pre Translation  </label></div>
                     <div class="col-sm-6">    <div id="pretranfilepath"></div></div>
                 </div>
                 <div class="row col-sm-12" >
-                    <div class="col-sm-6"> <label class="labelw"> Post Translation: </label></div>
+                    <div class="col-sm-6"> <label class="labelw"> Post Translation </label></div>
                     <div class="col-sm-6"><div id="posttranfilepath"></div></div>
                 </div>
                 <div class="row col-sm-12" >
-                    <div class="col-sm-6"> <label class="labelw"> 997 ACK File: </label></div>
+                    <div class="col-sm-6"> <label class="labelw"> 997 ACK File </label></div>
                     <div class="col-sm-6"><div id="ackfileid"></div></div>
                 </div>
                 <%--<div id="errormessage"></div>--%>

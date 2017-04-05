@@ -337,41 +337,41 @@
                                     <div class="row col-sm-12">
 
                                         <br>
-                                        <div class="col-sm-6"> <label class="labelw"> Partner Name : </label>
+                                        <div class="col-sm-6"> <label class="labelw"> Partner Name  </label>
                                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="b2bpartnerName" name="b2bpartnerName"  readonly="true"/>
                                         </div>
-                                        <div class="col-sm-6"><label class="labelw"> Status : </label>
+                                        <div class="col-sm-6"><label class="labelw"> Status  </label>
                                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="b2bstatus" name="b2bstatus" readonly="true"/>
                                         </div>
                                     </div>
                                     <div class="row col-sm-12"> 
-                                        <div class="col-sm-6"> <label class="labelw">  Direction : </label>
+                                        <div class="col-sm-6"> <label class="labelw">  Direction  </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="b2bdirection" name="b2bdirection" readonly="true"/>
                                         </div>
-                                        <div class="col-sm-6"> <label class="labelw"> Protocol :</label>
+                                        <div class="col-sm-6"> <label class="labelw"> Protocol </label>
                                             <s:textfield   cssClass="form-control"  required="required" placeholder="" id="b2bprotocal" name="b2bprotocal" readonly="true"/>
 
                                         </div>
                                     </div>
                                     <div class="row col-sm-12">
-                                        <div class="col-sm-6"> <label class="labelw"> Host :</label>
+                                        <div class="col-sm-6"> <label class="labelw"> Host </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="b2bhost" name="b2bhost" readonly="true"/>
                                         </div>
-                                        <div class="col-sm-6"> <label class="labelw"> UserName :</label>
+                                        <div class="col-sm-6"> <label class="labelw"> UserName </label>
                                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="b2busername" name="b2busername" readonly="true"/>
                                         </div>
                                     </div>
 
                                     <div class="row col-sm-12 clear">
-                                        <div class="col-sm-6"> <label class="labelw"> ProduceMailBox :</label>
+                                        <div class="col-sm-6"> <label class="labelw"> ProduceMailBox </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="b2bproducermailbox" name="b2bproducermailbox" readonly="true"/>
                                         </div>
-                                        <div class="col-sm-6"><label class="labelw"> ConsumerMailBox :</label>
+                                        <div class="col-sm-6"><label class="labelw"> ConsumerMailBox </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="b2bconsumermailbox" name="b2bconsumermailbox" readonly="true"/>
                                         </div>
                                     </div>
                                     <div class="row col-sm-12 clear">
-                                        <div class="col-sm-6"> <label class="labelw"> PoolingCode :</label>
+                                        <div class="col-sm-6"> <label class="labelw"> PoolingCode </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="b2bpoolingcode" name="b2bpoolingcode" readonly="true"/>
                                         </div>
                                         <div class="col-sm-6"><label class="labelw"> AppId :</label>
@@ -379,10 +379,10 @@
                                         </div>
                                     </div>
                                     <div class="row col-sm-12 clear">
-                                        <div class="col-sm-6"> <label class="labelw"> SenderId :</label>
+                                        <div class="col-sm-6"> <label class="labelw"> SenderId </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="b2bsenderid" name="b2bsenderid" readonly="true"/>
                                         </div>
-                                        <div class="col-sm-6"><label class="labelw"> ReceiverId :</label>
+                                        <div class="col-sm-6"><label class="labelw"> ReceiverId </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="b2breceiverid" name="b2breceiverid" readonly="true"/>
                                         </div>
                                     </div>

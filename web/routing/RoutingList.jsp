@@ -405,44 +405,44 @@
                                     <div class="row col-sm-12">
 
                                         <br>
-                                        <div class="col-sm-6"> <label class="labelw"> Roter&nbsp;Name :</label>
+                                        <div class="col-sm-6"> <label class="labelw"> Roter&nbsp;Name </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rrouterName" name="rrouterName"  readOnly="true"/>
                                         </div>
-                                        <div class="col-sm-6"> <label class="labelw">Status :</label>
+                                        <div class="col-sm-6"> <label class="labelw">Status </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rrouterStatus" name="rrouterStatus" readOnly="true"/>
                                         </div>
                                     </div>
                                     <div class="row col-sm-12"> 
-                                        <div class="col-sm-6"> <label class="labelw">Acceptor Lookup Alias :</label>
+                                        <div class="col-sm-6"> <label class="labelw">Acceptor Lookup Alias </label>
                                             <<s:textfield  cssClass="form-control"  required="required" placeholder="" id="racceptorLookUpAlias" name="racceptorLookUpAlias" readonly="true"/>
                                         </div>
-                                        <div class="col-sm-6"> <label class="labelw">Internal Route Email :</label>
+                                        <div class="col-sm-6"> <label class="labelw">Internal Route Email </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rinternalRouteEmail" name="rinternalRouteEmail"  readonly="true"/>
                                         </div>
                                     </div>
                                     <div class="row col-sm-12">
-                                        <div class="col-sm-6"> <label class="labelw">DestMailBox :</label>
+                                        <div class="col-sm-6"> <label class="labelw">DestMailBox </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rdestMailBox" name="rdestMailBox" readonly="true"/>
                                         </div>
-                                        <div class="col-sm-6"> <label class="labelw">SystemType :</label>
+                                        <div class="col-sm-6"> <label class="labelw">SystemType </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rsystemType" name="rsystemType" readonly="true"/>
                                         </div>
                                     </div>
                                     <br>
                                     <div class="row col-sm-12">
-                                        <div class="col-sm-6"> <label class="labelw"> Direction :</label>
+                                        <div class="col-sm-6"> <label class="labelw"> Direction </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rdirection" name="rdirection" readonly="true"/>
                                         </div>
-                                        <div class="col-sm-6"> <label class="labelw">Envelope :</label>
+                                        <div class="col-sm-6"> <label class="labelw">Envelope </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="renvelope" name="renvelope" readonly="true"/>
                                         </div>
                                     </div>
 
                                     <div class="row col-sm-12 clear">
-                                        <div class="col-sm-6"> <label class="labelw">  CreatedDate : </label>
+                                        <div class="col-sm-6"> <label class="labelw">  CreatedDate  </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rcreatedDate" name="rcreatedDate" readonly="true"/>
                                         </div>
-                                        <div class="col-sm-6"> <label class="labelw"> ChangedDate : </label>
+                                        <div class="col-sm-6"> <label class="labelw"> ChangedDate  </label>
                                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="rchangedDate" name="rchangedDate" readonly="true"/>
                                         </div>
                                     </div>

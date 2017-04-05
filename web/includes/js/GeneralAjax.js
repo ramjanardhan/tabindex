@@ -168,20 +168,20 @@ function populatePoDetails(responseXML)
         }
 
         if (fileID != "NO") {
-        document.getElementById('POInstanceId').value = fileID;
-        }else{
+            document.getElementById('POInstanceId').value = fileID;
+        } else {
             document.getElementById('POInstanceId').value = "--";
         }
         //document.getElementById('POQty').value = itemQty;
         if (poNUM != "NO") {
             document.getElementById('PONum').value = poNUM;
-        }else{
+        } else {
             document.getElementById('PONum').value = "--";
         }
-        
+
         if (poDATE != "NO") {
             document.getElementById('PODates').value = poDATE;
-        }else{
+        } else {
             document.getElementById('PODates').value = "--";
         }
         /*
@@ -241,7 +241,7 @@ function populatePoDetails(responseXML)
 
         if (sapIdocNum != "NO") {
             document.getElementById('POSapIdocNum').value = sapIdocNum;
-        }else {
+        } else {
             document.getElementById('POSapIdocNum').value = "--";
         }
 //        if (deilvaryName != "NO") {
@@ -251,58 +251,58 @@ function populatePoDetails(responseXML)
 //            document.getElementById('PODeilvaryName').value = "--";
 //        }
         if (FILE_TYPE != "NO") {
-        document.getElementById('PODocumentType').value = FILE_TYPE;
-        }else {
+            document.getElementById('PODocumentType').value = FILE_TYPE;
+        } else {
             document.getElementById('PODocumentType').value = "--";
         }
         if (TRANSACTION_TYPE != "NO") {
-        document.getElementById('POTransactionType').value = TRANSACTION_TYPE;
-        }else {
+            document.getElementById('POTransactionType').value = TRANSACTION_TYPE;
+        } else {
             document.getElementById('POTransactionType').value = "--";
         }
         if (SENDER_ID != "NO") {
-        document.getElementById('POSenderId').value = SENDER_ID;
-        }else {
+            document.getElementById('POSenderId').value = SENDER_ID;
+        } else {
             document.getElementById('POSenderId').value = "--";
         }
         if (SENDER_NAME != "NO") {
-        document.getElementById('POSenderName').value = SENDER_NAME;
-        }else {
+            document.getElementById('POSenderName').value = SENDER_NAME;
+        } else {
             document.getElementById('POSenderName').value = "--";
         }
         if (RECEIVER_ID != "NO") {
-        document.getElementById('POReceiverId').value = RECEIVER_ID;
-        }else {
+            document.getElementById('POReceiverId').value = RECEIVER_ID;
+        } else {
             document.getElementById('POReceiverId').value = "--";
         }
         if (RECEIVER_NAME != "NO") {
-        document.getElementById('POReceiverName').value = RECEIVER_NAME;
-        }else {
+            document.getElementById('POReceiverName').value = RECEIVER_NAME;
+        } else {
             document.getElementById('POReceiverName').value = "--";
         }
         if (ISA_NUMBER != "NO") {
-        document.getElementById('POIsa').value = ISA_NUMBER;
-        }else {
+            document.getElementById('POIsa').value = ISA_NUMBER;
+        } else {
             document.getElementById('POIsa').value = "--";
         }
         if (GS_CONTROL_NUMBER != "NO") {
-        document.getElementById('POGs').value = GS_CONTROL_NUMBER;
-        }else {
+            document.getElementById('POGs').value = GS_CONTROL_NUMBER;
+        } else {
             document.getElementById('POGs').value = "--";
         }
         if (ST_CONTROL_NUMBER != "NO") {
-        document.getElementById('POSt').value = ST_CONTROL_NUMBER;
-        }else {
+            document.getElementById('POSt').value = ST_CONTROL_NUMBER;
+        } else {
             document.getElementById('POSt').value = "--";
         }
         if (ISA_DATE != "NO") {
-        document.getElementById('POIsADate').value = ISA_DATE;
-        }else {
+            document.getElementById('POIsADate').value = ISA_DATE;
+        } else {
             document.getElementById('POIsADate').value = "--";
         }
         if (ISA_TIME != "NO") {
-        document.getElementById('POIsATime').value = ISA_TIME;
-        }else {
+            document.getElementById('POIsATime').value = ISA_TIME;
+        } else {
             document.getElementById('POIsATime').value = "--";
         }
         if (STATUS.toUpperCase() == "ERROR") {
@@ -350,7 +350,7 @@ function populatePoDetails(responseXML)
             document.getElementById('PO_DATE').value = PO_DATE;
             document.getElementById('IDOC_STATUS_CODE').value = IDOC_STATUS_CODE;
             document.getElementById('IDOC_STATUS_DESCRIPTION').value = IDOC_STATUS_DESCRIPTION;
-        }else{
+        } else {
             document.getElementById('SAP_USER').value = '--';
             document.getElementById('IDOC_NUMBER').value = '--';
             document.getElementById('PO_NUMBER').value = '--';
@@ -447,88 +447,88 @@ function populateASNDetails(responseXML) {
 
         }
         if (fileID != "NO") {
-        document.getElementById('msfileID').value = fileID;
-        }else{
+            document.getElementById('msfileID').value = fileID;
+        } else {
             document.getElementById('msfileID').value = "--";
         }
         if (asnNum != "NO") {
-        document.getElementById('msasnNum').value = asnNum;
-        }else{
+            document.getElementById('msasnNum').value = asnNum;
+        } else {
             document.getElementById('msasnNum').value = "--";
         }
         if (poNum != "NO") {
-        document.getElementById('mspoNum').value = poNum;
-        }else{
+            document.getElementById('mspoNum').value = poNum;
+        } else {
             document.getElementById('mspoNum').value = "--";
         }
-        if (bolNum != "NO") { 
-        document.getElementById('msbolNum').value = bolNum;
-        }else{
+        if (bolNum != "NO") {
+            document.getElementById('msbolNum').value = bolNum;
+        } else {
             document.getElementById('msbolNum').value = "--";
         }
         if (SHIPDATE != "NO") {
-        document.getElementById('msshipDate').value = SHIPDATE;
-        }else{
+            document.getElementById('msshipDate').value = SHIPDATE;
+        } else {
             document.getElementById('msshipDate').value = "--";
         }
         if (FILE_TYPE != "NO") {
-        document.getElementById('msdocType').value = FILE_TYPE;
-        }else{
+            document.getElementById('msdocType').value = FILE_TYPE;
+        } else {
             document.getElementById('msdocType').value = "--";
         }
         if (TRANSACTION_TYPE != "NO") {
-        document.getElementById('mstransType').value = TRANSACTION_TYPE;
-        }else{
+            document.getElementById('mstransType').value = TRANSACTION_TYPE;
+        } else {
             document.getElementById('mstransType').value = "--";
         }
         if (isaNum != "NO") {
-        document.getElementById('msisaNum').value = isaNum;
-        }else{
+            document.getElementById('msisaNum').value = isaNum;
+        } else {
             document.getElementById('msisaNum').value = "--";
         }
         if (SENDER_ID != "NO") {
-        document.getElementById('mssenderId').value = SENDER_ID;
-        }else{
+            document.getElementById('mssenderId').value = SENDER_ID;
+        } else {
             document.getElementById('mssenderId').value = "--";
         }
         if (SENDER_NAME != "NO") {
-        document.getElementById('mssenderName').value = SENDER_NAME;
-        }else{
+            document.getElementById('mssenderName').value = SENDER_NAME;
+        } else {
             document.getElementById('mssenderName').value = "--";
         }
         if (RECEIVER_ID != "NO") {
-        document.getElementById('msreceiverId').value = RECEIVER_ID;
-        }else{
+            document.getElementById('msreceiverId').value = RECEIVER_ID;
+        } else {
             document.getElementById('msreceiverId').value = "--";
         }
         if (RECEIVER_NAME != "NO") {
-        document.getElementById('msreceiverName').value = RECEIVER_NAME;
-        }else{
+            document.getElementById('msreceiverName').value = RECEIVER_NAME;
+        } else {
             document.getElementById('msreceiverName').value = "--";
         }
         if (GS_CONTROL_NUMBER != "NO") {
-        document.getElementById('msgsControlNo').value = GS_CONTROL_NUMBER;
-        }else{
+            document.getElementById('msgsControlNo').value = GS_CONTROL_NUMBER;
+        } else {
             document.getElementById('msgsControlNo').value = "--";
         }
         if (ST_CONTROL_NUMBER != "NO") {
-        document.getElementById('msstControlNo').value = ST_CONTROL_NUMBER;
-        }else{
+            document.getElementById('msstControlNo').value = ST_CONTROL_NUMBER;
+        } else {
             document.getElementById('msstControlNo').value = "--";
         }
         if (isaDate != "NO") {
-        document.getElementById('msisaDate').value = isaDate;
-        }else{
+            document.getElementById('msisaDate').value = isaDate;
+        } else {
             document.getElementById('msisaDate').value = "--";
         }
         if (isaTime != "NO") {
-        document.getElementById('msisaTime').value = isaTime;
-        }else{
+            document.getElementById('msisaTime').value = isaTime;
+        } else {
             document.getElementById('msisaTime').value = "--";
         }
         if (STATUS != "NO") {
-        document.getElementById('msstatus').value = STATUS.toUpperCase();
-        }else{
+            document.getElementById('msstatus').value = STATUS.toUpperCase();
+        } else {
             document.getElementById('msstatus').value = "--";
         }
         if (PRE_TRANS_FILEPATH == "No File") {
@@ -714,7 +714,7 @@ function populateInvDetails(responseXML) {
         if (ERRMESSAGE != "NO MSG") {
             document.getElementById('errorDiv').style.display = "block";
             document.getElementById('mierrormessage').innerHTML = ERRMESSAGE;
-        }else {
+        } else {
             document.getElementById('mierrormessage').innerHTML = "--";
         }
 
@@ -1510,7 +1510,7 @@ function populatePaymentDetails(responseXML)
         if (ERRMESSAGE != "NO MSG") {
             document.getElementById('errorDiv').style.display = "block";
             document.getElementById('errormessage').innerHTML = ERRMESSAGE;
-        }else {
+        } else {
             document.getElementById('errormessage').innerHTML = "--";
         }
 
@@ -1797,12 +1797,8 @@ function populateTpDetailInformation(responseXML)
 }
 
 function getLogisticsDocDetails(val, id) {
-    //    alert("main");
-    //alert("hiii222222"+number+"ponum------>"+ponum);
-
     var num = val;
     var id = id;
-    //    alert("num"+num+"id------>"+id);
     $(function () {
 
         $('#detail_box').show();
@@ -1903,7 +1899,8 @@ function populateLogisticsDocDetails(responseXML)
             document.getElementById('LogDocAckFileId').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
         }
         if (ERRMESSAGE != "NO MSG") {
-            document.getElementById('LogDocErrorMessage').innerHTML = "<font color='red'>" + ERRMESSAGE + "</font>";
+            document.getElementById('errorDiv').style.display = "block";
+            document.getElementById('LogDocErrorMessage').innerHTML = ERRMESSAGE;
         } else {
             document.getElementById('LogDocErrorMessage').innerHTML = "--";
         }
@@ -1999,24 +1996,9 @@ function populateLoadTenderingDetails(responseXML)
         //        {
         //            document.getElementById('co').value="--";
         //        }
-        if (totVolume != "NO") {
-            document.getElementById('Volume').value = totVolume;
-        } else
-        {
-            document.getElementById('Volume').value = "--";
-        }
-        if (totWeight != "NO") {
-            document.getElementById('totWeight').value = totWeight;
-        } else
-        {
-            document.getElementById('totWeight').value = "--";
-        }
-        if (totpieces != "NO") {
-            document.getElementById('pieces').value = totpieces;
-        } else
-        {
-            document.getElementById('pieces').value = "--";
-        }
+        document.getElementById('Volume').value = totVolume;
+        document.getElementById('totWeight').value = totWeight;
+        document.getElementById('pieces').value = totpieces;
         document.getElementById('documenttype').value = docType;
         document.getElementById('transactiontype').value = TRANSACTION_TYPE;
         document.getElementById('senderid').value = SENDER_ID;
@@ -2056,8 +2038,10 @@ function populateLoadTenderingDetails(responseXML)
         }
 
         if (ERRMESSAGE != "NO MSG") {
+            document.getElementById('errorDiv').style.display = "block";
             document.getElementById('errormessage').innerHTML = ERRMESSAGE;
-
+        } else {
+            document.getElementById('errormessage').innerHTML = "--";
         }
     }
     if (chk.childNodes[0].nodeValue == "false") {
@@ -2095,7 +2079,6 @@ function getLtResponseDetails(fileId, refId) {
 
 function populateLtResponseDetails(responseXML)
 {
-
     var details = responseXML.getElementsByTagName("DETAILS")[0];
     var detail = details.childNodes[0];
     var chk = detail.getElementsByTagName("VALID")[0];
@@ -2132,13 +2115,7 @@ function populateLtResponseDetails(responseXML)
 
         document.getElementById('resInstanceid').value = FILE_ID;
         document.getElementById('resShipment').value = SHIPMENT_ID;
-        if (FILE_TYPE != "NO") {
-            document.getElementById('resFiletype').value = FILE_TYPE;
-        }
-        else
-        {
-            document.getElementById('resFiletype').value = "--";
-        }
+        document.getElementById('resFiletype').value = FILE_TYPE;
         document.getElementById('resTransactiontype').value = TRANSACTION_TYPE;
         document.getElementById('resSenderid').value = SENDER_ID;
         document.getElementById('resSendername').value = SENDER_NAME;
@@ -2176,8 +2153,10 @@ function populateLtResponseDetails(responseXML)
         }
 
         if (ERR_MESSAGE != "NO MSG") {
+            document.getElementById('errorDiv').style.display = "block";
             document.getElementById('resErrormessage').innerHTML = ERR_MESSAGE;
-
+        } else {
+            document.getElementById('resErrormessage').innerHTML = "--";
         }
     }
     if (chk.childNodes[0].nodeValue == "false") {

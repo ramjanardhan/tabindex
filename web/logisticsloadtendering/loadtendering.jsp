@@ -316,7 +316,7 @@
                                                                     %>
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsLoadBean.getFile_type() != null) {
+                                                                            if (logisticsLoadBean.getFile_type() != null && !"".equals(logisticsLoadBean.getFile_type())) {
                                                                                 out.println(logisticsLoadBean.getFile_type());
                                                                             } else {
                                                                                 out.println("-");
@@ -326,7 +326,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsLoadBean.getFile_id() != null) {
+                                                                            if (logisticsLoadBean.getFile_id() != null && !"".equals(logisticsLoadBean.getFile_id())) {
                                                                                 out.println(logisticsLoadBean.getFile_id());
                                                                             } else {
                                                                                 out.println("-");
@@ -339,7 +339,7 @@
                                                                     <td><a href="javascript:getLoadTenderingDetails('<%=logisticsLoadBean.getFile_id()%>','<%=logisticsLoadBean.getPoNumber()%>');">
 
                                                                             <%
-                                                                                if (logisticsLoadBean.getShipmentId() != null) {
+                                                                                if (logisticsLoadBean.getShipmentId() != null && !"".equals(logisticsLoadBean.getShipmentId())) {
                                                                                     out.println(logisticsLoadBean.getShipmentId());
                                                                                 } else {
                                                                                     out.println("-");
@@ -351,7 +351,8 @@
                                                                         </a>   
                                                                     </td>
                                                                     <td>
-                                                                        <%                                                                            if (logisticsLoadBean.getPname() != null) {
+                                                                        <%
+                                                                            if (logisticsLoadBean.getPname() != null && !"".equals(logisticsLoadBean.getPname())) {
 
                                                                                 out.println(logisticsLoadBean.getPname());
                                                                             } else {
@@ -360,12 +361,10 @@
 
 
                                                                         %>
-
                                                                     </td>
 
-
                                                                     <td>
-                                                                        <%                                                                            if (logisticsLoadBean.getDate_time_rec() != null) {
+                                                                        <%                                                                            if (logisticsLoadBean.getDate_time_rec() != null && !"".equals(logisticsLoadBean.getDate_time_rec())) {
                                                                                 out.println(logisticsLoadBean.getDate_time_rec().toString().substring(0, logisticsLoadBean.getDate_time_rec().toString().lastIndexOf(":")));
                                                                             } else {
                                                                                 out.println("-");
@@ -375,7 +374,7 @@
                                                                     </td>  
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsLoadBean.getTransaction_type() != null) {
+                                                                            if (logisticsLoadBean.getTransaction_type() != null && !"".equals(logisticsLoadBean.getTransaction_type())) {
                                                                                 out.println(logisticsLoadBean.getTransaction_type());
                                                                             } else {
                                                                                 out.println("-");
@@ -385,7 +384,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsLoadBean.getDirection() != null) {
+                                                                            if (logisticsLoadBean.getDirection() != null && !"".equals(logisticsLoadBean.getDirection())) {
                                                                                 out.println(logisticsLoadBean.getDirection());
                                                                             } else {
                                                                                 out.println("-");
@@ -397,7 +396,7 @@
 
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsLoadBean.getStatus() != null) {
+                                                                            if (logisticsLoadBean.getStatus() != null && !"".equals(logisticsLoadBean.getStatus())) {
                                                                                 if (logisticsLoadBean.getStatus().equalsIgnoreCase("ERROR")) {
                                                                                     out.println("<font color='red'>" + logisticsLoadBean.getStatus() + "</font>");
                                                                                 } else if (logisticsLoadBean.getStatus().equalsIgnoreCase("SUCCESS")) {
@@ -414,7 +413,7 @@
 
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsLoadBean.getReProcessStatus() != null) {
+                                                                            if (logisticsLoadBean.getReProcessStatus() != null && !"".equals(logisticsLoadBean.getReProcessStatus())) {
                                                                                 out.println(logisticsLoadBean.getReProcessStatus());
 
                                                                             } else {
@@ -509,18 +508,18 @@
                 <div class="row col-sm-12">
 
                     <br>
-                    <div class="col-sm-6"> <label class="labelw"> Instance Id #: </label>
+                    <div class="col-sm-6"> <label class="labelw"> Instance Id # </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="instanceid" name="instanceid" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> Shipment #: </label>
+                    <div class="col-sm-6"> <label class="labelw"> Shipment # </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="shipment" name="shipment" readonly="true"/>
                     </div>
                 </div>
-                <div class="row col-sm-12"> <br>
-                    <div class="col-sm-6"> <label class="labelw"> Total Weight: </label>
+                <div class="row col-sm-12"> 
+                    <div class="col-sm-6"> <label class="labelw"> Total Weight </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="totWeight" name="totWeight" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> Volume: </label>
+                    <div class="col-sm-6"> <label class="labelw"> Volume </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="Volume" name="Volume" readonly="true"/>
                     </div>
                 </div>
@@ -533,24 +532,24 @@
                     </div>
                 </div>
                 <div class="row col-sm-12">
-                    <div class="col-sm-6"> <label class="labelw"> Pieces: </label>
+                    <div class="col-sm-6"> <label class="labelw"> Pieces </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="pieces" name="pieces" readonly="true"/>
                     </div>
                 </div>
                 <br>
                 <div id="senderinfo">
                     <div class="row col-sm-12">
-                        <div class="col-sm-6"> <h4>Partner Info :</h4></div>
+                        <div class="col-sm-6"> <h4>Sender Info :</h4></div>
                         <div class="col-sm-6"></div>
                         <div class="col-sm-6"></div>
 
                     </div>
                     <br>
                     <div class="row col-sm-12">
-                        <div class="col-sm-6"> <label class="labelw">  Id: </label>
+                        <div class="col-sm-6"> <label class="labelw">  Id </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="senderid" name="senderid" readonly="true"/>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw"> Name: </label>
+                        <div class="col-sm-6"> <label class="labelw"> Name </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="sendername" name="sendername" readonly="true"/>
                         </div>
                     </div>
@@ -565,60 +564,57 @@
 
                     <br>
                     <div class="row col-sm-12 clear">
-                        <div class="col-sm-6"> <label class="labelw">  Id: </label>
+                        <div class="col-sm-6"> <label class="labelw">  Id </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="receiverid" name="receiverid" readonly="true"/>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw"> Name: </label>
+                        <div class="col-sm-6"> <label class="labelw"> Name </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="receivername" name="receivername" readonly="true"/>
                         </div>
                     </div>
                 </div>
                 <div class="row col-sm-12 clear">
-                    <div class="col-sm-6"> <label class="labelw">  ISA #: </label>
+                    <div class="col-sm-6"> <label class="labelw">  ISA # </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="isa" name="isa" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> GS #: </label>
+                    <div class="col-sm-6"> <label class="labelw"> GS # </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="gs" name="gs" readonly="true"/>
                     </div>
                 </div>
 
-                <br/>
-
-                <div class="row col-sm-12" style="margin-top:10px;" >
-                    <div class="col-sm-6"> <label class="labelw">  ST #: </label>
+                <div class="row col-sm-12">
+                    <div class="col-sm-6"> <label class="labelw">  ST # </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="st" name="st" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw">ISA DATE: </label>
+                    <div class="col-sm-6"> <label class="labelw">ISA DATE </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="isadate" name="isadate" readonly="true"/>
                     </div>
 
-                    <div class="col-sm-6"> <label class="labelw">  ISA TIME:  </label>
+                    <div class="col-sm-6"> <label class="labelw">  ISA TIME  </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="isatime" name="isatime" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> STATUS: </label>
+                    <div class="col-sm-6"> <label class="labelw"> STATUS </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="togglestatus" name="status" readonly="true"/>
                     </div>
                 </div>
 
-                <div class="row col-sm-12" >
-                    <div class="col-sm-6"> <label class="labelw">  Pre Translation:  </label></div>
+                <div class="row col-sm-12" style="margin-top:10px;">
+                    <div class="col-sm-6"> <label class="labelw">  Pre Translation  </label></div>
                     <div class="col-sm-6"> <div id="pretranslation"> </div></div>
                 </div>
                 <div class="row col-sm-12">     
-                    <div class="col-sm-6"> <label class="labelw"> Post Translation: </label></div>
+                    <div class="col-sm-6"> <label class="labelw"> Post Translation </label></div>
                     <div class="col-sm-6">   <div id="posttranslation"></div></div>
                 </div>
                 <div class="row col-sm-12">
-                    <div class="col-sm-6"> <label class="labelw"> Ack FileId: </label></div>
+                    <div class="col-sm-6"> <label class="labelw"> Ack FileId </label></div>
                     <div class="col-sm-6">    <div id="ackfileid"></div></div>
                 </div>
-                <br><br><br><br><br><br>
-                <div class="row col-sm-12" >
+                <div class="row col-sm-12" id="errorDiv" style="display: none">
                     <div class="col-sm-6"> <label class="labelw"> Error Message </label></div>
-                    <div id="errormessage" style="color:red;"></div>
+                    <div  class="col-sm-6" id="errormessage" style="color:red;"></div>
                 </div>
                 <div id="noresult"></div>
-                <div class="col-sm-12">   <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
+                <div class="col-sm-12" style="margin-top:10px;"><button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" value="X">Close</button></div>
             </div>  </div>
 
 
@@ -644,12 +640,7 @@
     <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
     <script type="text/javascript">
-        function getDetails(val, ponum)
-        {
-            //  alert("hiiii");    
 
-            getDocDetails(val, ponum);
-        }
         function checkCorrelation() {
             var corrattr = document.getElementById('corrattribute').value;
             var corrval = document.getElementById('corrvalue').value;

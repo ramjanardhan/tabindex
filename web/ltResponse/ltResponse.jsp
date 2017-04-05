@@ -289,7 +289,7 @@
                                                                         %>
                                                                         <td>
                                                                             <%
-                                                                                if (ltResponseBean.getFileType() != null) {
+                                                                                if (ltResponseBean.getFileType() != null && !"".equals(ltResponseBean.getFileType())) {
                                                                                     out.println(ltResponseBean.getFileType());
                                                                                 } else {
                                                                                     out.println("-");
@@ -299,7 +299,7 @@
                                                                         </td>
                                                                         <td>
                                                                             <%
-                                                                                if (ltResponseBean.getFileId() != null) {
+                                                                                if (ltResponseBean.getFileId() != null && !"".equals(ltResponseBean.getFileId())) {
                                                                                     out.println(ltResponseBean.getFileId());
                                                                                 } else {
                                                                                     out.println("-");
@@ -308,9 +308,9 @@
 
                                                                         </td>
 
-                                                                        <td><a href="javascript:getDetails('<%=ltResponseBean.getFileId()%>','<%=ltResponseBean.getRefId()%>');">
+                                                                        <td><a href="javascript:getLtResponseDetails('<%=ltResponseBean.getFileId()%>','<%=ltResponseBean.getRefId()%>');">
                                                                                 <%
-                                                                                    if (ltResponseBean.getRefId() != null) {
+                                                                                    if (ltResponseBean.getRefId() != null && !"".equals(ltResponseBean.getRefId())) {
 
                                                                                         out.println(ltResponseBean.getRefId());
 
@@ -325,7 +325,8 @@
 
 
                                                                         <td>
-                                                                            <%                                                                                if (ltResponseBean.getShipmentId() != null) {
+                                                                            <%                                                                                
+                                                                                if (ltResponseBean.getShipmentId() != null && !"".equals(ltResponseBean.getShipmentId())) {
                                                                                     out.println(ltResponseBean.getShipmentId());
                                                                                 } else {
                                                                                     out.println("-");
@@ -336,7 +337,8 @@
 
                                                                         </td>
                                                                         <td>
-                                                                            <%                                                                                if (ltResponseBean.getTransType() != null) {
+                                                                            <%                                                                                
+                                                                                if (ltResponseBean.getTransType() != null && !"".equals(ltResponseBean.getTransType())) {
                                                                                     out.println(ltResponseBean.getTransType());
                                                                                 } else {
                                                                                     out.println("-");
@@ -346,7 +348,7 @@
                                                                         </td>
                                                                         <td>
                                                                             <%
-                                                                                if (ltResponseBean.getDirection() != null) {
+                                                                                if (ltResponseBean.getDirection() != null && !"".equals(ltResponseBean.getDirection())) {
                                                                                     out.println(ltResponseBean.getDirection());
                                                                                 } else {
                                                                                     out.println("-");
@@ -358,7 +360,7 @@
 
                                                                         <td>
                                                                             <%
-                                                                                if (ltResponseBean.getStatus() != null) {
+                                                                                if (ltResponseBean.getStatus() != null && !"".equals(ltResponseBean.getStatus())) {
                                                                                     if (ltResponseBean.getStatus().equalsIgnoreCase("ERROR")) {
                                                                                         out.println("<font color='red'>" + ltResponseBean.getStatus().toUpperCase() + "</font>");
                                                                                     } else if (ltResponseBean.getStatus().equalsIgnoreCase("SUCCESS")) {
@@ -424,122 +426,116 @@
                                 <%-- Grid End --%>
                             </div>
                         </div></div>
-            </div></section>
+            </section>
 
-        <div id="hide-menu1" class="hide-menu message">
+            <div id="hide-menu1" class="hide-menu message">
 
-            <div class="row col-sm-12">
-
-                <br>
-                <div class="col-sm-6"> <label class="labelw"> Instance Id </label>
-                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="resInstanceid" name="resInstanceid" readonly="true"/>
-                </div>
-                <div class="col-sm-6"> <label class="labelw"> Shipment # </label>
-                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="resShipment" name="resShipment" readonly="true"/>
-                </div>
-            </div>
-            <div class="row col-sm-12"> <br>
-                <div class="col-sm-6"> <label class="labelw"> DocType: </label>
-                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="resFiletype" name="resFiletype" readonly="true" />
-                </div>
-                <div class="col-sm-6"> <label class="labelw">Transaction Type </label>
-                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="resTransactiontype" name="resTransactiontype"  readonly="true"/>
-                </div>
-            </div>
-
-            <div id="senderinfo"><br>
                 <div class="row col-sm-12">
-                    <div class="col-sm-6"> <h4>Sender Info :</h4></div>
-                    <div class="col-sm-6"></div>
-                    <div class="col-sm-6"></div>
 
-                </div>
-                <br>
-                <div class="row col-sm-12">
-                    <div class="col-sm-6"> <label class="labelw">  Id </label>
-                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resSenderid" name="resSenderid" readonly="true"/>
+                    <br>
+                    <div class="col-sm-6"> <label class="labelw"> Instance Id </label>
+                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resInstanceid" name="resInstanceid" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> Name </label>
-                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resSendername" name="resSendername" readonly="true"/>
+                    <div class="col-sm-6"> <label class="labelw"> Shipment # </label>
+                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resShipment" name="resShipment" readonly="true"/>
                     </div>
                 </div>
-            </div>
-            <br>
-            <div id="receiverinfo"><br>
-                <div class="row col-sm-12">
-                    <div class="col-sm-6"> <h4>Partner Info:</h4></div>
-                    <div class="col-sm-6"></div>
-                    <div class="col-sm-6"></div>
+                <div class="row col-sm-12"> 
+                    <div class="col-sm-6"> <label class="labelw"> DocType </label>
+                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resFiletype" name="resFiletype" readonly="true" />
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw">Transaction Type </label>
+                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resTransactiontype" name="resTransactiontype"  readonly="true"/>
+                    </div>
                 </div>
 
+                <div id="senderinfo"><br>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6"> <h4>Sender Info :</h4></div>
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-6"></div>
+
+                    </div>
+                    <br>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6"> <label class="labelw">  Id </label>
+                            <s:textfield cssClass="form-control"  required="required" placeholder="" id="resSenderid" name="resSenderid" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> Name </label>
+                            <s:textfield cssClass="form-control"  required="required" placeholder="" id="resSendername" name="resSendername" readonly="true"/>
+                        </div>
+                    </div>
+                </div>
                 <br>
+                <div id="receiverinfo"><br>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6"> <h4>Receiver Info:</h4></div>
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-6"></div>
+                    </div>
+                    <br>
+                    <div class="row col-sm-12 clear">
+                        <div class="col-sm-6"> <label class="labelw">  Id </label>
+                            <s:textfield cssClass="form-control"  required="required" placeholder="" id="resReceiverid" name="resReceiverid" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> Name </label>
+                            <s:textfield cssClass="form-control"  required="required" placeholder="" id="resReceivername" name="resReceivername" readonly="true"/>
+                        </div>
+                    </div>
+                </div>
                 <div class="row col-sm-12 clear">
-                    <div class="col-sm-6"> <label class="labelw">  Id </label>
-                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resReceiverid" name="resReceiverid" readonly="true"/>
+                    <div class="col-sm-6"> <label class="labelw">  ISA #   </label>
+                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resIsa" name="resIsa" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> Name </label>
-                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resReceivername" name="resReceivername" readonly="true"/>
+                    <div class="col-sm-6"> <label class="labelw"> GS # </label>
+                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resGs" name="resGs" readonly="true"/>
                     </div>
-                </div>
-            </div>
-            <div class="row col-sm-12 clear">
-                <div class="col-sm-6"> <label class="labelw">  ISA #  : </label>
-                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="resIsa" name="resIsa" readonly="true"/>
-                </div>
-                <div class="col-sm-6"> <label class="labelw"> GS # </label>
-                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="resGs" name="resGs" readonly="true"/>
-                </div>
 
 
-            </div>
-
-            <div class="row col-sm-12" style="margin-top:10px;" >
-                <div class="col-sm-6"> <label class="labelw"> ST #  : </label>
-                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="resSt" name="resSt" readonly="true"/>
-                </div>
-                <div class="col-sm-6"> <label class="labelw">ISA Date:</label>
-                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="resIsadate" name="resIsadate" readonly="true"/>
                 </div>
 
-                <div class="col-sm-6"> <label class="labelw">ISA Time :</label>
-                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="resIsatime" name="resIsatime" readonly="true"/>
-                </div>
-                <div class="col-sm-6"> <label class="labelw"> OrderId </label>
-                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="resReference" name="resReference" readonly="true"/>
-                </div>
-                <div class="col-sm-6"> <label class="labelw"> STATUS </label>
-                    <s:textfield cssClass="form-control"  required="required" placeholder="" id="resStatus" name="resStatus" readonly="true"/>
+                <div class="row col-sm-12"  >
+                    <div class="col-sm-6"> <label class="labelw"> ST #   </label>
+                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resSt" name="resSt" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw">ISA Date</label>
+                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resIsadate" name="resIsadate" readonly="true"/>
+                    </div>
+
+                    <div class="col-sm-6"> <label class="labelw">ISA Time </label>
+                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resIsatime" name="resIsatime" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw"> OrderId </label>
+                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resReference" name="resReference" readonly="true"/>
+                    </div>
+                    <div class="col-sm-6"> <label class="labelw"> STATUS </label>
+                        <s:textfield cssClass="form-control"  required="required" placeholder="" id="resStatus" name="resStatus" readonly="true"/>
+                    </div>
+
                 </div>
 
-            </div>
-
-            <div class="row col-sm-12" ><br>
-                <div class="col-sm-6"> <label class="labelw">Pre-Translation:</label></div>
-                <div class="col-sm-6">   <div id="resPreTranslation" ></div>
-
+                <div class="row col-sm-12" style="margin-top:10px;">
+                    <div class="col-sm-6"> <label class="labelw">Pre Translation</label></div>
+                    <div class="col-sm-6">   <div id="resPreTranslation" ></div></div>
                 </div>
                 <div class="row col-sm-12" >
-                    <div class="col-sm-6"> <label class="labelw">Post-Translation:</label></div>
-                    <div class="col-sm-6"> <div id="resPostTranslation"></div>
-
-                    </div></div>
-                <div class="row col-sm-12" >
-                    <div class="col-sm-6"> <label class="labelw">997AckFile</label></div>
-                    <div class="col-sm-6"> <div id="resAckfileid"></div>
-
-                    </div>
-                    <br><br><br><br><br><br>
+                    <div class="col-sm-6"> <label class="labelw">Post Translation </label></div>
+                    <div class="col-sm-6"> <div id="resPostTranslation"></div></div>
                 </div>
-            </div>
-            <div class="row col-sm-12" id="errorDiv" style="display: none">
-                <div class="col-sm-6"> <label class="labelw"> Error&nbsp;Message </label></div>
-                <div class="col-sm-6" id="resErrormessage" style="color: red"></div>
-            </div>
+                <div class="row col-sm-12" >
+                    <div class="col-sm-6"> <label class="labelw">997 AckFile</label></div>
+                    <div class="col-sm-6"> <div id="resAckfileid"></div></div>
+                </div>
 
-            <div id="noresult"></div>
-            <div class="col-sm-12">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
+                <div class="row col-sm-12" id="errorDiv" style="display: none">
+                    <div class="col-sm-6"> <label class="labelw"> Error&nbsp;Message </label></div>
+                    <div class="col-sm-6" id="resErrormessage" style="color: red"></div>
+                </div>
+
+                <div id="noresult"></div>
+                <div class="col-sm-12" style="margin-top:10px;">  <button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" value="X">Close</button></div>
+            </div>
         </div>
-
     </s:if> 
 </div>
 
@@ -575,12 +571,12 @@
 
 <script type="text/javascript">
 
-    function getDetails(fileId, refId)
-    {
-        //  alert("hiiii");    
-
-        getLtResponseDetails(fileId, refId);
-    }
+//    function getDetails(fileId, refId)
+//    {
+//        //  alert("hiiii");    
+//
+//        getLtResponseDetails(fileId, refId);
+//    }
     function checkCorrelation() {
         var corrattr = document.getElementById('corrattribute').value;
         var corrval = document.getElementById('corrvalue').value;

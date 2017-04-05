@@ -416,59 +416,59 @@
                 <div class="row col-sm-12">
 
                     <br>
-                    <div class="col-sm-6"> <label class="labelw">Partner&nbsp;Name :</label>
+                    <div class="col-sm-6"> <label class="labelw">Partner&nbsp;Name </label>
                         <s:textfield cssClass="form-control"  type="Text"  required="required" placeholder="" id="partnerName" name="partnerName" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw">Routing Name :</label>
+                    <div class="col-sm-6"> <label class="labelw">Routing Name </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="routingName" name="routingName" readonly="true"/>
                     </div>
                 </div>
                 <div class="row col-sm-12"> 
-                    <div class="col-sm-6"> <label class="labelw">BPName :</label>
+                    <div class="col-sm-6"> <label class="labelw">BPName </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="bpName" name="bpName" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw">Trans Map Name :</label>
+                    <div class="col-sm-6"> <label class="labelw">Trans Map Name </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="translationMapName" name="translationMapName" readonly="true"/>
                     </div>
                 </div>
                 <div class="row col-sm-12">
-                    <div class="col-sm-6"> <label class="labelw">Status :</label>
+                    <div class="col-sm-6"> <label class="labelw">Status </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="deliveryStatus" name="deliveryStatus" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw">  Encoding : </label>
+                    <div class="col-sm-6"> <label class="labelw">  Encoding  </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="encoding" name="encoding" readonly="true"/>
                     </div>
                 </div>
                 <br>
 
                 <div class="row col-sm-12">
-                    <div class="col-sm-6"> <label class="labelw">Prod Mail Box :</label>
+                    <div class="col-sm-6"> <label class="labelw">Prod Mail Box </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="producerMailBox" name="producerMailBox" readonly="true"/>
                     </div>
 
-                    <div class="col-sm-6"> <label class="labelw"> Sequence : </label>
+                    <div class="col-sm-6"> <label class="labelw"> Sequence  </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="sequence" name="sequence" readonly="true"/>
                     </div>
                 </div>
 
                 <div class="row col-sm-12 clear">
-                    <div class="col-sm-6"> <label class="labelw">  Arch Flag : </label>
+                    <div class="col-sm-6"> <label class="labelw">  Arch Flag  </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="archiveFlag" name="archiveFlag" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> Arch Directory : </label>
+                    <div class="col-sm-6"> <label class="labelw"> Arch Directory  </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="archiveDirectory" name="archiveDirectory" readonly="true"/>
                     </div>
                 </div>
                 <div class="row col-sm-12 clear">
-                    <div class="col-sm-6"> <label class="labelw">  Output FileName : </label>
+                    <div class="col-sm-6"> <label class="labelw">  Output FileName  </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="outputFileName" name="outputFileName" readonly="true"/>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> Output Format : </label>
+                    <div class="col-sm-6"> <label class="labelw"> Output Format  </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="outputFormat" name="outputFormat" readonly="true"/>
                     </div>
                 </div>
                 <div class="row col-sm-12 clear">
-                    <div class="col-sm-6"> <label class="labelw">Doc Extract Map Name :</label>
+                    <div class="col-sm-6"> <label class="labelw">Doc Extract Map Name </label>
                         <s:textfield type="Text"  cssClass="form-control"  required="required" placeholder="" id="documentExtraxctMapName" name="documentExtraxctMapName" readonly="true"/>
                     </div>
 

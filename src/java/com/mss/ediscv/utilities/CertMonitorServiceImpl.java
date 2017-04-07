@@ -115,7 +115,7 @@ public class CertMonitorServiceImpl implements CertMonitorService {
 
     }
        @Override
-    public List doTpoCodeListItems(String selectedName) throws ServiceLocatorException {
+    public List doCodeListItems(String selectedName) throws ServiceLocatorException {
         System.out.println("in getListName");
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -276,6 +276,58 @@ public class CertMonitorServiceImpl implements CertMonitorService {
         }
 if(updatedRows>0)
 return "<font color='green'>Inserted successfully</font>";
+else
+    return "<font color='red'>Please Try Again</font>";
+    }
+    
+    @Override
+    public String deleteCodeList(String jsonData) throws ServiceLocatorException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        String queryString = null;
+        connection = ConnectionProvider.getInstance().getOracleConnection();
+        JSONArray array = null;
+           JSONObject jsonObj=null;
+           int updatedRows=0;
+        try {
+            array = new JSONArray(jsonData);
+
+           
+        }  catch (JSONException ex) {
+            Logger.getLogger(CertMonitorServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+        try {
+            queryString = "DELETE FROM SI_USER.CODELIST_XREF_ITEM WHERE LIST_NAME=? AND LIST_VERSION=? AND SENDER_ITEM=?";
+           for(int i=0; i<array.length(); i++){
+            jsonObj  = array.getJSONObject(i);
+            preparedStatement = connection.prepareStatement(queryString);
+            preparedStatement.setString(1, jsonObj.getString("listName1"));
+            preparedStatement.setInt(2 ,Integer.parseInt(jsonObj.getString("listVerson")));
+            preparedStatement.setString(3, jsonObj.getString("senderItem"));
+            updatedRows = preparedStatement.executeUpdate();
+           }
+        } catch (SQLException sql) {
+            throw new ServiceLocatorException(sql);
+        } catch (JSONException e) {
+           e.printStackTrace();
+        } finally {
+            try {
+               
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                    preparedStatement = null;
+                }
+                if (connection != null) {
+                    connection.close();
+                    connection = null;
+                }
+            } catch (SQLException ex) {
+                throw new ServiceLocatorException(ex);
+            }
+        }
+if(updatedRows>0)
+return "<font color='green'>Deleted successfully</font>";
 else
     return "<font color='red'>Please Try Again</font>";
     }

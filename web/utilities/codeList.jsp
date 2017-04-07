@@ -301,7 +301,7 @@
                                         </div> 
                                         <div class="col-sm-3" style="margin-top: 20px">
                                              
-                                            <input type="button" class="btn btn-primary" value="Import To SI" tabindex="11" onclick="getRowValue()"/>
+                                            <input type="button" class="btn btn-primary" value="Import To SI" id="import" tabindex="11" onclick="getRowValue(this.id)"/>
                                       
                                         </div>
                                        
@@ -310,7 +310,7 @@
                                                 <input type="button" id="add" name="add" class="btn btn-primary" value="Add Row" tabindex="4"/>
                                             </div> 
                                             <div class="col-sm-3 pull-right"> 
-                                                <input type="button" class="btn btn-primary" value="Delete Row" id="deleteRow" tabindex="5"/>
+                                                <input type="button" class="btn btn-primary" value="Delete Row" id="deleteRow" tabindex="5" onclick="getRowValue(this.id)"/>
                                             </div> 
                                             <div class="col-sm-3 pull-right"> 
                                                 <input type="button" id="clear" class="btn btn-primary" value="Clear Grid" tabindex="6"/>
@@ -366,7 +366,8 @@
                                                     window.location = "../utilities/codeListSearch.action?listName=" + listName + "&selectedName=" + document.getElementById("selectedName").value;
                                                 }
 
-                                                function getRowValue() {
+                                                function getRowValue(flag) {
+                                                    var checkedCount=0;
                                                     var ips = {"jsonData": []};
                                                     var rowCount = $('#results tr').length;
                                                     for (i = 1; i < rowCount; i++) {
@@ -409,10 +410,28 @@
                                                                 "text8": document.getElementById('text8' + i).value,
                                                                 "text9": document.getElementById('text9' + i).value
                                                             });
+                                                            checkedCount++;
                                                         }
                                                     }
+                                                    
                                                     var array = JSON.stringify(ips["jsonData"]);
-                                                    window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
+                                                    if(flag=='import'){
+                                                    if(checkedCount==0)
+                                                        {
+                                                            alert("please select rows to insert");
+                                                            return false;
+                                                        }
+                                                   window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
+                                                }
+                                                else if(flag=='deleteRow')
+                                                    {
+                                                        if(checkedCount==0)
+                                                        {
+                                                            alert("please select rows to delete");
+                                                            return false;
+                                                        }
+                                                          window.location = "../utilities/codeListDelete.action?json=" + encodeURIComponent(array)+"&listName="+document.getElementById('listName').value+"&selectedName="+document.getElementById('selectedName').value;
+                                                    }
                                                 }
         </script> 
     </body>

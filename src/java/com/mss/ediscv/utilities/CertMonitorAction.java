@@ -162,7 +162,7 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
                 setListNameMap(DataSourceDataProvider.getInstance().getListName());
                 List codeList = new ArrayList();
 
-                codeList = ServiceLocator.getCertMonitorService().doTpoCodeListItems(getListName());
+                codeList = ServiceLocator.getCertMonitorService().doCodeListItems(getListName());
                 hsrequest.getSession(false).setAttribute(AppConstants.CODE_LIST, codeList);
                 resultType = SUCCESS;
             } catch (Exception e) {
@@ -197,6 +197,27 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
                 List codeList = new ArrayList();
                 resultMessage = ServiceLocator.getCertMonitorService().addCodeList(getJson());
                 hsrequest.getSession(false).setAttribute(AppConstants.REQ_RESULT_MSG, resultMessage);
+                setListNameMap(DataSourceDataProvider.getInstance().getListName());
+                                 hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
+
+                resultType = SUCCESS;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return resultType;
+    }
+    
+    public String doCodeListDelete() throws Exception {
+        String resultType = LOGIN;
+        if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
+            try {
+                String resultMessage = "";
+                List codeList = new ArrayList();
+                resultMessage = ServiceLocator.getCertMonitorService().deleteCodeList(getJson());
+                hsrequest.getSession(false).setAttribute(AppConstants.REQ_RESULT_MSG, resultMessage);
+                //getCodeListName();
+                getCodeListItems();
                 setListNameMap(DataSourceDataProvider.getInstance().getListName());
                 resultType = SUCCESS;
             } catch (Exception e) {

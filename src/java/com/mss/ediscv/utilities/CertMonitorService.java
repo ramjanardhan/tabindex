@@ -15,4 +15,10 @@ import java.util.List;
 public interface CertMonitorService {
 
     public List getCertMonitorData(String certType,String dateFrom,String dateTo) throws ServiceLocatorException;
+    
+    public List doTpoCodeListItems(String selectedName) throws ServiceLocatorException;
+    
+    public List getCodeListNames(String name) throws ServiceLocatorException;
+
+    public String addCodeList(String jsonData) throws ServiceLocatorException;
 }

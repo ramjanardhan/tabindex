@@ -77,5 +77,14 @@ public class AppConstants {
     public static final String SESSION_USER_IMAGE = "userImage";
     public static final String LFC_SES_LTTENDER_LIST = "LfcList";
     public static final String CERTMONITOR_LIST = "certmonitorList";
+    public static final String CODE_LIST = "codeList";
+    
+    //Oracle Data Source
+    public static final String ORACLEDB_USER = "ORACLEDB.User";
+    public static final String ORACLEDB_PWD = "ORACLEDB.Password";
+    public static final String ORACLEDB_NAME = "ORACLEDB.Name";
+    public static final String ORACLEDB_HOST = "ORACLEDB.Host";
+    public static final String ORACLEDB_Port = "ORACLEDB.Port";
+    public static final String ORACLEDB_DRIVERTYPE = "ORACLEDB.DriverType";
   
    }

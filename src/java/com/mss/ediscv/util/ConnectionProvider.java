@@ -8,6 +8,7 @@ public class ConnectionProvider {
 
     private static ConnectionProvider _instance;
     private DataSource dataSource;
+    private DataSource oracleDataSource;
     private Connection connection;
 
     private ConnectionProvider() {
@@ -35,6 +36,20 @@ public class ConnectionProvider {
             throw new ServiceLocatorException("Exception in Connection Provider");
         } catch (SQLException sqlEx) {
             // System.err.println("Exception-->"+sqlEx.getMessage());
+            throw new ServiceLocatorException(sqlEx);
+        }
+        return connection;
+    }
+
+    //for getting oracle database connection
+    public Connection getOracleConnection() throws ServiceLocatorException {
+        try {
+            String dsnName = ConfigProperties.getProperty("ORACLEDB.DSNNAME");
+            oracleDataSource = DataServiceLocator.getInstance().getOracleDataSource(dsnName);
+            connection = oracleDataSource.getConnection();
+        } catch (ServiceLocatorException se) {
+            throw new ServiceLocatorException("Exception in Connection Provider");
+        } catch (SQLException sqlEx) {
             throw new ServiceLocatorException(sqlEx);
         }
         return connection;

@@ -126,32 +126,9 @@
         <div>
             <s:include value="../includes/template/sidemenu.jsp"/>
         </div>
-        <!--        <div id="site_content">
-                    <div id="sidebar_container">
         
-        
-                        <div id="detail_box" style="display: none;"> 
-                            <div class="sidebar">
-                                <h3>Detail Information</h3>
-                                <div class="sidebar_item">
-        
-                                    <div id="loadingImage" align="center"><img  src="../includes/images/ajax-loader.gif" /></div>
-        
-                                    <h5 id="detailInformation"></h5>
-        
-                                </div>
-                            </div>
-        
-        
-                            <div class="sidebar_base"></div>
-                        </div>
-                    </div>-->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-
-
-            <!-- Main content --> 
-
+            
             <section class="content-header">
                 <h1>
                     Excel Reports
@@ -291,14 +268,10 @@
                                                                     <th>FileFormat</th> 
                                                                     <th>InstanceId</th>
                                                                     <th>Partner</th>
-
                                                                     <th>DateTime</th>
-
                                                                     <th>TransType</th>
                                                                     <th>Direction</th>
-
                                                                     <th >Status</th>
-
                                                                     <th>Reprocess</th>
                                                                     <th>FileName </th>
                                                                 </tr></thead>
@@ -317,7 +290,7 @@
                                                                 %>
                                                                 <tr>   <td>
                                                                         <%
-                                                                            if (logisticsReportBean.getFile_type() != null) {
+                                                                            if (logisticsReportBean.getFile_type() != null && !"".equals(logisticsReportBean.getFile_type())) {
                                                                                 out.println(logisticsReportBean.getFile_type());
                                                                             } else {
                                                                                 out.println("-");
@@ -327,7 +300,7 @@
                                                                     </td>
                                                                     <td><%--<a href="javascript:getDetails('<%=logisticsReportBean.getFile_id()%>','<%=logisticsReportBean.getPoNumber()%>');"> --%>
                                                                         <%
-                                                                            if (logisticsReportBean.getFile_id() != null) {
+                                                                            if (logisticsReportBean.getFile_id() != null && !"".equals(logisticsReportBean.getFile_id())) {
                                                                                 out.println(logisticsReportBean.getFile_id());
                                                                             } else {
                                                                                 out.println("-");
@@ -337,7 +310,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsReportBean.getPname() != null) {
+                                                                            if (logisticsReportBean.getPname() != null && !"".equals(logisticsReportBean.getPname())) {
                                                                                 out.println(logisticsReportBean.getPname());
                                                                             } else {
                                                                                 out.println("-");
@@ -350,7 +323,8 @@
 
 
                                                                     <td>
-                                                                        <%                                                                            if (logisticsReportBean.getDate_time_rec() != null) {
+                                                                        <%                                                                            
+                                                                            if (logisticsReportBean.getDate_time_rec() != null && !"".equals(logisticsReportBean.getDate_time_rec())) {
                                                                                 out.println(logisticsReportBean.getDate_time_rec().toString().substring(0, logisticsReportBean.getDate_time_rec().toString().lastIndexOf(":")));
                                                                             } else {
                                                                                 out.println("-");
@@ -360,7 +334,7 @@
                                                                     </td>   
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsReportBean.getTransaction_type() != null) {
+                                                                            if (logisticsReportBean.getTransaction_type() != null && !"".equals(logisticsReportBean.getTransaction_type())) {
                                                                                 out.println(logisticsReportBean.getTransaction_type());
                                                                             } else {
                                                                                 out.println("-");
@@ -370,7 +344,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsReportBean.getDirection() != null) {
+                                                                            if (logisticsReportBean.getDirection() != null && !"".equals(logisticsReportBean.getDirection())) {
                                                                                 out.println(logisticsReportBean.getDirection());
                                                                             } else {
                                                                                 out.println("-");
@@ -382,7 +356,7 @@
 
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsReportBean.getStatus() != null) {
+                                                                            if (logisticsReportBean.getStatus() != null && !"".equals(logisticsReportBean.getStatus())) {
                                                                                 if (logisticsReportBean.getStatus().equalsIgnoreCase("ERROR")) {
                                                                                     out.println("<font color='red'>" + logisticsReportBean.getStatus() + "</font>");
                                                                                 } else if (logisticsReportBean.getStatus().equalsIgnoreCase("SUCCESS")) {
@@ -400,7 +374,7 @@
                                                                     <td>
                                                                         <%
                                                                             //out.println(logisticsDocBean.getReProcessStatus());
-                                                                            if (logisticsReportBean.getReProcessStatus() != null) {
+                                                                            if (logisticsReportBean.getReProcessStatus() != null && !"".equals(logisticsReportBean.getReProcessStatus())) {
                                                                                 out.println(logisticsReportBean.getReProcessStatus().toUpperCase());
 
                                                                             } else {
@@ -413,7 +387,7 @@
 
                                                                         <%
                                                                             //out.println(logisticsDocBean.getReProcessStatus());
-                                                                            if (logisticsReportBean.getFile_name() != null) {
+                                                                            if (logisticsReportBean.getFile_name() != null && !"".equals(logisticsReportBean.getFile_name())) {
                                                                                 out.println(logisticsReportBean.getFile_name().toUpperCase());
 
                                                                             } else {

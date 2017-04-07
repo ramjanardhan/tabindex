@@ -611,7 +611,7 @@
                 </div>
                 <div id="noresult"></div>
 
-                <div class="col-sm-12" style="margin-top:10px;"> <button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" style="margin-left:12px;" value="X">Close</button></div>
+                <div class="col-sm-12" style="margin-top:10px;"> <button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" value="X">Close</button></div>
             </div>    </div>
 
 

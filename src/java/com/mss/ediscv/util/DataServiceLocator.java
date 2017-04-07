@@ -4,6 +4,7 @@ import com.ibm.db2.jcc.DB2DataSource;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+import oracle.jdbc.pool.OracleDataSource;
 
 /**
  * This is a Data Service Locator object used to abstract all JNDI usage and to
@@ -75,6 +76,24 @@ public class DataServiceLocator {
             }
         } catch (Exception ex) {
             throw new ServiceLocatorException(ErrorMessages.CANNOT_GET_DATASOURCE + ex.getMessage(), ex);
+        }
+        return dataSource;
+    }
+      //for getting oracle datasource to connect with oracle database.
+    public DataSource getOracleDataSource(String dataSourceName) throws ServiceLocatorException {
+        DataSource dataSource = null;
+        try {
+            OracleDataSource datasource = new OracleDataSource();
+            datasource.setServerName(ConfigProperties.getProperty(AppConstants.ORACLEDB_HOST));
+            datasource.setUser(ConfigProperties.getProperty(AppConstants.ORACLEDB_USER));
+            datasource.setPassword(ConfigProperties.getProperty(AppConstants.ORACLEDB_PWD));
+            datasource.setDriverType(ConfigProperties.getProperty(AppConstants.ORACLEDB_DRIVERTYPE)); 
+            datasource.setPortNumber(Integer.parseInt(ConfigProperties.getProperty(AppConstants.ORACLEDB_Port)));
+            datasource.setDatabaseName(ConfigProperties.getProperty(AppConstants.ORACLEDB_NAME));
+            dataSource = datasource;
+            //CacheManager.getCache().put(dataSourceName, datasource);
+        } catch (Exception ex) {
+            throw new ServiceLocatorException("Cannot get Data Source REASON:" + ex.getMessage(), ex);
         }
         return dataSource;
     }

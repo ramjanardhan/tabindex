@@ -2227,18 +2227,10 @@ function populateLogisticsInvDetails(responseXML)
         // alert(deilvaryName+" "+poValue+ " "+ routings+ " "+invoice+" "+itemQty);
 
         document.getElementById('InvInstanceid').value = fileID;
-        if (poNum != 'NO')
             document.getElementById('InvPo').value = poNum;
-    }
-    else
-    {
-        document.getElementById('InvPo').value = "--";
-    }
     document.getElementById('InvTransactiontype').value = TRANSACTION_TYPE;
     document.getElementById('InvNum').value = invNum;
-
     document.getElementById('InvItemQty').value = itemQty;
-
     document.getElementById('InvAmt').value = invAmt;
     if (ORGFILEPATH == "No File") {
         document.getElementById('InvORGFILEPATH').innerHTML = "--";
@@ -2279,10 +2271,17 @@ function populateLogisticsInvDetails(responseXML)
         document.getElementById('InvAckfileid').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
     }
 
+//    if (ERRMESSAGE != "NO MSG") {
+//        document.getElementById('InvErrormessage').value = ERRMESSAGE;
+//
+//    }
+    
     if (ERRMESSAGE != "NO MSG") {
-        document.getElementById('InvErrormessage').value = ERRMESSAGE;
-
-    }
+            document.getElementById('errorDiv').style.display = "block";
+            document.getElementById('InvErrormessage').innerHTML = ERRMESSAGE;
+        } else {
+            document.getElementById('InvErrormessage').innerHTML = "--";
+        }
 
     if (chk.childNodes[0].nodeValue == "false") {
         document.getElementById('noresult').value = " <h5 >Sorry ! No Results Found</h5>";
@@ -2292,7 +2291,7 @@ function populateLogisticsInvDetails(responseXML)
     $('#hide-menu1').addClass('show-menu');
 
 }
-
+}
 
 
 /* Method for displaying Details Information of LogisticsShipment

@@ -31,33 +31,33 @@
         <link rel="stylesheet" href='<s:url value="/includes/plugins/daterangepicker/daterangepicker.css"/>' type="text/css"> 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script>
-            function doOnLoad() 
+            function doOnLoad()
             {
                 $("#ltfinance").addClass("active");
                 $("#ltinvoice").addClass("active");
                 $("#logistics").addClass("active");
                 $("#ltinvoice i").addClass("text-red");
-                document.getElementById('loadingAcoountSearch').style.display="none";
+                document.getElementById('loadingAcoountSearch').style.display = "none";
             }
         </script>
         <script type="text/javascript">
             function hide()
             {
-                
+
                 $('#hide-menu1').removeClass('show-menu');
             }
 //            $('body,html').click(function(e){
 //                $('#hide-menu1').removeClass('show-menu');
 //            });
         </script>
-        <script type="text/javascript">
-            function   getLogisticsInvDetailsInfo (InvoiceNumber,id){                                                                  
-                getLogisticsInvDetails(InvoiceNumber,id);
+<!--        <script type="text/javascript">
+            function   getLogisticsInvDetailsInfo(InvoiceNumber, id) {
+                getLogisticsInvDetails(InvoiceNumber, id);
             }
-    
-        </script> 
 
-       
+        </script> -->
+
+
 
     </head>
     <%
@@ -67,8 +67,9 @@
         }
 
         //System.out.println("check-->"+check);
-%>
-    <body onload="doOnLoad();check();" class="hold-transition skin-blue sidebar-mini">
+    %>
+    <body onload="doOnLoad();
+            check();" class="hold-transition skin-blue sidebar-mini">
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <div>
             <s:include value="../includes/template/header.jsp"/>
@@ -119,14 +120,14 @@
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="Date1();" /> 
                                                     </div>
                                                     <script type="text/javascript">
-                                                        function Date1() 
-                                                        {
-                                                            var date=document.logisticsForm.reportrange.value;
-                                                            var arr=date.split("-");
-                                                            var x=arr[1].trim();
-                                                            document.getElementById("datepickerfrom").value = arr[0];
-                                                            document.getElementById("datepickerTo").value =x ;
-                                                        }
+        function Date1()
+        {
+            var date = document.logisticsForm.reportrange.value;
+            var arr = date.split("-");
+            var x = arr[1].trim();
+            document.getElementById("datepickerfrom").value = arr[0];
+            document.getElementById("datepickerTo").value = x;
+        }
                                                     </script>
 
                                                     <div  class="col-sm-3">
@@ -173,19 +174,19 @@
                                                     </div>
                                                 </div>
                                                 <script>
-   
+
                                                 </script>                                      
 
                                                 <script>
-                                                    var count=0;
+                                                    var count = 0;
                                                 </script>                                          
 
                                                 <script>
-                                                    $("#addButton").click(function(){
+                                                    $("#addButton").click(function () {
                                                         count++;
-                                                        if(count==1)
+                                                        if (count == 1)
                                                             document.getElementById("corr").style.display = "block";
-                                                        
+
                                                         else
                                                             alert('Limit exceded.... cant add more fields');
                                                     })
@@ -205,7 +206,7 @@
 
                                                     </div>
                                                 </div>
-                                              
+
 
                                             </div>
                                         </div>
@@ -264,7 +265,7 @@
 
                                                                     <th>Invoice#</th>
                                                                     <th>Shipment</th>
-                                                                    <%-- <td >ISA #</td>  --%>
+                                                                        <%-- <td >ISA #</td>  --%>
 
                                                                     <%-- <td >DOC_ORIGIN</td> --%>
                                                                     <th>PO#</th>
@@ -291,7 +292,7 @@
                                                                     %>
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsInvoiceBean.getInstanceId() != null) {
+                                                                            if (logisticsInvoiceBean.getInstanceId() != null && !"".equals(logisticsInvoiceBean.getInstanceId())) {
                                                                                 out.println(logisticsInvoiceBean.getInstanceId());
                                                                             } else {
                                                                                 out.println("-");
@@ -300,7 +301,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsInvoiceBean.getPartner() != null) {
+                                                                            if (logisticsInvoiceBean.getPartner() != null && !"".equals(logisticsInvoiceBean.getPartner())) {
                                                                                 out.println(logisticsInvoiceBean.getPartner());
                                                                             } else {
                                                                                 out.println("-");
@@ -308,9 +309,9 @@
                                                                         %>
                                                                     </td>
 
-                                                                    <td>  <a href="javascript:getLogisticsInvDetailsInfo('<%=logisticsInvoiceBean.getInvoiceNumber()%>','<%=logisticsInvoiceBean.getId()%>');"  >
+                                                                    <td>  <a href="javascript:getLogisticsInvDetails('<%=logisticsInvoiceBean.getInvoiceNumber()%>','<%=logisticsInvoiceBean.getId()%>');"  >
                                                                             <%
-                                                                                if (logisticsInvoiceBean.getInvoiceNumber() != null) {
+                                                                                if (logisticsInvoiceBean.getInvoiceNumber() != null && !"".equals(logisticsInvoiceBean.getInvoiceNumber())) {
                                                                                     out.println(logisticsInvoiceBean.getInvoiceNumber());
                                                                                 } else {
                                                                                     out.println("-");
@@ -322,7 +323,7 @@
 
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsInvoiceBean.getShipmentId() != null) {
+                                                                            if (logisticsInvoiceBean.getShipmentId() != null && !"".equals(logisticsInvoiceBean.getShipmentId())) {
                                                                                 out.println(logisticsInvoiceBean.getShipmentId());
                                                                             } else {
                                                                                 out.println("-");
@@ -332,7 +333,7 @@
 
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsInvoiceBean.getPoNumber() != null) {
+                                                                            if (logisticsInvoiceBean.getPoNumber() != null && !"".equals(logisticsInvoiceBean.getPoNumber())) {
                                                                                 out.println(logisticsInvoiceBean.getPoNumber());
                                                                             } else {
                                                                                 out.println("-");
@@ -341,7 +342,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsInvoiceBean.getItemQty() != null) {
+                                                                            if (logisticsInvoiceBean.getItemQty() != null && !"".equals(logisticsInvoiceBean.getItemQty())) {
                                                                                 out.println(logisticsInvoiceBean.getItemQty());
                                                                             } else {
                                                                                 out.println("-");
@@ -351,7 +352,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsInvoiceBean.getInvAmount() != null) {
+                                                                            if (logisticsInvoiceBean.getInvAmount() != null && !"".equals(logisticsInvoiceBean.getInvAmount())) {
                                                                                 out.println(logisticsInvoiceBean.getInvAmount());
                                                                             } else {
                                                                                 out.println("-");
@@ -361,7 +362,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsInvoiceBean.getInvDate() != null) {
+                                                                            if (logisticsInvoiceBean.getInvDate() != null && !"".equals(logisticsInvoiceBean.getInvDate())) {
                                                                                 out.println(logisticsInvoiceBean.getInvDate());
                                                                             } else {
                                                                                 out.println("-");
@@ -371,7 +372,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsInvoiceBean.getStatus() != null) {
+                                                                            if (logisticsInvoiceBean.getStatus() != null && !"".equals(logisticsInvoiceBean.getStatus())) {
                                                                                 if (logisticsInvoiceBean.getStatus().equalsIgnoreCase("ERROR")) {
                                                                                     out.println("<font color='red'>" + logisticsInvoiceBean.getStatus().toUpperCase() + "</font>");
                                                                                 } else if (logisticsInvoiceBean.getStatus().equalsIgnoreCase("SUCCESS")) {
@@ -397,7 +398,6 @@
                                                                         <%
                                                                                 // String contextPath = request.getContextPath();
                                                                                 // out.println("<img  border='0' align='top'  src='"+contextPath+"/includes/images/alert.gif'/><b> No Records Found to Display!</b>");
-
                                                                                 out.println("<img  border='0' align='top'  src='" + contextPath + "/includes/images/alert.gif'/><b>No records found for the given search criteria. Please try a different search criteria!</b>");
                                                                             }
 
@@ -408,8 +408,7 @@
 
                                                     </td>
                                                 </tr>
-                                                <%
-                                                    if (list.size() != 0) {
+                                                <%                                                    if (list.size() != 0) {
                                                 %>
 
                                                 <% }%></tbody>
@@ -423,7 +422,7 @@
                                         <table align="right">
                                             <tr>
                                                 <td style="background-color: white;">
-                                                    <strong><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('ltInvoice','xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/></strong>
+                                                    <strong><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('ltInvoice', 'xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/></strong>
                                                 </td>
                                             </tr>
                                         </table> 
@@ -437,26 +436,26 @@
                     <div id="hide-menu1" class="hide-menu message ">
 
                         <div class="row col-sm-12">
-                           
+
                             <br>
                             <div class="col-sm-6"> <label class="labelw"> Instance Id </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="InvInstanceid" name="InvInstanceid" readonly="true"/>
                         </div>
 
-                        <div class="col-sm-6"> <label class="labelw"> Shipment #: </label>
+                        <div class="col-sm-6"> <label class="labelw"> Shipment # </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="InvPo" name="InvPo" readonly="true"/>
                         </div>
                     </div> <div class="row col-sm-12">
                         <div class="col-sm-6"> <label class="labelw">Transaction Type </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="InvTransactiontype" name="InvTransactiontype"  readonly="true"/>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw">Invoice # :</label>
+                        <div class="col-sm-6"> <label class="labelw">Invoice # </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="InvNum" name="InvNum" readonly="true"/>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw">Item Quantity  :</label>
+                        <div class="col-sm-6"> <label class="labelw">Item Quantity  </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="InvItemQty" name="InvItemQty" readonly="true"/>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw">Invoice Amount :</label>
+                        <div class="col-sm-6"> <label class="labelw">Invoice Amount </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="InvAmt" name="InvAmt" readonly="true"/>
                         </div>
 
@@ -498,25 +497,25 @@
                         </div>
                     </div>
                     <div class="row col-sm-12 clear">
-                        <div class="col-sm-6"> <label class="labelw">  ISA #  : </label>
+                        <div class="col-sm-6"> <label class="labelw">  ISA #   </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="InvIsa" name="InvIsa" readonly="true"/>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw"> GS #  : </label>
+                        <div class="col-sm-6"> <label class="labelw"> GS #   </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="InvGs" name="InvGs" readonly="true"/>
                         </div>
                     </div>
 
                     <br/>
 
-                    <div class="row col-sm-12" style="margin-top:10px;" >
-                        <div class="col-sm-6"> <label class="labelw">  ST #  : </label>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6"> <label class="labelw">  ST #   </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="InvSt" name="InvSt" readonly="true"/>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw">ISA date  :</label>
+                        <div class="col-sm-6"> <label class="labelw">ISA date  </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="InvIsadate" name="InvIsadate" readonly="true"/>
                         </div>
 
-                        <div class="col-sm-6"> <label class="labelw">ISA Time :</label>
+                        <div class="col-sm-6"> <label class="labelw">ISA Time </label>
                             <s:textfield cssClass="form-control"  required="required" placeholder="" id="InvIsatime" name="InvIsatime" readonly="true"/>
                         </div>
                         <div class="col-sm-6"> <label class="labelw"> STATUS </label>
@@ -524,41 +523,38 @@
                         </div>
                     </div>
 
-                    <div class="row col-sm-12" ><br>
-                        <div class="col-sm-6"> <label class="labelw">Pre-Translation:</label></div>
+                    <div class="row col-sm-12" style="margin-top:10px;">
+                        <div class="col-sm-6"> <label class="labelw">Pre-Translation</label></div>
                         <div class="col-sm-6">  <div id="InvPreTranslation"></div>
 
                         </div>
                     </div>
                     <div class="row col-sm-12" >
-                        <div class="col-sm-6"> <label class="labelw">Post-Translation:</label></div>
+                        <div class="col-sm-6"> <label class="labelw">Post-Translation</label></div>
                         <div class="col-sm-6"> <div id="InvPostTranslation"></div> 
 
                         </div>
                     </div>
                     <div class="row col-sm-12" >
-                        <div class="col-sm-6"> <label class="labelw">Original File:</label></div>
+                        <div class="col-sm-6"> <label class="labelw">Original File</label></div>
                         <div class="col-sm-6">  <div id="InvORGFILEPATH"></div>
 
                         </div>
                     </div>
                     <div class="row col-sm-12" >
-                        <div class="col-sm-6"> <label class="labelw">997AckFile</label></div>
+                        <div class="col-sm-6"> <label class="labelw">997 AckFile</label></div>
                         <div class="col-sm-6"> <div id="InvAckfileid"></div>
 
                         </div>
                     </div>
-                    <br><br><br><br><br><br>
-              <br><br><br><br><br><br>
-                <div class="row col-sm-12" id="errorDiv" style="display: none">
-                    <div class="col-sm-6"> <label class="labelw"> Error&nbsp;Message </label></div>
-                    <div class="col-sm-6" id="InvErrormessage" style="color: red"></div>
-                </div>
+                    <div class="row col-sm-12" id="errorDiv" style="display: none">
+                        <div class="col-sm-6"> <label class="labelw"> Error&nbsp;Message </label></div>
+                        <div class="col-sm-6" id="InvErrormessage" style="color: red"></div>
+                    </div>
 
-                <div id="noresult"></div>
-                <div class="col-sm-12">
-                     <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button>
-                </div>    </div> 
+                    <div id="noresult"></div>
+                    <div class="col-sm-12" style="margin-top:10px;"><button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" value="X">Close</button></div>   
+                    </div> 
             </div>
         </div>
 
@@ -601,36 +597,36 @@
     {
         var corrattr = document.getElementById('corrattribute').value;
         var corrval = document.getElementById('corrvalue').value;
-        if((corrattr!="-1")&&(corrval=="")) {
+        if ((corrattr != "-1") && (corrval == "")) {
             alert("please enter Correlation Value!!!");
             return false;
         }
-        if((corrattr=="-1")&&(corrval!="")) {
+        if ((corrattr == "-1") && (corrval != "")) {
             alert("please select Correlation!");
             return false;
         }
     }
     function resetvalues()
     {
-        document.getElementById('datepickerfrom').value="";
-        document.getElementById('datepickerTo').value="";
-        document.getElementById('invSenderId').value="";
-        document.getElementById('invSenderName').value="";
-        document.getElementById('invReceiverId').value="";
-        document.getElementById('invReceiverName').value="";
+        document.getElementById('datepickerfrom').value = "";
+        document.getElementById('datepickerTo').value = "";
+        document.getElementById('invSenderId').value = "";
+        document.getElementById('invSenderName').value = "";
+        document.getElementById('invReceiverId').value = "";
+        document.getElementById('invReceiverName').value = "";
         //document.getElementById('docIsa').value="";
-        document.getElementById('corrattribute').value="-1"; 
-        document.getElementById('corrvalue').value=""; 
-        document.getElementById('corrattribute1').value="-1"; 
-        document.getElementById('corrvalue1').value="";
-        document.getElementById('docType').value="-1"; 
-  
-    
-        document.getElementById('status').value="-1"; 
-        document.getElementById('reportrange').value=""; 
+        document.getElementById('corrattribute').value = "-1";
+        document.getElementById('corrvalue').value = "";
+        document.getElementById('corrattribute1').value = "-1";
+        document.getElementById('corrvalue1').value = "";
+        document.getElementById('docType').value = "-1";
+
+
+        document.getElementById('status').value = "-1";
+        document.getElementById('reportrange').value = "";
 
         $('#gridDiv').hide();
-    
+
     }
 </script>
 

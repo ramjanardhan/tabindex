@@ -7,9 +7,11 @@
 package com.mss.ediscv.utilities;
 
 import com.mss.ediscv.util.AppConstants;
+import com.mss.ediscv.util.DataSourceDataProvider;
 import com.mss.ediscv.util.ServiceLocator;
 import com.mss.ediscv.util.ServiceLocatorException;
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +32,12 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
     private String docdatepickerfrom;
     private String docdatepicker;
     private String reportrange;
+
+    private String listName;
+    private String name;
+    private String selectedName;
+    private List listNameMap;
+    private String json;
 
     public void setServletRequest(HttpServletRequest hsrequest) {
         this.hsrequest = hsrequest;
@@ -81,9 +89,51 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
         this.reportrange = reportrange;
     }
 
+    public String getListName() {
+        return listName;
+    }
+
+    public void setListName(String listName) {
+        this.listName = listName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSelectedName() {
+        return selectedName;
+    }
+
+    public void setSelectedName(String selectedName) {
+        this.selectedName = selectedName;
+    }
+
+    public List getListNameMap() {
+        return listNameMap;
+    }
+
+    public void setListNameMap(List listNameMap) {
+        this.listNameMap = listNameMap;
+    }
+
+    public String getJson() {
+        return json;
+    }
+
+    public void setJson(String json) {
+        this.json = json;
+    }
+    
+    
+
     public String getCertMonitor() throws Exception {
         String resultType = LOGIN;
-        
+
         String cert = "SYSTEM";
         List list = ServiceLocator.getCertMonitorService().getCertMonitorData(getCertType(), getDocdatepickerfrom(), getDocdatepicker());
         hsrequest.getSession(false).setAttribute(AppConstants.CERTMONITOR_LIST, list);
@@ -91,16 +141,69 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
         return resultType;
 
     }
-     public String codeList() 
-    {
+
+    public String codeList() throws ServiceLocatorException {
         String resultType = LOGIN;
         if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
-           // hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
+            hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
             System.out.println("into action before getting codeList");
-            //setListNameMap(DataSourceDataProvider.getInstance().getListName());
+            setListNameMap(DataSourceDataProvider.getInstance().getListName());
             System.out.println("into action after getting codeList");
             resultType = SUCCESS;
         }
         return resultType;
     }
+
+    public String getCodeListItems() throws Exception {
+        String resultType = LOGIN;
+        if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
+
+            try {
+                setListNameMap(DataSourceDataProvider.getInstance().getListName());
+                List codeList = new ArrayList();
+
+                codeList = ServiceLocator.getCertMonitorService().doTpoCodeListItems(getListName());
+                hsrequest.getSession(false).setAttribute(AppConstants.CODE_LIST, codeList);
+                resultType = SUCCESS;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return resultType;
+    }
+    // method to get the code list according to the given name
+
+    public String getCodeListName() throws Exception {
+        String resultType = LOGIN;
+        if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
+            try {
+                String resultMessage = "";
+                List codeList = new ArrayList();
+
+                setListNameMap(ServiceLocator.getCertMonitorService().getCodeListNames(getName()));
+                resultType = SUCCESS;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return resultType;
+    }
+
+    public String doCodeListAdd() throws Exception {
+        String resultType = LOGIN;
+        if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
+            try {
+                String resultMessage = "";
+                List codeList = new ArrayList();
+                resultMessage = ServiceLocator.getCertMonitorService().addCodeList(getJson());
+                hsrequest.getSession(false).setAttribute(AppConstants.REQ_RESULT_MSG, resultMessage);
+                setListNameMap(DataSourceDataProvider.getInstance().getListName());
+                resultType = SUCCESS;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return resultType;
+    }
+
 }

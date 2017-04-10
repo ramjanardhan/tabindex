@@ -157,9 +157,7 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
         String resultType = LOGIN;
         if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
             hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
-            System.out.println("into action before getting codeList");
             setListNameMap(DataSourceDataProvider.getInstance().getListName());
-            System.out.println("into action after getting codeList");
             resultType = SUCCESS;
         }
         return resultType;
@@ -176,7 +174,6 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
                 codeList = ServiceLocator.getCertMonitorService().doCodeListItems(getListName());
                 hsrequest.getSession(false).setAttribute(AppConstants.CODE_LIST, codeList);
                 setItems(codeList.size());
-                System.out.println("getitems is "+getItems());
                 resultType = SUCCESS;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -211,7 +208,7 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
                 resultMessage = ServiceLocator.getCertMonitorService().addCodeList(getJson());
                 hsrequest.getSession(false).setAttribute(AppConstants.REQ_RESULT_MSG, resultMessage);
                 setListNameMap(DataSourceDataProvider.getInstance().getListName());
-                                 hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
+                hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
 
                 resultType = SUCCESS;
             } catch (Exception e) {

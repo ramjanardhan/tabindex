@@ -94,7 +94,7 @@
 //                    $('#results tr:not(:first)').remove();
 //                      $('#results').dataTable().fnDestroy();
 //                        $('#results').dataTable();
-                    
+
                     //  $("#results tr").remove();
                 });
             });
@@ -201,7 +201,7 @@
                                 </div>
                                 <div class="col-sm-5 col-md-6 col-xs-12">
                                     <label>Number Of Code List Items :</label>
-
+                                    <s:textfield id="items" name="items" value="%{items}" readonly="true"/>
                                 </div>
                             </div> 
 
@@ -227,10 +227,10 @@
                                                                     <table id="results" class="table table-bordered table-hover">
                                                                         <thead><tr>
                                                                                 <th>SELECT</th>
-                                                                                <th>LIST_NAME</th>
+                                                                                <th>LIST_NAME</th> 
                                                                                 <th>SENDER_ID</th>
                                                                                 <th>RECEIVER_ID</th>
-                                                                                <th>LIST_VERSION</th>
+                                                                                <th>LIST_VERSION</th> 
                                                                                 <th>SENDER_ITEM</th>
                                                                                 <th>RECEIVER_ITEM</th>
                                                                                 <th>TEXT1</th>
@@ -257,10 +257,10 @@
 
 
                                                                             %><tr> <td><input type="checkbox" id="check<%=j + 1%>" name="check<%=j + 1%>"/></td>
-                                                                                <td><input value="<%=codeListBean.getListName()%>" id="listName<%=j + 1%>" name="listName<%=j + 1%>"/></td>
+                                                                                <td><input value="<%=codeListBean.getListName()%>" id="listName<%=j + 1%>" name="listName<%=j + 1%>"/></td> 
                                                                                 <td><input value="<%=codeListBean.getSender_id()%>" id="senderId<%=j + 1%>" name="senderId<%=j + 1%>"/></td>
                                                                                 <td><input value="<%=codeListBean.getReceiver_id()%>" id="recId<%=j + 1%>" name="recId<%=j + 1%>"/></td>
-                                                                                <td><input value="<%=codeListBean.getList_version()%>" id="listVersion<%=j + 1%>" name="listVersion<%=j + 1%>"/></td>
+                                                                                <td><input value="<%=codeListBean.getList_version()%>" id="listVersion<%=j + 1%>" name="listVersion<%=j + 1%>"/></td> 
                                                                                 <td><input value="<%=codeListBean.getSender_item()%>" id="senderItem<%=j + 1%>" name="senderItem<%=j + 1%>"/></td>
                                                                                 <td><input value="<%=codeListBean.getReceiver_item()%>" id="recItem<%=j + 1%>" name="recItem<%=j + 1%>"/></td>
                                                                                 <td><input value="<%=codeListBean.getText1()%>" id="text1<%=j + 1%>" name="text1<%=j + 1%>"/></td>
@@ -300,12 +300,12 @@
                                             <s:textfield name="newname" id="newname" cssClass="form-control" value="%{newname}" tabindex="10"/> 
                                         </div> 
                                         <div class="col-sm-3" style="margin-top: 20px">
-                                             
+
                                             <input type="button" class="btn btn-primary" value="Import To SI" id="import" tabindex="11" onclick="getRowValue(this.id)"/>
-                                      
+
                                         </div>
-                                       
-                                            <div class=" col-sm-6" style="margin-top: 20px">
+
+                                        <div class=" col-sm-6" style="margin-top: 20px">
                                             <div class="col-sm-3 pull-right"> 
                                                 <input type="button" id="add" name="add" class="btn btn-primary" value="Add Row" tabindex="4"/>
                                             </div> 
@@ -315,39 +315,39 @@
                                             <div class="col-sm-3 pull-right"> 
                                                 <input type="button" id="clear" class="btn btn-primary" value="Clear Grid" tabindex="6"/>
                                             </div>
-                                            </div>
                                         </div>
-                                        
-
-
                                     </div>
-                                </section>
-                                <%-- </s:if> --%>
-                            </div>
-                        </div></div>
 
-                </div>
+
+
+                            </div>
+                            </section>
+                            <%-- </s:if> --%>
+                        </div>
+                    </div></div>
+
             </div>
         </div>
+    </div>
 
-        <!-- /Highlights -->
-        <div>
-            <s:include value="../includes/template/footer.jsp"/>
-        </div>
-        <!-- <script>
-        $('input[name="daterange"]').daterangepicker();
-        </script>-->
-        <script language="JavaScript" src='<s:url value="/includes/js/DateValidation.js"/>'></script>
-        <script language="JavaScript" src='<s:url value="/includes/js/GridNavigation.js"/>'></script>
-        <script language="JavaScript" src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
-        <script language="JavaScript" src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
+    <!-- /Highlights -->
+    <div>
+        <s:include value="../includes/template/footer.jsp"/>
+    </div>
+    <!-- <script>
+    $('input[name="daterange"]').daterangepicker();
+    </script>-->
+    <script language="JavaScript" src='<s:url value="/includes/js/DateValidation.js"/>'></script>
+    <script language="JavaScript" src='<s:url value="/includes/js/GridNavigation.js"/>'></script>
+    <script language="JavaScript" src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
+    <script language="JavaScript" src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
 
-        <%-- <script src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script> --%>
-        <script src='<s:url value="../includes/bootstrap/js/app.min.js"/>'></script>
-        <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
-        <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
+    <%-- <script src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script> --%>
+    <script src='<s:url value="../includes/bootstrap/js/app.min.js"/>'></script>
+    <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
+    <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
-        <script type="text/javascript">
+    <script type="text/javascript">
 
 
                                                 $(function () {
@@ -367,27 +367,27 @@
                                                 }
 
                                                 function getRowValue(flag) {
-                                                    var checkedCount=0;
+                                                    var checkedCount = 0;
                                                     var ips = {"jsonData": []};
                                                     var rowCount = $('#results tr').length;
                                                     for (i = 1; i < rowCount; i++) {
                                                         if (document.getElementById('check' + i).checked) {
-                                                            if(document.getElementById("listName" + i).value =="")
+                                                            if (document.getElementById("listName" + i).value == "")
                                                             {
                                                                 alert("Please enter list name");
                                                                 return false;
                                                             }
-                                                            if(document.getElementById('listVersion' + i).value =="")
+                                                            if (document.getElementById('listVersion' + i).value == "")
                                                             {
                                                                 alert("Please enter list version");
                                                                 return false;
                                                             }
-                                                            if(document.getElementById('senderItem' + i).value =="")
+                                                            if (document.getElementById('senderItem' + i).value == "")
                                                             {
                                                                 alert("Please enter sender item");
                                                                 return false;
                                                             }
-                                                            if(document.getElementById('recItem' + i).value =="")
+                                                            if (document.getElementById('recItem' + i).value == "")
                                                             {
                                                                 alert("please enter receievr item");
                                                                 return false;
@@ -413,26 +413,26 @@
                                                             checkedCount++;
                                                         }
                                                     }
-                                                    
+
                                                     var array = JSON.stringify(ips["jsonData"]);
-                                                    if(flag=='import'){
-                                                    if(checkedCount==0)
+                                                    if (flag == 'import') {
+                                                        if (checkedCount == 0)
                                                         {
                                                             alert("please select rows to insert");
                                                             return false;
                                                         }
-                                                   window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
-                                                }
-                                                else if(flag=='deleteRow')
+                                                        window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
+                                                    }
+                                                    else if (flag == 'deleteRow')
                                                     {
-                                                        if(checkedCount==0)
+                                                        if (checkedCount == 0)
                                                         {
                                                             alert("please select rows to delete");
                                                             return false;
                                                         }
-                                                          window.location = "../utilities/codeListDelete.action?json=" + encodeURIComponent(array)+"&listName="+document.getElementById('listName').value+"&selectedName="+document.getElementById('selectedName').value;
+                                                        window.location = "../utilities/codeListDelete.action?json=" + encodeURIComponent(array) + "&listName=" + document.getElementById('listName').value + "&selectedName=" + document.getElementById('selectedName').value;
                                                     }
                                                 }
-        </script> 
-    </body>
+    </script> 
+</body>
 </html>

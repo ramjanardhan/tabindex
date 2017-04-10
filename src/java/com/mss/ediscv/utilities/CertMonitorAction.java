@@ -38,6 +38,8 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
     private String selectedName;
     private List listNameMap;
     private String json;
+    private int items;
+    
 
     public void setServletRequest(HttpServletRequest hsrequest) {
         this.hsrequest = hsrequest;
@@ -128,6 +130,15 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
     public void setJson(String json) {
         this.json = json;
     }
+
+    public int getItems() {
+        return items;
+    }
+
+    public void setItems(int items) {
+        this.items = items;
+    }
+    
     
     
 
@@ -164,6 +175,8 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
 
                 codeList = ServiceLocator.getCertMonitorService().doCodeListItems(getListName());
                 hsrequest.getSession(false).setAttribute(AppConstants.CODE_LIST, codeList);
+                setItems(codeList.size());
+                System.out.println("getitems is "+getItems());
                 resultType = SUCCESS;
             } catch (Exception e) {
                 e.printStackTrace();

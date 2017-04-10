@@ -90,12 +90,7 @@
 
             $(function () {
                 $('#clear').click(function () {
-                    $('#results tr:not(:first)').empty()
-//                    $('#results tr:not(:first)').remove();
-//                      $('#results').dataTable().fnDestroy();
-//                        $('#results').dataTable();
-
-                    //  $("#results tr").remove();
+                  $('#results').DataTable().clear().draw();
                 });
             });
         </script>

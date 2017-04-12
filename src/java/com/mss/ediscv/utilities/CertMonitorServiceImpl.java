@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -30,8 +31,6 @@ import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-
 
 /**
  *
@@ -102,7 +101,6 @@ public class CertMonitorServiceImpl implements CertMonitorService {
                 System.out.println("al**" + al);
             }
 
-
         } catch (SQLException s) {
 
             s.printStackTrace();
@@ -114,7 +112,8 @@ public class CertMonitorServiceImpl implements CertMonitorService {
         return al;
 
     }
-       @Override
+
+    @Override
     public List doCodeListItems(String selectedName) throws ServiceLocatorException {
         System.out.println("in getListName");
         Connection connection = null;
@@ -214,54 +213,84 @@ public class CertMonitorServiceImpl implements CertMonitorService {
     }
 
     @Override
-    public String addCodeList(String jsonData) throws ServiceLocatorException {
+    public String addCodeList(String jsonData, String userName) throws ServiceLocatorException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement1 = null;
+        PreparedStatement preparedStatement2 = null;
         String queryString = null;
         connection = ConnectionProvider.getInstance().getOracleConnection();
         JSONArray array = null;
-           JSONObject jsonObj=null;
-           int updatedRows=0;
+        JSONObject jsonObj = null;
+        int updatedRows = 0;
+        int updatedRows1 = 0;
+        int updatedRows2 = 0;
         try {
             array = new JSONArray(jsonData);
 
-           
-        }  catch (JSONException ex) {
+        } catch (JSONException ex) {
             Logger.getLogger(CertMonitorServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-          
+
         try {
             queryString = "INSERT INTO SI_USER.CODELIST_XREF_ITEM "
                     + "(LIST_NAME, SENDER_ID, RECEIVER_ID, LIST_VERSION, SENDER_ITEM, RECEIVER_ITEM, TEXT1, TEXT2, TEXT3, TEXT4, DESCRIPTION, TEXT5, TEXT6, TEXT7, TEXT8, TEXT9)"
                     + " VALUES (?, ?, ?,? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-           for(int i=0; i<array.length(); i++){
-       jsonObj  = array.getJSONObject(i);
-            preparedStatement = connection.prepareStatement(queryString);
-            preparedStatement.setString(1, jsonObj.getString("listName1"));
-            preparedStatement.setString(2, jsonObj.getString("senderIdInst"));
-            preparedStatement.setString(3, jsonObj.getString("recId"));
-            preparedStatement.setInt(4, Integer.parseInt(jsonObj.getString("listVerson")));
-            preparedStatement.setString(5, jsonObj.getString("senderItem"));
-            preparedStatement.setString(6, jsonObj.getString("recItem"));
-            preparedStatement.setString(7, jsonObj.getString("text1"));
-            preparedStatement.setString(8, jsonObj.getString("text2"));
-            preparedStatement.setString(9, jsonObj.getString("text3"));
-            preparedStatement.setString(10, jsonObj.getString("text4"));
-            preparedStatement.setString(11, jsonObj.getString("desc"));
-            preparedStatement.setString(12, jsonObj.getString("text5"));
-            preparedStatement.setString(13, jsonObj.getString("text6"));
-            preparedStatement.setString(14, jsonObj.getString("text7"));
-            preparedStatement.setString(15, jsonObj.getString("text8"));
-            preparedStatement.setString(16, jsonObj.getString("text9"));
-            updatedRows = preparedStatement.executeUpdate();
-           }
+            String queryString1 = "INSERT INTO SI_USER.CODELIST_XREF_VERS"
+                    + "	(LIST_NAME, SENDER_ID, RECEIVER_ID, DEFAULT_VERSION, LIST_VERSION)"
+                    + "VALUES (?, ?, ?, ?, ?)";
+            String queryString2 = "INSERT INTO SI_USER.CODE_LIST_XREF"
+                    + "	(LIST_NAME, SENDER_ID, RECEIVER_ID, LIST_VERSION, STATUS, COMMENTS,  USERNAME, CREATE_DATE)"
+                    + "VALUES (?, ?, ?, ?,? ,?,?, ?)";
+            for (int i = 0; i < array.length(); i++) {
+                jsonObj = array.getJSONObject(i);
+                preparedStatement = connection.prepareStatement(queryString);
+                preparedStatement.setString(1, jsonObj.getString("listName1"));
+                preparedStatement.setString(2, jsonObj.getString("senderIdInst"));
+                preparedStatement.setString(3, jsonObj.getString("recId"));
+                preparedStatement.setInt(4, Integer.parseInt(jsonObj.getString("listVerson")));
+                preparedStatement.setString(5, jsonObj.getString("senderItem"));
+                preparedStatement.setString(6, jsonObj.getString("recItem"));
+                preparedStatement.setString(7, jsonObj.getString("text1"));
+                preparedStatement.setString(8, jsonObj.getString("text2"));
+                preparedStatement.setString(9, jsonObj.getString("text3"));
+                preparedStatement.setString(10, jsonObj.getString("text4"));
+                preparedStatement.setString(11, jsonObj.getString("desc"));
+                preparedStatement.setString(12, jsonObj.getString("text5"));
+                preparedStatement.setString(13, jsonObj.getString("text6"));
+                preparedStatement.setString(14, jsonObj.getString("text7"));
+                preparedStatement.setString(15, jsonObj.getString("text8"));
+                preparedStatement.setString(16, jsonObj.getString("text9"));
+                preparedStatement1 = connection.prepareStatement(queryString1);
+                preparedStatement1.setString(1, jsonObj.getString("listName1"));
+                preparedStatement1.setString(2, jsonObj.getString("senderIdInst"));
+                preparedStatement1.setString(3, jsonObj.getString("recId"));
+                preparedStatement1.setInt(4, Integer.parseInt(jsonObj.getString("listVerson")));
+                preparedStatement1.setInt(5, Integer.parseInt(jsonObj.getString("listVerson")));
+                preparedStatement2 = connection.prepareStatement(queryString2);
+                preparedStatement2.setString(1, jsonObj.getString("listName1"));
+                preparedStatement2.setString(2, jsonObj.getString("senderIdInst"));
+                preparedStatement2.setString(3, jsonObj.getString("recId"));
+                preparedStatement2.setInt(4, Integer.parseInt(jsonObj.getString("listVerson")));
+                preparedStatement2.setInt(5, 1);
+                preparedStatement2.setString(6, "");
+                preparedStatement2.setString(7, userName);
+                //java.sql.Date d=new java.sql.Date(i);
+                //SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                //SimpleDateFormat sd=new SimpleDateFormat("YYYY-MM-dd HH24:mm:SS.0");
+                preparedStatement2.setDate(8, new java.sql.Date(System.currentTimeMillis()));
+                updatedRows = preparedStatement.executeUpdate();
+                updatedRows1 = preparedStatement1.executeUpdate();
+                updatedRows2 = preparedStatement2.executeUpdate();
+
+            }
         } catch (SQLException sql) {
             throw new ServiceLocatorException(sql);
         } catch (JSONException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         } finally {
             try {
-               
+
                 if (preparedStatement != null) {
                     preparedStatement.close();
                     preparedStatement = null;
@@ -274,46 +303,64 @@ public class CertMonitorServiceImpl implements CertMonitorService {
                 throw new ServiceLocatorException(ex);
             }
         }
-if(updatedRows>0)
-return "<font color='green'>Inserted successfully</font>";
-else
-    return "<font color='red'>Please Try Again</font>";
+        if (updatedRows > 0 && updatedRows1 > 0 && updatedRows2 > 0) {
+            return "<font color='green'>Inserted successfully</font>";
+        } else {
+            return "<font color='red'>Please Try Again</font>";
+        }
     }
-    
+
     @Override
     public String deleteCodeList(String jsonData) throws ServiceLocatorException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement1 = null;
+        PreparedStatement preparedStatement2 = null;
         String queryString = null;
+        String queryString1 = null;
+        String queryString2 = null;
         connection = ConnectionProvider.getInstance().getOracleConnection();
         JSONArray array = null;
-           JSONObject jsonObj=null;
-           int updatedRows=0;
+        JSONObject jsonObj = null;
+        int updatedRows = 0;
+        int updatedRows1 = 0;
+        int updatedRows2 = 0;
         try {
             array = new JSONArray(jsonData);
 
-           
-        }  catch (JSONException ex) {
+        } catch (JSONException ex) {
             Logger.getLogger(CertMonitorServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-          
+
         try {
             queryString = "DELETE FROM SI_USER.CODELIST_XREF_ITEM WHERE LIST_NAME=? AND LIST_VERSION=? AND SENDER_ITEM=?";
-           for(int i=0; i<array.length(); i++){
-            jsonObj  = array.getJSONObject(i);
-            preparedStatement = connection.prepareStatement(queryString);
-            preparedStatement.setString(1, jsonObj.getString("listName1"));
-            preparedStatement.setInt(2 ,Integer.parseInt(jsonObj.getString("listVerson")));
-            preparedStatement.setString(3, jsonObj.getString("senderItem"));
-            updatedRows = preparedStatement.executeUpdate();
-           }
+            queryString1 = "DELETE FROM SI_USER.CODELIST_XREF_VERS WHERE LIST_NAME=? AND LIST_VERSION=? AND SENDER_ID=?";
+            queryString2 = "DELETE FROM SI_USER.CODE_LIST_XREF WHERE LIST_NAME=? AND LIST_VERSION=? AND SENDER_ID=?";
+            for (int i = 0; i < array.length(); i++) {
+                jsonObj = array.getJSONObject(i);
+                preparedStatement = connection.prepareStatement(queryString);
+                preparedStatement.setString(1, jsonObj.getString("listName1"));
+                preparedStatement.setInt(2, Integer.parseInt(jsonObj.getString("listVerson")));
+                preparedStatement.setString(3, jsonObj.getString("senderItem"));
+                preparedStatement1 = connection.prepareStatement(queryString1);
+                preparedStatement1.setString(1, jsonObj.getString("listName1"));
+                preparedStatement1.setInt(2, Integer.parseInt(jsonObj.getString("listVerson")));
+                preparedStatement1.setString(3, jsonObj.getString("senderItem"));
+                preparedStatement2 = connection.prepareStatement(queryString2);
+                preparedStatement2.setString(1, jsonObj.getString("listName1"));
+                preparedStatement2.setInt(2, Integer.parseInt(jsonObj.getString("listVerson")));
+                preparedStatement2.setString(3, jsonObj.getString("senderItem"));
+                updatedRows = preparedStatement.executeUpdate();
+                updatedRows1 = preparedStatement1.executeUpdate();
+                updatedRows2 = preparedStatement2.executeUpdate();
+            }
         } catch (SQLException sql) {
             throw new ServiceLocatorException(sql);
         } catch (JSONException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         } finally {
             try {
-               
+
                 if (preparedStatement != null) {
                     preparedStatement.close();
                     preparedStatement = null;
@@ -326,10 +373,11 @@ else
                 throw new ServiceLocatorException(ex);
             }
         }
-if(updatedRows>0)
-return "<font color='green'>Deleted successfully</font>";
-else
-    return "<font color='red'>Please Try Again</font>";
+        if (updatedRows > 0 && updatedRows1 > 0 &&  updatedRows2 > 0) {
+            return "<font color='green'>Deleted successfully</font>";
+        } else {
+            return "<font color='red'>Please Try Again</font>";
+        }
     }
 
 }

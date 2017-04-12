@@ -11,6 +11,8 @@ import com.mss.ediscv.util.DataSourceDataProvider;
 import com.mss.ediscv.util.ServiceLocator;
 import com.mss.ediscv.util.ServiceLocatorException;
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +41,7 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
     private List listNameMap;
     private String json;
     private int items;
+     private String modifieddate;
     
 
     public void setServletRequest(HttpServletRequest hsrequest) {
@@ -138,6 +141,14 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
     public void setItems(int items) {
         this.items = items;
     }
+
+    public String getModifieddate() {
+        return modifieddate;
+    }
+
+    public void setModifieddate(String modifieddate) {
+        this.modifieddate = modifieddate;
+    }
     
     
     
@@ -168,12 +179,16 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
         if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
 
             try {
+              
+                   Date d = new Date();
+                SimpleDateFormat sd = new SimpleDateFormat("MM/dd/yyyy");
                 setListNameMap(DataSourceDataProvider.getInstance().getListName());
                 List codeList = new ArrayList();
 
                 codeList = ServiceLocator.getCertMonitorService().doCodeListItems(getListName());
                 hsrequest.getSession(false).setAttribute(AppConstants.CODE_LIST, codeList);
                 setItems(codeList.size());
+                 setModifieddate(sd.format(d));
                 resultType = SUCCESS;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -203,9 +218,11 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
         String resultType = LOGIN;
         if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
             try {
-                String resultMessage = "";
+                  String userName=hsrequest.getSession(false).getAttribute(AppConstants.SES_LOGIN_ID).toString();
+                System.out.println("username is "+userName);
+                  String resultMessage = "";
                 List codeList = new ArrayList();
-                resultMessage = ServiceLocator.getCertMonitorService().addCodeList(getJson());
+                resultMessage = ServiceLocator.getCertMonitorService().addCodeList(getJson(),userName);
                 hsrequest.getSession(false).setAttribute(AppConstants.REQ_RESULT_MSG, resultMessage);
                 setListNameMap(DataSourceDataProvider.getInstance().getListName());
                 hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
@@ -229,6 +246,8 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
                 //getCodeListName();
                 getCodeListItems();
                 setListNameMap(DataSourceDataProvider.getInstance().getListName());
+                setSelectedName("");
+                setModifieddate("");
                 resultType = SUCCESS;
             } catch (Exception e) {
                 e.printStackTrace();

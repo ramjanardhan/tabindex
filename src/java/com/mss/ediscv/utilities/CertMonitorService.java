@@ -20,7 +20,7 @@ public interface CertMonitorService {
     
     public List getCodeListNames(String name) throws ServiceLocatorException;
 
-    public String addCodeList(String jsonData) throws ServiceLocatorException;
+    public String addCodeList(String jsonData, String userName) throws ServiceLocatorException;
 
     public String deleteCodeList(String jsonData) throws ServiceLocatorException;
 }

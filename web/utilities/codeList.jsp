@@ -86,18 +86,18 @@
                     }
                     return false;
                 });
-            });
 
-            $(function () {
                 $('#clear').click(function () {
-                    $('#results tr:not(:first)').empty()
-//                    $('#results tr:not(:first)').remove();
-//                      $('#results').dataTable().fnDestroy();
-//                        $('#results').dataTable();
-
-                    //  $("#results tr").remove();
+                    $('#results').DataTable().clear().draw();
+                    $('#selectedName').val("");
+                    $('#modifieddate').val("");
+                    $('#items').val("");
+                    
                 });
             });
+
+
+
         </script>
         <style>
             @media (min-width: 992px) and (max-width: 1192px) {
@@ -135,7 +135,12 @@
                         <li class="active">Code List</li>
                     </ol>
                 </section>
-                <center> <div id="responseString">
+                
+
+                <s:form action="../utilities/getCodeListName.action" method="post" cssClass="contact-form" name="certForm" id="certForm" theme="simple">
+                    <div class="col-md-10" style="padding-top: 9px">
+                        <div class="box box-primary">
+                            <center> <div id="responseString">
                         <%
                             if (session.getAttribute(AppConstants.REQ_RESULT_MSG) != null) {
                                 String responseString = session.getAttribute(AppConstants.REQ_RESULT_MSG).toString();
@@ -145,28 +150,22 @@
                         %>
                     </div> 
                 </center>
-
-                <s:form action="../utilities/getCodeListName.action" method="post" cssClass="contact-form" name="certForm" id="certForm" theme="simple">
-                    <div class="col-md-5" style="padding-top: 9px">
-                        <div class="box box-primary">
                             <div class="box-body">
                                 <div class="row col-sm-12">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-3">
                                         <label>Name Search</label>
                                         <s:textfield name="name" id="name" cssClass="form-control" value="%{name}" tabindex="1"/> 
                                     </div>
-                                    <div class="col-sm-4 pull-right" style="padding-top: 25px"> 
+                                    <div class="col-sm-3" style="padding-top: 25px"> 
                                         <div>
                                             <s:submit value="Search" cssClass="btn btn-primary" id="button" name="button" tabindex="2" /> 
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row col-sm-12">
-                                    <div class="col-sm-6"> 
+                                         <div class="col-sm-3"> 
                                         <label>Code List </label>
                                         <s:select headerKey="-1" headerValue="--Select Type--" cssClass="form-control" list="listNameMap" name="listName" id="listName" value="%{listName}" onchange="getList();" tabindex="3"/> 
                                     </div> 
-                                </div> 
+                                </div>
                             </div>
 
 
@@ -176,12 +175,11 @@
 
 
                 </s:form>
-            </div> 
             <br>
             <br>
 
 
-            <div class="col-md-10" style="margin-left: 16px">
+            <div class="col-md-10" >
                 <div id="site_content"> 
                     <div class="box box-primary">
 
@@ -189,19 +187,19 @@
                             <div class="row col-md-12 col-sm-12">
                                 <div class="col-md-3 col-sm-3">
                                     <label>Code List Selected</label>
-                                    <s:textfield name="selectedName" id="selectedName" cssClass="form-control" value="%{selectedName}" tabindex="7"/> 
+                                    <s:textfield name="selectedName" id="selectedName" cssClass="form-control" value="%{selectedName}" tabindex="7" readonly="true"/> 
                                 </div>
                             </div>
                             <br>
                             <br>
                             <div class="row col-md-12 col-sm-12" style="margin-top: 20px">
-                                <div class="col-sm-5 col-md-6 col-xs-12">
+                                <div class="col-sm-3 col-md-3 col-xs-3">
                                     <label>Last Date Modified :</label>
-
+                                    <s:textfield id="modifieddate" name="modifieddate"  cssClass="form-control" value="%{modifieddate}" readonly="true"/>
                                 </div>
-                                <div class="col-sm-5 col-md-6 col-xs-12">
+                                <div class="col-sm-3" style="float : right">
                                     <label>Number Of Code List Items :</label>
-                                    <s:textfield id="items" name="items" value="%{items}" readonly="true"/>
+                                    <s:textfield id="items" name="items" value="%{items}"   cssClass="form-control" readonly="true"/>
                                 </div>
                             </div> 
 
@@ -295,6 +293,7 @@
                                     </div>
                                     <br>
                                     <div class="row col-sm-12">
+                                        <center><div id="messagediv"></div> </center>
                                         <div class="col-sm-3"> 
                                             <label>New Code List Name</label>
                                             <s:textfield name="newname" id="newname" cssClass="form-control" value="%{newname}" tabindex="10"/> 
@@ -327,6 +326,7 @@
                     </div></div>
 
             </div>
+            </div>
         </div>
     </div>
 
@@ -350,89 +350,89 @@
     <script type="text/javascript">
 
 
-                                                $(function () {
-                                                    $('#deleteRow').click(function () {
-                                                        $('input:checked').each(function () {
-                                                            $(this).closest('tr').remove();
-                                                        })
+                                                    $(function () {
+                                                        $('#deleteRow').click(function () {
+                                                            $('input:checked').each(function () {
+                                                                $(this).closest('tr').remove();
+                                                            })
+                                                        });
+
                                                     });
 
-                                                });
-
-                                                function getList()
-                                                {
-                                                    var listName = document.getElementById("listName").value;
-                                                    document.getElementById("selectedName").value = listName;
-                                                    window.location = "../utilities/codeListSearch.action?listName=" + listName + "&selectedName=" + document.getElementById("selectedName").value;
-                                                }
-
-                                                function getRowValue(flag) {
-                                                    var checkedCount = 0;
-                                                    var ips = {"jsonData": []};
-                                                    var rowCount = $('#results tr').length;
-                                                    for (i = 1; i < rowCount; i++) {
-                                                        if (document.getElementById('check' + i).checked) {
-                                                            if (document.getElementById("listName" + i).value == "")
-                                                            {
-                                                                alert("Please enter list name");
-                                                                return false;
-                                                            }
-                                                            if (document.getElementById('listVersion' + i).value == "")
-                                                            {
-                                                                alert("Please enter list version");
-                                                                return false;
-                                                            }
-                                                            if (document.getElementById('senderItem' + i).value == "")
-                                                            {
-                                                                alert("Please enter sender item");
-                                                                return false;
-                                                            }
-                                                            if (document.getElementById('recItem' + i).value == "")
-                                                            {
-                                                                alert("please enter receievr item");
-                                                                return false;
-                                                            }
-                                                            ips["jsonData"].push({
-                                                                "listName1": document.getElementById("listName" + i).value,
-                                                                "senderIdInst": document.getElementById('senderId' + i).value,
-                                                                "recId": document.getElementById('recId' + i).value,
-                                                                "listVerson": document.getElementById('listVersion' + i).value,
-                                                                "senderItem": document.getElementById('senderItem' + i).value,
-                                                                "recItem": document.getElementById('recItem' + i).value,
-                                                                "text1": document.getElementById('text1' + i).value,
-                                                                "text2": document.getElementById('text2' + i).value,
-                                                                "text3": document.getElementById('text3' + i).value,
-                                                                "text4": document.getElementById('text4' + i).value,
-                                                                "desc": document.getElementById('desc' + i).value,
-                                                                "text5": document.getElementById('text5' + i).value,
-                                                                "text6": document.getElementById('text6' + i).value,
-                                                                "text7": document.getElementById('text7' + i).value,
-                                                                "text8": document.getElementById('text8' + i).value,
-                                                                "text9": document.getElementById('text9' + i).value
-                                                            });
-                                                            checkedCount++;
-                                                        }
-                                                    }
-
-                                                    var array = JSON.stringify(ips["jsonData"]);
-                                                    if (flag == 'import') {
-                                                        if (checkedCount == 0)
-                                                        {
-                                                            alert("please select rows to insert");
-                                                            return false;
-                                                        }
-                                                        window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
-                                                    }
-                                                    else if (flag == 'deleteRow')
+                                                    function getList()
                                                     {
-                                                        if (checkedCount == 0)
-                                                        {
-                                                            alert("please select rows to delete");
-                                                            return false;
-                                                        }
-                                                        window.location = "../utilities/codeListDelete.action?json=" + encodeURIComponent(array) + "&listName=" + document.getElementById('listName').value + "&selectedName=" + document.getElementById('selectedName').value;
+                                                        var listName = document.getElementById("listName").value;
+                                                        document.getElementById("selectedName").value = listName;
+                                                        window.location = "../utilities/codeListSearch.action?listName=" + listName + "&selectedName=" + document.getElementById("selectedName").value;
                                                     }
-                                                }
+
+                                                    function getRowValue(flag) {
+                                                        var checkedCount = 0;
+                                                        var ips = {"jsonData": []};
+                                                        var rowCount = $('#results tr').length;
+                                                        for (i = 1; i < rowCount; i++) {
+                                                            if (document.getElementById('check' + i).checked) {
+                                                                if (document.getElementById("listName" + i).value == "")
+                                                                {
+                                                                    document.getElementById("messagediv").innerHTML = "<font style='color:red'>Please enter list name</font>";
+                                                                    return false;
+                                                                }
+                                                                if (document.getElementById('listVersion' + i).value == "")
+                                                                {
+                                                                    document.getElementById("messagediv").innerHTML = "<font style='color:red'>Please enter list version</font>";
+                                                                    return false;
+                                                                }
+                                                                if (document.getElementById('senderItem' + i).value == "")
+                                                                {
+                                                                    document.getElementById("messagediv").innerHTML = "<font style='color:red'>Please enter sender item</font>";
+                                                                    return false;
+                                                                }
+                                                                if (document.getElementById('recItem' + i).value == "")
+                                                                {
+                                                                    document.getElementById("messagediv").innerHTML = "<font style='color:red'>please enter receiver item</font>";
+                                                                    return false;
+                                                                }
+                                                                ips["jsonData"].push({
+                                                                    "listName1": document.getElementById("listName" + i).value,
+                                                                    "senderIdInst": document.getElementById('senderId' + i).value,
+                                                                    "recId": document.getElementById('recId' + i).value,
+                                                                    "listVerson": document.getElementById('listVersion' + i).value,
+                                                                    "senderItem": document.getElementById('senderItem' + i).value,
+                                                                    "recItem": document.getElementById('recItem' + i).value,
+                                                                    "text1": document.getElementById('text1' + i).value,
+                                                                    "text2": document.getElementById('text2' + i).value,
+                                                                    "text3": document.getElementById('text3' + i).value,
+                                                                    "text4": document.getElementById('text4' + i).value,
+                                                                    "desc": document.getElementById('desc' + i).value,
+                                                                    "text5": document.getElementById('text5' + i).value,
+                                                                    "text6": document.getElementById('text6' + i).value,
+                                                                    "text7": document.getElementById('text7' + i).value,
+                                                                    "text8": document.getElementById('text8' + i).value,
+                                                                    "text9": document.getElementById('text9' + i).value
+                                                                });
+                                                                checkedCount++;
+                                                            }
+                                                        }
+
+                                                        var array = JSON.stringify(ips["jsonData"]);
+                                                        if (flag == 'import') {
+                                                            if (checkedCount == 0)
+                                                            {
+                                                                document.getElementById("messagediv").innerHTML = "<font style='color:red'>please select rows to insert</font>";
+                                                                return false;
+                                                            }
+                                                            window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
+                                                        }
+                                                        else if (flag == 'deleteRow')
+                                                        {
+                                                            if (checkedCount == 0)
+                                                            {
+                                                                document.getElementById("messagediv").innerHTML = "<font style='color:red'>please select rows to delete</font>";
+                                                                return false;
+                                                            }
+                                                            window.location = "../utilities/codeListDelete.action?json=" + encodeURIComponent(array) + "&listName=" + document.getElementById('listName').value + "&selectedName=" + document.getElementById('selectedName').value;
+                                                        }
+                                                    }
     </script> 
 </body>
 </html>

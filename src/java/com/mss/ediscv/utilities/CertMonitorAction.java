@@ -175,16 +175,15 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
     }
 
     public String getCodeListItems() throws Exception {
+        System.out.println("11111");
         String resultType = LOGIN;
         if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
 
             try {
-              
                    Date d = new Date();
                 SimpleDateFormat sd = new SimpleDateFormat("MM/dd/yyyy");
                 setListNameMap(DataSourceDataProvider.getInstance().getListName());
                 List codeList = new ArrayList();
-
                 codeList = ServiceLocator.getCertMonitorService().doCodeListItems(getListName());
                 hsrequest.getSession(false).setAttribute(AppConstants.CODE_LIST, codeList);
                 setItems(codeList.size());

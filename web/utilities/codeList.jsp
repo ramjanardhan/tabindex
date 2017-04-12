@@ -92,7 +92,7 @@
                     $('#selectedName').val("");
                     $('#modifieddate').val("");
                     $('#items').val("");
-                    
+                    $('#listName').val("-1");
                 });
             });
 

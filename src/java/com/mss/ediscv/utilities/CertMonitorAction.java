@@ -180,6 +180,7 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
         if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
 
             try {
+                 hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
                    Date d = new Date();
                 SimpleDateFormat sd = new SimpleDateFormat("MM/dd/yyyy");
                 setListNameMap(DataSourceDataProvider.getInstance().getListName());
@@ -201,6 +202,7 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
         String resultType = LOGIN;
         if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
             try {
+                 hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
                 String resultMessage = "";
                 List codeList = new ArrayList();
 

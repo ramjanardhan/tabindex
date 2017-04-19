@@ -30,7 +30,8 @@
                     "searching": true,
                     "ordering": true,
                     "info": true,
-                    "autoWidth": false
+                    "autoWidth": false,
+                    "scrollX": true
                 });
             });
 
@@ -83,10 +84,12 @@
                                 '<td><input type="text" id="text8' + count + '" name="text8' + count + '"/></td>' +
                                 '<td><input type="text"  id="text9' + count + '" name="text9' + count + '"/></td>' +
                                 '</tr>');
-                    }
+                  }
                     return false;
                 });
+            });
 
+            $(function () {
                 $('#clear').click(function () {
                     $('#results').DataTable().clear().draw();
                     $('#selectedName').val("");
@@ -95,15 +98,21 @@
                     $('#listName').val("-1");
                 });
             });
-
-
-
         </script>
         <style>
             @media (min-width: 992px) and (max-width: 1192px) {
                 #set_align1{
                     margin: 0 -13px !important;
                 }
+            }
+/*            .content-wrapper
+            {
+                min-height: 1040px !important;
+            }*/
+            div.dataTables_wrapper {
+                width: 1000px;
+                margin: 0 auto;
+                overflow-x: hidden;
             }
 
         </style>
@@ -122,70 +131,72 @@
         </div>
         <!-- Content Wrapper. Contains page content -->
 
-        <div class="content-wrapper col-sm-12 col-md-12">
+        <div class="content-wrapper">
             <!-- Intro -->
-            <div class="col-md-12">
-                <section class="content-header">
-                    <h1>
-                        Code List Editor
-                        <small>Code List</small>
-                    </h1>
-                    <ol class="breadcrumb col-md-4">
-                        <li><a ><i class="fa fa-gavel"></i>Code List Editor</a></li>
-                        <li class="active">Code List</li>
-                    </ol>
-                </section>
-                
 
-                <s:form action="../utilities/getCodeListName.action" method="post" cssClass="contact-form" name="certForm" id="certForm" theme="simple">
-                    <div class="col-md-10" style="padding-top: 9px">
-                        <div class="box box-primary">
-                            <center> <div id="responseString">
-                        <%
-                            if (session.getAttribute(AppConstants.REQ_RESULT_MSG) != null) {
-                                String responseString = session.getAttribute(AppConstants.REQ_RESULT_MSG).toString();
-                                out.println(responseString);
-                                session.setAttribute(AppConstants.REQ_RESULT_MSG, null);
-                            }
-                        %>
-                    </div> 
-                </center>
-                            <div class="box-body">
-                                <div class="row col-sm-12">
-                                    <div class="col-sm-3">
-                                        <label>Name Search</label>
-                                        <s:textfield name="name" id="name" cssClass="form-control" value="%{name}" tabindex="1"/> 
-                                    </div>
-                                    <div class="col-sm-3" style="padding-top: 25px"> 
-                                        <div>
-                                            <s:submit value="Search" cssClass="btn btn-primary" id="button" name="button" tabindex="2" /> 
-                                        </div>
-                                    </div>
-                                         <div class="col-sm-3"> 
-                                        <label>Code List </label>
-                                        <s:select headerKey="-1" headerValue="--Select Type--" cssClass="form-control" list="listNameMap" name="listName" id="listName" value="%{listName}" onchange="getList();" tabindex="3"/> 
-                                    </div> 
+            <section class="content-header">
+                <h1>
+                    Code List Editor
+                    <small>Code List</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a ><i class="fa fa-gavel"></i>Code List Editor</a></li>
+                    <li class="active">Code List</li>
+                </ol>
+            </section>
+            <center> <div id="responseString">
+                    <%
+                        if (session.getAttribute(AppConstants.REQ_RESULT_MSG) != null) {
+                            String responseString = session.getAttribute(AppConstants.REQ_RESULT_MSG).toString();
+                            out.println(responseString);
+                            session.setAttribute(AppConstants.REQ_RESULT_MSG, null);
+                        }
+                    %>
+                </div> 
+            </center>
+
+            <s:form action="../utilities/getCodeListName.action" method="post" cssClass="contact-form" name="certForm" id="certForm" theme="simple">
+                <div class="col-md-12" style="padding-top: 9px">
+                    <div class="box box-primary">
+                        <div class="box-body">
+
+                            <div class="col-sm-3">
+                                <label>Name Search</label>
+                                <s:textfield name="name" id="name" cssClass="form-control" value="%{name}" tabindex="1"/> 
+                            </div>
+                            <div class="col-sm-3" style="padding-top: 25px"> 
+                                <div>
+                                    <s:submit value="Search" cssClass="btn btn-primary" id="button" name="button" tabindex="2" /> 
                                 </div>
+                            </div>
+                            <div class="col-sm-3"> 
+                                <label>Code List </label>
+                                <s:select headerKey="-1" headerValue="--Select Type--" cssClass="form-control" list="listNameMap" name="listName" id="listName" value="%{listName}" onchange="getList();" tabindex="3"/> 
                             </div>
 
 
-                            <br>
-                        </div>
+                        </div> 
                     </div>
 
 
+                    <br>
+
+
+
+
                 </s:form>
+            </div>
             <br>
             <br>
 
 
-            <div class="col-md-10" >
+            <div class="col-md-12">
                 <div id="site_content"> 
                     <div class="box box-primary">
 
                         <div class="box-body">
                             <div class="row col-md-12 col-sm-12">
-                                <div class="col-md-3 col-sm-3">
+                                <div class="col-sm-3">
                                     <label>Code List Selected</label>
                                     <s:textfield name="selectedName" id="selectedName" cssClass="form-control" value="%{selectedName}" tabindex="7" readonly="true"/> 
                                 </div>
@@ -203,7 +214,7 @@
                                 </div>
                             </div> 
 
-
+                            <br>
 
                             <div id="gridDiv"> 
                                 <%-- <s:if test="#session.codeList != null"> 
@@ -218,7 +229,7 @@
                                                 <div class="box-body">
                                                     <%!String cssValue = "whiteStripe";
                                                         int resultsetTotal;%>
-                                                    <div style="overflow-x:auto;">
+                                                    <div>
                                                         <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0">
                                                             <tr>
                                                                 <td style="background-color: white;">
@@ -305,13 +316,13 @@
                                         </div>
 
                                         <div class=" col-sm-6" style="margin-top: 20px">
-                                            <div class="col-sm-3 pull-right"> 
+                                            <div class="col-sm-4 pull-right"> 
                                                 <input type="button" id="add" name="add" class="btn btn-primary" value="Add Row" tabindex="4"/>
                                             </div> 
-                                            <div class="col-sm-3 pull-right"> 
+                                            <div class="col-sm-4 pull-right"> 
                                                 <input type="button" class="btn btn-primary" value="Delete Row" id="deleteRow" tabindex="5" onclick="getRowValue(this.id)"/>
                                             </div> 
-                                            <div class="col-sm-3 pull-right"> 
+                                            <div class="col-sm-4 pull-right"> 
                                                 <input type="button" id="clear" class="btn btn-primary" value="Clear Grid" tabindex="6"/>
                                             </div>
                                         </div>
@@ -326,9 +337,7 @@
                     </div></div>
 
             </div>
-            </div>
         </div>
-    </div>
 
     <!-- /Highlights -->
     <div>
@@ -374,22 +383,27 @@
                                                             if (document.getElementById('check' + i).checked) {
                                                                 if (document.getElementById("listName" + i).value == "")
                                                                 {
-                                                                    document.getElementById("messagediv").innerHTML = "<font style='color:red'>Please enter list name</font>";
+                                                                    if (flag == 'deleteRow') {
+                                                                        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please select rows with data  to delete</font>";
+                                                                        return false;
+                                                                    }
+                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter list name</font>";
                                                                     return false;
                                                                 }
+
                                                                 if (document.getElementById('listVersion' + i).value == "")
                                                                 {
-                                                                    document.getElementById("messagediv").innerHTML = "<font style='color:red'>Please enter list version</font>";
+                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter list version</font>";
                                                                     return false;
                                                                 }
                                                                 if (document.getElementById('senderItem' + i).value == "")
                                                                 {
-                                                                    document.getElementById("messagediv").innerHTML = "<font style='color:red'>Please enter sender item</font>";
+                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter sender item</font>";
                                                                     return false;
                                                                 }
                                                                 if (document.getElementById('recItem' + i).value == "")
                                                                 {
-                                                                    document.getElementById("messagediv").innerHTML = "<font style='color:red'>please enter receiver item</font>";
+                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter receiver item</font>";
                                                                     return false;
                                                                 }
                                                                 ips["jsonData"].push({
@@ -418,7 +432,7 @@
                                                         if (flag == 'import') {
                                                             if (checkedCount == 0)
                                                             {
-                                                                document.getElementById("messagediv").innerHTML = "<font style='color:red'>please select rows to insert</font>";
+                                                                document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please select rows to insert</font>";
                                                                 return false;
                                                             }
                                                             window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
@@ -427,7 +441,7 @@
                                                         {
                                                             if (checkedCount == 0)
                                                             {
-                                                                document.getElementById("messagediv").innerHTML = "<font style='color:red'>please select rows to delete</font>";
+                                                                document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please select rows to delete</font>";
                                                                 return false;
                                                             }
                                                             window.location = "../utilities/codeListDelete.action?json=" + encodeURIComponent(array) + "&listName=" + document.getElementById('listName').value + "&selectedName=" + document.getElementById('selectedName').value;

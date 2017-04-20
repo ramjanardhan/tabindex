@@ -76,6 +76,9 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     private String oldPwd;
     private String newPwd;
     private String cnfrmPwd;
+    private String senderItem;
+    private String recItem;
+
 
     public AjaxHandlerAction() {
     }
@@ -550,7 +553,29 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
         }
         return null;
     }
+ //method to search whether sender item and receiver item exists in the database for code list or not 
+    public String searchItems() {
+        if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
+            try {
+                String loginId = httpServletRequest.getSession(false).getAttribute(AppConstants.SES_LOGIN_ID).toString();
+                int n;
+                n = ServiceLocator.getAjaxHandlerService().searchItems(getSenderItem(),getRecItem());
+                if (n >0) {
+                    responseString = "Failure";
+                } 
+                else
+                {
+                    responseString="Success";
+                }
+                httpServletResponse.setContentType("text/html");
+                httpServletResponse.getWriter().write(responseString);
 
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
+    }
     public int getId() {
         return id;
     }
@@ -1083,4 +1108,21 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public void setOldPwd(String oldPwd) {
         this.oldPwd = oldPwd;
     }
+
+    public String getSenderItem() {
+        return senderItem;
+    }
+
+    public void setSenderItem(String senderItem) {
+        this.senderItem = senderItem;
+    }
+
+    public String getRecItem() {
+        return recItem;
+    }
+
+    public void setRecItem(String recItem) {
+        this.recItem = recItem;
+    }
+    
 }

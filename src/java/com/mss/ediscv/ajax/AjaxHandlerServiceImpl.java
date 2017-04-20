@@ -5218,6 +5218,46 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
         }
         return updatedRows;
     }
+     //method to search whether sender item and receiver item exists in the database for code list or not 
+
+    @Override
+    public int searchItems(String senderItem, String recItem) throws ServiceLocatorException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String queryString = null;
+        int count = 0;
+        connection = ConnectionProvider.getInstance().getOracleConnection();
+
+        try {
+            queryString = "SELECT COUNT(*) AS COUNT FROM CODELIST_XREF_ITEM WHERE SENDER_ITEM='" + senderItem + "' AND RECEIVER_ITEM='" + recItem + "'";
+            preparedStatement = connection.prepareStatement(queryString);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                count = resultSet.getInt("COUNT");
+            }
+        } catch (SQLException sql) {
+            throw new ServiceLocatorException(sql);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                    resultSet = null;
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                    preparedStatement = null;
+                }
+                if (connection != null) {
+                    connection.close();
+                    connection = null;
+                }
+            } catch (SQLException ex) {
+                throw new ServiceLocatorException(ex);
+            }
+        }
+        return count;
+    }
 
     /**
      *

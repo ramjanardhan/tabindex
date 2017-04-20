@@ -79,6 +79,22 @@ function readyStateHandlerLoadText(req, responseTextHandler) {
         }
     }
 }
+function readyStateHandlerLoadText2(req, responseTextHandler) {
+    return function () {
+        if (req.readyState == 4) {
+            if (req.status == 200) {
+                (document.getElementById("loadingAcoountSearch")).style.display = "none";
+                responseTextHandler(req.responseText);
+            } else {
+                alert("HTTP error" + req.status + " : " + req.statusText);
+            }
+        }
+        else {
+
+            (document.getElementById("loadingAcoountSearch")).style.display = "block";
+        }
+    }
+}
 
 function getPoDetails(number, number1) {
     var num = number;
@@ -2227,70 +2243,70 @@ function populateLogisticsInvDetails(responseXML)
         // alert(deilvaryName+" "+poValue+ " "+ routings+ " "+invoice+" "+itemQty);
 
         document.getElementById('InvInstanceid').value = fileID;
-            document.getElementById('InvPo').value = poNum;
-    document.getElementById('InvTransactiontype').value = TRANSACTION_TYPE;
-    document.getElementById('InvNum').value = invNum;
-    document.getElementById('InvItemQty').value = itemQty;
-    document.getElementById('InvAmt').value = invAmt;
-    if (ORGFILEPATH == "No File") {
-        document.getElementById('InvORGFILEPATH').innerHTML = "--";
-    } else {
-        document.getElementById('InvORGFILEPATH').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ORGFILEPATH + "\">Download</a></td></tr>";
-    }
-    document.getElementById('InvSenderid').value = SENDER_ID;
-    document.getElementById('InvSendername').value = SENDER_NAME;
-    document.getElementById('InvReceiverid').value = RECEIVER_ID;
-    document.getElementById('InvReceivername').value = RECEIVER_NAME;
-    document.getElementById('InvIsa').value = isaNum;
-    document.getElementById('InvGs').value = GS_CONTROL_NUMBER;
-    document.getElementById('InvSt').value = ST_CONTROL_NUMBER;
-    document.getElementById('InvIsadate').value = isaDate;
-    document.getElementById('InvIsatime').value = isaTime;
-    if (STATUS.toUpperCase() == "ERROR") {
-        document.getElementById('InvStatus').value = STATUS;
-    } else if (STATUS.toUpperCase() == "SUCCESS") {
-        document.getElementById('InvStatus').value = STATUS;
-    } else {
-        document.getElementById('InvStatus').value = STATUS;
-    }
-    if (PRE_TRANS_FILEPATH == "No File") {
-        document.getElementById('InvPreTranslation').innerHTML = "--";
-    } else {
-        document.getElementById('InvPreTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + PRE_TRANS_FILEPATH + "\">Download</a>";
-    }
-    if (POST_TRANS_FILEPATH == "No File") {
-        document.getElementById('InvPostTranslation').innerHTML = "--";
+        document.getElementById('InvPo').value = poNum;
+        document.getElementById('InvTransactiontype').value = TRANSACTION_TYPE;
+        document.getElementById('InvNum').value = invNum;
+        document.getElementById('InvItemQty').value = itemQty;
+        document.getElementById('InvAmt').value = invAmt;
+        if (ORGFILEPATH == "No File") {
+            document.getElementById('InvORGFILEPATH').innerHTML = "--";
+        } else {
+            document.getElementById('InvORGFILEPATH').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ORGFILEPATH + "\">Download</a></td></tr>";
+        }
+        document.getElementById('InvSenderid').value = SENDER_ID;
+        document.getElementById('InvSendername').value = SENDER_NAME;
+        document.getElementById('InvReceiverid').value = RECEIVER_ID;
+        document.getElementById('InvReceivername').value = RECEIVER_NAME;
+        document.getElementById('InvIsa').value = isaNum;
+        document.getElementById('InvGs').value = GS_CONTROL_NUMBER;
+        document.getElementById('InvSt').value = ST_CONTROL_NUMBER;
+        document.getElementById('InvIsadate').value = isaDate;
+        document.getElementById('InvIsatime').value = isaTime;
+        if (STATUS.toUpperCase() == "ERROR") {
+            document.getElementById('InvStatus').value = STATUS;
+        } else if (STATUS.toUpperCase() == "SUCCESS") {
+            document.getElementById('InvStatus').value = STATUS;
+        } else {
+            document.getElementById('InvStatus').value = STATUS;
+        }
+        if (PRE_TRANS_FILEPATH == "No File") {
+            document.getElementById('InvPreTranslation').innerHTML = "--";
+        } else {
+            document.getElementById('InvPreTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + PRE_TRANS_FILEPATH + "\">Download</a>";
+        }
+        if (POST_TRANS_FILEPATH == "No File") {
+            document.getElementById('InvPostTranslation').innerHTML = "--";
 
-    } else {
-        document.getElementById('InvPostTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
-    }
-    if (ACKFILEID == "No File") {
-        document.getElementById('InvAckfileid').innerHTML = "--";
+        } else {
+            document.getElementById('InvPostTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
+        }
+        if (ACKFILEID == "No File") {
+            document.getElementById('InvAckfileid').innerHTML = "--";
 
-    } else {
-        document.getElementById('InvAckfileid').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
-    }
+        } else {
+            document.getElementById('InvAckfileid').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ACKFILEID + "\">Download</a>";
+        }
 
 //    if (ERRMESSAGE != "NO MSG") {
 //        document.getElementById('InvErrormessage').value = ERRMESSAGE;
 //
 //    }
-    
-    if (ERRMESSAGE != "NO MSG") {
+
+        if (ERRMESSAGE != "NO MSG") {
             document.getElementById('errorDiv').style.display = "block";
             document.getElementById('InvErrormessage').innerHTML = ERRMESSAGE;
         } else {
             document.getElementById('InvErrormessage').innerHTML = "--";
         }
 
-    if (chk.childNodes[0].nodeValue == "false") {
-        document.getElementById('noresult').value = " <h5 >Sorry ! No Results Found</h5>";
+        if (chk.childNodes[0].nodeValue == "false") {
+            document.getElementById('noresult').value = " <h5 >Sorry ! No Results Found</h5>";
 
+
+        }
+        $('#hide-menu1').addClass('show-menu');
 
     }
-    $('#hide-menu1').addClass('show-menu');
-
-}
 }
 
 
@@ -3075,4 +3091,50 @@ function CalenderOnChange() {
     req.open("GET", url, "true");
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.send(null);
+}
+//function for checking SENDER_ITEM and RECEIVER_ITEM for codelist
+
+
+function checkItems(count) {
+    document.getElementById("loadingAcoountSearch").style.display = "block";
+    var rowCount = $('#results tr').length;
+    for (i = 1; i < rowCount; i++) {
+        if (i != count) {
+            if ((document.getElementById("senderItem" + i).value == document.getElementById("senderItem" + count).value) && (document.getElementById("recItem" + i).value == document.getElementById("recItem" + count).value))
+            {
+                document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Sender Code and Receiver Code already entered. Please try with different one.  </font>";
+                document.getElementById("senderItem" + count).value = "";
+                document.getElementById("recItem" + count).value = "";
+                 window.setTimeout(function () {
+            // This will execute 5 seconds later
+            document.getElementById('messagediv').innerHTML = "";
+
+        }, 3000);
+            }
+        }
+    }
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerLoadText2(req, result);
+
+
+    var url = "../ajax/searchItems.action?&senderItem=" + document.getElementById("senderItem" + count).value + "&recItem=" + document.getElementById("recItem" + count).value;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+
+function result(responseText)
+{
+    if (responseText == "Failure")
+    {
+        document.getElementById("senderItem" + count).value = "";
+        document.getElementById("recItem" + count).value = "";
+        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Sender Code and Receiver Code already exists. Please try with different one.  </font>";
+        window.setTimeout(function () {
+            // This will execute 5 seconds later
+            document.getElementById('messagediv').innerHTML = "";
+
+        }, 3000);
+    }
 }

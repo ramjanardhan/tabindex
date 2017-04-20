@@ -22,6 +22,7 @@
                 $("#utilities").addClass("active");
                 $("#codeList").addClass("active");
                 $("#codeList i").addClass("text-red");
+                document.getElementById('loadingAcoountSearch').style.display = "none";
             }
             $(function () {
                 $('#results').DataTable({
@@ -43,48 +44,58 @@
                     {
                         $('#results').dataTable().fnDestroy();
                         count = $('#results tr').length;
+                      
                         $('#results').append(
-                                '<tr><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple"/></td>' +
-                                '<td><input type="text" value="" id="listName' + count + '" name="listName' + count + '"/></td>' +
-                                '<td><input type="text" id="senderId' + count + '" name="senderId' + count + '"/></td>' +
-                                '<td><input type="text" id="recId' + count + '" name="recId' + count + '"/></td>' +
-                                '<td><input type="text" id="listVersion' + count + '" name="listVersion' + count + '"/></td>' +
-                                '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/></td>' +
-                                '<td><input type="text" id="recItem' + count + '" name="recItem' + count + '"/></td>' +
-                                '<td><input type="text" id="text1' + count + '" name="text1' + count + '"/></td>' +
-                                '<td><input type="text" id="text2' + count + '" name="text2' + count + '"/></td>' +
-                                '<td><input type="text" id="text3' + count + '" name="text3' + count + '"/></td>' +
-                                '<td><input type="text" id="text4' + count + '" name="text4' + count + '"/></td>' +
-                                '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
-                                '<td><input type="text" id="text5' + count + '" name="text5' + count + '"/></td>' +
-                                '<td><input type="text" id="text6' + count + '" name="text6' + count + '"/></td>' +
-                                '<td><input type="text" id="text7' + count + '" name="text7' + count + '"/></td>' +
-                                '<td><input type="text" id="text8' + count + '" name="text8' + count + '"/></td>' +
-                                '<td><input type="text"  id="text9' + count + '" name="text9' + count + '"/></td>' +
-                                '</tr>');
-                        $('#results').dataTable();
+                        '<tr><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple"/></td>' +
+                            '<td><input type="text" value="" id="listName' + count + '" name="listName' + count + '"/></td>' +
+                            '<td><input type="text" id="senderId' + count + '" name="senderId' + count + '"/></td>' +         // 
+                        '<td><input type="text" id="recId' + count + '" name="recId' + count + '"/></td>' +
+                            '<td><input type="text" id="listVersion' + count + '" name="listVersion' + count + '"/></td>' +
+                            '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/></td>' +
+                            '<td><input type="text" id="recItem' + count + '" name="recItem' + count + '" onchange="checkItems('+count+')"/></td>' +
+                            '<td><input type="text" id="text1' + count + '" name="text1' + count + '"/></td>' +
+                            '<td><input type="text" id="text2' + count + '" name="text2' + count + '"/></td>' +
+                            '<td><input type="text" id="text3' + count + '" name="text3' + count + '"/></td>' +
+                            '<td><input type="text" id="text4' + count + '" name="text4' + count + '"/></td>' +
+                            '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
+                            '<td><input type="text" id="text5' + count + '" name="text5' + count + '"/></td>' +
+                            '<td><input type="text" id="text6' + count + '" name="text6' + count + '"/></td>' +
+                            '<td><input type="text" id="text7' + count + '" name="text7' + count + '"/></td>' +
+                            '<td><input type="text" id="text8' + count + '" name="text8' + count + '"/></td>' +
+                            '<td><input type="text"  id="text9' + count + '" name="text9' + count + '"/></td>' +
+                            '</tr>');
+                       // $('#results').dataTable();
+                        $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    "scrollX": true
+                });
                     } else {
                         count = $('#results tr').length;
                         $('#results').append(
-                                '<tr><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple"/></td>' +
-                                '<td><input type="text" value="" id="listName' + count + '" name="listName' + count + '"/></td>' +
-                                '<td><input type="text" id="senderId' + count + '" name="senderId' + count + '"/></td>' +
-                                '<td><input type="text" id="recId' + count + '" name="recId' + count + '"/></td>' +
-                                '<td><input type="text" id="listVersion' + count + '" name="listVersion' + count + '"/></td>' +
-                                '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/></td>' +
-                                '<td><input type="text" id="recItem' + count + '" name="recItem' + count + '"/></td>' +
-                                '<td><input type="text" id="text1' + count + '" name="text1' + count + '"/></td>' +
-                                '<td><input type="text" id="text2' + count + '" name="text2' + count + '"/></td>' +
-                                '<td><input type="text" id="text3' + count + '" name="text3' + count + '"/></td>' +
-                                '<td><input type="text" id="text4' + count + '" name="text4' + count + '"/></td>' +
-                                '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
-                                '<td><input type="text" id="text5' + count + '" name="text5' + count + '"/></td>' +
-                                '<td><input type="text" id="text6' + count + '" name="text6' + count + '"/></td>' +
-                                '<td><input type="text" id="text7' + count + '" name="text7' + count + '"/></td>' +
-                                '<td><input type="text" id="text8' + count + '" name="text8' + count + '"/></td>' +
-                                '<td><input type="text"  id="text9' + count + '" name="text9' + count + '"/></td>' +
-                                '</tr>');
-                  }
+                        '<tr><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple"/></td>' +
+                            '<td><input type="text" value="" id="listName' + count + '" name="listName' + count + '"/></td>' +
+                            '<td><input type="text" id="senderId' + count + '" name="senderId' + count + '"/></td>' +
+                            '<td><input type="text" id="recId' + count + '" name="recId' + count + '"/></td>' +
+                            '<td><input type="text" id="listVersion' + count + '" name="listVersion' + count + '"/></td>' +
+                            '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/></td>' +
+                            '<td><input type="text" id="recItem' + count + '" name="recItem' + count + '" onchange="checkItems('+count+')"/></td>' +
+                            '<td><input type="text" id="text1' + count + '" name="text1' + count + '"/></td>' +
+                            '<td><input type="text" id="text2' + count + '" name="text2' + count + '"/></td>' +
+                            '<td><input type="text" id="text3' + count + '" name="text3' + count + '"/></td>' +
+                            '<td><input type="text" id="text4' + count + '" name="text4' + count + '"/></td>' +
+                            '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
+                            '<td><input type="text" id="text5' + count + '" name="text5' + count + '"/></td>' +
+                            '<td><input type="text" id="text6' + count + '" name="text6' + count + '"/></td>' +
+                            '<td><input type="text" id="text7' + count + '" name="text7' + count + '"/></td>' +
+                            '<td><input type="text" id="text8' + count + '" name="text8' + count + '"/></td>' +
+                            '<td><input type="text"  id="text9' + count + '" name="text9' + count + '"/></td>' +
+                            '</tr>');
+                    }
                     return false;
                 });
             });
@@ -105,10 +116,10 @@
                     margin: 0 -13px !important;
                 }
             }
-/*            .content-wrapper
-            {
-                min-height: 1040px !important;
-            }*/
+            /*            .content-wrapper
+                        {
+                            min-height: 1040px !important;
+                        }*/
             div.dataTables_wrapper {
                 width: 1000px;
                 margin: 0 auto;
@@ -189,7 +200,9 @@
             <br>
             <br>
 
-
+            <div id="loadingAcoountSearch" class="loadingImg">
+                <span id ="LoadingContent" > <img src="<s:url value="/includes/images/Loader2.gif"/>"   ></span>
+            </div>
             <div class="col-md-12">
                 <div id="site_content"> 
                     <div class="box box-primary">
@@ -236,17 +249,17 @@
                                                                     <table id="results" class="table table-bordered table-hover">
                                                                         <thead><tr>
                                                                                 <th>SELECT</th>
-                                                                                <th>LIST_NAME</th> 
+                                                                                <th>LIST_NAME <font class="text-danger">*</font></th> 
                                                                                 <th>SENDER_ID</th>
                                                                                 <th>RECEIVER_ID</th>
                                                                                 <th>LIST_VERSION</th> 
-                                                                                <th>SENDER_ITEM</th>
-                                                                                <th>RECEIVER_ITEM</th>
+                                                                                <th>SENDER_ITEM  <font class="text-danger">*</font></th>
+                                                                                <th>RECEIVER_ITEM  <font class="text-danger">*</font></th>
                                                                                 <th>TEXT1</th>
                                                                                 <th>TEXT2</th>
                                                                                 <th>TEXT3</th>
                                                                                 <th>TEXT4</th>
-                                                                                <th>DESCRIPTION</th>
+                                                                                <th>DESCRIPTION  <font class="text-danger">*</font></th>
                                                                                 <th>TEXT5</th>
                                                                                 <th>TEXT6</th>
                                                                                 <th>TEXT7</th> 
@@ -339,114 +352,127 @@
             </div>
         </div>
 
-    <!-- /Highlights -->
-    <div>
-        <s:include value="../includes/template/footer.jsp"/>
-    </div>
-    <!-- <script>
-    $('input[name="daterange"]').daterangepicker();
-    </script>-->
-    <script language="JavaScript" src='<s:url value="/includes/js/DateValidation.js"/>'></script>
-    <script language="JavaScript" src='<s:url value="/includes/js/GridNavigation.js"/>'></script>
-    <script language="JavaScript" src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
-    <script language="JavaScript" src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
+        <!-- /Highlights -->
+        <div>
+            <s:include value="../includes/template/footer.jsp"/>
+        </div>
+        <!-- <script>
+        $('input[name="daterange"]').daterangepicker();
+        </script>-->
+        <script language="JavaScript" src='<s:url value="/includes/js/DateValidation.js"/>'></script>
+        <script language="JavaScript" src='<s:url value="/includes/js/GridNavigation.js"/>'></script>
+        <script language="JavaScript" src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
+        <script language="JavaScript" src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
 
-    <%-- <script src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script> --%>
-    <script src='<s:url value="../includes/bootstrap/js/app.min.js"/>'></script>
-    <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
-    <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
+        <%-- <script src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script> --%>
+        <script src='<s:url value="../includes/bootstrap/js/app.min.js"/>'></script>
+        <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
+        <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
-    <script type="text/javascript">
+        <script type="text/javascript">
 
 
-                                                    $(function () {
-                                                        $('#deleteRow').click(function () {
-                                                            $('input:checked').each(function () {
-                                                                $(this).closest('tr').remove();
-                                                            })
-                                                        });
+            $(function () {
+                $('#deleteRow').click(function () {
+                    $('input:checked').each(function () {
+                        $(this).closest('tr').remove();
+                    })
+                });
 
-                                                    });
+            });
 
-                                                    function getList()
-                                                    {
-                                                        var listName = document.getElementById("listName").value;
-                                                        document.getElementById("selectedName").value = listName;
-                                                        window.location = "../utilities/codeListSearch.action?listName=" + listName + "&selectedName=" + document.getElementById("selectedName").value;
-                                                    }
+            function getList()
+            {
+                var listName = document.getElementById("listName").value;
+                document.getElementById("selectedName").value = listName;
+                window.location = "../utilities/codeListSearch.action?listName=" + listName + "&selectedName=" + document.getElementById("selectedName").value;
+            }
 
-                                                    function getRowValue(flag) {
-                                                        var checkedCount = 0;
-                                                        var ips = {"jsonData": []};
-                                                        var rowCount = $('#results tr').length;
-                                                        for (i = 1; i < rowCount; i++) {
-                                                            if (document.getElementById('check' + i).checked) {
-                                                                if (document.getElementById("listName" + i).value == "")
-                                                                {
-                                                                    if (flag == 'deleteRow') {
-                                                                        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please select rows with data  to delete</font>";
-                                                                        return false;
-                                                                    }
-                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter list name</font>";
-                                                                    return false;
-                                                                }
+            function getRowValue(flag) {
+                var checkedCount = 0;
+                var ips = {"jsonData": []};
+                var rowCount = $('#results tr').length;
+                for (i = 1; i < rowCount; i++) {
+                    if (document.getElementById('check' + i).checked) {
+                        if (document.getElementById("listName" + i).value == "")
+                        {
+                            if (flag == 'deleteRow') {
+                                document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please select rows with data  to delete</font>";
+                                return false;
+                            }
+                            document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter list name</font>";
+                            return false;
+                        }
+                        if (document.getElementById('listVersion' + i).value == "")
+                        {
+                            document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter list version</font>";
+                            return false;
+                        }else{
+                            var listVer = document.getElementById('listVersion' + i).value
+                             if(!listVer.match(/^\d+/)){
+                                  alert("Please only enter only numerics  in list version  (Allowed input:0-9)");
+                             }
+                             return false;
+                        }
+                        if (document.getElementById('senderItem' + i).value == "")
+                        {
+                            document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter sender item</font>";
+                            return false;
+                        }
+                        if (document.getElementById('recItem' + i).value == "")
+                        {
+                            document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter receiver item</font>";
+                            return false;
+                        }
+                        if (document.getElementById('desc' + i).value == "")
+                        {
+                            document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter description</font>";
+                            return false;
+                        }
+                        ips["jsonData"].push({
+                            "listName1": document.getElementById("listName" + i).value,
+                            "senderIdInst": document.getElementById('senderId' + i).value,
+                            "recId": document.getElementById('recId' + i).value,
+                            "listVerson": document.getElementById('listVersion' + i).value,
+                            "senderItem": document.getElementById('senderItem' + i).value,
+                            "recItem": document.getElementById('recItem' + i).value,
+                            "text1": document.getElementById('text1' + i).value,
+                            "text2": document.getElementById('text2' + i).value,
+                            "text3": document.getElementById('text3' + i).value,
+                            "text4": document.getElementById('text4' + i).value,
+                            "desc": document.getElementById('desc' + i).value,
+                            "text5": document.getElementById('text5' + i).value,
+                            "text6": document.getElementById('text6' + i).value,
+                            "text7": document.getElementById('text7' + i).value,
+                            "text8": document.getElementById('text8' + i).value,
+                            "text9": document.getElementById('text9' + i).value
+                        });
+                        checkedCount++;
+                    }
+                }
 
-                                                                if (document.getElementById('listVersion' + i).value == "")
-                                                                {
-                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter list version</font>";
-                                                                    return false;
-                                                                }
-                                                                if (document.getElementById('senderItem' + i).value == "")
-                                                                {
-                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter sender item</font>";
-                                                                    return false;
-                                                                }
-                                                                if (document.getElementById('recItem' + i).value == "")
-                                                                {
-                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter receiver item</font>";
-                                                                    return false;
-                                                                }
-                                                                ips["jsonData"].push({
-                                                                    "listName1": document.getElementById("listName" + i).value,
-                                                                    "senderIdInst": document.getElementById('senderId' + i).value,
-                                                                    "recId": document.getElementById('recId' + i).value,
-                                                                    "listVerson": document.getElementById('listVersion' + i).value,
-                                                                    "senderItem": document.getElementById('senderItem' + i).value,
-                                                                    "recItem": document.getElementById('recItem' + i).value,
-                                                                    "text1": document.getElementById('text1' + i).value,
-                                                                    "text2": document.getElementById('text2' + i).value,
-                                                                    "text3": document.getElementById('text3' + i).value,
-                                                                    "text4": document.getElementById('text4' + i).value,
-                                                                    "desc": document.getElementById('desc' + i).value,
-                                                                    "text5": document.getElementById('text5' + i).value,
-                                                                    "text6": document.getElementById('text6' + i).value,
-                                                                    "text7": document.getElementById('text7' + i).value,
-                                                                    "text8": document.getElementById('text8' + i).value,
-                                                                    "text9": document.getElementById('text9' + i).value
-                                                                });
-                                                                checkedCount++;
-                                                            }
-                                                        }
+                var array = JSON.stringify(ips["jsonData"]);
+                if (flag == 'import') {
+                    if (checkedCount == 0)
+                    {
+                        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please select rows to insert</font>";
+                        return false;
+                    }
+                    window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
+                }
+                else if (flag == 'deleteRow')
+                {
+                    if (checkedCount == 0)
+                    {
+                        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please select rows to delete</font>";
+                        return false;
+                    }
+                    window.location = "../utilities/codeListDelete.action?json=" + encodeURIComponent(array) + "&listName=" + document.getElementById('listName').value + "&selectedName=" + document.getElementById('selectedName').value;
+                }
+            }
+                                                    
 
-                                                        var array = JSON.stringify(ips["jsonData"]);
-                                                        if (flag == 'import') {
-                                                            if (checkedCount == 0)
-                                                            {
-                                                                document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please select rows to insert</font>";
-                                                                return false;
-                                                            }
-                                                            window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
-                                                        }
-                                                        else if (flag == 'deleteRow')
-                                                        {
-                                                            if (checkedCount == 0)
-                                                            {
-                                                                document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please select rows to delete</font>";
-                                                                return false;
-                                                            }
-                                                            window.location = "../utilities/codeListDelete.action?json=" + encodeURIComponent(array) + "&listName=" + document.getElementById('listName').value + "&selectedName=" + document.getElementById('selectedName').value;
-                                                        }
-                                                    }
-    </script> 
-</body>
+
+        </script> 
+    </body>
 </html>

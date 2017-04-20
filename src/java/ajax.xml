@@ -60,5 +60,7 @@
         <action name="getDashboardDetails" class="com.mss.ediscv.ajax.AjaxHandlerAction" method="getDashboardDetails"/>
         <action name="getReportOverlayDetails" class="com.mss.ediscv.ajax.AjaxHandlerAction" method="getReportOverlayDetails"/>   
         <action name="changePassword" class="com.mss.ediscv.ajax.AjaxHandlerAction" method="changePassword"/>   
+        <!--method to search whether sender item and receiver item exists in the database for code list or not -->
+        <action name="searchItems" class="com.mss.ediscv.ajax.AjaxHandlerAction" method="searchItems"/> 
     </package>
 </struts>

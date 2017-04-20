@@ -84,4 +84,7 @@ public interface AjaxHandlerService {
     public String forgotPassword(String userid) throws ServiceLocatorException;
 
     public int updateMyPwd(AjaxHandlerAction ajaxhandleraction, String loginId) throws ServiceLocatorException;
+     
+     //method to search whether sender item and receiver item exists in the database for code list or not 
+    public int searchItems(String senderItem,String recItem) throws ServiceLocatorException;
 }

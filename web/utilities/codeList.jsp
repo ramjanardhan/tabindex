@@ -26,13 +26,14 @@
             }
             $(function () {
                 $('#results').DataTable({
-                    "paging": true,
+                    "paging": false,
                     "lengthChange": true,
                     "searching": true,
                     "ordering": true,
                     "info": true,
                     "autoWidth": false,
-                    "scrollX": true
+                    "scrollX": true,
+                    "scrollY":190
                 });
             });
 
@@ -66,13 +67,14 @@
                             '</tr>');
                        // $('#results').dataTable();
                         $('#results').DataTable({
-                    "paging": true,
+                    "paging": false,
                     "lengthChange": true,
                     "searching": true,
                     "ordering": true,
                     "info": true,
                     "autoWidth": false,
-                    "scrollX": true
+                    "scrollX": true ,
+                    "scrollY": 100
                 });
                     } else {
                         count = $('#results tr').length;
@@ -125,6 +127,11 @@
                 margin: 0 auto;
                 overflow-x: hidden;
             }
+            #site_content .f1{
+                background-color:transparent;
+                border: 0;
+
+            } 
 
         </style>
 
@@ -211,7 +218,7 @@
                             <div class="row col-md-12 col-sm-12">
                                 <div class="col-sm-3">
                                     <label>Code List Selected</label>
-                                    <s:textfield name="selectedName" id="selectedName" cssClass="form-control" value="%{selectedName}" tabindex="7" readonly="true"/> 
+                                    <s:textfield name="selectedName" id="selectedName" cssClass="f1 form-control" value="%{selectedName}" tabindex="7" readonly="true"/> 
                                 </div>
                             </div>
                             <br>
@@ -219,11 +226,11 @@
                             <div class="row col-md-12 col-sm-12" style="margin-top: 20px">
                                 <div class="col-sm-3 col-md-3 col-xs-3">
                                     <label>Last Date Modified :</label>
-                                    <s:textfield id="modifieddate" name="modifieddate"  cssClass="form-control" value="%{modifieddate}" readonly="true"/>
+                                    <s:textfield id="modifieddate" name="modifieddate"  cssClass="f1 form-control" value="%{modifieddate}" readonly="true"/>
                                 </div>
                                 <div class="col-sm-3" style="float : right">
                                     <label>Number Of Code List Items :</label>
-                                    <s:textfield id="items" name="items" value="%{items}"   cssClass="form-control" readonly="true"/>
+                                    <s:textfield id="items" name="items" value="%{items}"   cssClass="f1 form-control" readonly="true"/>
                                 </div>
                             </div> 
 
@@ -248,7 +255,7 @@
                                                                 <td style="background-color: white;">
                                                                     <table id="results" class="table table-bordered table-hover">
                                                                         <thead><tr>
-                                                                                <th>SELECT</th>
+                                                                                <th><input type="checkbox" id="checkboxAll" name="checkboxAll" onclick="selectAllRecords();"/>SELECT</th>
                                                                                 <th>LIST_NAME <font class="text-danger">*</font></th> 
                                                                                 <th>SENDER_ID</th>
                                                                                 <th>RECEIVER_ID</th>
@@ -324,7 +331,7 @@
                                         </div> 
                                         <div class="col-sm-3" style="margin-top: 20px">
 
-                                            <input type="button" class="btn btn-primary" value="Import To SI" id="import" tabindex="11" onclick="getRowValue(this.id)"/>
+                                            <input type="button" class="btn btn-primary" value="Import New CodeList to SI" id="import" tabindex="11" onclick="getRowValue(this.id)"/>
 
                                         </div>
 
@@ -471,7 +478,20 @@
                 }
             }
                                                     
-
+          function selectAllRecords(){
+             var rowCount = $('#results tr').length;
+             alert(rowCount);
+             if(document.getElementById("checkboxAll").checked)
+             {
+             for(var i=1;i<rowCount;i++){
+               document.getElementById('check'+i).checked=true;  
+             }
+         }else{
+             for(var i=1;i<rowCount;i++){
+               document.getElementById('check'+i).checked=false;  
+             }
+         }
+        }                                           
 
         </script> 
     </body>

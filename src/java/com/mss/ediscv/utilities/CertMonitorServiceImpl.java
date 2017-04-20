@@ -183,7 +183,9 @@ public class CertMonitorServiceImpl implements CertMonitorService {
         List listNameMap = new ArrayList();
         String listName = null;
         try {
-            queryString = "SELECT  DISTINCT(LIST_NAME) FROM CODELIST_XREF_ITEM WHERE UPPER(LIST_NAME) LIKE '" + selectedName.toUpperCase() + "%'";
+            //queryString = "SELECT  DISTINCT(LIST_NAME) FROM CODELIST_XREF_ITEM WHERE UPPER(LIST_NAME) LIKE '" + selectedName.toUpperCase() + "%'";
+            queryString = "SELECT  DISTINCT(LIST_NAME) FROM CODELIST_XREF_ITEM WHERE UPPER(LIST_NAME) LIKE '%" + selectedName.toUpperCase() + "%'";
+            System.out.println("queryString----"+queryString);
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

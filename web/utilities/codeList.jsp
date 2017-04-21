@@ -33,7 +33,7 @@
                     "info": true,
                     "autoWidth": false,
                     "scrollX": true,
-                    "scrollY":190
+                    "scrollY": 190
                 });
             });
 
@@ -45,50 +45,50 @@
                     {
                         $('#results').dataTable().fnDestroy();
                         count = $('#results tr').length;
-                      
+
                         $('#results').append(
-                        '<tr><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple"/></td>' +
-                            '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/><input type="hidden" value="" id="senderId'+count+'" name="senderId'+count+'"/></td>' +
-                            '<td><input type="text" id="recItem' + count + '" name="recItem' + count + '" onchange="checkItems('+count+')"/></td>' +
-                            '<td><input type="text" id="text1' + count + '" name="text1' + count + '"/></td>' +
-                            '<td><input type="text" id="text2' + count + '" name="text2' + count + '"/></td><input type="hidden" value="" id="recId'+count+'" name="recId'+count+'"/>' +
-                            '<td><input type="text" id="text3' + count + '" name="text3' + count + '"/></td><input type="hidden" value="" id="listVersion'+count+'" name="listVersion'+count+'"/>' +
-                            '<td><input type="text" id="text4' + count + '" name="text4' + count + '"/></td>' +
-                            '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
-                            '<td><input type="text" id="text5' + count + '" name="text5' + count + '"/></td>' +
-                            '<td><input type="text" id="text6' + count + '" name="text6' + count + '"/></td>' +
-                            '<td><input type="text" id="text7' + count + '" name="text7' + count + '"/></td>' +
-                            '<td><input type="text" id="text8' + count + '" name="text8' + count + '"/></td>' +
-                            '<td><input type="text"  id="text9' + count + '" name="text9' + count + '"/></td>' +
-                            '</tr>');
-                       // $('#results').dataTable();
+                                '<tr><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple"/></td>' +
+                                '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/><input type="hidden" value="" id="senderId' + count + '" name="senderId' + count + '"/></td>' +
+                                '<td><input type="text" id="recItem' + count + '" name="recItem' + count + '" onchange="checkItems(' + count + ')"/></td>' +
+                                '<td><input type="text" id="text1' + count + '" name="text1' + count + '"/></td>' +
+                                '<td><input type="text" id="text2' + count + '" name="text2' + count + '"/></td><input type="hidden" value="" id="recId' + count + '" name="recId' + count + '"/>' +
+                                '<td><input type="text" id="text3' + count + '" name="text3' + count + '"/></td><input type="hidden" value="" id="listVersion' + count + '" name="listVersion' + count + '"/>' +
+                                '<td><input type="text" id="text4' + count + '" name="text4' + count + '"/></td>' +
+                                '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
+                                '<td><input type="text" id="text5' + count + '" name="text5' + count + '"/></td>' +
+                                '<td><input type="text" id="text6' + count + '" name="text6' + count + '"/></td>' +
+                                '<td><input type="text" id="text7' + count + '" name="text7' + count + '"/></td>' +
+                                '<td><input type="text" id="text8' + count + '" name="text8' + count + '"/></td>' +
+                                '<td><input type="text"  id="text9' + count + '" name="text9' + count + '"/></td>' +
+                                '</tr>');
+                        // $('#results').dataTable();
                         $('#results').DataTable({
-                    "paging": false,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false,
-                    "scrollX": true ,
-                    "scrollY": 100
-                });
+                            "paging": false,
+                            "lengthChange": true,
+                            "searching": true,
+                            "ordering": true,
+                            "info": true,
+                            "autoWidth": false,
+                            "scrollX": true,
+                            "scrollY": 100
+                        });
                     } else {
                         count = $('#results tr').length;
                         $('#results').append(
-                        '<tr><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple"/></td>' +
-                            '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/></td>' +
-                            '<td><input type="text" id="recItem' + count + '" name="recItem' + count + '" onchange="checkItems('+count+')"/></td>' +
-                            '<td><input type="text" id="text1' + count + '" name="text1' + count + '"/><input type="hidden" value="" id="senderId'+count+'" name="senderId'+count+'"/></td>' +
-                            '<td><input type="text" id="text2' + count + '" name="text2' + count + '"/></td>' +
-                            '<td><input type="text" id="text3' + count + '" name="text3' + count + '"/></td>' +
-                            '<td><input type="text" id="text4' + count + '" name="text4' + count + '"/></td>' +
-                            '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
-                            '<td><input type="text" id="text5' + count + '" name="text5' + count + '"/></td><input type="hidden" value="" id="recId'+count+'" name="recId'+count+'"/>' +
-                            '<td><input type="text" id="text6' + count + '" name="text6' + count + '"/></td><input type="hidden" value="" id="listVersion'+count+'" name="listVersion'+count+'"/>' +
-                            '<td><input type="text" id="text7' + count + '" name="text7' + count + '"/></td>' +
-                            '<td><input type="text" id="text8' + count + '" name="text8' + count + '"/></td>' +
-                            '<td><input type="text"  id="text9' + count + '" name="text9' + count + '"/></td>' +
-                            '</tr>');
+                                '<tr><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple"/></td>' +
+                                '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/></td>' +
+                                '<td><input type="text" id="recItem' + count + '" name="recItem' + count + '" onchange="checkItems(' + count + ')"/></td>' +
+                                '<td><input type="text" id="text1' + count + '" name="text1' + count + '"/><input type="hidden" value="" id="senderId' + count + '" name="senderId' + count + '"/></td>' +
+                                '<td><input type="text" id="text2' + count + '" name="text2' + count + '"/></td>' +
+                                '<td><input type="text" id="text3' + count + '" name="text3' + count + '"/></td>' +
+                                '<td><input type="text" id="text4' + count + '" name="text4' + count + '"/></td>' +
+                                '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
+                                '<td><input type="text" id="text5' + count + '" name="text5' + count + '"/></td><input type="hidden" value="" id="recId' + count + '" name="recId' + count + '"/>' +
+                                '<td><input type="text" id="text6' + count + '" name="text6' + count + '"/></td><input type="hidden" value="" id="listVersion' + count + '" name="listVersion' + count + '"/>' +
+                                '<td><input type="text" id="text7' + count + '" name="text7' + count + '"/></td>' +
+                                '<td><input type="text" id="text8' + count + '" name="text8' + count + '"/></td>' +
+                                '<td><input type="text"  id="text9' + count + '" name="text9' + count + '"/></td>' +
+                                '</tr>');
                     }
                     return false;
                 });
@@ -183,7 +183,7 @@
                                 <label>Code List </label>
                                 <s:select headerKey="-1" headerValue="--Select Type--" cssClass="form-control" list="listNameMap" name="listName" id="listName" value="%{listName}" onchange="getList();" tabindex="3"/> 
                             </div>
-                                
+
 
                         </div> 
                     </div>
@@ -248,17 +248,17 @@
                                                                     <table id="results" class="table table-bordered table-hover">
                                                                         <thead><tr>
                                                                                 <th><input type="checkbox" id="checkboxAll" name="checkboxAll" onclick="selectAllRecords();"/>SELECT</th>
-                                                                               <%-- <th>LIST_NAME <font class="text-danger">*</font></th> 
-                                                                                <th>SENDER_ID</th>
-                                                                                <th>RECEIVER_ID</th>
-                                                                                <th>LIST_VERSION</th> --%>
+                                                                                    <%-- <th>LIST_NAME <font class="text-danger">*</font></th> 
+                                                                                     <th>SENDER_ID</th>
+                                                                                     <th>RECEIVER_ID</th>
+                                                                                     <th>LIST_VERSION</th> --%>
                                                                                 <th>SENDER_CODE  <font class="text-danger">*</font></th>
                                                                                 <th>RECEIVER_CODE  <font class="text-danger">*</font></th>
+                                                                                 <th>DESCRIPTION  <font class="text-danger">*</font></th>
                                                                                 <th>TEXT1</th>
                                                                                 <th>TEXT2</th>
                                                                                 <th>TEXT3</th>
                                                                                 <th>TEXT4</th>
-                                                                                <th>DESCRIPTION  <font class="text-danger">*</font></th>
                                                                                 <th>TEXT5</th>
                                                                                 <th>TEXT6</th>
                                                                                 <th>TEXT7</th> 
@@ -278,25 +278,25 @@
 
 
                                                                             %><tr> <td><input type="checkbox" id="check<%=j + 1%>" name="check<%=j + 1%>"/></td>
-                                                                           <input type="hidden" value="<%=codeListBean.getListName()%>" id="listName<%=j + 1%>" name="listName<%=j + 1%>"/>
-                                                                           <input type="hidden" value="<%=codeListBean.getSender_id()%>" id="senderId<%=j + 1%>" name="senderId<%=j + 1%>"/>
-                                                                             <input type="hidden" value="<%=codeListBean.getReceiver_id()%>" id="recId<%=j + 1%>" name="recId<%=j + 1%>"/>
-                                                                               <input type="hidden" value="<%=codeListBean.getList_version()%>" id="listVersion<%=j + 1%>" name="listVersion<%=j + 1%>"/>
-                                                                                <td><input value="<%=codeListBean.getSender_item()%>" id="senderItem<%=j + 1%>" name="senderItem<%=j + 1%>"/></td>
-                                                                                <td><input value="<%=codeListBean.getReceiver_item()%>" id="recItem<%=j + 1%>" name="recItem<%=j + 1%>"/></td>
-                                                                                <td><input value="<%=codeListBean.getText1()%>" id="text1<%=j + 1%>" name="text1<%=j + 1%>"/></td>
-                                                                                <td><input value="<%=codeListBean.getText2()%>" id="text2<%=j + 1%>" name="text2<%=j + 1%>"/></td>
-                                                                                <td><input value="<%=codeListBean.getText3()%>" id="text3<%=j + 1%>" name="text3<%=j + 1%>"/></td>
-                                                                                <td><input value="<%=codeListBean.getText4()%>" id="text4<%=j + 1%>" name="text4<%=j + 1%>"/></td>
-                                                                                <td><input value="<%=codeListBean.getDescription()%>" id="desc<%=j + 1%>" name="desc<%=j + 1%>"/></td>
-                                                                                <td><input value="<%=codeListBean.getText5()%>" id="text5<%=j + 1%>" name="text5<%=j + 1%>"/></td>
-                                                                                <td><input value="<%=codeListBean.getText6()%>" id="text6<%=j + 1%>" name="text6<%=j + 1%>"/></td>
-                                                                                <td><input value="<%=codeListBean.getText7()%>" id="text7<%=j + 1%>" name="text7<%=j + 1%>"/></td>
-                                                                                <td><input value="<%=codeListBean.getText8()%>" id="text8<%=j + 1%>" name="text8<%=j + 1%>"/></td>
-                                                                                <td><input value="<%=codeListBean.getText9()%>" id="text9<%=j + 1%>" name="text9<%=j + 1%>"/></td>
-                                                                                    <%
-                                                                                            }
-                                                                                        }%>
+                                                                        <input type="hidden" value="<%=codeListBean.getListName()%>" id="listName<%=j + 1%>" name="listName<%=j + 1%>"/>
+                                                                        <input type="hidden" value="<%=codeListBean.getSender_id()%>" id="senderId<%=j + 1%>" name="senderId<%=j + 1%>"/>
+                                                                        <input type="hidden" value="<%=codeListBean.getReceiver_id()%>" id="recId<%=j + 1%>" name="recId<%=j + 1%>"/>
+                                                                        <input type="hidden" value="<%=codeListBean.getList_version()%>" id="listVersion<%=j + 1%>" name="listVersion<%=j + 1%>"/>
+                                                                        <td><input value="<%=codeListBean.getSender_item()%>" id="senderItem<%=j + 1%>" name="senderItem<%=j + 1%>"/></td>
+                                                                        <td><input value="<%=codeListBean.getReceiver_item()%>" id="recItem<%=j + 1%>" name="recItem<%=j + 1%>"/></td>
+                                                                        <td><input value="<%=codeListBean.getDescription()%>" id="desc<%=j + 1%>" name="desc<%=j + 1%>"/></td>
+                                                                        <td><input value="<%=codeListBean.getText1()%>" id="text1<%=j + 1%>" name="text1<%=j + 1%>"/></td>
+                                                                        <td><input value="<%=codeListBean.getText2()%>" id="text2<%=j + 1%>" name="text2<%=j + 1%>"/></td>
+                                                                        <td><input value="<%=codeListBean.getText3()%>" id="text3<%=j + 1%>" name="text3<%=j + 1%>"/></td>
+                                                                        <td><input value="<%=codeListBean.getText4()%>" id="text4<%=j + 1%>" name="text4<%=j + 1%>"/></td>
+                                                                        <td><input value="<%=codeListBean.getText5()%>" id="text5<%=j + 1%>" name="text5<%=j + 1%>"/></td>
+                                                                        <td><input value="<%=codeListBean.getText6()%>" id="text6<%=j + 1%>" name="text6<%=j + 1%>"/></td>
+                                                                        <td><input value="<%=codeListBean.getText7()%>" id="text7<%=j + 1%>" name="text7<%=j + 1%>"/></td>
+                                                                        <td><input value="<%=codeListBean.getText8()%>" id="text8<%=j + 1%>" name="text8<%=j + 1%>"/></td>
+                                                                        <td><input value="<%=codeListBean.getText9()%>" id="text9<%=j + 1%>" name="text9<%=j + 1%>"/></td>
+                                                                            <%
+                                                                                    }
+                                                                                }%>
                                                                         </tbody>
                                                                     </table>
                                                                 </td>
@@ -374,28 +374,28 @@
         <script type="text/javascript">
 
 
-            $(function () {
-                $('#deleteRow').click(function () {
-                    $('input:checked').each(function () {
-                        $(this).closest('tr').remove();
-                    })
-                });
+                                                    $(function () {
+                                                        $('#deleteRow').click(function () {
+                                                            $('input:checked').each(function () {
+                                                                $(this).closest('tr').remove();
+                                                            })
+                                                        });
 
-            });
+                                                    });
 
-            function getList()
-            {
-                var listName = document.getElementById("listName").value;
-                document.getElementById("selectedName").value = listName;
-                window.location = "../utilities/codeListSearch.action?listName=" + listName + "&selectedName=" + document.getElementById("selectedName").value;
-            }
+                                                    function getList()
+                                                    {
+                                                        var listName = document.getElementById("listName").value;
+                                                        document.getElementById("selectedName").value = listName;
+                                                        window.location = "../utilities/codeListSearch.action?listName=" + listName + "&selectedName=" + document.getElementById("selectedName").value;
+                                                    }
 
-            function getRowValue(flag) {
-                var checkedCount = 0;
-                var ips = {"jsonData": []};
-                var rowCount = $('#results tr').length;
-                for (i = 1; i < rowCount; i++) {
-                    if (document.getElementById('check' + i).checked) {
+                                                    function getRowValue(flag) {
+                                                        var checkedCount = 0;
+                                                        var ips = {"jsonData": []};
+                                                        var rowCount = $('#results tr').length;
+                                                        for (i = 1; i < rowCount; i++) {
+                                                            if (document.getElementById('check' + i).checked) {
 //                        if (document.getElementById("listName" + i).value == "")
 //                        {
 //                            if (flag == 'deleteRow') {
@@ -416,123 +416,130 @@
 //                             }
 //                             return false;
 //                        }
-                        if (document.getElementById('senderItem' + i).value == "")
-                        {
-                            document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter sender item</font>";
-                            return false;
-                        }
-                        if (document.getElementById('recItem' + i).value == "")
-                        {
-                            document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter receiver item</font>";
-                            return false;
-                        }
-                        if (document.getElementById('desc' + i).value == "")
-                        {
-                            document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter description</font>";
-                            return false;
-                        }
-                        ips["jsonData"].push({
-                            "listName1": document.getElementById("newname").value,
-                            "senderIdInst": document.getElementById('senderId' + i).value,
-                            "recId": document.getElementById('recId' + i).value,
-                            "listVerson": document.getElementById('listVersion' + i).value,
-                            "senderItem": document.getElementById('senderItem' + i).value,
-                            "recItem": document.getElementById('recItem' + i).value,
-                            "text1": document.getElementById('text1' + i).value,
-                            "text2": document.getElementById('text2' + i).value,
-                            "text3": document.getElementById('text3' + i).value,
-                            "text4": document.getElementById('text4' + i).value,
-                            "desc": document.getElementById('desc' + i).value,
-                            "text5": document.getElementById('text5' + i).value,
-                            "text6": document.getElementById('text6' + i).value,
-                            "text7": document.getElementById('text7' + i).value,
-                            "text8": document.getElementById('text8' + i).value,
-                            "text9": document.getElementById('text9' + i).value
-                        });
-                        checkedCount++;
-                    }
-                }
+                                                                var listName = "";
+                                                                if (flag == 'deleteRow') {
+                                                                    listName = document.getElementById("listName" + i).value;
+                                                                }else if(flag=='import')
+                                                                {
+                                                                    listName=document.getElementById("newname").value;
+                                                                }
+                                                                if (document.getElementById('senderItem' + i).value == "")
+                                                                {
+                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter sender item</font>";
+                                                                    return false;
+                                                                }
+                                                                if (document.getElementById('recItem' + i).value == "")
+                                                                {
+                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter receiver item</font>";
+                                                                    return false;
+                                                                }
+                                                                if (document.getElementById('desc' + i).value == "")
+                                                                {
+                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter description</font>";
+                                                                    return false;
+                                                                }
+                                                                ips["jsonData"].push({
+                                                                    "listName1": listName,
+                                                                    "senderIdInst": document.getElementById('senderId' + i).value,
+                                                                    "recId": document.getElementById('recId' + i).value,
+                                                                    "listVerson": document.getElementById('listVersion' + i).value,
+                                                                    "senderItem": document.getElementById('senderItem' + i).value,
+                                                                    "recItem": document.getElementById('recItem' + i).value,
+                                                                    "text1": document.getElementById('text1' + i).value,
+                                                                    "text2": document.getElementById('text2' + i).value,
+                                                                    "text3": document.getElementById('text3' + i).value,
+                                                                    "text4": document.getElementById('text4' + i).value,
+                                                                    "desc": document.getElementById('desc' + i).value,
+                                                                    "text5": document.getElementById('text5' + i).value,
+                                                                    "text6": document.getElementById('text6' + i).value,
+                                                                    "text7": document.getElementById('text7' + i).value,
+                                                                    "text8": document.getElementById('text8' + i).value,
+                                                                    "text9": document.getElementById('text9' + i).value
+                                                                });
+                                                                checkedCount++;
+                                                            }
+                                                        }
 
-                var array = JSON.stringify(ips["jsonData"]);
-                if (flag == 'import') {
-                    if (checkedCount == 0)
-                    {
-                        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please select rows to insert</font>";
-                        return false;
-                    }
-                    window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
-                }
-                else if (flag == 'deleteRow')
-                {
-                    if (checkedCount == 0)
-                    {
-                        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please select rows to delete</font>";
-                        return false;
-                    }
-                    window.location = "../utilities/codeListDelete.action?json=" + encodeURIComponent(array) + "&listName=" + document.getElementById('listName').value + "&selectedName=" + document.getElementById('selectedName').value;
-                }
-            }
-                                                    
-          function selectAllRecords(){
-             var rowCount = $('#results tr').length;
-            // alert(rowCount);
-             if(document.getElementById("checkboxAll").checked)
-             {
-             for(var i=1;i<rowCount;i++){
-               document.getElementById('check'+i).checked=true;  
-             }
-         }else{
-             for(var i=1;i<rowCount;i++){
-               document.getElementById('check'+i).checked=false;  
-             }
-         }
-        }
-        
-        function getUpdateRow(){
-             var checkedCount = 0;
-                var ips = {"jsonData": []};
-               var rowCount = $('#results tr').length;
-                var listName;
-                for (i = 1; i < rowCount; i++) {
-                    if (document.getElementById('check' + i).checked) {
-                        if(i<=document.getElementById("items").value){
-                      listName=document.getElementById('listName' + i).value;
-                        }
-                        else
-                        {
-                             listName=document.getElementById('newname').value;
-                             document.getElementById('senderId'+i).value="";
-                             document.getElementById('recId'+i).value="";
-                             document.getElementById('senderId'+i).value="";
-                             document.getElementById('listVersion'+i).value=1;
-                        }
-                                ips["jsonData"].push({
-                            "listName1": listName,
-                            "senderIdInst": document.getElementById('senderId' + i).value,
-                            "recId": document.getElementById('recId' + i).value,
-                            "listVerson": document.getElementById('listVersion' + i).value,
-                            "senderItem": document.getElementById('senderItem' + i).value,
-                            "recItem": document.getElementById('recItem' + i).value,
-                            "text1": document.getElementById('text1' + i).value,
-                            "text2": document.getElementById('text2' + i).value,
-                            "text3": document.getElementById('text3' + i).value,
-                            "text4": document.getElementById('text4' + i).value,
-                            "desc": document.getElementById('desc' + i).value,
-                            "text5": document.getElementById('text5' + i).value,
-                            "text6": document.getElementById('text6' + i).value,
-                            "text7": document.getElementById('text7' + i).value,
-                            "text8": document.getElementById('text8' + i).value,
-                            "text9": document.getElementById('text9' + i).value
-                        });
-                      
-                  }
-                    
-            
-        }
-         var array = JSON.stringify(ips["jsonData"]);
-        //alert(document.getElementById('listName').value );
-        window.location="../utilities/codeVersionUpdate.action?listName=" +listName+"&json=" + encodeURIComponent(array);
-    }
+                                                        var array = JSON.stringify(ips["jsonData"]);
+                                                        if (flag == 'import') {
+                                                            if (checkedCount == 0)
+                                                            {
+                                                                document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please select rows to insert</font>";
+                                                                return false;
+                                                            }
+                                                            window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
+                                                        }
+                                                        else if (flag == 'deleteRow')
+                                                        {
+                                                            if (checkedCount == 0)
+                                                            {
+                                                                document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please select rows to delete</font>";
+                                                                return false;
+                                                            }
+                                                            window.location = "../utilities/codeListDelete.action?json=" + encodeURIComponent(array) + "&listName=" + document.getElementById('listName').value + "&selectedName=" + document.getElementById('selectedName').value;
+                                                        }
+                                                    }
+
+                                                    function selectAllRecords() {
+                                                        var rowCount = $('#results tr').length;
+                                                        // alert(rowCount);
+                                                        if (document.getElementById("checkboxAll").checked)
+                                                        {
+                                                            for (var i = 1; i < rowCount; i++) {
+                                                                document.getElementById('check' + i).checked = true;
+                                                            }
+                                                        } else {
+                                                            for (var i = 1; i < rowCount; i++) {
+                                                                document.getElementById('check' + i).checked = false;
+                                                            }
+                                                        }
+                                                    }
+
+                                                    function getUpdateRow() {
+                                                        var checkedCount = 0;
+                                                        var ips = {"jsonData": []};
+                                                        var rowCount = $('#results tr').length;
+                                                        var listName;
+                                                        for (i = 1; i < rowCount; i++) {
+                                                            if (document.getElementById('check' + i).checked) {
+                                                                if (i <= document.getElementById("items").value) {
+                                                                    listName = document.getElementById('listName' + i).value;
+                                                                }
+                                                                else
+                                                                {
+                                                                    listName = document.getElementById('newname').value;
+                                                                    document.getElementById('senderId' + i).value = "";
+                                                                    document.getElementById('recId' + i).value = "";
+                                                                    document.getElementById('senderId' + i).value = "";
+                                                                    document.getElementById('listVersion' + i).value = 1;
+                                                                }
+                                                                ips["jsonData"].push({
+                                                                    "listName1": listName,
+                                                                    "senderIdInst": document.getElementById('senderId' + i).value,
+                                                                    "recId": document.getElementById('recId' + i).value,
+                                                                    "listVerson": document.getElementById('listVersion' + i).value,
+                                                                    "senderItem": document.getElementById('senderItem' + i).value,
+                                                                    "recItem": document.getElementById('recItem' + i).value,
+                                                                    "text1": document.getElementById('text1' + i).value,
+                                                                    "text2": document.getElementById('text2' + i).value,
+                                                                    "text3": document.getElementById('text3' + i).value,
+                                                                    "text4": document.getElementById('text4' + i).value,
+                                                                    "desc": document.getElementById('desc' + i).value,
+                                                                    "text5": document.getElementById('text5' + i).value,
+                                                                    "text6": document.getElementById('text6' + i).value,
+                                                                    "text7": document.getElementById('text7' + i).value,
+                                                                    "text8": document.getElementById('text8' + i).value,
+                                                                    "text9": document.getElementById('text9' + i).value
+                                                                });
+
+                                                            }
+
+
+                                                        }
+                                                        var array = JSON.stringify(ips["jsonData"]);
+                                                        //alert(document.getElementById('listName').value );
+                                                        window.location = "../utilities/codeVersionUpdate.action?listName=" + listName + "&json=" + encodeURIComponent(array);
+                                                    }
 
         </script> 
     </body>

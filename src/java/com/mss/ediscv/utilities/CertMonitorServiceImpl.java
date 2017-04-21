@@ -338,26 +338,25 @@ public class CertMonitorServiceImpl implements CertMonitorService {
         }
 
         try {
-            queryString = "DELETE FROM SI_USER.CODELIST_XREF_ITEM WHERE LIST_NAME=? AND LIST_VERSION=? AND SENDER_ITEM=?";
-            queryString1 = "DELETE FROM SI_USER.CODELIST_XREF_VERS WHERE LIST_NAME=? AND LIST_VERSION=? AND SENDER_ID=?";
-            queryString2 = "DELETE FROM SI_USER.CODE_LIST_XREF WHERE LIST_NAME=? AND LIST_VERSION=? AND SENDER_ID=?";
+            queryString = "DELETE FROM SI_USER.CODELIST_XREF_ITEM WHERE LIST_NAME=? AND LIST_VERSION=? AND SENDER_ITEM=? AND RECEIVER_ITEM=?";
+            queryString1 = "DELETE FROM SI_USER.CODELIST_XREF_VERS WHERE LIST_NAME=? AND LIST_VERSION=?";
+            queryString2 = "DELETE FROM SI_USER.CODE_LIST_XREF WHERE LIST_NAME=? AND LIST_VERSION=?";
             for (int i = 0; i < array.length(); i++) {
                 jsonObj = array.getJSONObject(i);
                 preparedStatement = connection.prepareStatement(queryString);
                 preparedStatement.setString(1, jsonObj.getString("listName1"));
                 preparedStatement.setInt(2, Integer.parseInt(jsonObj.getString("listVerson")));
                 preparedStatement.setString(3, jsonObj.getString("senderItem"));
+                preparedStatement.setString(4, jsonObj.getString("recItem"));
                 preparedStatement1 = connection.prepareStatement(queryString1);
                 preparedStatement1.setString(1, jsonObj.getString("listName1"));
                 preparedStatement1.setInt(2, Integer.parseInt(jsonObj.getString("listVerson")));
-                preparedStatement1.setString(3, jsonObj.getString("senderItem"));
                 preparedStatement2 = connection.prepareStatement(queryString2);
                 preparedStatement2.setString(1, jsonObj.getString("listName1"));
                 preparedStatement2.setInt(2, Integer.parseInt(jsonObj.getString("listVerson")));
-                preparedStatement2.setString(3, jsonObj.getString("senderItem"));
                 updatedRows = preparedStatement.executeUpdate();
-                updatedRows1 = preparedStatement1.executeUpdate();
-                updatedRows2 = preparedStatement2.executeUpdate();
+                //updatedRows1 = preparedStatement1.executeUpdate();
+                //updatedRows2 = preparedStatement2.executeUpdate();
             }
         } catch (SQLException sql) {
             throw new ServiceLocatorException(sql);
@@ -378,7 +377,9 @@ public class CertMonitorServiceImpl implements CertMonitorService {
                 throw new ServiceLocatorException(ex);
             }
         }
-        if (updatedRows > 0 && updatedRows1 > 0 && updatedRows2 > 0) {
+         System.out.println("updatedrows"+updatedRows);
+        if (updatedRows > 0) {
+            System.out.println("updatedrows");
             return "<font color='green'>Deleted successfully</font>";
         } else {
             return "<font color='red'>Please Try Again</font>";

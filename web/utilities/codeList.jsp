@@ -25,7 +25,22 @@
                 document.getElementById('loadingAcoountSearch').style.display = "none";
             }
             $(function () {
+                if(document.getElementById("items").value==0)
+                {
                 $('#results').DataTable({
+                    "paging": false,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": false,
+                    "info": true,
+                    "autoWidth": false,
+                    "scrollX": true
+                    
+                });
+            }
+            else
+            {
+                 $('#results').DataTable({
                     "paging": false,
                     "lengthChange": true,
                     "searching": true,
@@ -35,6 +50,7 @@
                     "scrollX": true,
                     "scrollY": 190
                 });
+            }
             });
 
             var count = 0;
@@ -110,10 +126,10 @@
                     margin: 0 -13px !important;
                 }
             }
-            /*            .content-wrapper
+                        .content-wrapper
                         {
-                            min-height: 1040px !important;
-                        }*/
+                            min-height: 800px !important;
+                        }
             div.dataTables_wrapper {
                 width: 1000px;
                 margin: 0 auto;

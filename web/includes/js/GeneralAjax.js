@@ -2248,11 +2248,11 @@ function populateLogisticsInvDetails(responseXML)
         document.getElementById('InvNum').value = invNum;
         document.getElementById('InvItemQty').value = itemQty;
         document.getElementById('InvAmt').value = invAmt;
-        if (ORGFILEPATH == "No File") {
+       /* if (ORGFILEPATH == "No File") {
             document.getElementById('InvORGFILEPATH').innerHTML = "--";
         } else {
             document.getElementById('InvORGFILEPATH').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ORGFILEPATH + "\">Download</a></td></tr>";
-        }
+        }*/
         document.getElementById('InvSenderid').value = SENDER_ID;
         document.getElementById('InvSendername').value = SENDER_NAME;
         document.getElementById('InvReceiverid').value = RECEIVER_ID;
@@ -2415,12 +2415,12 @@ function populateLogisticsShipmentDetails(responseXML)
         } else {
             document.getElementById('LSPostTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
         }
-        if (ORGFILEPATH == "No File") {
+       /* if (ORGFILEPATH == "No File") {
             document.getElementById('LSOrgFilePath').innerHTML = "--";
 
         } else {
             document.getElementById('LSOrgFilePath').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ORGFILEPATH + "\">Download</a>";
-        }
+        }*/
         if (ACKFILEID == "No File") {
             document.getElementById('LSAckFileid').innerHTML = "--";
 
@@ -3109,7 +3109,7 @@ function checkItems(count) {
             // This will execute 5 seconds later
             document.getElementById('messagediv').innerHTML = "";
 
-        }, 3000);
+        }, 5000);
             }
         }
     }
@@ -3128,6 +3128,7 @@ function result(responseText)
 {
     if (responseText == "Failure")
     {
+        
         document.getElementById("senderItem" + count).value = "";
         document.getElementById("recItem" + count).value = "";
         document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Sender Code and Receiver Code already exists. Please try with different one.  </font>";
@@ -3135,6 +3136,6 @@ function result(responseText)
             // This will execute 5 seconds later
             document.getElementById('messagediv').innerHTML = "";
 
-        }, 3000);
+        }, 5000);
     }
 }

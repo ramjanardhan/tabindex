@@ -535,12 +535,12 @@
 
                         </div>
                     </div>
-                    <div class="row col-sm-12" >
+                    <%--<div class="row col-sm-12" >
                         <div class="col-sm-6"> <label class="labelw">Original File</label></div>
                         <div class="col-sm-6">  <div id="InvORGFILEPATH"></div>
 
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="row col-sm-12" >
                         <div class="col-sm-6"> <label class="labelw">997 AckFile</label></div>
                         <div class="col-sm-6"> <div id="InvAckfileid"></div>

@@ -592,10 +592,10 @@
                     <div class="col-sm-6"> <label class="labelw"> Post Translation </label></div>
                     <div class="col-sm-6"><div id="LSPostTranslation"></div></div>
                 </div>
-                <div class="row col-sm-12" >
+                <%--<div class="row col-sm-12" >
                     <div class="col-sm-6"> <label class="labelw"> Org File Path </label></div>
                     <div class="col-sm-6">  <div id="LSOrgFilePath"></div></div>
-                </div>
+                </div>--%>
                 <div class="row col-sm-12" >
                     <div class="col-sm-6"> <label class="labelw"> 997 ACK File </label></div>
                     <div class="col-sm-6">   <div id="LSAckFileid"></div></div>

@@ -21,6 +21,8 @@ public interface CertMonitorService {
     public List getCodeListNames(String name) throws ServiceLocatorException;
 
     public String addCodeList(String jsonData, String userName) throws ServiceLocatorException;
+    
+    public String updateCodeList(String listName,String jsonData,String userName,int items) throws ServiceLocatorException;
 
     public String deleteCodeList(String jsonData) throws ServiceLocatorException;
 }

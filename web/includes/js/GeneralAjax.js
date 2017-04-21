@@ -3094,8 +3094,9 @@ function CalenderOnChange() {
 }
 //function for checking SENDER_ITEM and RECEIVER_ITEM for codelist
 
-
+var itemcount;
 function checkItems(count) {
+    itemcount=count;
     document.getElementById("loadingAcoountSearch").style.display = "block";
     var rowCount = $('#results tr').length;
     for (i = 1; i < rowCount; i++) {
@@ -3124,13 +3125,12 @@ function checkItems(count) {
 }
 
 
-function result(responseText)
-{
+function result(responseText){
     if (responseText == "Failure")
     {
         
-        document.getElementById("senderItem" + count).value = "";
-        document.getElementById("recItem" + count).value = "";
+        document.getElementById("senderItem" + itemcount).value = "";
+        document.getElementById("recItem" + itemcount).value = "";
         document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Sender Code and Receiver Code already exists. Please try with different one.  </font>";
         window.setTimeout(function () {
             // This will execute 5 seconds later

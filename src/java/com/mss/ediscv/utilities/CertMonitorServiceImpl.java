@@ -127,7 +127,8 @@ public class CertMonitorServiceImpl implements CertMonitorService {
         String listName = null;
         System.out.println("before try");
         try {
-            queryString = "SELECT  * FROM CODELIST_XREF_ITEM WHERE  LIST_NAME='" + selectedName + "'";
+            //queryString = "SELECT  * FROM CODELIST_XREF_ITEM WHERE  max(LIST_VERSION) AND LIST_NAME='" + selectedName + "'";
+            queryString = "select * from CODELIST_XREF_ITEM where LIST_NAME='"+selectedName+"' AND LIST_VERSION=(SELECT MAX(LIST_VERSION) from CODELIST_XREF_ITEM where LIST_NAME='"+selectedName+"' )";
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

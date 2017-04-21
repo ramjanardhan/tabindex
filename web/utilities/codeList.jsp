@@ -29,7 +29,7 @@
                     "paging": false,
                     "lengthChange": true,
                     "searching": true,
-                    "ordering": true,
+                    "ordering": false,
                     "info": true,
                     "autoWidth": false,
                     "scrollX": true,
@@ -66,7 +66,7 @@
                             "paging": false,
                             "lengthChange": true,
                             "searching": true,
-                            "ordering": true,
+                            "ordering": false,
                             "info": true,
                             "autoWidth": false,
                             "scrollX": true,
@@ -123,8 +123,11 @@
                 background-color:transparent;
                 border: 0;
 
-            } 
-
+            }
+            table.dataTable thead > tr > th{
+                white-space: nowrap;
+            }
+            
         </style>
 
 
@@ -208,21 +211,20 @@
 
                         <div class="box-body">
                             <div class="row col-md-12 col-sm-12">
-                                <div class="col-sm-3">
-                                    <label>Code List Selected</label>
-                                    <s:textfield name="selectedName" id="selectedName" cssClass="f1 form-control" value="%{selectedName}" tabindex="7" readonly="true"/> 
+                                <div class="col-sm-5">
+                                    <label style="float: left">Code List Selected :</label>
+                                    <s:textfield name="selectedName" id="selectedName" style="width: 200px;position: relative;bottom: 7px;float: left" cssClass="f1 form-control" value="%{selectedName}" tabindex="7" readonly="true"/> 
                                 </div>
                             </div>
                             <br>
                             <br>
                             <div class="row col-md-12 col-sm-12" style="margin-top: 20px">
                                 <div class="col-sm-3 col-md-3 col-xs-3">
-                                    <label>Last Date Modified :</label>
-                                    <s:textfield id="modifieddate" name="modifieddate"  cssClass="f1 form-control" value="%{modifieddate}" readonly="true"/>
+                                    <label style="float: left">Last Date Modified :</label>
+                                    <s:textfield id="modifieddate" name="modifieddate" style="width:90px;float: left;position: relative;bottom:8px;right:3px" cssClass="f1 form-control" value="%{modifieddate}" readonly="true"/>
                                 </div>
-                                <div class="col-sm-3" style="float : right">
-                                    <label>Number Of Code List Items :</label>
-                                    <s:textfield id="items" name="items" value="%{items}"   cssClass="f1 form-control" readonly="true"/>
+                                    <div class="col-sm-3" style="float : right"><label> Number Of Code List Items :</label>
+                                        <s:textfield id="items"  style="width:60px;float:right;position: relative;bottom: 32px;" name="items" value="%{items}" cssClass="f1 form-control" readonly="true"/>
                                 </div>
                             </div> 
 
@@ -247,14 +249,14 @@
                                                                 <td style="background-color: white;">
                                                                     <table id="results" class="table table-bordered table-hover">
                                                                         <thead><tr>
-                                                                                <th><input type="checkbox" id="checkboxAll" name="checkboxAll" onclick="selectAllRecords();"/>SELECT</th>
+                                                                                <th><input type="checkbox" id="checkboxAll" name="checkboxAll" onclick="selectAllRecords();"/>&nbsp;SELECT</th>
                                                                                     <%-- <th>LIST_NAME <font class="text-danger">*</font></th> 
                                                                                      <th>SENDER_ID</th>
                                                                                      <th>RECEIVER_ID</th>
                                                                                      <th>LIST_VERSION</th> --%>
-                                                                                <th>SENDER_CODE  <font class="text-danger">*</font></th>
-                                                                                <th>RECEIVER_CODE  <font class="text-danger">*</font></th>
-                                                                                 <th>DESCRIPTION  <font class="text-danger">*</font></th>
+                                                                                <th>SENDER_CODE</th>
+                                                                                <th>RECEIVER_CODE </th>
+                                                                                <th>DESCRIPTION  </th>
                                                                                 <th>TEXT1</th>
                                                                                 <th>TEXT2</th>
                                                                                 <th>TEXT3</th>
@@ -323,23 +325,24 @@
                                         </div> 
                                         <div class="col-sm-3" style="margin-top: 20px">
 
-                                            <input type="button" class="btn btn-primary" value="Import New CodeList to SI" id="import" tabindex="11" onclick="getRowValue(this.id)"/>
+                                            <input type="button" class="btn btn-primary" value="New CodeList SI Import" id="import" tabindex="11" onclick="getRowValue(this.id)"/>
 
                                         </div>
 
                                         <div class=" col-sm-6" style="margin-top: 20px">
-                                            <div class="col-sm-4 pull-right"> 
+                                            <div class="col-sm-3 pull-right"> 
                                                 <input type="button" id="add" name="add" class="btn btn-primary" value="Add Row" tabindex="4"/>
                                             </div> 
-                                            <div class="col-sm-4 pull-right"> 
+                                            <div class="col-sm-3 pull-right"> 
                                                 <input type="button" class="btn btn-primary" value="Delete Row" id="deleteRow" tabindex="5" onclick="getRowValue(this.id)"/>
-                                            </div> 
-                                            <div class="col-sm-4 pull-right"> 
+                                            </div>
+                                            <div class="col-sm-3 pull-right"> 
+                                                <input type="button" class="btn btn-primary" value="Update Row" id="update" tabindex="5" onclick="getUpdateRow()"/>
+                                            </div>
+                                            <div class="col-sm-3 pull-right"> 
                                                 <input type="button" id="clear" class="btn btn-primary" value="Clear Grid" tabindex="6"/>
                                             </div>
-                                            <div class="col-sm-4 pull-right"> 
-                                                <input type="button" class="btn btn-primary" value="Update" id="update" tabindex="5" onclick="getUpdateRow()"/>
-                                            </div>
+
                                         </div>
                                     </div>
 
@@ -419,18 +422,18 @@
                                                                 var listName = "";
                                                                 if (flag == 'deleteRow') {
                                                                     listName = document.getElementById("listName" + i).value;
-                                                                }else if(flag=='import')
+                                                                } else if (flag == 'import')
                                                                 {
-                                                                    listName=document.getElementById("newname").value;
+                                                                    listName = document.getElementById("newname").value;
                                                                 }
                                                                 if (document.getElementById('senderItem' + i).value == "")
                                                                 {
-                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter sender item</font>";
+                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter sender code</font>";
                                                                     return false;
                                                                 }
                                                                 if (document.getElementById('recItem' + i).value == "")
                                                                 {
-                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter receiver item</font>";
+                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter receiver code</font>";
                                                                     return false;
                                                                 }
                                                                 if (document.getElementById('desc' + i).value == "")
@@ -482,10 +485,10 @@
 
                                                     function selectAllRecords() {
                                                         var rowCount = $('#results tr').length;
-                                                        // alert(rowCount);
                                                         if (document.getElementById("checkboxAll").checked)
                                                         {
                                                             for (var i = 1; i < rowCount; i++) {
+                                                                
                                                                 document.getElementById('check' + i).checked = true;
                                                             }
                                                         } else {
@@ -512,6 +515,21 @@
                                                                     document.getElementById('recId' + i).value = "";
                                                                     document.getElementById('senderId' + i).value = "";
                                                                     document.getElementById('listVersion' + i).value = 1;
+                                                                }
+                                                                 if (document.getElementById('senderItem' + i).value == "")
+                                                                {
+                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter sender code</font>";
+                                                                    return false;
+                                                                }
+                                                                if (document.getElementById('recItem' + i).value == "")
+                                                                {
+                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter receiver code</font>";
+                                                                    return false;
+                                                                }
+                                                                if (document.getElementById('desc' + i).value == "")
+                                                                {
+                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter description</font>";
+                                                                    return false;
                                                                 }
                                                                 ips["jsonData"].push({
                                                                     "listName1": listName,

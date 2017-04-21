@@ -48,7 +48,7 @@
                     "info": true,
                     "autoWidth": false,
                     "scrollX": true,
-                    "scrollY": 190
+                    "scrollY": 300
                 });
             }
             });

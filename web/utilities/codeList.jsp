@@ -25,36 +25,41 @@
                 document.getElementById('loadingAcoountSearch').style.display = "none";
             }
             $(function () {
-                if(document.getElementById("items").value==0)
+                if (document.getElementById("items").value == 0)
                 {
-                $('#results').DataTable({
-                    "paging": false,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": false,
-                    "info": true,
-                    "autoWidth": false,
-                    "scrollX": true
-                    
-                });
-            }
-            else
-            {
-                 $('#results').DataTable({
-                    "paging": false,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": false,
-                    "info": true,
-                    "autoWidth": false,
-                    "scrollX": true,
-                    "scrollY": 300
-                });
-            }
+                    $('#results').DataTable({
+                        "paging": false,
+                        "lengthChange": true,
+                        "searching": true,
+                        "ordering": false,
+                        "info": true,
+                        "autoWidth": false,
+                        "scrollX": true
+
+                    });
+                }
+                else
+                {
+                    $('#results').DataTable({
+                        "paging": false,
+                        "lengthChange": true,
+                        "searching": true,
+                        "ordering": false,
+                        "info": true,
+                        "autoWidth": false,
+                        "scrollX": true,
+                        "scrollY": 300
+                    });
+                }
             });
 
             var count = 0;
             $(document).ready(function () {
+                window.setTimeout(function () {
+                    // This will execute 5 seconds later
+                    document.getElementById('messagediv').innerHTML = "";
+
+                }, 5000);
                 $('#add').click(function () {
                     var rowCount = $('#results tr').length;
                     if (rowCount == 2)
@@ -64,13 +69,13 @@
 
                         $('#results').append(
                                 '<tr><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple"/></td>' +
-                                '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/><input type="hidden" value="" id="senderId' + count + '" name="senderId' + count + '"/></td>' +
+                                '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/><input type="hidden" value="" id="senderId' + count + '" name="senderId' + count + '"/><input type="hidden" value="" id="listName' + count + '" name="listName' + count + '"/></td>' +
                                 '<td><input type="text" id="recItem' + count + '" name="recItem' + count + '" onchange="checkItems(' + count + ')"/></td>' +
+                                '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
                                 '<td><input type="text" id="text1' + count + '" name="text1' + count + '"/></td>' +
                                 '<td><input type="text" id="text2' + count + '" name="text2' + count + '"/></td><input type="hidden" value="" id="recId' + count + '" name="recId' + count + '"/>' +
                                 '<td><input type="text" id="text3' + count + '" name="text3' + count + '"/></td><input type="hidden" value="" id="listVersion' + count + '" name="listVersion' + count + '"/>' +
                                 '<td><input type="text" id="text4' + count + '" name="text4' + count + '"/></td>' +
-                                '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
                                 '<td><input type="text" id="text5' + count + '" name="text5' + count + '"/></td>' +
                                 '<td><input type="text" id="text6' + count + '" name="text6' + count + '"/></td>' +
                                 '<td><input type="text" id="text7' + count + '" name="text7' + count + '"/></td>' +
@@ -91,14 +96,14 @@
                     } else {
                         count = $('#results tr').length;
                         $('#results').append(
-                                '<tr><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple"/></td>' +
+                                '<tr><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple"/><input type="hidden" value="" id="listName' + count + '" name="listName' + count + '"/></td>' +
                                 '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/></td>' +
                                 '<td><input type="text" id="recItem' + count + '" name="recItem' + count + '" onchange="checkItems(' + count + ')"/></td>' +
+                                '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
                                 '<td><input type="text" id="text1' + count + '" name="text1' + count + '"/><input type="hidden" value="" id="senderId' + count + '" name="senderId' + count + '"/></td>' +
                                 '<td><input type="text" id="text2' + count + '" name="text2' + count + '"/></td>' +
                                 '<td><input type="text" id="text3' + count + '" name="text3' + count + '"/></td>' +
                                 '<td><input type="text" id="text4' + count + '" name="text4' + count + '"/></td>' +
-                                '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
                                 '<td><input type="text" id="text5' + count + '" name="text5' + count + '"/></td><input type="hidden" value="" id="recId' + count + '" name="recId' + count + '"/>' +
                                 '<td><input type="text" id="text6' + count + '" name="text6' + count + '"/></td><input type="hidden" value="" id="listVersion' + count + '" name="listVersion' + count + '"/>' +
                                 '<td><input type="text" id="text7' + count + '" name="text7' + count + '"/></td>' +
@@ -117,6 +122,9 @@
                     $('#modifieddate').val("");
                     $('#items').val("");
                     $('#listName').val("-1");
+                    $('#messagediv').empty();
+                    $('#checkboxAll').attr("checked", false);
+
                 });
             });
         </script>
@@ -126,10 +134,10 @@
                     margin: 0 -13px !important;
                 }
             }
-                        .content-wrapper
-                        {
-                            min-height: 800px !important;
-                        }
+            .content-wrapper
+            {
+                min-height: 800px !important;
+            }
             div.dataTables_wrapper {
                 width: 1000px;
                 margin: 0 auto;
@@ -143,7 +151,7 @@
             table.dataTable thead > tr > th{
                 white-space: nowrap;
             }
-            
+
         </style>
 
 
@@ -239,8 +247,8 @@
                                     <label style="float: left">Last Date Modified :</label>
                                     <s:textfield id="modifieddate" name="modifieddate" style="width:90px;float: left;position: relative;bottom:8px;right:3px" cssClass="f1 form-control" value="%{modifieddate}" readonly="true"/>
                                 </div>
-                                    <div class="col-sm-3" style="float : right"><label> Number Of Code List Items :</label>
-                                        <s:textfield id="items"  style="width:60px;float:right;position: relative;bottom: 32px;" name="items" value="%{items}" cssClass="f1 form-control" readonly="true"/>
+                                <div class="col-sm-3" style="float : right"><label> Number Of Code List Items :</label>
+                                    <s:textfield id="items"  style="width:60px;float:right;position: relative;bottom: 32px;" name="items" value="%{items}" cssClass="f1 form-control" readonly="true"/>
                                 </div>
                             </div> 
 
@@ -270,9 +278,9 @@
                                                                                      <th>SENDER_ID</th>
                                                                                      <th>RECEIVER_ID</th>
                                                                                      <th>LIST_VERSION</th> --%>
-                                                                                <th>SENDER_CODE</th>
-                                                                                <th>RECEIVER_CODE </th>
-                                                                                <th>DESCRIPTION  </th>
+                                                                                <th>SENDER_CODE <font class="text-danger">*</font></th>
+                                                                                <th>RECEIVER_CODE <font class="text-danger">*</font></th>
+                                                                                <th>DESCRIPTION <font class="text-danger">*</font></th>
                                                                                 <th>TEXT1</th>
                                                                                 <th>TEXT2</th>
                                                                                 <th>TEXT3</th>
@@ -295,7 +303,7 @@
                                                                                         codeListBean = (CodeListBean) codeList.get(j);
 
 
-                                                                            %><tr> <td><input type="checkbox" id="check<%=j + 1%>" name="check<%=j + 1%>"/></td>
+                                                                            %><tr> <td><input type="checkbox" id="check<%=j + 1%>" name="check<%=j + 1%>" onclick="selectAllCheck();"/></td>
                                                                         <input type="hidden" value="<%=codeListBean.getListName()%>" id="listName<%=j + 1%>" name="listName<%=j + 1%>"/>
                                                                         <input type="hidden" value="<%=codeListBean.getSender_id()%>" id="senderId<%=j + 1%>" name="senderId<%=j + 1%>"/>
                                                                         <input type="hidden" value="<%=codeListBean.getReceiver_id()%>" id="recId<%=j + 1%>" name="recId<%=j + 1%>"/>
@@ -339,23 +347,23 @@
                                             <label>New Code List Name</label>
                                             <s:textfield name="newname" id="newname" cssClass="form-control" value="%{newname}" tabindex="10"/> 
                                         </div> 
-                                        <div class="col-sm-3" style="margin-top: 20px">
+                                        <div class="col-sm-3" style="margin-top: 25px">
 
                                             <input type="button" class="btn btn-primary" value="New CodeList SI Import" id="import" tabindex="11" onclick="getRowValue(this.id)"/>
 
                                         </div>
 
-                                        <div class=" col-sm-6" style="margin-top: 20px">
-                                            <div class="col-sm-3 pull-right"> 
+                                        <div class=" col-sm-6" style="margin-top: 25px">
+                                            <div class="col-sm-3 " style="margin-left: -10px"> 
                                                 <input type="button" id="add" name="add" class="btn btn-primary" value="Add Row" tabindex="4"/>
                                             </div> 
-                                            <div class="col-sm-3 pull-right"> 
+                                            <div class="col-sm-3 " style="margin-left: -33px"> 
                                                 <input type="button" class="btn btn-primary" value="Delete Row" id="deleteRow" tabindex="5" onclick="getRowValue(this.id)"/>
                                             </div>
-                                            <div class="col-sm-3 pull-right"> 
-                                                <input type="button" class="btn btn-primary" value="Update Row" id="update" tabindex="5" onclick="getUpdateRow()"/>
+                                            <div class="col-sm-3 " style="margin-left: -19px"> 
+                                                <input type="button" class="btn btn-primary" value="Update Existing Codelist" id="update" tabindex="5" onclick="getUpdateRow()"/>
                                             </div>
-                                            <div class="col-sm-3 pull-right"> 
+                                            <div class="col-sm-3 " style="margin-left: 58px"> 
                                                 <input type="button" id="clear" class="btn btn-primary" value="Clear Grid" tabindex="6"/>
                                             </div>
 
@@ -438,9 +446,17 @@
                                                                 var listName = "";
                                                                 if (flag == 'deleteRow') {
                                                                     listName = document.getElementById("listName" + i).value;
+                                                                    if (listName == "") {
+                                                                        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please select rows with data  to delete</font>";
+                                                                        return false;
+                                                                    }
                                                                 } else if (flag == 'import')
                                                                 {
                                                                     listName = document.getElementById("newname").value;
+                                                                    if (listName == "") {
+                                                                        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please Enter New List Name</font>";
+                                                                        return false;
+                                                                    }
                                                                 }
                                                                 if (document.getElementById('senderItem' + i).value == "")
                                                                 {
@@ -504,7 +520,7 @@
                                                         if (document.getElementById("checkboxAll").checked)
                                                         {
                                                             for (var i = 1; i < rowCount; i++) {
-                                                                
+
                                                                 document.getElementById('check' + i).checked = true;
                                                             }
                                                         } else {
@@ -519,20 +535,28 @@
                                                         var ips = {"jsonData": []};
                                                         var rowCount = $('#results tr').length;
                                                         var listName;
+                                                        //alert("rowCount"+rowCount);
                                                         for (i = 1; i < rowCount; i++) {
                                                             if (document.getElementById('check' + i).checked) {
+                                                                checkedCount++;
                                                                 if (i <= document.getElementById("items").value) {
-                                                                    listName = document.getElementById('listName' + i).value;
-                                                                }
-                                                                else
-                                                                {
-                                                                    listName = document.getElementById('newname').value;
+//                                                                    listName = document.getElementById('listName' + i).value;
+//                                                                }
+//                                                                else
+//                                                                {
+                                                                    alert('listName----'+listName);
+                                                                    listName = document.getElementById('listName1').value;
+//                                                                    if (listName == "")
+//                                                                    {
+//                                                                        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please Enter New List Name</font>";
+//                                                                        return false;
+//                                                                    }
                                                                     document.getElementById('senderId' + i).value = "";
                                                                     document.getElementById('recId' + i).value = "";
                                                                     document.getElementById('senderId' + i).value = "";
                                                                     document.getElementById('listVersion' + i).value = 1;
                                                                 }
-                                                                 if (document.getElementById('senderItem' + i).value == "")
+                                                                if (document.getElementById('senderItem' + i).value == "")
                                                                 {
                                                                     document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter sender code</font>";
                                                                     return false;
@@ -570,9 +594,24 @@
 
 
                                                         }
+                                                        if (checkedCount == 0)
+                                                        {
+                                                            document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please select rows to update</font>";
+                                                            return false;
+                                                        }
                                                         var array = JSON.stringify(ips["jsonData"]);
                                                         //alert(document.getElementById('listName').value );
                                                         window.location = "../utilities/codeVersionUpdate.action?listName=" + listName + "&json=" + encodeURIComponent(array);
+                                                    }
+                                                              function selectAllCheck() {
+                                                        var rowCount = $('#results tr').length;
+                                                            for (var i = 1; i < rowCount; i++) {
+                                                                //alert('hiii');
+                                                                if(document.getElementById('check' + i).checked == false){
+                                                                    document.getElementById("checkboxAll").checked=false;
+                                                                } 
+                                                            }
+                                                    
                                                     }
 
         </script> 

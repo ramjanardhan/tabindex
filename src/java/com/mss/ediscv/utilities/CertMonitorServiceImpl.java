@@ -487,19 +487,19 @@ public class CertMonitorServiceImpl implements CertMonitorService {
                     queryString = "INSERT INTO SI_USER.CODELIST_XREF_ITEM "
                             + "(LIST_NAME, SENDER_ID, RECEIVER_ID, LIST_VERSION, SENDER_ITEM, RECEIVER_ITEM, TEXT1, TEXT2, TEXT3, TEXT4, DESCRIPTION, TEXT5, TEXT6, TEXT7, TEXT8, TEXT9)"
                             + " VALUES (?, ?, ?,? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                    queryString1 = "INSERT INTO SI_USER.CODELIST_XREF_VERS"
-                            + "	(LIST_NAME, SENDER_ID, RECEIVER_ID, DEFAULT_VERSION, LIST_VERSION)"
-                            + "VALUES (?, ?, ?, ?, ?)";
-                    queryString2 = "INSERT INTO SI_USER.CODE_LIST_XREF"
-                            + "	(LIST_NAME, SENDER_ID, RECEIVER_ID, LIST_VERSION, STATUS, COMMENTS,  USERNAME, CREATE_DATE)"
-                            + "VALUES (?, ?, ?, ?,? ,?,?, ?)";
+//                    queryString1 = "INSERT INTO SI_USER.CODELIST_XREF_VERS"
+//                            + "	(LIST_NAME, SENDER_ID, RECEIVER_ID, DEFAULT_VERSION, LIST_VERSION)"
+//                            + "VALUES (?, ?, ?, ?, ?)";
+//                    queryString2 = "INSERT INTO SI_USER.CODE_LIST_XREF"
+//                            + "	(LIST_NAME, SENDER_ID, RECEIVER_ID, LIST_VERSION, STATUS, COMMENTS,  USERNAME, CREATE_DATE)"
+//                            + "VALUES (?, ?, ?, ?,? ,?,?, ?)";
                     //   for (int i = 0; i < array.length(); i++) {
                     jsonObj = array.getJSONObject(i);
                     preparedStatement = connection.prepareStatement(queryString);
                     preparedStatement.setString(1, jsonObj.getString("listName1"));
                     preparedStatement.setString(2, jsonObj.getString("senderIdInst"));
                     preparedStatement.setString(3, jsonObj.getString("recId"));
-                    preparedStatement.setInt(4, 1);
+                    preparedStatement.setInt(4, addVersion);
                     preparedStatement.setString(5, jsonObj.getString("senderItem"));
                     preparedStatement.setString(6, jsonObj.getString("recItem"));
                     preparedStatement.setString(7, jsonObj.getString("text1"));
@@ -512,30 +512,27 @@ public class CertMonitorServiceImpl implements CertMonitorService {
                     preparedStatement.setString(14, jsonObj.getString("text7"));
                     preparedStatement.setString(15, jsonObj.getString("text8"));
                     preparedStatement.setString(16, jsonObj.getString("text9"));
-                    preparedStatement1 = connection.prepareStatement(queryString1);
-                    preparedStatement1.setString(1, jsonObj.getString("listName1"));
-                    preparedStatement1.setString(2, jsonObj.getString("senderIdInst"));
-                    preparedStatement1.setString(3, jsonObj.getString("recId"));
-                    preparedStatement1.setInt(4, 1);
-                    preparedStatement1.setInt(5, 1);
-
-                    preparedStatement2 = connection.prepareStatement(queryString2);
-                    preparedStatement2.setString(1, jsonObj.getString("listName1"));
-                    preparedStatement2.setString(2, jsonObj.getString("senderIdInst"));
-                    preparedStatement2.setString(3, jsonObj.getString("recId"));
-                    preparedStatement2.setInt(4, 1);
-                    preparedStatement2.setInt(5, 1);
-                    preparedStatement2.setString(6, "");
-                    preparedStatement2.setString(7, userName);
-                    //java.sql.Date d=new java.sql.Date(i);
-                    //SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-                    //SimpleDateFormat sd=new SimpleDateFormat("YYYY-MM-dd HH24:mm:SS.0");
-                    preparedStatement2.setTimestamp(8, DateUtility.getInstance().getCurrentDB2Timestamp());
-                    if ((count == 0)) {
-                        updatedRows1 = preparedStatement1.executeUpdate();
-                        updatedRows2 = preparedStatement2.executeUpdate();
-                        count++;
-                    }
+//                    preparedStatement1 = connection.prepareStatement(queryString1);
+//                    preparedStatement1.setString(1, jsonObj.getString("listName1"));
+//                    preparedStatement1.setString(2, jsonObj.getString("senderIdInst"));
+//                    preparedStatement1.setString(3, jsonObj.getString("recId"));
+//                    preparedStatement1.setInt(4, addVersion);
+//                    preparedStatement1.setInt(5, addVersion);
+//
+//                    preparedStatement2 = connection.prepareStatement(queryString2);
+//                    preparedStatement2.setString(1, jsonObj.getString("listName1"));
+//                    preparedStatement2.setString(2, jsonObj.getString("senderIdInst"));
+//                    preparedStatement2.setString(3, jsonObj.getString("recId"));
+//                    preparedStatement2.setInt(4, addVersion);
+//                    preparedStatement2.setInt(5, 1);
+//                    preparedStatement2.setString(6, "");
+//                    preparedStatement2.setString(7, userName);
+//                    preparedStatement2.setTimestamp(8, DateUtility.getInstance().getCurrentDB2Timestamp());
+//                    if ((count == 0)) {
+//                        updatedRows1 = preparedStatement1.executeUpdate();
+//                        updatedRows2 = preparedStatement2.executeUpdate();
+//                        count++;
+//                    }
                     updatedRows = preparedStatement.executeUpdate();
                     // }
                 }

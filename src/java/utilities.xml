@@ -41,22 +41,7 @@ and open the template in the editor.
             <result name="error" type="redirect" >../general/exception.action</result> 
             <result type="redirect" name="login">../general/login.action</result>
         </action>
-          <action name="codeListAdd" class="com.mss.ediscv.utilities.CertMonitorAction" method="doCodeListAdd">
-            <result>/utilities/codeList.jsp</result>
-            <result name="error" type="redirect" >../general/exception.action</result> 
-            <result type="redirect" name="login">../general/login.action</result>
-        </action>
-          <action name="codeListDelete" class="com.mss.ediscv.utilities.CertMonitorAction" method="doCodeListDelete">
-            <result>/utilities/codeList.jsp</result>
-            <result name="error" type="redirect" >../general/exception.action</result> 
-            <result type="redirect" name="login">../general/login.action</result>
-        </action>
-        <!-- new xml added Hyma-->
-            <action name="codeVersionUpdate" class="com.mss.ediscv.utilities.CertMonitorAction" method="doCodeVersionUpdate">
-            <result>/utilities/codeList.jsp</result>
-            <result name="error" type="redirect" >../general/exception.action</result> 
-            <result type="redirect" name="login">../general/login.action</result>
-        </action>
+         
     </package>
 
 </struts>

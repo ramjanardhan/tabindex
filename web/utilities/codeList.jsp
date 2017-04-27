@@ -1,3 +1,5 @@
+<%@page import="java.util.TimerTask"%>
+<%@page import="java.util.Timer"%>
 <%@page import="com.mss.ediscv.util.AppConstants"%>
 <%@page import="com.mss.ediscv.utilities.CodeListBean"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -30,7 +32,7 @@
                     $('#results').DataTable({
                         "paging": false,
                         "lengthChange": true,
-                        "searching": true,
+                        "searching": false,
                         "ordering": false,
                         "info": true,
                         "autoWidth": false,
@@ -43,7 +45,7 @@
                     $('#results').DataTable({
                         "paging": false,
                         "lengthChange": true,
-                        "searching": true,
+                        "searching": false,
                         "ordering": false,
                         "info": true,
                         "autoWidth": false,
@@ -61,14 +63,30 @@
 
                 }, 5000);
                 $('#add').click(function () {
-                    var rowCount = $('#results tr').length;
+                    var rowCount;
+                    if (deletedRows.length != 0) {
+                        rowCount = $('#results tr').length + deletedRows.length;
+                    }
+                    else {
+                        rowCount = $('#results tr').length;
+                    }
                     if (rowCount == 2)
                     {
                         $('#results').dataTable().fnDestroy();
                         count = $('#results tr').length;
+                        for (i = 1; i < ($('#results tr').length + deletedRows.length); i++) {
+                            var flag1 = checkArray(i);
+                            if (flag1 == true)
+                            {
+                                count++;
+                            }
+                            else if (flag1 == false) {
+                                continue;
+                            }
+                        }
 
                         $('#results').append(
-                                '<tr><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple"/></td>' +
+                                '<tr id="' + count + '"><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple" onclick="selectAllCheck();"/></td>' +
                                 '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/><input type="hidden" value="" id="senderId' + count + '" name="senderId' + count + '"/><input type="hidden" value="" id="listName' + count + '" name="listName' + count + '"/></td>' +
                                 '<td><input type="text" id="recItem' + count + '" name="recItem' + count + '" onchange="checkItems(' + count + ')"/></td>' +
                                 '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
@@ -91,12 +109,22 @@
                             "info": true,
                             "autoWidth": false,
                             "scrollX": true,
-                            "scrollY": 100
+                            "scrollY": 300
                         });
                     } else {
                         count = $('#results tr').length;
+                        for (i = 1; i < ($('#results tr').length + deletedRows.length); i++) {
+                            var flag1 = checkArray(i);
+                            if (flag1 == true)
+                            {
+                                count++;
+                            }
+                            else if (flag1 == false) {
+                                continue;
+                            }
+                        }
                         $('#results').append(
-                                '<tr><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple"/><input type="hidden" value="" id="listName' + count + '" name="listName' + count + '"/></td>' +
+                                '<tr id="' + count + '"><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple" onclick="selectAllCheck();"/><input type="hidden" value="" id="listName' + count + '" name="listName' + count + '"/></td>' +
                                 '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/></td>' +
                                 '<td><input type="text" id="recItem' + count + '" name="recItem' + count + '" onchange="checkItems(' + count + ')"/></td>' +
                                 '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
@@ -124,6 +152,8 @@
                     $('#listName').val("-1");
                     $('#messagediv').empty();
                     $('#checkboxAll').attr("checked", false);
+                    $('#newname').val("");
+                    deletedRows = [];
 
                 });
             });
@@ -183,11 +213,13 @@
             </section>
             <center> <div id="responseString">
                     <%
+                        String responseString = "";
                         if (session.getAttribute(AppConstants.REQ_RESULT_MSG) != null) {
-                            String responseString = session.getAttribute(AppConstants.REQ_RESULT_MSG).toString();
+                            responseString = session.getAttribute(AppConstants.REQ_RESULT_MSG).toString();
                             out.println(responseString);
                             session.setAttribute(AppConstants.REQ_RESULT_MSG, null);
                         }
+
                     %>
                 </div> 
             </center>
@@ -210,8 +242,7 @@
                                 <label>Code List </label>
                                 <s:select headerKey="-1" headerValue="--Select Type--" cssClass="form-control" list="listNameMap" name="listName" id="listName" value="%{listName}" onchange="getList();" tabindex="3"/> 
                             </div>
-
-
+                            <s:hidden name="json" id="json"/>
                         </div> 
                     </div>
 
@@ -237,7 +268,7 @@
                             <div class="row col-md-12 col-sm-12">
                                 <div class="col-sm-5">
                                     <label style="float: left">Code List Selected :</label>
-                                    <s:textfield name="selectedName" id="selectedName" style="width: 200px;position: relative;bottom: 7px;float: left" cssClass="f1 form-control" value="%{selectedName}" tabindex="7" readonly="true"/> 
+                                    <s:textfield name="selectedName" id="selectedName" style="width: 200px;position: relative;bottom: 7px;float: left" cssClass="f1 form-control" value="%{selectedName}" tabindex="4" readonly="true"/> 
                                 </div>
                             </div>
                             <br>
@@ -245,10 +276,10 @@
                             <div class="row col-md-12 col-sm-12" style="margin-top: 20px">
                                 <div class="col-sm-3 col-md-3 col-xs-3">
                                     <label style="float: left">Last Date Modified :</label>
-                                    <s:textfield id="modifieddate" name="modifieddate" style="width:90px;float: left;position: relative;bottom:8px;right:3px" cssClass="f1 form-control" value="%{modifieddate}" readonly="true"/>
+                                    <s:textfield id="modifieddate" name="modifieddate" style="width:90px;float: left;position: relative;bottom:8px;right:3px" cssClass="f1 form-control" value="%{modifieddate}" readonly="true" tabindex="5"/>
                                 </div>
                                 <div class="col-sm-3" style="float : right"><label> Number Of Code List Items :</label>
-                                    <s:textfield id="items"  style="width:60px;float:right;position: relative;bottom: 32px;" name="items" value="%{items}" cssClass="f1 form-control" readonly="true"/>
+                                    <s:textfield id="items"  style="width:60px;float:right;position: relative;bottom: 32px;" name="items" value="%{items}" cssClass="f1 form-control" readonly="true" tabindex="6"/>
                                 </div>
                             </div> 
 
@@ -273,7 +304,7 @@
                                                                 <td style="background-color: white;">
                                                                     <table id="results" class="table table-bordered table-hover">
                                                                         <thead><tr>
-                                                                                <th><input type="checkbox" id="checkboxAll" name="checkboxAll" onclick="selectAllRecords();"/>&nbsp;SELECT</th>
+                                                                                <th><input type="checkbox" id="checkboxAll" name="checkboxAll" onclick="selectAllRecords();" tabindex="7"/>&nbsp;SELECT</th>
                                                                                     <%-- <th>LIST_NAME <font class="text-danger">*</font></th> 
                                                                                      <th>SENDER_ID</th>
                                                                                      <th>RECEIVER_ID</th>
@@ -345,26 +376,26 @@
                                         <center><div id="messagediv"></div> </center>
                                         <div class="col-sm-3"> 
                                             <label>New Code List Name</label>
-                                            <s:textfield name="newname" id="newname" cssClass="form-control" value="%{newname}" tabindex="10"/> 
+                                            <s:textfield name="newname" id="newname" cssClass="form-control" value="%{newname}" tabindex="8" onchange="checkListName();"/> 
                                         </div> 
                                         <div class="col-sm-3" style="margin-top: 25px">
 
-                                            <input type="button" class="btn btn-primary" value="New CodeList SI Import" id="import" tabindex="11" onclick="getRowValue(this.id)"/>
+                                            <input type="button" class="btn btn-primary" value="New CodeList SI Import" id="import" tabindex="9" onclick="insertRows();"/>
 
                                         </div>
 
                                         <div class=" col-sm-6" style="margin-top: 25px">
                                             <div class="col-sm-3 " style="margin-left: -10px"> 
-                                                <input type="button" id="add" name="add" class="btn btn-primary" value="Add Row" tabindex="4"/>
+                                                <input type="button" id="add" name="add" class="btn btn-primary" value="Add Row" tabindex="10"/>
                                             </div> 
                                             <div class="col-sm-3 " style="margin-left: -33px"> 
-                                                <input type="button" class="btn btn-primary" value="Delete Row" id="deleteRow" tabindex="5" onclick="getRowValue(this.id)"/>
+                                                <input type="button" class="btn btn-primary" value="Delete Row" id="deleteRow" tabindex="11" onclick="deleteRows();"/>
                                             </div>
                                             <div class="col-sm-3 " style="margin-left: -19px"> 
-                                                <input type="button" class="btn btn-primary" value="Update Existing Codelist" id="update" tabindex="5" onclick="getUpdateRow()"/>
+                                                <input type="button" class="btn btn-primary" value="Update Existing CodeList" id="update" tabindex="12" onclick="getUpdateRow()"/>
                                             </div>
                                             <div class="col-sm-3 " style="margin-left: 58px"> 
-                                                <input type="button" id="clear" class="btn btn-primary" value="Clear Grid" tabindex="6"/>
+                                                <input type="button" id="clear" class="btn btn-primary" value="Clear Grid" tabindex="13"/>
                                             </div>
 
                                         </div>
@@ -399,7 +430,7 @@
         <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
         <script type="text/javascript">
-
+                                                    var deletedRows = [];
 
                                                     $(function () {
                                                         $('#deleteRow').click(function () {
@@ -413,206 +444,363 @@
                                                     function getList()
                                                     {
                                                         var listName = document.getElementById("listName").value;
-                                                        document.getElementById("selectedName").value = listName;
+                                                        if (listName != -1) {
+                                                            document.getElementById("selectedName").value = listName;
+                                                        } else {
+                                                            document.getElementById("selectedName").value = "";
+                                                            //document.getElementById("modifieddate").value = "";
+                                                        }
                                                         window.location = "../utilities/codeListSearch.action?listName=" + listName + "&selectedName=" + document.getElementById("selectedName").value;
+
                                                     }
 
-                                                    function getRowValue(flag) {
-                                                        var checkedCount = 0;
-                                                        var ips = {"jsonData": []};
-                                                        var rowCount = $('#results tr').length;
-                                                        for (i = 1; i < rowCount; i++) {
-                                                            if (document.getElementById('check' + i).checked) {
-//                        if (document.getElementById("listName" + i).value == "")
-//                        {
-//                            if (flag == 'deleteRow') {
-//                                document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please select rows with data  to delete</font>";
-//                                return false;
-//                            }
-//                            document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter list name</font>";
-//                            return false;
-//                        }
-//                        if (document.getElementById('listVersion' + i).value == "")
-//                        {
-//                            document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter list version</font>";
-//                            return false;
-//                        }else{
-//                            var listVer = document.getElementById('listVersion' + i).value
-//                             if(!listVer.match(/^\d+/)){
-//                                  alert("Please only enter only numerics  in list version  (Allowed input:0-9)");
-//                             }
-//                             return false;
-//                        }
-                                                                var listName = "";
-                                                                if (flag == 'deleteRow') {
-                                                                    listName = document.getElementById("listName" + i).value;
-                                                                    if (listName == "") {
-                                                                        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please select rows with data  to delete</font>";
-                                                                        return false;
-                                                                    }
-                                                                } else if (flag == 'import')
-                                                                {
-                                                                    listName = document.getElementById("newname").value;
-                                                                    if (listName == "") {
-                                                                        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please Enter New List Name</font>";
-                                                                        return false;
-                                                                    }
-                                                                }
-                                                                if (document.getElementById('senderItem' + i).value == "")
-                                                                {
-                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter sender code</font>";
-                                                                    return false;
-                                                                }
-                                                                if (document.getElementById('recItem' + i).value == "")
-                                                                {
-                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter receiver code</font>";
-                                                                    return false;
-                                                                }
-                                                                if (document.getElementById('desc' + i).value == "")
-                                                                {
-                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter description</font>";
-                                                                    return false;
-                                                                }
-                                                                ips["jsonData"].push({
-                                                                    "listName1": listName,
-                                                                    "senderIdInst": document.getElementById('senderId' + i).value,
-                                                                    "recId": document.getElementById('recId' + i).value,
-                                                                    "listVerson": document.getElementById('listVersion' + i).value,
-                                                                    "senderItem": document.getElementById('senderItem' + i).value,
-                                                                    "recItem": document.getElementById('recItem' + i).value,
-                                                                    "text1": document.getElementById('text1' + i).value,
-                                                                    "text2": document.getElementById('text2' + i).value,
-                                                                    "text3": document.getElementById('text3' + i).value,
-                                                                    "text4": document.getElementById('text4' + i).value,
-                                                                    "desc": document.getElementById('desc' + i).value,
-                                                                    "text5": document.getElementById('text5' + i).value,
-                                                                    "text6": document.getElementById('text6' + i).value,
-                                                                    "text7": document.getElementById('text7' + i).value,
-                                                                    "text8": document.getElementById('text8' + i).value,
-                                                                    "text9": document.getElementById('text9' + i).value
-                                                                });
-                                                                checkedCount++;
-                                                            }
-                                                        }
 
-                                                        var array = JSON.stringify(ips["jsonData"]);
-                                                        if (flag == 'import') {
-                                                            if (checkedCount == 0)
-                                                            {
-                                                                document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please select rows to insert</font>";
-                                                                return false;
-                                                            }
-                                                            window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
-                                                        }
-                                                        else if (flag == 'deleteRow')
-                                                        {
-                                                            if (checkedCount == 0)
-                                                            {
-                                                                document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please select rows to delete</font>";
-                                                                return false;
-                                                            }
-                                                            window.location = "../utilities/codeListDelete.action?json=" + encodeURIComponent(array) + "&listName=" + document.getElementById('listName').value + "&selectedName=" + document.getElementById('selectedName').value;
-                                                        }
-                                                    }
+
+
 
                                                     function selectAllRecords() {
                                                         var rowCount = $('#results tr').length;
                                                         if (document.getElementById("checkboxAll").checked)
                                                         {
-                                                            for (var i = 1; i < rowCount; i++) {
-
-                                                                document.getElementById('check' + i).checked = true;
+                                                            for (var i = 1; i < (rowCount + deletedRows.length); i++) {
+                                                                var flag1 = checkArray(i);
+                                                                if (flag1 == true)
+                                                                {
+                                                                    continue;
+                                                                }
+                                                                else if (flag1 == false) {
+                                                                    document.getElementById('check' + i).checked = true;
+                                                                }
                                                             }
                                                         } else {
-                                                            for (var i = 1; i < rowCount; i++) {
-                                                                document.getElementById('check' + i).checked = false;
+                                                            for (var i = 1; i < (rowCount + deletedRows.length); i++) {
+                                                                var flag1 = checkArray(i);
+                                                                if (flag1 == true)
+                                                                {
+                                                                    continue;
+                                                                }
+                                                                else if (flag1 == false) {
+                                                                    document.getElementById('check' + i).checked = false;
+                                                                }
                                                             }
                                                         }
+
                                                     }
 
                                                     function getUpdateRow() {
-                                                        var checkedCount = 0;
-                                                        var ips = {"jsonData": []};
-                                                        var rowCount = $('#results tr').length;
-                                                        var listName;
-                                                        //alert("rowCount"+rowCount);
-                                                        for (i = 1; i < rowCount; i++) {
-                                                            if (document.getElementById('check' + i).checked) {
-                                                                checkedCount++;
-                                                                if (i <= document.getElementById("items").value) {
+                                                        if (document.getElementById("items").value == 0)
+                                                        {
+                                                            alert("Cannot updae code list when no code list is selected");
+                                                        }
+                                                        else {
+                                                            var checkedCount = 0;
+                                                            var ips = {"jsonData": []};
+                                                            var rowCount = $('#results tr').length;
+                                                            var listName;
+                                                            for (i = 1; i < (rowCount + deletedRows.length); i++) {
+                                                                var flag1 = checkArray(i);
+                                                                if (flag1 == true)
+                                                                {
+                                                                    continue;
+                                                                }
+                                                                else if (flag1 == false) {
+                                                                    if (document.getElementById('check' + i).checked) {
+                                                                        checkedCount++;
+                                                                        if (i <= document.getElementById("items").value) {
 //                                                                    listName = document.getElementById('listName' + i).value;
 //                                                                }
 //                                                                else
 //                                                                {
-                                                                    alert('listName----'+listName);
-                                                                    listName = document.getElementById('listName1').value;
+                                                                            // alert('listName----'+listName);
+                                                                            listName = document.getElementById('listName1').value;
 //                                                                    if (listName == "")
 //                                                                    {
 //                                                                        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please Enter New List Name</font>";
 //                                                                        return false;
 //                                                                    }
-                                                                    document.getElementById('senderId' + i).value = "";
-                                                                    document.getElementById('recId' + i).value = "";
-                                                                    document.getElementById('senderId' + i).value = "";
-                                                                    document.getElementById('listVersion' + i).value = 1;
-                                                                }
-                                                                if (document.getElementById('senderItem' + i).value == "")
-                                                                {
-                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please enter sender code</font>";
-                                                                    return false;
-                                                                }
-                                                                if (document.getElementById('recItem' + i).value == "")
-                                                                {
-                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter receiver code</font>";
-                                                                    return false;
-                                                                }
-                                                                if (document.getElementById('desc' + i).value == "")
-                                                                {
-                                                                    document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please enter description</font>";
-                                                                    return false;
-                                                                }
-                                                                ips["jsonData"].push({
-                                                                    "listName1": listName,
-                                                                    "senderIdInst": document.getElementById('senderId' + i).value,
-                                                                    "recId": document.getElementById('recId' + i).value,
-                                                                    "listVerson": document.getElementById('listVersion' + i).value,
-                                                                    "senderItem": document.getElementById('senderItem' + i).value,
-                                                                    "recItem": document.getElementById('recItem' + i).value,
-                                                                    "text1": document.getElementById('text1' + i).value,
-                                                                    "text2": document.getElementById('text2' + i).value,
-                                                                    "text3": document.getElementById('text3' + i).value,
-                                                                    "text4": document.getElementById('text4' + i).value,
-                                                                    "desc": document.getElementById('desc' + i).value,
-                                                                    "text5": document.getElementById('text5' + i).value,
-                                                                    "text6": document.getElementById('text6' + i).value,
-                                                                    "text7": document.getElementById('text7' + i).value,
-                                                                    "text8": document.getElementById('text8' + i).value,
-                                                                    "text9": document.getElementById('text9' + i).value
-                                                                });
+                                                                            document.getElementById('senderId' + i).value = "";
+                                                                            document.getElementById('recId' + i).value = "";
+                                                                            document.getElementById('senderId' + i).value = "";
+                                                                            document.getElementById('listVersion' + i).value = 1;
+                                                                        }
+                                                                        if (document.getElementById('senderItem' + i).value == "")
+                                                                        {
+                                                                            alert("Please enter sender code");
+                                                                            return false;
+                                                                        }
+                                                                        if (document.getElementById('recItem' + i).value == "")
+                                                                        {
+                                                                            alert("please enter receiver code");
+                                                                            return false;
+                                                                        }
+                                                                        if (document.getElementById('desc' + i).value == "")
+                                                                        {
+                                                                            alert("please enter description");
+                                                                            return false;
+                                                                        }
+                                                                        ips["jsonData"].push({
+                                                                            "listName1": listName,
+                                                                            "senderIdInst": document.getElementById('senderId' + i).value,
+                                                                            "recId": document.getElementById('recId' + i).value,
+                                                                            "listVerson": document.getElementById('listVersion' + i).value,
+                                                                            "senderItem": document.getElementById('senderItem' + i).value,
+                                                                            "recItem": document.getElementById('recItem' + i).value,
+                                                                            "text1": document.getElementById('text1' + i).value,
+                                                                            "text2": document.getElementById('text2' + i).value,
+                                                                            "text3": document.getElementById('text3' + i).value,
+                                                                            "text4": document.getElementById('text4' + i).value,
+                                                                            "desc": document.getElementById('desc' + i).value,
+                                                                            "text5": document.getElementById('text5' + i).value,
+                                                                            "text6": document.getElementById('text6' + i).value,
+                                                                            "text7": document.getElementById('text7' + i).value,
+                                                                            "text8": document.getElementById('text8' + i).value,
+                                                                            "text9": document.getElementById('text9' + i).value
+                                                                        });
 
+                                                                    }
+                                                                }
                                                             }
 
 
+                                                            if (checkedCount == 0)
+                                                            {
+                                                                alert("please select rows to update");
+                                                                return false;
+                                                            }
+                                                            var array = JSON.stringify(ips["jsonData"]);
+                                                            document.getElementById('json').value = array;
+                                                            document.getElementById('loadingAcoountSearch').style.display = "block";
+                                                            jQuery.ajax({
+                                                                url: "../ajax/codeVersionUpdate.action",
+                                                                type: "POST",
+                                                                data: {json: array, listName: listName},
+                                                                success: function (result) {
+                                                                    alert(result);
+                                                                    document.getElementById('loadingAcoountSearch').style.display = "none";
+                                                                }
+                                                            });
+                                                            //window.location = "../utilities/codeVersionUpdate.action?listName=" + listName + "&json=" + encodeURIComponent(array);
+                                                            //  window.location = "../utilities/codeVersionUpdate.action?listName=" + listName;
+                                                        }
+                                                    }
+                                                    function selectAllCheck() {
+                                                        var rowCount = $('#results tr').length;
+                                                        for (var i = 1; i < rowCount; i++) {
+                                                            //alert('hiii');
+                                                            if (document.getElementById('check' + i).checked == false) {
+                                                                document.getElementById("checkboxAll").checked = false;
+                                                            }
+                                                        }
+
+                                                    }
+                                                    function checkArray(i)
+                                                    {
+                                                        var count = deletedRows.length;
+                                                        for (var j = 0; j < count; j++)
+                                                        {
+                                                            if (deletedRows[j] === i) {
+                                                                return true;
+                                                            }
+                                                        }
+                                                        return false;
+                                                    }
+                                                    function insertRows()
+                                                    {
+                                                        if (document.getElementById("items").value != 0)
+                                                        {
+                                                            alert("Cannot add new code list when existing one is selected");
+                                                        }
+                                                        else
+                                                        {
+                                                            var checkedCount = 0;
+                                                            var ips = {"jsonData": []};
+                                                            var rowCount = $('#results tr').length;
+                                                            for (i = 1; i < (rowCount + deletedRows.length); i++) {
+                                                                var flag1 = checkArray(i);
+                                                                if (flag1 == true)
+                                                                {
+                                                                    continue;
+                                                                }
+                                                                else if (flag1 == false) {
+                                                                    if (document.getElementById('check' + i).checked) {
+                                                                        var listName = "";
+                                                                        listName = document.getElementById("newname").value;
+                                                                        if (listName == "") {
+                                                                            alert("Please Enter New List Name");
+                                                                            return false;
+                                                                        }
+
+                                                                        if (document.getElementById('senderItem' + i).value == "")
+                                                                        {
+                                                                            alert("Please enter sender code");
+                                                                            return false;
+                                                                        }
+                                                                        if (document.getElementById('recItem' + i).value == "")
+                                                                        {
+                                                                            alert("please enter receiver code");
+                                                                            return false;
+                                                                        }
+                                                                        if (document.getElementById('desc' + i).value == "")
+                                                                        {
+                                                                            alert("please enter description");
+                                                                            return false;
+                                                                        }
+
+                                                                        ips["jsonData"].push({
+                                                                            "listName1": listName,
+                                                                            "senderIdInst": document.getElementById('senderId' + i).value,
+                                                                            "recId": document.getElementById('recId' + i).value,
+                                                                            "listVerson": document.getElementById('listVersion' + i).value,
+                                                                            "senderItem": document.getElementById('senderItem' + i).value,
+                                                                            "recItem": document.getElementById('recItem' + i).value,
+                                                                            "text1": document.getElementById('text1' + i).value,
+                                                                            "text2": document.getElementById('text2' + i).value,
+                                                                            "text3": document.getElementById('text3' + i).value,
+                                                                            "text4": document.getElementById('text4' + i).value,
+                                                                            "desc": document.getElementById('desc' + i).value,
+                                                                            "text5": document.getElementById('text5' + i).value,
+                                                                            "text6": document.getElementById('text6' + i).value,
+                                                                            "text7": document.getElementById('text7' + i).value,
+                                                                            "text8": document.getElementById('text8' + i).value,
+                                                                            "text9": document.getElementById('text9' + i).value
+                                                                        });
+
+
+                                                                        checkedCount++;
+                                                                    }
+                                                                }
+
+                                                            }
+
+                                                            var array = JSON.stringify(ips["jsonData"]);
+
+                                                            if (checkedCount == 0)
+                                                            {
+                                                                alert("please select rows to insert");
+                                                                return false;
+                                                            }
+                                                            
+                                                            document.getElementById('loadingAcoountSearch').style.display = "block";
+                                                            jQuery.ajax({
+                                                                url: "../ajax/codeListAdd.action",
+                                                                type: "POST",
+                                                                data: {json: array},
+                                                                success: function (result) {
+                                                                    alert(result);
+                                                                    document.getElementById('loadingAcoountSearch').style.display = "none";
+                                                                }
+                                                            });
+                                                          //  window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
+                                                        }
+
+                                                    }
+                                                    function deleteRows()
+                                                    {
+
+                                                        var checkedCount = 0;
+                                                        var ips = {"jsonData": []};
+                                                        var rowCount = $('#results tr').length;
+                                                        var x = rowCount + deletedRows.length;
+                                                        for (i = 1; i < x; i++) {
+                                                            var flag1 = checkArray(i);
+                                                            if (flag1 == true)
+                                                            {
+                                                                continue;
+                                                            }
+                                                            else if (flag1 == false) {
+                                                                if (document.getElementById('check' + i).checked) {
+                                                                    var listName = "";
+                                                                    if (document.getElementById('items').value == 0)
+                                                                    {
+                                                                        deletedRows.push(i);
+                                                                        $('#results tr#' + i).remove();
+
+                                                                    }
+                                                                    if (document.getElementById('items').value > 0 && i > document.getElementById('items').value)
+                                                                    {
+                                                                        $('#results tr#' + i).remove();
+                                                                        deletedRows.push(i);
+
+
+                                                                    }
+//                                                                    listName = document.getElementById("listName" + i).value;
+//                                                                    if (listName == "") {
+//                                                                        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please select rows with data  to delete</font>";
+//                                                                        return false;
+//                                                                    }
+                                                                    if (i <= document.getElementById('items').value) {
+                                                                        ips["jsonData"].push({
+                                                                            "listName1": document.getElementById("listName1").value,
+                                                                            "senderIdInst": document.getElementById('senderId' + i).value,
+                                                                            "recId": document.getElementById('recId' + i).value,
+                                                                            "listVerson": document.getElementById('listVersion' + i).value,
+                                                                            "senderItem": document.getElementById('senderItem' + i).value,
+                                                                            "recItem": document.getElementById('recItem' + i).value,
+                                                                            "text1": document.getElementById('text1' + i).value,
+                                                                            "text2": document.getElementById('text2' + i).value,
+                                                                            "text3": document.getElementById('text3' + i).value,
+                                                                            "text4": document.getElementById('text4' + i).value,
+                                                                            "desc": document.getElementById('desc' + i).value,
+                                                                            "text5": document.getElementById('text5' + i).value,
+                                                                            "text6": document.getElementById('text6' + i).value,
+                                                                            "text7": document.getElementById('text7' + i).value,
+                                                                            "text8": document.getElementById('text8' + i).value,
+                                                                            "text9": document.getElementById('text9' + i).value
+                                                                        });
+                                                                    }
+                                                                    checkedCount++;
+                                                                }
+                                                            }
+
+                                                        }
+                                                        if ($('#results tr').length == 1)
+                                                        {
+                                                            $("#checkboxAll").attr("checked", false);
                                                         }
                                                         if (checkedCount == 0)
                                                         {
-                                                            document.getElementById("messagediv").innerHTML = "<font class='text-danger'>please select rows to update</font>";
+                                                            alert("please select rows to delete");
                                                             return false;
                                                         }
-                                                        var array = JSON.stringify(ips["jsonData"]);
-                                                        //alert(document.getElementById('listName').value );
-                                                        window.location = "../utilities/codeVersionUpdate.action?listName=" + listName + "&json=" + encodeURIComponent(array);
-                                                    }
-                                                              function selectAllCheck() {
-                                                        var rowCount = $('#results tr').length;
-                                                            for (var i = 1; i < rowCount; i++) {
-                                                                //alert('hiii');
-                                                                if(document.getElementById('check' + i).checked == false){
-                                                                    document.getElementById("checkboxAll").checked=false;
-                                                                } 
+                                                        if (document.getElementById('items').value == 0 || ($('#results tr').length - 1 < document.getElementById('items').value))
+                                                        {
+                                                            return false;
+                                                        }
+                                                        var rowCount1 = $('#results tr').length;
+                                                        var count = 0;
+                                                        for (i = 1; i < rowCount1; i++) {
+                                                            var flag1 = checkArray(i);
+                                                            if (flag1 == true)
+                                                            {
+                                                                continue;
                                                             }
-                                                    
+                                                            else if (flag1 == false) {
+                                                                if (document.getElementById('check' + i).checked) {
+                                                                    count++;
+                                                                }
+                                                            }
+                                                        }
+                                                        if (count == 0)
+                                                        {
+                                                            return false;
+                                                        }
+
+                                                        var array = JSON.stringify(ips["jsonData"]);
+                                                         document.getElementById('loadingAcoountSearch').style.display = "block";
+                                                        jQuery.ajax({
+                                                                url: "../ajax/codeListDelete.action",
+                                                                type: "POST",
+                                                                data: {json: array,listName:document.getElementById('listName').value,selectedName:document.getElementById('selectedName').value},
+                                                                success: function (result) {
+                                                                    alert(result);
+                                                                    document.getElementById('loadingAcoountSearch').style.display = "none";
+                                                                }
+                                                            });
+                                                            //location.reload();
+                                                       // window.location = "../utilities/codeListDelete.action?json=" + encodeURIComponent(array) + "&listName=" + document.getElementById('listName').value + "&selectedName=" + document.getElementById('selectedName').value;
+                                                       //window.location = "..utilities/codeListSearch.action?listName=" + document.getElementById('listName').value + "&selectedName=" +document.getElementById('selectedName').value;
                                                     }
+
 
         </script> 
     </body>

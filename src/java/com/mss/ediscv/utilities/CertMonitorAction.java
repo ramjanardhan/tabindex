@@ -215,72 +215,7 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
         return resultType;
     }
 
-    public String doCodeListAdd() throws Exception {
-        String resultType = LOGIN;
-        if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
-            try {
-                  String userName=hsrequest.getSession(false).getAttribute(AppConstants.SES_LOGIN_ID).toString();
-                System.out.println("username is "+userName);
-                  String resultMessage = "";
-                List codeList = new ArrayList();
-                resultMessage = ServiceLocator.getCertMonitorService().addCodeList(getJson(),userName);
-                hsrequest.getSession(false).setAttribute(AppConstants.REQ_RESULT_MSG, resultMessage);
-                setListNameMap(DataSourceDataProvider.getInstance().getListName());
-                hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
-
-                resultType = SUCCESS;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return resultType;
-    }
-    
-    public String doCodeListDelete() throws Exception {
-        String resultType = LOGIN;
-        if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
-            try {
-                String resultMessage = "";
-                List codeList = new ArrayList();
-                resultMessage = ServiceLocator.getCertMonitorService().deleteCodeList(getJson());
-                hsrequest.getSession(false).setAttribute(AppConstants.REQ_RESULT_MSG, resultMessage);
-                //getCodeListName();
-                getCodeListItems();
-                setListNameMap(DataSourceDataProvider.getInstance().getListName());
-                setSelectedName("");
-                setModifieddate("");
-                resultType = SUCCESS;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return resultType;
-    }
-    
-        public String doCodeVersionUpdate() throws Exception {
-            System.out.println("doCodeVersionUpdate-----");
-        String resultType = LOGIN;
-        if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
-            try {
-                  String resultMessage = "";
-                String codeList = "";
-                 String userName=hsrequest.getSession(false).getAttribute(AppConstants.SES_LOGIN_ID).toString();
-                System.out.println("username is "+userName);
-                List codeList1 = new ArrayList();
-                 codeList1=(List) hsrequest.getSession(false).getAttribute(AppConstants.CODE_LIST);
-                int codeListSize=codeList1.size();
-                 resultMessage = ServiceLocator.getCertMonitorService().updateCodeList(getListName(),getJson(),userName,codeListSize);
-                hsrequest.getSession(false).setAttribute(AppConstants.REQ_RESULT_MSG, resultMessage);
-                setListNameMap(DataSourceDataProvider.getInstance().getListName());
-                setListName("-1");
-                hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
-                
-                resultType = SUCCESS;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return resultType;
-    }
+   
+       
 
 }

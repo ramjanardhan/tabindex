@@ -276,7 +276,7 @@
                                 <div class="col-sm-10" class="space_1" style="margin-top:2%"> 
                                     <strong class="col-sm-2 pull-right"><input type="button" value="Generate Excel" class="btn btn-primary" onclick="return gridDashboardDownload('dash', 'xls', document.getElementById('inboundTrans').value, document.getElementById('outboundTrans').value);" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()"/> </strong>  
 
-                                    <strong class="col-sm-2 pull-right"><input type="button" value="Generate PDF" class="btn btn-primary" onclick="return gridDashboardDownload('dash', 'pdf', document.getElementById('inboundTrans').value, document.getElementById('outboundTrans').value);" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()"  id="excel"/> </strong>  
+                                    <strong class="col-sm-2 pull-right"><input type="button" value="Generate PDF" class="btn btn-primary" onclick="return gridDashboardDownload('dash', 'pdf', document.getElementById('inboundTrans').value, document.getElementById('outboundTrans').value);" onmouseover="Tip('Click here to generate an pdf Report.')" onmouseout="UnTip()"  id="excel"/> </strong>  
                                 </div>
                             </div>
                         </div>

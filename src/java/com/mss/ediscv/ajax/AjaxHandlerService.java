@@ -85,6 +85,17 @@ public interface AjaxHandlerService {
 
     public int updateMyPwd(AjaxHandlerAction ajaxhandleraction, String loginId) throws ServiceLocatorException;
      
+   
      //method to search whether sender item and receiver item exists in the database for code list or not 
-    public int searchItems(String senderItem,String recItem) throws ServiceLocatorException;
+    public int searchItems(String senderItem,String recItem,String selectedName) throws ServiceLocatorException;
+     //method to check whether new code list nameexists in the database or not for adding new codeList  
+    public int checkCodeListName(String newCodeListName) throws ServiceLocatorException;
+    
+    
+    
+       public String addCodeList(String jsonData, String userName) throws ServiceLocatorException;
+    
+    public String updateCodeList(String listName,String jsonData,String userName,int items) throws ServiceLocatorException;
+
+    public String deleteCodeList(String jsonData) throws ServiceLocatorException;
 }

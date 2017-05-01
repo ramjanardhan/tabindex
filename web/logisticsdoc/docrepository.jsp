@@ -28,10 +28,10 @@
                 $('#ltdocrepository').addClass('active');
                 $('#logistics').addClass('active');
                 $('#ltdocrepository i').addClass('text-red');
-                document.getElementById('loadingAcoountSearch').style.display="none";
+                document.getElementById('loadingAcoountSearch').style.display = "none";
             }
-            
-            
+
+
         </script>
         <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -46,27 +46,27 @@
 
 
         <script type="text/javascript">
-             
+
             /* close button script*/
-            $(document).ready(function(c) {
-                $('.alert-close').on('click', function(c){
-                    $('.message').fadeOut('slow', function(c){
+            $(document).ready(function (c) {
+                $('.alert-close').on('click', function (c) {
+                    $('.message').fadeOut('slow', function (c) {
                         $('.message').remove();
                     });
-                });	
-            });                        
+                });
+            });
         </script>
         <script>
-                          
-                
+
+
 
             function hide()
             {
-                
+
                 $('#hide-menu1').removeClass('show-menu');
             }
-            
-            
+
+
         </script>
 
 
@@ -78,24 +78,25 @@
         }
 
         //System.out.println("check-->"+check);
-%>
-    <body onload="doOnLoad();check();" class="hold-transition skin-blue sidebar-mini">    
+    %>
+    <body onload="doOnLoad();
+            check();" class="hold-transition skin-blue sidebar-mini">    
 
         <script type="text/javascript">
-            function check()            {
-            
-                var value1=document.getElementById("corrattribute1").value;
-           
-                if (value1!="-1")
+            function check() {
+
+                var value1 = document.getElementById("corrattribute1").value;
+
+                if (value1 != "-1")
                     document.getElementById("corr").style.display = "block";
                 else
                     document.getElementById("corr").style.display = "none";
-                var value2=document.getElementById("corrattribute2").value;
-                if (value2!="-1")
+                var value2 = document.getElementById("corrattribute2").value;
+                if (value2 != "-1")
                     document.getElementById("corr1").style.display = "block";
                 else
                     document.getElementById("corr1").style.display = "none";
-          
+
             }
         </script>
         <div>
@@ -142,17 +143,17 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="row">
-                                                    <div class="col-sm-3"> <label>Date range</label>
+                                                    <div class="col-sm-3"> <label>Date Range</label>
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="Date1();" /> 
                                                     </div>
 
                                                     <script type="text/javascript">
                                                         function Date1() {
-                                                            var date=document.documentForm.reportrange.value;
-                                                            var arr=date.split("-");
-                                                            var x=arr[1].trim();
+                                                            var date = document.documentForm.reportrange.value;
+                                                            var arr = date.split("-");
+                                                            var x = arr[1].trim();
                                                             document.getElementById("docdatepickerfrom").value = arr[0];
-                                                            document.getElementById("docdatepicker").value =x ;
+                                                            document.getElementById("docdatepicker").value = x;
                                                         }
                                                     </script>
 
@@ -209,15 +210,15 @@
 
 
                                                 <script>
-                                                    var count=0;
+                                                    var count = 0;
                                                 </script>                                          
 
                                                 <script>
-                                                    $("#addButton").click(function(){
+                                                    $("#addButton").click(function () {
                                                         count++;
-                                                        if(count==1)
+                                                        if (count == 1)
                                                             document.getElementById("corr").style.display = "block";
-                                                        else if(count==2)
+                                                        else if (count == 2)
                                                             document.getElementById("corr1").style.display = "block";
                                                         else
                                                             alert('Limit exceeded.... cant add more fields');
@@ -318,21 +319,21 @@
                                                             %>
                                                             <thead><tr>
 
-                                                                    <th >FileFormat</th> 
+                                                                    <th >File&nbsp;Format</th> 
                                                                     <th >InstanceId</th>
                                                                     <th >Partner</th>
                                                                     <th >Shipment</th>
                                                                     <th >DateTime</th>
-                                                                    <%-- <th >ISA #</th>  --%>
+                                                                        <%-- <th >ISA #</th>  --%>
 
                                                                     <%-- <th >DOC_ORIGIN</th> --%>
-                                                                    <th >TransType</th>
+                                                                    <th >Trans&nbsp;Type</th>
                                                                     <th >Direction</th>
 
                                                                     <th >Status</th>
-                                                                    <%-- <th >ACK_STATUS</th>  --%>
+                                                                        <%-- <th >ACK_STATUS</th>  --%>
 
-                                                                    <th >FileName </th>
+                                                                    <th >File&nbsp;Name </th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -350,7 +351,7 @@
                                                                     %>
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsDocBean.getFile_type() != null) {
+                                                                            if (logisticsDocBean.getFile_type() != null && !"".equals(logisticsDocBean.getFile_type())) {
                                                                                 out.println(logisticsDocBean.getFile_type());
                                                                             } else {
                                                                                 out.println("-");
@@ -359,10 +360,10 @@
 
                                                                     </td>
                                                                     <%--<td onclick="getDetails()">--%>
-                                                                    <td><a href="javascript:getDetails('<%=logisticsDocBean.getFile_id()%>','<%=logisticsDocBean.getId()%>');">
+                                                                    <td><a href="javascript:getLogisticsDocDetails('<%=logisticsDocBean.getFile_id()%>','<%=logisticsDocBean.getId()%>');">
 
                                                                             <%
-                                                                                if (logisticsDocBean.getFile_id() != null) {
+                                                                                if (logisticsDocBean.getFile_id() != null && !"".equals(logisticsDocBean.getFile_id())) {
                                                                                     out.println(logisticsDocBean.getFile_id());
                                                                                 } else {
                                                                                     out.println("-");
@@ -371,43 +372,35 @@
                                                                         </a>
                                                                     </td>
 
-
-
-
-
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsDocBean.getPname() != null) {
+                                                                            if (logisticsDocBean.getPname() != null && !"".equals(logisticsDocBean.getPname())) {
                                                                                 out.println(logisticsDocBean.getPname());
                                                                             } else {
                                                                                 out.println("-");
                                                                             }
 
 
-
                                                                         %>
 
                                                                     </td>
 
 
                                                                     <td>
-                                                                        <%
-                                                                            if (logisticsDocBean.getShipmentId() != null) {
+                                                                        <%                                                                            if (logisticsDocBean.getShipmentId() != null && !"".equals(logisticsDocBean.getShipmentId())) {
                                                                                 out.println(logisticsDocBean.getShipmentId());
                                                                             } else {
                                                                                 out.println("-");
                                                                             }
 
 
-
                                                                         %>
 
                                                                     </td>
 
 
                                                                     <td>
-                                                                        <%
-                                                                            if (logisticsDocBean.getDate_time_rec() != null) {
+                                                                        <%                                                                            if (logisticsDocBean.getDate_time_rec() != null && !"".equals(logisticsDocBean.getDate_time_rec())) {
                                                                                 out.println(logisticsDocBean.getDate_time_rec().toString().substring(0, logisticsDocBean.getDate_time_rec().toString().lastIndexOf(":")));
                                                                             } else {
                                                                                 out.println("-");
@@ -417,7 +410,7 @@
                                                                     </td>   
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsDocBean.getTransaction_type() != null) {
+                                                                            if (logisticsDocBean.getTransaction_type() != null && !"".equals(logisticsDocBean.getTransaction_type())) {
                                                                                 out.println(logisticsDocBean.getTransaction_type());
                                                                             } else {
                                                                                 out.println("-");
@@ -427,7 +420,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsDocBean.getDirection() != null) {
+                                                                            if (logisticsDocBean.getDirection() != null && !"".equals(logisticsDocBean.getDirection())) {
                                                                                 out.println(logisticsDocBean.getDirection());
                                                                             } else {
                                                                                 out.println("-");
@@ -439,7 +432,7 @@
 
                                                                     <td>
                                                                         <%
-                                                                            if (logisticsDocBean.getStatus() != null) {
+                                                                            if (logisticsDocBean.getStatus() != null && !"".equals(logisticsDocBean.getStatus())) {
                                                                                 if (logisticsDocBean.getStatus().equalsIgnoreCase("ERROR")) {
                                                                                     out.println("<font color='red'>" + logisticsDocBean.getStatus() + "</font>");
                                                                                 } else if (logisticsDocBean.getStatus().equalsIgnoreCase("SUCCESS")) {
@@ -457,7 +450,7 @@
 
                                                                         <%
                                                                             //out.println(logisticsDocBean.getReProcessStatus());
-                                                                            if (logisticsDocBean.getFile_name() != null) {
+                                                                            if (logisticsDocBean.getFile_name() != null && !"".equals(logisticsDocBean.getFile_name())) {
                                                                                 out.println(logisticsDocBean.getFile_name().toUpperCase());
 
                                                                             } else {
@@ -477,7 +470,6 @@
                                                                         <%
                                                                                 // String contextPath = request.getContextPath();
                                                                                 // out.println("<img  border='0' align='top'  src='"+contextPath+"/includes/images/alert.gif'/><b> No Records Found to Display!</b>");
-
                                                                                 out.println("<img  border='0' align='top'  src='" + contextPath + "/includes/images/alert.gif'/><b>No records found for the given search criteria. Please try a different search criteria!</b>");
                                                                             }
 
@@ -487,8 +479,7 @@
 
                                                         </table></td></tr>
 
-                                                <%
-                                                    if (list.size() != 0) {
+                                                <%                                                    if (list.size() != 0) {
                                                 %>
                                                 <tr>
                                                     <!--                                                                        <td align="right" colspan="28" style="background-color: white;">
@@ -511,7 +502,7 @@
                                         <table align="right">
                                             <tr>
                                                 <td style="background-color: white;">
-                                                    <strong><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('logisticsDoc','xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/></strong>
+                                                    <strong><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('logisticsDoc', 'xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/></strong>
                                                 </td>
                                             </tr>
                                         </table> 
@@ -554,7 +545,7 @@
                     <br>
                     <div id="senderinfo">
                         <div class="row col-sm-12">
-                            <div class="col-sm-6"> <h4 class="labelw">Sender Info :</h4></div>
+                            <div class="col-sm-6"> <h4>Sender Info :</h4></div>
                             <div class="col-sm-6"></div>
                             <div class="col-sm-6"></div>
 
@@ -572,7 +563,7 @@
                     <br>
                     <div id="receiverinfo">
                         <div class="row col-sm-12">
-                            <div class="col-sm-6"> <h4 class="labelw">Receiver Info:</h4></div>
+                            <div class="col-sm-6"> <h4>Receiver Info:</h4></div>
                             <div class="col-sm-6"></div>
                             <div class="col-sm-6"></div>
                         </div>
@@ -610,58 +601,36 @@
                         </div>
                     </div>
                     <br>
-                    <div class="row col-sm-12" >
-                        <div class="col-sm-6"> <label class="labelw">  Pre Transition  </label></div>
+                    <div class="row col-sm-12" style="margin-top:10px;" >
+                        <div class="col-sm-6"> <label class="labelw">  Pre Translation  </label></div>
                         <div class="col-sm-6"><div id="LogDocPreTranslation"></div>
-
                         </div>
                     </div>
                     <br>
                     <div class="row col-sm-12" >
-                        <div class="col-sm-6"><label class="labelw"> Post Transition </label></div>
+                        <div class="col-sm-6"><label class="labelw"> Post Translation </label></div>
                         <div class="col-sm-6"><div id="LogDocPostTranslation"></div>
-
                         </div>
                     </div>
-                    <br>
                     <div class="row col-sm-12" >
                         <div class="col-sm-6"> <label class="labelw"> 997 ACK File </label></div>
                         <div class="col-sm-6"> <div id="LogDocAckFileId"></div>
 
                         </div>
                     </div>
-                    <div class="row col-sm-12" >
+                    <div class="row col-sm-12" id="errorDiv" style="display: none">
                         <div class="col-sm-6"> <label class="labelw"> Error Message </label></div>
-                        <div class="col-sm-6" id="LogDocErrorMessage"> </div>
+                        <div class="col-sm-6" id="LogDocErrorMessage" style="color: red"> </div>
                     </div>
                     <div id="noresult"></div>
-                    <div class="row col-sm-12"> <br><br><br><button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" style="margin-left:12px;" value="X">Close</button></div>
+                    <div class="row col-sm-12" style="margin-top:10px;"><button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" style="margin-left:12px;" value="X">Close</button></div>
 
                 </div>
 
             </div>
         </div>
 
-        <!--                <script>
-                            function getDetails()
-                            {
-                             //   alert("menu");
-                             //   document.getElementById('hide-menu1').addClass('show-menu');
-                              //  alert("menu");
-                                //document.getElementById("hide-menu1").className = "hide-menu message show-menu";
-                                //  $('#hide-menu').addClass('show-menu');
-                                $('#hide-menu').toggleClass('show-menu');
-                            }
-                        </script>-->
         <%-- Side box ends--%>
-
-        <script>
-            function getDetails(val,id){
-                getLogisticsDocDetails(val,id);
-            }
-        </script>
-
-
 
     </div>
 
@@ -700,8 +669,8 @@
 <script language="JavaScript"  src='<s:url value="/includes/js/Correlation.js"/>'></script>
 <script type="text/javascript" src='<s:url value="../includes/js/DateValidation.js"/>'></script>
 <script type="text/javascript">
-            
-    function checkCorrelation() 
+
+    function checkCorrelation()
     {
         var corrattr = document.getElementById('corrattribute').value;
         var corrval = document.getElementById('corrvalue').value;
@@ -709,50 +678,50 @@
         var corrval1 = document.getElementById('corrvalue1').value;
         var corrattr2 = document.getElementById('corrattribute2').value;
         var corrval2 = document.getElementById('corrvalue2').value;
-        if((corrattr!="-1")&&(corrval=="")) {
+        if ((corrattr != "-1") && (corrval == "")) {
             alert("please enter Correlation Value!!!");
             return  false;
         }
-        if((corrattr=="-1")&&(corrval!="")) {
+        if ((corrattr == "-1") && (corrval != "")) {
             alert("please select Correlation!");
             return false;
         }
-        if((corrattr1!="-1")&&(corrval1=="")) {
+        if ((corrattr1 != "-1") && (corrval1 == "")) {
             alert("please enter Correlation Value!!!");
             return false;
         }
-        if((corrattr1=="-1")&&(corrval1!="")) {
+        if ((corrattr1 == "-1") && (corrval1 != "")) {
             alert("please select Correlation!");
             return false;
         }
-        if((corrattr2!="-1")&&(corrval2=="")) {
+        if ((corrattr2 != "-1") && (corrval2 == "")) {
             alert("please enter Correlation Value!!!");
             return false;
         }
-        if((corrattr2=="-1")&&(corrval2!="")) {
+        if ((corrattr2 == "-1") && (corrval2 != "")) {
             alert("please select Correlation!");
             return false;
         }
     }
     function resetvalues()
     {
-        document.getElementById('docdatepickerfrom').value="";
-        document.getElementById('docdatepicker').value="";
-        document.getElementById('docSenderId').value="";
-        document.getElementById('docSenderName').value="";
-        document.getElementById('docBusId').value="";
-        document.getElementById('docRecName').value="";
-        document.getElementById('corrattribute').value="-1"; 
-        document.getElementById('corrvalue').value=""; 
-        document.getElementById('docType').value="-1"; 
-        document.getElementById('corrattribute1').value="-1"; 
-        document.getElementById('corrvalue1').value=""; 
-        document.getElementById('corrattribute2').value="-1"; 
-        document.getElementById('corrvalue2').value=""; 
-        document.getElementById('status').value="-1"; 
-        document.getElementById('reportrange').value="";
+        document.getElementById('docdatepickerfrom').value = "";
+        document.getElementById('docdatepicker').value = "";
+        document.getElementById('docSenderId').value = "";
+        document.getElementById('docSenderName').value = "";
+        document.getElementById('docBusId').value = "";
+        document.getElementById('docRecName').value = "";
+        document.getElementById('corrattribute').value = "-1";
+        document.getElementById('corrvalue').value = "";
+        document.getElementById('docType').value = "-1";
+        document.getElementById('corrattribute1').value = "-1";
+        document.getElementById('corrvalue1').value = "";
+        document.getElementById('corrattribute2').value = "-1";
+        document.getElementById('corrvalue2').value = "";
+        document.getElementById('status').value = "-1";
+        document.getElementById('reportrange').value = "";
         $('#gridDiv').hide();
-    
+
     }
 </script>
 

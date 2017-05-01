@@ -38,7 +38,8 @@
             check = request.getAttribute("check").toString();
         }
     %>
-    <body class="hold-transition skin-blue sidebar-mini" onload="doOnLoad() & check();">    
+    <body class="hold-transition skin-blue sidebar-mini" onload="doOnLoad();
+            check();">    
         <div>
             <s:include value="../includes/template/header.jsp"/>
         </div>
@@ -79,7 +80,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="row">
-                                                    <div class="col-sm-3"> <label>Date range</label>
+                                                    <div class="col-sm-3"> <label>Date Range</label>
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}"  onchange="Date1()"/> 
                                                     </div>
                                                     <div  class="col-sm-3">
@@ -191,8 +192,7 @@
                                     </div><!-- /.box-header -->
                                     <div class="box-body">
                                         <div style="overflow-x:auto;">                 
-                                            <table align="left" width="100%"
-                                                   border="0" cellpadding="0" cellspacing="0" >
+                                            <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0" >
                                                 <tr>
                                                     <td style="background-color: white;">
                                                         <div style="overflow-x:auto;"> 
@@ -211,61 +211,84 @@
                                                                         <th >Direction</th>
                                                                         <th >Status</th>
                                                                         <th >Reprocess</th>
-                                                                        <th >ACK_STATUS</th></tr> </thead>
-                                                                <tbody>
-                                                                    <%
-                                                                        String corrattribute;
-                                                                        String corrattribute1;
-                                                                        String corrattribute2;
-                                                                        for (int i = 0; i < list.size(); i++) {
-                                                                            docRepositoryBean = (DocRepositoryBean) list.get(i);
-                                                                            corrattribute = docRepositoryBean.getCorrattribute();
-                                                                            corrattribute1 = docRepositoryBean.getCorrattribute1();
-                                                                            corrattribute2 = docRepositoryBean.getCorrattribute2();
+                                                                        <th >Ack&nbsp;Status</th>
+                                                                            <%
+                                                                               // String corrattribute;
+                                                                                // String corrattribute1;
+                                                                                //String corrattribute2;
+                                                                                for (int i = 0; i < list.size(); i++) {
+                                                                                    docRepositoryBean = (DocRepositoryBean) list.get(i);
+                                                                                    /*  corrattribute = docRepositoryBean.getCorrattribute();
+                                                                                     corrattribute1 = docRepositoryBean.getCorrattribute1();
+                                                                                     corrattribute2 = docRepositoryBean.getCorrattribute2();*/
 
-                                                                            if (corrattribute != "-1" && !"-1".equalsIgnoreCase(corrattribute) && i == 0) {%>
-                                                                <td><%=corrattribute%> </td> 
-                                                                <%}
-                                                                    if (corrattribute1 != "-1" && !"-1".equalsIgnoreCase(corrattribute1) && i == 0) {%>
-                                                                <td ><%=corrattribute1%> </td> 
-                                                                <%}
-                                                                    if (corrattribute2 != "-1" && !"-1".equalsIgnoreCase(corrattribute2) && i == 0) {%>
-                                                                <td ><%=corrattribute2%> </td> 
-                                                                <%
-                                                                    }
-                                                                %>
-                                                                </tr>
+                                                                      //  if (corrattribute != "-1" && !"-1".equalsIgnoreCase(corrattribute) && i == 0 && !"Direction".equalsIgnoreCase(corrattribute) && !"Instance Id".equalsIgnoreCase(corrattribute) }
+                                                                            %>
+                                                                            <%-- <th><%=corrattribute%> </th> 
+                                                                                  <%}
+                                                                                      if (corrattribute1 != "-1" && !"-1".equalsIgnoreCase(corrattribute1) && i == 0 && !"Direction".equalsIgnoreCase(corrattribute1) && !"Instance Id".equalsIgnoreCase(corrattribute1)) {%>
+                                                                             <th><%=corrattribute1%> </th> 
+                                                                                  <%}
+                                                                                      if (corrattribute2 != "-1" && !"-1".equalsIgnoreCase(corrattribute2) && i == 0 && !"Direction".equalsIgnoreCase(corrattribute2) && !"Instance Id".equalsIgnoreCase(corrattribute2)) {%>
+                                                                             <th><%=corrattribute2%> </th> 
+                                                                                  <%
+                                                                                      }
+                                                                                  %>--%>
+                                                                    </tr> </thead>
                                                                 <tr>
                                                                     <td>
-                                                                        <%
-                                                                            out.println(docRepositoryBean.getFile_type());
+                                                                        <%                                                                            //System.out.println("docRepositoryBean.getDate_time_rec().toString() "+docRepositoryBean.getDate_time_rec());
+                                                                            if (docRepositoryBean.getFile_type() != null && !"".equals(docRepositoryBean.getFile_type())) {
+                                                                                out.println(docRepositoryBean.getFile_type());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td>
                                                                     <td><a href="javascript:getDetails('<%=docRepositoryBean.getFile_id()%>','<%=docRepositoryBean.getPoNumber()%>','<%=docRepositoryBean.getId()%>');">
                                                                             <%
-                                                                                out.println(docRepositoryBean.getFile_id());
+                                                                                if (docRepositoryBean.getFile_id() != null && !"".equals(docRepositoryBean.getFile_id())) {
+                                                                                    out.println(docRepositoryBean.getFile_id());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
                                                                             %>
                                                                         </a>
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            out.println(docRepositoryBean.getPname());
+                                                                            if (docRepositoryBean.getPname() != null && !"".equals(docRepositoryBean.getPname())) {
+                                                                                out.println(docRepositoryBean.getPname());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            if (docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")) != null
+                                                                                    && !"".equals(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                                out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td>  
                                                                     <td>
                                                                         <%
-                                                                            out.println(docRepositoryBean.getTransaction_type());
+                                                                            if (docRepositoryBean.getTransaction_type() != null && !"".equals(docRepositoryBean.getTransaction_type())) {
+                                                                                out.println(docRepositoryBean.getTransaction_type());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (docRepositoryBean.getDirection() != null) {
+                                                                            if (docRepositoryBean.getDirection() != null && !"".equals(docRepositoryBean.getDirection())) {
                                                                                 out.println(docRepositoryBean.getDirection().toUpperCase());
+                                                                            } else {
+                                                                                out.println("-");
                                                                             }
                                                                         %>
                                                                     </td>  
@@ -282,28 +305,32 @@
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            if (docRepositoryBean.getReProcessStatus() != null) {
+                                                                            if (docRepositoryBean.getReProcessStatus() != null && !"".equals(docRepositoryBean.getReProcessStatus())) {
                                                                                 out.println(docRepositoryBean.getReProcessStatus().toUpperCase());
                                                                             } else {
-                                                                                out.println("");
+                                                                                out.println("-");
                                                                             }
                                                                         %>
                                                                     </td>
                                                                     <td>
                                                                         <%
-                                                                            out.println(docRepositoryBean.getAckStatus());
+                                                                            if (docRepositoryBean.getAckStatus() != null && !"".equals(docRepositoryBean.getAckStatus())) {
+                                                                                out.println(docRepositoryBean.getAckStatus());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </td>
-                                                                    <%if (docRepositoryBean.getCorrvalue() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue())) {%>
-                                                                    <td ><%=docRepositoryBean.getCorrvalue()%> </td> 
-                                                                    <%}
-                                                                        if (docRepositoryBean.getCorrvalue1() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue1())) {%>
-                                                                    <td ><%=docRepositoryBean.getCorrvalue1()%> </td> 
-                                                                    <%}
-                                                                        if (docRepositoryBean.getCorrvalue2() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue2())) {%>
-                                                                    <td ><%=docRepositoryBean.getCorrvalue2()%> </td> 
-                                                                    <%}
-                                                                    %>
+                                                                    <%-- <%if (docRepositoryBean.getCorrvalue() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue())) {%>
+                                                                     <td ><%=docRepositoryBean.getCorrvalue()%> </td> 
+                                                                     <%}
+                                                                         if (docRepositoryBean.getCorrvalue1() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue1())) {%>
+                                                                     <td ><%=docRepositoryBean.getCorrvalue1()%> </td> 
+                                                                     <%}
+                                                                         if (docRepositoryBean.getCorrvalue2() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue2())) {%>
+                                                                     <td ><%=docRepositoryBean.getCorrvalue2()%> </td> 
+                                                                     <%}
+                                                                     %>--%>
                                                                 </tr>
                                                                 <%
                                                                     }
@@ -317,6 +344,7 @@
                                                                     </td>
                                                                 </tr>
                                                             </table>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                                 <%
@@ -356,27 +384,27 @@
                         <div class="row col-sm-12">
 
                             <br>
-                            <div class="col-sm-6"> <label class="labelw"> File ID : </label>
+                            <div class="col-sm-6"> <label class="labelw"> File ID </label>
                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="ManFileId" name="ManFileId"  readonly="true"/>
                             </div>
                             <div class="col-sm-6"><label class="labelw"> Shipment # </label>
                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="ManShipment" name="ManShipment" readonly="true"/>
                             </div>
                         </div>
-                        <div class="row col-sm-12"> <br>
-                            <div class="col-sm-6"> <label class="labelw">  Purchase Order : </label>
+                        <div class="row col-sm-12">
+                            <div class="col-sm-6"> <label class="labelw">  Purchase Order </label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManPurchaseOrder" name="ManPurchaseOrder" readonly="true"/>
                             </div>
-                            <div class="col-sm-6"> <label class="labelw"> PRI_KEY_VAL</label>
-                                <s:textfield   cssClass="form-control"  required="required" placeholder="" id="ManPriKeyValue" name="ManPriKeyValue" readonly="true"/>
-
-                            </div>
-                        </div>
-                        <div class="row col-sm-12">
                             <div class="col-sm-6"> <label class="labelw">  Document Type</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManDocumentType" name="ManDocumentType" readonly="true"/>
                             </div>
-                            <div class="col-sm-6"> <label class="labelw"> Transaction Type:</label>
+                            <%--                            <div class="col-sm-6"> <label class="labelw"> PRI_KEY_VAL</label>
+                                                            <s:textfield   cssClass="form-control"  required="required" placeholder="" id="ManPriKeyValue" name="ManPriKeyValue" readonly="true"/>
+
+                            </div>--%>
+                        </div>
+                        <div class="row col-sm-12">
+                            <div class="col-sm-6"> <label class="labelw"> Transaction Type</label>
                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="ManTransactionType" name="ManTransactionType" readonly="true"/>
                             </div>
                         </div>
@@ -390,10 +418,10 @@
                             </div>
                             <br>
                             <div class="row col-sm-12">
-                                <div class="col-sm-6"> <label class="labelw">  Sender Id:</label>
+                                <div class="col-sm-6"> <label class="labelw">  Sender Id</label>
                                     <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManSenderId" name="ManSenderId" readonly="true"/>
                                 </div>
-                                <div class="col-sm-6"><label class="labelw">  Sender Name: </label>
+                                <div class="col-sm-6"><label class="labelw">  Sender Name </label>
                                     <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManSenderName" name="ManSenderName" readonly="true"/>
                                 </div>
                             </div>
@@ -408,47 +436,47 @@
 
                             <br>
                             <div class="row col-sm-12 clear">
-                                <div class="col-sm-6"><label class="labelw">  Receiver Id: </label>
+                                <div class="col-sm-6"><label class="labelw">  Receiver Id </label>
                                     <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManReceiverId" name="ManReceiverId" readonly="true"/>
                                 </div>
-                                <div class="col-sm-6"><label class="labelw">  Receiver Name: </label>
+                                <div class="col-sm-6"><label class="labelw">  Receiver Name </label>
                                     <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManReceiverName" name="ManReceiverName" readonly="true"/>
                                 </div>
                             </div>
                         </div>
                         <div class="row col-sm-12 clear">
-                            <div class="col-sm-6"> <label class="labelw">   ISA:</label>
+                            <div class="col-sm-6"> <label class="labelw">   ISA</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManISA" name="ManISA" readonly="true"/>
                             </div>
-                            <div class="col-sm-6"><label class="labelw">  GS:</label>
+                            <div class="col-sm-6"><label class="labelw">  GS</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManGs" name="ManGs" readonly="true"/>
                             </div>
                         </div>
 
                         <br/>
 
-                        <div class="row col-sm-12" style="margin-top:10px;" >
-                            <div class="col-sm-6"> <label class="labelw"> ST:</label>
+                        <div class="row col-sm-12" >
+                            <div class="col-sm-6"> <label class="labelw"> ST</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManSt" name="ManSt" readonly="true"/>
                             </div>
-                            <div class="col-sm-6"> <label class="labelw"> ISA Date:</label>
+                            <div class="col-sm-6"> <label class="labelw"> ISA Date</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManIsADate" name="ManIsADate" readonly="true"/>
                             </div>
 
-                            <div class="col-sm-6"> <label class="labelw"> ISA Time:</label>
+                            <div class="col-sm-6"> <label class="labelw"> ISA Time</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManIsATime" name="ManIsATime" readonly="true"/>
                             </div>
                             <div class="col-sm-6"> <label class="labelw">  STATUS </label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManStatus" name="ManStatus" readonly="true"/>
                             </div>
                         </div>
-
-                        <div class="row col-sm-12" >
-                            <div class="col-sm-6"> <label class="labelw"> Pre Translation:</label></div>
+                        <br>
+                        <div class="row col-sm-12" style="margin-top:10px;">
+                            <div class="col-sm-6"> <label class="labelw"> Pre Translation</label></div>
                             <div class="col-sm-6"><div id="ManPreTranslation"></div>
                             </div></div>
                         <div class="row col-sm-12" >
-                            <div class="col-sm-6"><label class="labelw"> Post Translation:</label></div>
+                            <div class="col-sm-6"><label class="labelw"> Post Translation</label></div>
                             <div class="col-sm-6"> <div id="ManPostTranslation"></div></div>
                         </div>
                         <div class="row col-sm-12" >
@@ -456,35 +484,39 @@
                             <div class="col-sm-6"> <div id="ManAckFileId"></div></div>   
                         </div>
 
-
                         <div class="row col-sm-12" id="errorDiv" style="display: none">
-                            <div class="col-sm-6"> <label class="labelw">  Error&nbsp;Message </label></div>
+                            <div class="col-sm-6"> <label class="labelw"> Error&nbsp;Message </label></div>
                             <div class="col-sm-6" id="InvErrormessage" style="color: red"></div>
                         </div>
-                        <div class="row col-sm-12 clear" style="visibility: hidden">
+                        <!--                        <div class="row col-sm-12" id="errorDiv" style="display: none">
+                                                    <div class="col-sm-6"> <label class="labelw">  Error&nbsp;Message </label></div>
+                                                    <div class="col-sm-6" id="InvErrormessage" style="color: red"></div>
+                                                </div>-->
+                        <div class="row col-sm-12 clear" id="sapDiv" style="display: none;margin-top:10px;">
                             <div class="col-sm-6"> <label class="labelw"> SAP_USER </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="SAP_USER" name="ManStatus" readonly="true"/>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="SAP_USER" name="SAP_USER" readonly="true"/>
                             </div>
                             <div class="col-sm-6"> <label class="labelw">  IDOC_NUMBER </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_NUMBER" name="ManStatus" readonly="true"/>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_NUMBER" name="IDOC_NUMBER" readonly="true"/>
                             </div>
                             <div class="col-sm-6"> <label class="labelw">  PO_NUMBER </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PO_NUMBER" name="ManStatus" readonly="true"/>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PO_NUMBER" name="PO_NUMBER" readonly="true"/>
                             </div>
                             <div class="col-sm-6"><label class="labelw">  PO_DATE </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PO_DATE" name="ManStatus" readonly="true"/>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PO_DATE" name="PO_DATE" readonly="true"/>
                             </div>
                             <div class="col-sm-6"> <label class="labelw"> IDOC_STATUS_CODE </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_CODE" name="ManStatus" readonly="true"/>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_CODE" name="IDOC_STATUS_CODE" readonly="true"/>
                             </div>
                             <div class="col-sm-6"> <label class="labelw">  IDOC_STATUS_DESCRIPTION </label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_DESCRIPTION" name="ManStatus" readonly="true"/>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_DESCRIPTION" name="IDOC_STATUS_DESCRIPTION" readonly="true"/>
                             </div>
                         </div>
                         <div class="row col-sm-12" id="ManNullValues" style="display: none">
                             <div class="col-sm-6"> <label class="labelw"> display null values;</label></div></div>
                         <div id="noresult"></div>
-                        <div class="row col-sm-12">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
+                        <br>
+                        <div class="row col-sm-12" style="margin-top:10px;">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
                     </div>
 
 

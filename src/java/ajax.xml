@@ -62,5 +62,17 @@
         <action name="changePassword" class="com.mss.ediscv.ajax.AjaxHandlerAction" method="changePassword"/>   
         <!--method to search whether sender item and receiver item exists in the database for code list or not -->
         <action name="searchItems" class="com.mss.ediscv.ajax.AjaxHandlerAction" method="searchItems"/> 
+        <!-- method to check whether new code list name exists in the database or not for adding new code list-->
+        <action name="checkCodeListName" class="com.mss.ediscv.ajax.AjaxHandlerAction" method="checkCodeListName"/> 
+        
+        
+         <action name="codeListAdd" class="com.mss.ediscv.ajax.AjaxHandlerAction" method="doCodeListAdd"/>
+         
+       
+          <action name="codeListDelete" class="com.mss.ediscv.ajax.AjaxHandlerAction" method="doCodeListDelete"/>
+           
+        <!-- new xml added Hyma-->
+            <action name="codeVersionUpdate" class="com.mss.ediscv.ajax.AjaxHandlerAction" method="doCodeVersionUpdate"/>
+            
     </package>
 </struts>

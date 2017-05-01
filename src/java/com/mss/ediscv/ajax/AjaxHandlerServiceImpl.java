@@ -35,10 +35,16 @@ import com.mss.ediscv.util.DateUtility;
 import com.mss.ediscv.util.MailManager;
 import com.mss.ediscv.util.PasswordUtil;
 import com.mss.ediscv.util.WildCardSql;
+import com.mss.ediscv.utilities.CertMonitorServiceImpl;
 import java.sql.CallableStatement;
 import java.sql.Types;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * @author miracle
@@ -4963,7 +4969,7 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                     Entry thisEntry = (Entry) entries.next();
                     Object key = thisEntry.getKey();
                     //System.out.println("Key-->"+)
-                    // Object value = thisEntry.getValue();
+                     Object value = thisEntry.getValue();
                     // ...
                     // inboundString = inboundString+(String)key+"|";
                     preparedStatement.setString(1, (String) key);
@@ -4984,11 +4990,11 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                         outboundTotal = resultSet.getInt("total");
                     }
                     if (inboundTotal != 0) {
-                        inboundString = inboundString + (String) key + "|" + inboundTotal + "^";
+                        inboundString = inboundString + (String) key+"_"+(String) value+ "|" + inboundTotal + "^";
 
                     }
                     if (outboundTotal != 0) {
-                        outboundString = outboundString + (String) key + "|" + outboundTotal + "^";
+                        outboundString = outboundString + (String) key+"_"+(String) value + "|" + outboundTotal + "^";
                     }
                     inboundTotal = 0;
                     outboundTotal = 0;
@@ -5027,11 +5033,11 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
 
                 resultSet.close();
             }
-            System.out.println("resultString--->" + resultString);
+            
             //  resultSet = statement.executeQuery();
 
             resultString = inboundString + "*" + outboundString;
-
+            System.out.println("resultString--->" + resultString);
         } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (ServiceLocatorException sle) {
@@ -5288,7 +5294,7 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
     //method to search whether sender item and receiver item exists in the database for code list or not 
 
     @Override
-    public int searchItems(String senderItem, String recItem) throws ServiceLocatorException {
+    public int searchItems(String senderItem, String recItem, String selectedName) throws ServiceLocatorException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -5297,7 +5303,13 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
         connection = ConnectionProvider.getInstance().getOracleConnection();
 
         try {
-            queryString = "SELECT COUNT(*) AS COUNT FROM CODELIST_XREF_ITEM WHERE SENDER_ITEM='" + senderItem + "' AND RECEIVER_ITEM='" + recItem + "'";
+            if(selectedName!=null && !"-1".equals(selectedName)){
+            queryString = "SELECT COUNT(*) AS COUNT FROM CODELIST_XREF_ITEM WHERE SENDER_ITEM='" + senderItem + "' AND RECEIVER_ITEM='" + recItem + "' AND LIST_NAME='"+selectedName+"'";
+            }
+            else
+            {
+                queryString = "SELECT COUNT(*) AS COUNT FROM CODELIST_XREF_ITEM WHERE SENDER_ITEM='" + senderItem + "' AND RECEIVER_ITEM='" + recItem + "'";
+            }
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -5326,6 +5338,522 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
         return count;
     }
 
+    @Override
+    public int checkCodeListName(String newCodeListName) throws ServiceLocatorException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String queryString = null;
+        int count = 0;
+        connection = ConnectionProvider.getInstance().getOracleConnection();
+
+        try {
+            System.out.println("selected CodeList Name is "+newCodeListName);
+            
+                queryString = "SELECT COUNT(*) AS COUNT FROM CODELIST_XREF_VERS  WHERE LIST_NAME='"+newCodeListName+"'";
+            
+            preparedStatement = connection.prepareStatement(queryString);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                count = resultSet.getInt("COUNT");
+            }
+        } catch (SQLException sql) {
+            throw new ServiceLocatorException(sql);
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                    resultSet = null;
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                    preparedStatement = null;
+                }
+                if (connection != null) {
+                    connection.close();
+                    connection = null;
+                }
+            } catch (SQLException ex) {
+                throw new ServiceLocatorException(ex);
+            }
+        }
+        return count;
+    }
+    
+     @Override
+    public String addCodeList(String jsonData, String userName) throws ServiceLocatorException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement1 = null;
+        PreparedStatement preparedStatement2 = null;
+        String queryString = null;
+        connection = ConnectionProvider.getInstance().getOracleConnection();
+        JSONArray array = null;
+        JSONObject jsonObj = null;
+        int updatedRows = 0;
+        int updatedRows1 = 0;
+        int updatedRows2 = 0;
+        try {
+            array = new JSONArray(jsonData);
+
+        } catch (JSONException ex) {
+            Logger.getLogger(CertMonitorServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            queryString = "INSERT INTO SI_USER.CODELIST_XREF_ITEM "
+                    + "(LIST_NAME, SENDER_ID, RECEIVER_ID, LIST_VERSION, SENDER_ITEM, RECEIVER_ITEM, TEXT1, TEXT2, TEXT3, TEXT4, DESCRIPTION, TEXT5, TEXT6, TEXT7, TEXT8, TEXT9)"
+                    + " VALUES (?, ?, ?,? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String queryString1 = "INSERT INTO SI_USER.CODELIST_XREF_VERS"
+                    + "	(LIST_NAME, SENDER_ID, RECEIVER_ID, DEFAULT_VERSION, LIST_VERSION)"
+                    + "VALUES (?, ?, ?, ?, ?)";
+            String queryString2 = "INSERT INTO SI_USER.CODE_LIST_XREF"
+                    + "	(LIST_NAME, SENDER_ID, RECEIVER_ID, LIST_VERSION, STATUS, COMMENTS,  USERNAME, CREATE_DATE)"
+                    + "VALUES (?, ?, ?, ?,? ,?,?, ?)";
+            for (int i = 0; i < array.length(); i++) {
+                jsonObj = array.getJSONObject(i);
+                preparedStatement = connection.prepareStatement(queryString);
+                preparedStatement.setString(1, jsonObj.getString("listName1"));
+//                System.out.println("jsonObj.getString(\"senderIdInst\") --> "+ jsonObj.getString("senderIdInst") +" jsonObj.getString(\"recId\") --> "+jsonObj.getString("recId"));
+//                if(!"".equalsIgnoreCase(jsonObj.getString("senderIdInst")) || jsonObj.getString("senderIdInst") != null){
+//                preparedStatement.setString(2, jsonObj.getString("senderIdInst"));
+//                }else{
+                preparedStatement.setString(2, "None");
+                //}
+//                if(!"".equalsIgnoreCase(jsonObj.getString("recId")) || jsonObj.getString("recId") != null){
+//                preparedStatement.setString(3, jsonObj.getString("recId"));
+//                }else{
+                preparedStatement.setString(3, "None");
+                //}
+                preparedStatement.setInt(4, 1);
+                preparedStatement.setString(5, jsonObj.getString("senderItem"));
+                preparedStatement.setString(6, jsonObj.getString("recItem"));
+                if (!"".equalsIgnoreCase(jsonObj.getString("text1")) && jsonObj.getString("text1") != null) {
+                    preparedStatement.setString(7, jsonObj.getString("text1"));
+                } else {
+                    preparedStatement.setString(7, " ");
+                }
+                if (!"".equalsIgnoreCase(jsonObj.getString("text2")) && jsonObj.getString("text2") != null) {
+                    preparedStatement.setString(8, jsonObj.getString("text2"));
+                } else {
+                    preparedStatement.setString(8, " ");
+                }
+                if (!"".equalsIgnoreCase(jsonObj.getString("text3")) && jsonObj.getString("text3") != null) {
+                    preparedStatement.setString(9, jsonObj.getString("text3"));
+                } else {
+                    preparedStatement.setString(9, " ");
+                }
+                if (!"".equalsIgnoreCase(jsonObj.getString("text4")) && jsonObj.getString("text4") != null) {
+                    preparedStatement.setString(10, jsonObj.getString("text4"));
+                } else {
+                    preparedStatement.setString(10, " ");
+                }
+                preparedStatement.setString(11, jsonObj.getString("desc"));
+                if (!"".equalsIgnoreCase(jsonObj.getString("text5")) && jsonObj.getString("text5") != null) {
+                    preparedStatement.setString(12, jsonObj.getString("text5"));
+                } else {
+                    preparedStatement.setString(12, " ");
+                }
+                if (!"".equalsIgnoreCase(jsonObj.getString("text6")) && jsonObj.getString("text6") != null) {
+                    preparedStatement.setString(13, jsonObj.getString("text6"));
+                } else {
+                    preparedStatement.setString(13, " ");
+                }
+                if (!"".equalsIgnoreCase(jsonObj.getString("text7")) && jsonObj.getString("text7") != null) {
+                    preparedStatement.setString(14, jsonObj.getString("text7"));
+                } else {
+                    preparedStatement.setString(14, " ");
+                }
+                if (!"".equalsIgnoreCase(jsonObj.getString("text8")) && jsonObj.getString("text8") != null) {
+                    preparedStatement.setString(15, jsonObj.getString("text8"));
+                } else {
+                    preparedStatement.setString(15, " ");
+                }
+                if (!"".equalsIgnoreCase(jsonObj.getString("text9")) && jsonObj.getString("text9") != null) {
+                    preparedStatement.setString(16, jsonObj.getString("text9"));
+                } else {
+                    preparedStatement.setString(16, " ");
+                }
+                preparedStatement1 = connection.prepareStatement(queryString1);
+                preparedStatement1.setString(1, jsonObj.getString("listName1"));
+                preparedStatement1.setString(2, jsonObj.getString("senderIdInst"));
+                preparedStatement1.setString(3, jsonObj.getString("recId"));
+                preparedStatement1.setInt(4, 1);
+                preparedStatement1.setInt(5, 1);
+                preparedStatement2 = connection.prepareStatement(queryString2);
+                preparedStatement2.setString(1, jsonObj.getString("listName1"));
+                preparedStatement2.setString(2, jsonObj.getString("senderIdInst"));
+                preparedStatement2.setString(3, jsonObj.getString("recId"));
+                preparedStatement2.setInt(4, 1);
+                preparedStatement2.setInt(5, 1);
+                preparedStatement2.setString(6, "");
+                preparedStatement2.setString(7, userName);
+                //java.sql.Date d=new java.sql.Date(i);
+                //SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                //SimpleDateFormat sd=new SimpleDateFormat("YYYY-MM-dd HH24:mm:SS.0");
+                preparedStatement2.setTimestamp(8, DateUtility.getInstance().getCurrentDB2Timestamp());
+                updatedRows = preparedStatement.executeUpdate();
+
+                if (i == 0) {
+                    updatedRows1 = preparedStatement1.executeUpdate();
+                    updatedRows2 = preparedStatement2.executeUpdate();
+                }
+            }
+        } catch (SQLException sql) {
+            throw new ServiceLocatorException(sql);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                    preparedStatement = null;
+                }
+                if (connection != null) {
+                    connection.close();
+                    connection = null;
+                }
+            } catch (SQLException ex) {
+                throw new ServiceLocatorException(ex);
+            }
+        }
+        if (updatedRows > 0 && updatedRows1 > 0 && updatedRows2 > 0) {
+            return "Inserted successfully";
+        } else {
+            return "Please Try Again";
+        }
+    }
+
+    @Override
+    public String deleteCodeList(String jsonData) throws ServiceLocatorException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        PreparedStatement preparedStatement1 = null;
+        PreparedStatement preparedStatement2 = null;
+        String queryString = null;
+        String queryString1 = null;
+        String queryString2 = null;
+        connection = ConnectionProvider.getInstance().getOracleConnection();
+        JSONArray array = null;
+        JSONObject jsonObj = null;
+        int updatedRows = 0;
+        int updatedRows1 = 0;
+        int updatedRows2 = 0;
+        try {
+            array = new JSONArray(jsonData);
+
+        } catch (JSONException ex) {
+            Logger.getLogger(CertMonitorServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            queryString = "DELETE FROM SI_USER.CODELIST_XREF_ITEM WHERE LIST_NAME=? AND LIST_VERSION=? AND SENDER_ITEM=? AND RECEIVER_ITEM=?";
+            queryString1 = "DELETE FROM SI_USER.CODELIST_XREF_VERS WHERE LIST_NAME=? AND LIST_VERSION=?";
+            queryString2 = "DELETE FROM SI_USER.CODE_LIST_XREF WHERE LIST_NAME=? AND LIST_VERSION=?";
+            System.out.println("json array size is " + array.length());
+            for (int i = 0; i < array.length(); i++) {
+                System.out.println("i value is " + i);
+                jsonObj = array.getJSONObject(i);
+                preparedStatement = connection.prepareStatement(queryString);
+                preparedStatement.setString(1, jsonObj.getString("listName1"));
+                preparedStatement.setInt(2, Integer.parseInt(jsonObj.getString("listVerson")));
+                preparedStatement.setString(3, jsonObj.getString("senderItem"));
+                preparedStatement.setString(4, jsonObj.getString("recItem"));
+//                preparedStatement1 = connection.prepareStatement(queryString1);
+//                preparedStatement1.setString(1, jsonObj.getString("listName1"));
+//                preparedStatement1.setInt(2, Integer.parseInt(jsonObj.getString("listVerson")));
+//                preparedStatement2 = connection.prepareStatement(queryString2);
+//                preparedStatement2.setString(1, jsonObj.getString("listName1"));
+//                preparedStatement2.setInt(2, Integer.parseInt(jsonObj.getString("listVerson")));
+                updatedRows = preparedStatement.executeUpdate();
+                System.out.println("updatedRows : " + updatedRows);
+                //updatedRows1 = preparedStatement1.executeUpdate();
+                //updatedRows2 = preparedStatement2.executeUpdate();
+            }
+        } catch (SQLException sql) {
+            throw new ServiceLocatorException(sql);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                    preparedStatement = null;
+                }
+                if (connection != null) {
+                    connection.close();
+                    connection = null;
+                }
+            } catch (SQLException ex) {
+                throw new ServiceLocatorException(ex);
+            }
+        }
+        //System.out.println("updatedrows"+updatedRows);
+        if (updatedRows > 0) {
+            // System.out.println("updatedrows");
+            return "Deleted successfully";
+        } else {
+            return "Please Try Again";
+        }
+    }
+
+    public String updateCodeList(String listName, String jsonData, String userName, int listitems) throws ServiceLocatorException {
+        System.out.println("listName------for update" + listName);
+        System.out.println("listName------for update " + listitems);
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        PreparedStatement preparedStatement1 = null;
+        PreparedStatement preparedStatement2 = null;
+        String queryString = null;
+        String queryString1 = null;
+        String queryString2 = null;
+        String updateQueryString = null;
+        int updatedRows = 0;
+        int updatedRows1 = 0;
+        int updatedRows2 = 0;
+        JSONArray array = null;
+        JSONObject jsonObj = null;
+        connection = ConnectionProvider.getInstance().getOracleConnection();
+
+        try {
+            System.out.println("json data is " + jsonData);
+            array = new JSONArray(jsonData);
+
+        } catch (JSONException ex) {
+            Logger.getLogger(CertMonitorServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            System.out.println("array size is " + array.length());
+            int count = 0;
+            int addVersion = 0;
+            for (int i = 0; i < array.length(); i++) {
+                System.out.println("i value is "+i);
+                int listNameMap = 0;
+//                if (i < listitems) {
+                    jsonObj = array.getJSONObject(i);
+                    queryString = "SELECT  DEFAULT_VERSION FROM CODELIST_XREF_VERS WHERE LIST_NAME ='" + jsonObj.getString("listName1") + "'";
+                    preparedStatement = connection.prepareStatement(queryString);
+                    resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        listNameMap = resultSet.getInt("DEFAULT_VERSION");
+                    }
+                    if (listNameMap > 0) {
+                        if (i == 0) {
+                            addVersion = listNameMap + 1;
+                            updateQueryString = "UPDATE CODELIST_XREF_VERS SET DEFAULT_VERSION=?,LIST_VERSION=? WHERE LIST_NAME=?";
+                            preparedStatement = connection.prepareStatement(updateQueryString);
+                            preparedStatement.setInt(1, addVersion);
+                            preparedStatement.setInt(2, addVersion);
+                            preparedStatement.setString(3, jsonObj.getString("listName1"));
+                            updatedRows = preparedStatement.executeUpdate();
+                        }
+                        queryString1 = "INSERT INTO SI_USER.CODELIST_XREF_ITEM "
+                                + "(LIST_NAME, SENDER_ID, RECEIVER_ID, LIST_VERSION, SENDER_ITEM, RECEIVER_ITEM, TEXT1, TEXT2, TEXT3, TEXT4, DESCRIPTION, TEXT5, TEXT6, TEXT7, TEXT8, TEXT9)"
+                                + " VALUES (?, ?, ?,? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+//             queryString1 = "INSERT INTO SI_USER.CODELIST_XREF_VERS"
+//                    + "	(LIST_NAME, SENDER_ID, RECEIVER_ID, DEFAULT_VERSION, LIST_VERSION)"
+//                    + "VALUES (?, ?, ?, ?, ?)";
+                        queryString2 = "INSERT INTO SI_USER.CODE_LIST_XREF"
+                                + "(LIST_NAME, SENDER_ID, RECEIVER_ID, LIST_VERSION, STATUS, COMMENTS,  USERNAME, CREATE_DATE)"
+                                + "VALUES (?, ?, ?, ?,? ,?,?, ?)";
+                        // for (int i = 0; i < array.length(); i++) {
+                        jsonObj = array.getJSONObject(i);
+                        preparedStatement1 = connection.prepareStatement(queryString1);
+                        preparedStatement1.setString(1, jsonObj.getString("listName1"));
+                        preparedStatement1.setString(2, "None");
+                        preparedStatement1.setString(3, "None");
+                        preparedStatement1.setInt(4, addVersion);
+                        preparedStatement1.setString(5, jsonObj.getString("senderItem"));
+                        preparedStatement1.setString(6, jsonObj.getString("recItem"));
+                        if (!" ".equalsIgnoreCase(jsonObj.getString("text1")) && jsonObj.getString("text1") != null) {
+                            preparedStatement1.setString(7, jsonObj.getString("text1"));
+                        } else {
+                            preparedStatement1.setString(7, " ");
+                        }
+                        if (!" ".equalsIgnoreCase(jsonObj.getString("text2")) && jsonObj.getString("text2") != null) {
+                            preparedStatement1.setString(8, jsonObj.getString("text2"));
+                        } else {
+                            preparedStatement1.setString(8, " ");
+                        }
+                        if (!" ".equalsIgnoreCase(jsonObj.getString("text3")) && jsonObj.getString("text3") != null) {
+                            preparedStatement1.setString(9, jsonObj.getString("text3"));
+                        } else {
+                            preparedStatement1.setString(9, " ");
+                        }
+                        if (!" ".equalsIgnoreCase(jsonObj.getString("text4")) && jsonObj.getString("text4") != null) {
+                            preparedStatement1.setString(10, jsonObj.getString("text4"));
+                        } else {
+                            preparedStatement1.setString(10, " ");
+                        }
+                        preparedStatement1.setString(11, jsonObj.getString("desc"));
+                        if (!" ".equalsIgnoreCase(jsonObj.getString("text5")) && jsonObj.getString("text5") != null) {
+                            preparedStatement1.setString(12, jsonObj.getString("text5"));
+                        } else {
+                            preparedStatement1.setString(12, " ");
+                        }
+                        if (!" ".equalsIgnoreCase(jsonObj.getString("text6")) && jsonObj.getString("text6") != null) {
+                            preparedStatement1.setString(13, jsonObj.getString("text6"));
+                        } else {
+                            preparedStatement1.setString(13, " ");
+                        }
+                        if (!" ".equalsIgnoreCase(jsonObj.getString("text7")) && jsonObj.getString("text7") != null) {
+                            preparedStatement1.setString(14, jsonObj.getString("text7"));
+                        } else {
+                            preparedStatement1.setString(14, " ");
+                        }
+                        if (!" ".equalsIgnoreCase(jsonObj.getString("text8")) && jsonObj.getString("text8") != null) {
+                            preparedStatement1.setString(15, jsonObj.getString("text8"));
+                        } else {
+                            preparedStatement1.setString(15, " ");
+                        }
+                        if (!" ".equalsIgnoreCase(jsonObj.getString("text9")) && jsonObj.getString("text9") != null) {
+                            preparedStatement1.setString(16, jsonObj.getString("text9"));
+                        } else {
+                            preparedStatement1.setString(16, " ");
+                        }
+                        updatedRows1 = preparedStatement1.executeUpdate();
+                        if (i == 0) {
+                            System.out.println("i-----" + i);
+                            preparedStatement2 = connection.prepareStatement(queryString2);
+                            preparedStatement2.setString(1, jsonObj.getString("listName1"));
+                            preparedStatement2.setString(2, jsonObj.getString("senderIdInst"));
+                            preparedStatement2.setString(3, jsonObj.getString("recId"));
+                            preparedStatement2.setInt(4, addVersion);
+                            preparedStatement2.setInt(5, 1);
+                            preparedStatement2.setString(6, "");
+                            preparedStatement2.setString(7, userName);
+                            //java.sql.Date d=new java.sql.Date(i);
+                            //SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                            //SimpleDateFormat sd=new SimpleDateFormat("YYYY-MM-dd HH24:mm:SS.0");
+                            preparedStatement2.setTimestamp(8, DateUtility.getInstance().getCurrentDB2Timestamp());
+                            // updatedRows = preparedStatement.executeUpdate();
+                            updatedRows2 = preparedStatement2.executeUpdate();
+                        }
+                        //}
+                    }
+//                } else {
+//                    queryString = "INSERT INTO SI_USER.CODELIST_XREF_ITEM "
+//                            + "(LIST_NAME, SENDER_ID, RECEIVER_ID, LIST_VERSION, SENDER_ITEM, RECEIVER_ITEM, TEXT1, TEXT2, TEXT3, TEXT4, DESCRIPTION, TEXT5, TEXT6, TEXT7, TEXT8, TEXT9)"
+//                            + " VALUES (?, ?, ?,? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+////                    queryString1 = "INSERT INTO SI_USER.CODELIST_XREF_VERS"
+////                            + "	(LIST_NAME, SENDER_ID, RECEIVER_ID, DEFAULT_VERSION, LIST_VERSION)"
+////                            + "VALUES (?, ?, ?, ?, ?)";
+////                    queryString2 = "INSERT INTO SI_USER.CODE_LIST_XREF"
+////                            + "	(LIST_NAME, SENDER_ID, RECEIVER_ID, LIST_VERSION, STATUS, COMMENTS,  USERNAME, CREATE_DATE)"
+////                            + "VALUES (?, ?, ?, ?,? ,?,?, ?)";
+//                    //   for (int i = 0; i < array.length(); i++) {
+//                    jsonObj = array.getJSONObject(i);
+//                    preparedStatement = connection.prepareStatement(queryString);
+//                    preparedStatement.setString(1, jsonObj.getString("listName1"));
+//                    preparedStatement.setString(2, "None");
+//                    preparedStatement.setString(3, "None");
+//                    preparedStatement.setInt(4, addVersion);
+//                    preparedStatement.setString(5, jsonObj.getString("senderItem"));
+//                    preparedStatement.setString(6, jsonObj.getString("recItem"));
+//                    if (!"".equalsIgnoreCase(jsonObj.getString("text1")) && jsonObj.getString("text1") != null) {
+//                        preparedStatement1.setString(7, jsonObj.getString("text1"));
+//                    } else {
+//                        preparedStatement1.setString(7, " ");
+//                    }
+//                    if (!"".equalsIgnoreCase(jsonObj.getString("text2")) && jsonObj.getString("text2") != null) {
+//                        preparedStatement1.setString(8, jsonObj.getString("text2"));
+//                    } else {
+//                        preparedStatement1.setString(8, " ");
+//                    }
+//                    if (!"".equalsIgnoreCase(jsonObj.getString("text3")) && jsonObj.getString("text3") != null) {
+//                        preparedStatement1.setString(9, jsonObj.getString("text3"));
+//                    } else {
+//                        preparedStatement1.setString(9, " ");
+//                    }
+//                    if (!"".equalsIgnoreCase(jsonObj.getString("text4")) && jsonObj.getString("text4") != null) {
+//                        preparedStatement1.setString(10, jsonObj.getString("text4"));
+//                    } else {
+//                        preparedStatement1.setString(10, " ");
+//                    }
+//                    preparedStatement1.setString(11, jsonObj.getString("desc"));
+//                    if (!"".equalsIgnoreCase(jsonObj.getString("text5")) && jsonObj.getString("text5") != null) {
+//                        preparedStatement1.setString(12, jsonObj.getString("text5"));
+//                    } else {
+//                        preparedStatement1.setString(12, " ");
+//                    }
+//                    if (!"".equalsIgnoreCase(jsonObj.getString("text6")) && jsonObj.getString("text6") != null) {
+//                        preparedStatement1.setString(13, jsonObj.getString("text6"));
+//                    } else {
+//                        preparedStatement1.setString(13, " ");
+//                    }
+//                    if (!"".equalsIgnoreCase(jsonObj.getString("text7")) && jsonObj.getString("text7") != null) {
+//                        preparedStatement1.setString(14, jsonObj.getString("text7"));
+//                    } else {
+//                        preparedStatement1.setString(14, " ");
+//                    }
+//                    if (!"".equalsIgnoreCase(jsonObj.getString("text8")) && jsonObj.getString("text8") != null) {
+//                        preparedStatement1.setString(15, jsonObj.getString("text8"));
+//                    } else {
+//                        preparedStatement1.setString(15, " ");
+//                    }
+//                    if (!"".equalsIgnoreCase(jsonObj.getString("text9")) && jsonObj.getString("text9") != null) {
+//                        preparedStatement1.setString(16, jsonObj.getString("text9"));
+//                    } else {
+//                        preparedStatement1.setString(16, " ");
+//                    }
+////                    preparedStatement1 = connection.prepareStatement(queryString1);
+////                    preparedStatement1.setString(1, jsonObj.getString("listName1"));
+////                    preparedStatement1.setString(2, jsonObj.getString("senderIdInst"));
+////                    preparedStatement1.setString(3, jsonObj.getString("recId"));
+////                    preparedStatement1.setInt(4, addVersion);
+////                    preparedStatement1.setInt(5, addVersion);
+////
+////                    preparedStatement2 = connection.prepareStatement(queryString2);
+////                    preparedStatement2.setString(1, jsonObj.getString("listName1"));
+////                    preparedStatement2.setString(2, jsonObj.getString("senderIdInst"));
+////                    preparedStatement2.setString(3, jsonObj.getString("recId"));
+////                    preparedStatement2.setInt(4, addVersion);
+////                    preparedStatement2.setInt(5, 1);
+////                    preparedStatement2.setString(6, "");
+////                    preparedStatement2.setString(7, userName);
+////                    preparedStatement2.setTimestamp(8, DateUtility.getInstance().getCurrentDB2Timestamp());
+////                    if ((count == 0)) {
+////                        updatedRows1 = preparedStatement1.executeUpdate();
+////                        updatedRows2 = preparedStatement2.executeUpdate();
+////                        count++;
+////                    }
+//                    updatedRows = preparedStatement.executeUpdate();
+//                    // }
+//                }
+            }
+        } catch (SQLException sql) {
+            throw new ServiceLocatorException(sql);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                    resultSet = null;
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                    preparedStatement = null;
+                }
+                if (connection != null) {
+                    connection.close();
+                    connection = null;
+                }
+            } catch (SQLException ex) {
+                throw new ServiceLocatorException(ex);
+            }
+        }
+        if (updatedRows > 0 && updatedRows1 > 0 && updatedRows2 > 0) {
+            return "Updated successfully";
+        } else {
+            return "Please Try Again";
+        }
+
+    }
+    
     /**
      *
      * This method is used to get the Consultant Resumes

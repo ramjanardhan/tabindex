@@ -2243,11 +2243,11 @@ function populateLogisticsInvDetails(responseXML)
         document.getElementById('InvNum').value = invNum;
         document.getElementById('InvItemQty').value = itemQty;
         document.getElementById('InvAmt').value = invAmt;
-       /* if (ORGFILEPATH == "No File") {
-            document.getElementById('InvORGFILEPATH').innerHTML = "--";
-        } else {
-            document.getElementById('InvORGFILEPATH').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ORGFILEPATH + "\">Download</a></td></tr>";
-        }*/
+        /* if (ORGFILEPATH == "No File") {
+         document.getElementById('InvORGFILEPATH').innerHTML = "--";
+         } else {
+         document.getElementById('InvORGFILEPATH').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ORGFILEPATH + "\">Download</a></td></tr>";
+         }*/
         document.getElementById('InvSenderid').value = SENDER_ID;
         document.getElementById('InvSendername').value = SENDER_NAME;
         document.getElementById('InvReceiverid').value = RECEIVER_ID;
@@ -2410,12 +2410,12 @@ function populateLogisticsShipmentDetails(responseXML)
         } else {
             document.getElementById('LSPostTranslation').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + POST_TRANS_FILEPATH + "\">Download</a>";
         }
-       /* if (ORGFILEPATH == "No File") {
-            document.getElementById('LSOrgFilePath').innerHTML = "--";
-
-        } else {
-            document.getElementById('LSOrgFilePath').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ORGFILEPATH + "\">Download</a>";
-        }*/
+        /* if (ORGFILEPATH == "No File") {
+         document.getElementById('LSOrgFilePath').innerHTML = "--";
+         
+         } else {
+         document.getElementById('LSOrgFilePath').innerHTML = "<a href=\"../download/getAttachment.action?locationAvailable=" + ORGFILEPATH + "\">Download</a>";
+         }*/
         if (ACKFILEID == "No File") {
             document.getElementById('LSAckFileid').innerHTML = "--";
 
@@ -3091,46 +3091,93 @@ function CalenderOnChange() {
 
 var itemcount;
 function checkItems(count) {
-    itemcount=count;
+    itemcount = count;
     document.getElementById("loadingAcoountSearch").style.display = "block";
+    var selectedCodeList=document.getElementById("listName").value ;
     var rowCount = $('#results tr').length;
     for (i = 1; i < rowCount; i++) {
+    var flag=checkArray(i);
+    if(flag==true)
+    {
+        continue;
+    }
+       else if(flag==false){
         if (i != count) {
             if ((document.getElementById("senderItem" + i).value == document.getElementById("senderItem" + count).value) && (document.getElementById("recItem" + i).value == document.getElementById("recItem" + count).value))
             {
-                document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Sender Code and Receiver Code already entered. Please try with different one.  </font>";
+                alert("Sender Code and Receiver Code already entered. Please try with different one.");
                 document.getElementById("senderItem" + count).value = "";
                 document.getElementById("recItem" + count).value = "";
-                 window.setTimeout(function () {
-            // This will execute 5 seconds later
-            document.getElementById('messagediv').innerHTML = "";
+                window.setTimeout(function () {
+                    // This will execute 5 seconds later
+                    document.getElementById('messagediv').innerHTML = "";
 
-        }, 5000);
+                }, 5000);
             }
         }
+    }
+    
     }
     var req = getXMLHttpRequest();
     req.onreadystatechange = readyStateHandlerLoadText2(req, result);
 
 
-    var url = "../ajax/searchItems.action?&senderItem=" + document.getElementById("senderItem" + count).value + "&recItem=" + document.getElementById("recItem" + count).value;
+    var url = "../ajax/searchItems.action?&senderItem=" + document.getElementById("senderItem" + count).value + "&recItem=" + document.getElementById("recItem" + count).value+"&selectedName="+selectedCodeList;
     req.open("GET", url, "true");
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.send(null);
 }
 
 
-function result(responseText){
+function result(responseText) {
     if (responseText == "Failure")
     {
-        
+
         document.getElementById("senderItem" + itemcount).value = "";
         document.getElementById("recItem" + itemcount).value = "";
-        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Sender Code and Receiver Code already exists. Please try with different one.  </font>";
+        alert("Sender Code and Receiver Code already exists. Please try with different one.  ");
         window.setTimeout(function () {
             // This will execute 5 seconds later
             document.getElementById('messagediv').innerHTML = "";
 
         }, 5000);
     }
+}
+
+
+
+
+function checkListName() {
+    document.getElementById("loadingAcoountSearch").style.display = "block";
+    var newCodeListName=document.getElementById("newname").value ;
+    var req = getXMLHttpRequest();
+    req.onreadystatechange = readyStateHandlerLoadText2(req, result1);
+
+
+    var url = "../ajax/checkCodeListName.action?&newListName=" + newCodeListName;
+    req.open("GET", url, "true");
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    req.send(null);
+}
+
+
+function result1(responseText){
+    if (responseText == "Failure")
+    {
+        document.getElementById("newname").value = "";
+        alert("Code List name already exists. Please try with different one");
+    }
+}
+
+// function to check whether deleted row from codelist grid exists in array or not
+function checkArray(i)
+{
+    var count = deletedRows.length;
+    for (var j = 0; j < count; j++)
+    {
+        if (deletedRows[j] === i) {
+            return true;
+        }
+    }
+    return false;
 }

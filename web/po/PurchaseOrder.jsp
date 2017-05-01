@@ -498,10 +498,10 @@
                                     <div class="row">
                                         <div id="buttons">
 
-                                            <div class="col-sm-2" style="margin-right:10%"><input type="button" value="ReTransmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to ReTransmit.')" onmouseout="UnTip()" onclick="return getProces(this, document.getElementById('sec_po_list').value);" id="pre"/></div>
+                                            <%--<div class="col-sm-2" style="margin-right:10%"><input type="button" value="ReTransmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to ReTransmit.')" onmouseout="UnTip()" onclick="return getProces(this, document.getElementById('sec_po_list').value);" id="pre"/></div>--%>
 
 
-                                            <div class="col-sm-2" style="margin-right:5%"><input type="button" value="ReSubmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to Resubmit.')" onmouseout="UnTip()" onclick="return getProces(this, document.getElementById('sec_po_list').value);" id="post"/></div>
+                                            <div class="col-sm-2" style="margin-right:6%"><input type="button" value="ReSubmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to Resubmit.')" onmouseout="UnTip()" onclick="return getProces(this, document.getElementById('sec_po_list').value);" id="post"/></div>
 
 
                                             <div class="col-sm-2" style="margin-right:5%"><input type="button" value="LifeCycle" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to generate Life Cycle.')" onmouseout="UnTip()" onclick="return getLifeCycle(document.getElementById('sec_po_list').value, 'manufacturing');"/></div>

@@ -9,8 +9,13 @@
 package com.mss.ediscv.ajax;
 
 import com.mss.ediscv.util.AppConstants;
+import com.mss.ediscv.util.DataSourceDataProvider;
 import com.mss.ediscv.util.ServiceLocator;
+import static com.opensymphony.xwork2.Action.LOGIN;
+import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;
@@ -78,7 +83,17 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     private String cnfrmPwd;
     private String senderItem;
     private String recItem;
+
     private String database;
+
+
+    private String selectedName;
+    private String newListName;
+    private List listNameMap;
+    private String json;
+    private String listName;
+    private int items;
+    private String modifieddate;
 
 
     public AjaxHandlerAction() {
@@ -253,11 +268,12 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
                 httpServletResponse.setContentType("text/xml");
                 httpServletResponse.getWriter().write(responseString);
             } catch (Exception ex) {
-                 //ex.printStackTrace();
+                //ex.printStackTrace();
             }
         }
         return null;
     }
+
     /**
      * Tp Add and Update*
      */
@@ -554,19 +570,19 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
         }
         return null;
     }
- //method to search whether sender item and receiver item exists in the database for code list or not 
+
+    //method to search whether sender item and receiver item exists in the database for code list or not 
+
     public String searchItems() {
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
                 String loginId = httpServletRequest.getSession(false).getAttribute(AppConstants.SES_LOGIN_ID).toString();
                 int n;
-                n = ServiceLocator.getAjaxHandlerService().searchItems(getSenderItem(),getRecItem());
-                if (n >0) {
+                n = ServiceLocator.getAjaxHandlerService().searchItems(getSenderItem(), getRecItem(), getSelectedName());
+                if (n > 0) {
                     responseString = "Failure";
-                } 
-                else
-                {
-                    responseString="Success";
+                } else {
+                    responseString = "Success";
                 }
                 httpServletResponse.setContentType("text/html");
                 httpServletResponse.getWriter().write(responseString);
@@ -577,6 +593,100 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
         }
         return null;
     }
+
+    //method to check whether new code list nameexists in the database or not for adding new codeList 
+    public String checkCodeListName() {
+        if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
+            try {
+                String loginId = httpServletRequest.getSession(false).getAttribute(AppConstants.SES_LOGIN_ID).toString();
+                int n;
+                n = ServiceLocator.getAjaxHandlerService().checkCodeListName(getNewListName());
+                if (n > 0) {
+                    responseString = "Failure";
+                } else {
+                    responseString = "Success";
+                }
+                httpServletResponse.setContentType("text/html");
+                httpServletResponse.getWriter().write(responseString);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public String doCodeVersionUpdate() throws Exception {
+        System.out.println("doCodeVersionUpdate-----");
+        String resultType = LOGIN;
+        if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
+            try {
+                String resultMessage = "";
+                String codeList = "";
+                String userName = httpServletRequest.getSession(false).getAttribute(AppConstants.SES_LOGIN_ID).toString();
+                System.out.println("username is " + userName);
+                List codeList1 = new ArrayList();
+                codeList1 = (List) httpServletRequest.getSession(false).getAttribute(AppConstants.CODE_LIST);
+                int codeListSize = codeList1.size();
+                resultMessage = ServiceLocator.getAjaxHandlerService().updateCodeList(getListName(), getJson(), userName, codeListSize);
+                httpServletRequest.getSession(false).setAttribute(AppConstants.REQ_RESULT_MSG, resultMessage);
+                setListNameMap(DataSourceDataProvider.getInstance().getListName());
+                setListName("-1");
+                resultType = SUCCESS;
+                httpServletResponse.setContentType("text");
+                httpServletResponse.getWriter().write(resultMessage);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public String doCodeListAdd() throws Exception {
+        String resultType = LOGIN;
+        if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
+            try {
+                String userName = httpServletRequest.getSession(false).getAttribute(AppConstants.SES_LOGIN_ID).toString();
+                System.out.println("username is " + userName);
+                String resultMessage = "";
+                List codeList = new ArrayList();
+                resultMessage = ServiceLocator.getAjaxHandlerService().addCodeList(getJson(), userName);
+                httpServletRequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
+                resultType = SUCCESS;
+                httpServletResponse.setContentType("text");
+                httpServletResponse.getWriter().write(resultMessage);
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public String doCodeListDelete() throws Exception {
+        String resultType = LOGIN;
+        if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
+            try {
+                String resultMessage = "";
+                List codeList = new ArrayList();
+                resultMessage = ServiceLocator.getAjaxHandlerService().deleteCodeList(getJson());
+                httpServletRequest.getSession(false).setAttribute(AppConstants.REQ_RESULT_MSG, resultMessage);
+                //getCodeListName();
+//                CertMonitorAction c = new CertMonitorAction();
+//                c.getCodeListItems();
+                setListNameMap(DataSourceDataProvider.getInstance().getListName());
+                resultType = SUCCESS;
+                httpServletResponse.setContentType("text");
+                httpServletResponse.getWriter().write(resultMessage);
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
     public int getId() {
         return id;
     }
@@ -1126,6 +1236,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
         this.recItem = recItem;
     }
 
+
     public String getDatabase() {
         return database;
     }
@@ -1134,4 +1245,70 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
         this.database = database;
     }
     
+
+    public String getSelectedName() {
+        return selectedName;
+    }
+
+    public void setSelectedName(String selectedName) {
+        this.selectedName = selectedName;
+    }
+
+    public String getNewListName() {
+        return newListName;
+    }
+
+    public void setNewListName(String newListName) {
+        this.newListName = newListName;
+    }
+
+    public List getListNameMap() {
+        return listNameMap;
+    }
+
+    public void setListNameMap(List listNameMap) {
+        this.listNameMap = listNameMap;
+    }
+
+    public String getJson() {
+        return json;
+    }
+
+    public void setJson(String json) {
+        this.json = json;
+    }
+
+    public String getListName() {
+        return listName;
+    }
+
+    public void setListName(String listName) {
+        this.listName = listName;
+    }
+
+    public String getResponseString() {
+        return responseString;
+    }
+
+    public void setResponseString(String responseString) {
+        this.responseString = responseString;
+    }
+
+    public int getItems() {
+        return items;
+    }
+
+    public void setItems(int items) {
+        this.items = items;
+    }
+
+    public String getModifieddate() {
+        return modifieddate;
+    }
+
+    public void setModifieddate(String modifieddate) {
+        this.modifieddate = modifieddate;
+    }
+
+
 }

@@ -11,7 +11,6 @@ package com.mss.ediscv.ajax;
 import com.mss.ediscv.util.AppConstants;
 import com.mss.ediscv.util.DataSourceDataProvider;
 import com.mss.ediscv.util.ServiceLocator;
-import com.mss.ediscv.utilities.CertMonitorAction;
 import static com.opensymphony.xwork2.Action.LOGIN;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionSupport;
@@ -84,6 +83,10 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     private String cnfrmPwd;
     private String senderItem;
     private String recItem;
+
+    private String database;
+
+
     private String selectedName;
     private String newListName;
     private List listNameMap;
@@ -92,6 +95,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     private int items;
     private String modifieddate;
     private String flag;
+ 
 
     public AjaxHandlerAction() {
     }
@@ -99,7 +103,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public String getPoDetails() {
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
-                responseString = ServiceLocator.getAjaxHandlerService().getPoDetails(getPoNumber(), getPoInst()).toString();
+                responseString = ServiceLocator.getAjaxHandlerService().getPoDetails(getPoNumber(), getPoInst(), getDatabase()).toString();
                 httpServletResponse.setContentType("text/xml");
                 httpServletResponse.getWriter().write(responseString);
             } catch (Exception ex) {
@@ -112,7 +116,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public String getAsnDetails() {
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
-                responseString = ServiceLocator.getAjaxHandlerService().getASNDetails(getAsnNumber(), getPoNumber(), getFileId()).toString();
+                responseString = ServiceLocator.getAjaxHandlerService().getASNDetails(getAsnNumber(), getPoNumber(), getFileId(), getDatabase()).toString();
                 httpServletResponse.setContentType("text/xml");
                 httpServletResponse.getWriter().write(responseString);
             } catch (Exception ex) {
@@ -125,7 +129,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public String getInvDetails() {
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
-                responseString = ServiceLocator.getAjaxHandlerService().getInvDetails(getInvNumber(), getPoNumber(), getFileId()).toString();
+                responseString = ServiceLocator.getAjaxHandlerService().getInvDetails(getInvNumber(), getPoNumber(), getFileId(), getDatabase()).toString();
                 httpServletResponse.setContentType("text/xml");
                 httpServletResponse.getWriter().write(responseString);
             } catch (Exception ex) {
@@ -138,7 +142,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public String getDocDetails() {
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
-                responseString = ServiceLocator.getAjaxHandlerService().getDocDetails(getIsaNumber(), getPoNumber(), getId()).toString();
+                responseString = ServiceLocator.getAjaxHandlerService().getDocDetails(getIsaNumber(), getPoNumber(), getId(), getDatabase()).toString();
                 httpServletResponse.setContentType("text/xml");
                 httpServletResponse.getWriter().write(responseString);
             } catch (Exception ex) {
@@ -164,7 +168,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public String getPaymentDetails() {
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
-                responseString = ServiceLocator.getAjaxHandlerService().getPaymentDetails(getFileId()).toString();
+                responseString = ServiceLocator.getAjaxHandlerService().getPaymentDetails(getFileId(), getDatabase()).toString();
                 httpServletResponse.setContentType("text/xml");
                 httpServletResponse.getWriter().write(responseString);
             } catch (Exception ex) {
@@ -1233,6 +1237,16 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
         this.recItem = recItem;
     }
 
+
+    public String getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(String database) {
+        this.database = database;
+    }
+    
+
     public String getSelectedName() {
         return selectedName;
     }
@@ -1297,6 +1311,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
         this.modifieddate = modifieddate;
     }
 
+
     public String getFlag() {
         return flag;
     }
@@ -1304,7 +1319,6 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public void setFlag(String flag) {
         this.flag = flag;
     }
-    
     
 
 }

@@ -13,4 +13,5 @@ import java.util.List;
 public interface PaymentsService {
 
     public List<PaymentBean> buildpaymentSQuery(PaymentsAction paymentsAction) throws ServiceLocatorException;
+    public List<PaymentBean> buildpaymentSQueryArchive(PaymentsAction paymentsAction) throws ServiceLocatorException;
 }

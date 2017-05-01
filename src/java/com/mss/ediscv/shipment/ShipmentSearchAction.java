@@ -11,7 +11,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 /**
- * @author 
+ * @author
  */
 public class ShipmentSearchAction extends ActionSupport implements ServletRequestAware {
 
@@ -50,6 +50,7 @@ public class ShipmentSearchAction extends ActionSupport implements ServletReques
     private List receiverNameList;
     private String reportrange;
     private static Logger logger = Logger.getLogger(ShipmentSearchAction.class.getName());
+    private String database;
 
     public String prepare() throws Exception {
         resultType = LOGIN;
@@ -108,7 +109,12 @@ public class ShipmentSearchAction extends ActionSupport implements ServletReques
                 } else if (getCheck().equals("")) {
                     setCheck("1");
                 }
-                shipmentList = ServiceLocator.getShipmentService().buildshipmentSQuery(this);
+                if ("ARCHIVE".equals(getDatabase())) {
+                    shipmentList = ServiceLocator.getShipmentService().buildshipmentSQueryArchive(this);
+                } else {
+                    shipmentList = ServiceLocator.getShipmentService().buildshipmentSQuery(this);
+                }
+
                 httpServletRequest.getSession(false).setAttribute(AppConstants.SES_SHIPMENT_LIST, shipmentList);
                 resultType = SUCCESS;
             } catch (Exception ex) {
@@ -248,16 +254,16 @@ public class ShipmentSearchAction extends ActionSupport implements ServletReques
     }
     //@Override
 	/*public void setServletRequest(final HttpServletRequest reqObj) {
-    this.setHttpServletRequest(reqObj);
-    }
+     this.setHttpServletRequest(reqObj);
+     }
     
-    public void setHttpServletRequest(final HttpServletRequest httpServletRequest) {
-    this.httpServletRequest = httpServletRequest;
-    }
+     public void setHttpServletRequest(final HttpServletRequest httpServletRequest) {
+     this.httpServletRequest = httpServletRequest;
+     }
     
-    public HttpServletRequest getHttpServletRequest() {
-    return httpServletRequest;
-    }*/
+     public HttpServletRequest getHttpServletRequest() {
+     return httpServletRequest;
+     }*/
 
     public void setServletRequest(HttpServletRequest reqObj) {
         this.setHttpServletRequest(reqObj);
@@ -524,5 +530,13 @@ public class ShipmentSearchAction extends ActionSupport implements ServletReques
 
     public void setCorrvalue2(String corrvalue2) {
         this.corrvalue2 = corrvalue2;
+    }
+
+    public String getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(String database) {
+        this.database = database;
     }
 }

@@ -66,6 +66,7 @@ public class DocRepositoryAction extends ActionSupport implements ServletRequest
     private List<DocRepositoryBean> documentList;
     private String reportrange;
     private static Logger logger = Logger.getLogger(DocRepositoryAction.class.getName());
+    private String database;
 
     public String prepare() throws Exception {
         resultType = LOGIN;
@@ -121,7 +122,11 @@ public class DocRepositoryAction extends ActionSupport implements ServletRequest
                 } else if (getCheck().equals("")) {
                     setCheck("1");
                 }
-                documentList = ServiceLocator.getDocumentService().buildDocumentQuery(this);
+                if("ARCHIVE".equals(getDatabase())){
+                    documentList = ServiceLocator.getDocumentService().buildDocumentQueryArchive(this);
+                }else{
+                    documentList = ServiceLocator.getDocumentService().buildDocumentQuery(this);
+                }
                 httpServletRequest.getSession(false).setAttribute(AppConstants.SES_DOC_LIST, documentList);
                 resultType = SUCCESS;
             } catch (Exception ex) {
@@ -699,4 +704,14 @@ public class DocRepositoryAction extends ActionSupport implements ServletRequest
     public void setReportrange(String reportrange) {
         this.reportrange = reportrange;
     }
+
+    public String getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(String database) {
+        this.database = database;
+    }
+    
+    
 }

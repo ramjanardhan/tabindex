@@ -9,4 +9,5 @@ import java.util.List;
 public interface ShipmentService {
 
     public List<ShipmentBean> buildshipmentSQuery(ShipmentSearchAction shipmentSearchbean) throws ServiceLocatorException;
+    public List<ShipmentBean> buildshipmentSQueryArchive(ShipmentSearchAction shipmentSearchbean) throws ServiceLocatorException;
 }

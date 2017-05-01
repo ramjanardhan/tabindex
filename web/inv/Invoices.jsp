@@ -129,36 +129,29 @@
                 <div class="box-body">
                     <div id="text">
                         <div  style="alignment-adjust:central;" >
-                            <%String contextPath = request.getContextPath();
-                            %>
-
-
-
+                            <% String contextPath = request.getContextPath(); %>
                             <s:form action="../inv/invoiceSearch.action" method="post" name="invoiceForm" id="invoiceForm" theme="simple">
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="row">
+                                                <div class="col-sm-3"><label>Database&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</label>
+                                                    <s:radio id="database" name="database" value="%{database}" list="#@java.util.LinkedHashMap@{'MSCVP':'MSCVP','ARCHIVE':'ARCHIVE'}"/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-sm-3"> <label for="reportrange">Date Range</label>
                                                     <s:textfield  id="reportrange" name="reportrange" cssClass="form-control" class="form-control pull-left"  value="%{reportrange}" onchange="MyDate();"/>  
                                                 </div>
-
                                                 <script type="text/javascript">
-                                                    function MyDate()
-                                                    {
-                                                        //alert("myDate");
+                                                    function MyDate() {
                                                         var date = document.invoiceForm.reportrange.value;
-
                                                         var arr = date.split("-");
-
                                                         var x = arr[1].trim();
                                                         document.getElementById("invdatepickerfrom").value = arr[0];
                                                         document.getElementById("invdatepicker").value = x;
-
                                                         var datefrom = document.getElementById("invdatepickerfrom").value;
                                                         var dateto = document.getElementById("invdatepicker").value;
-                                                        //alert(datefrom);                                                       
-                                                        // alert(dateto);                                                       
                                                     }
                                                 </script>
                                                 <s:hidden id="invdatepickerfrom" name="invdatepickerfrom" />
@@ -177,8 +170,6 @@
                                                     <label for="docSenderName">Sender Name</label>  
                                                     <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="senderNameList" name="invSenderName" id="invSenderName" value="%{invSenderName}" tabindex="4" />
                                                 </div>
-
-
                                             </div>
                                             <br>
                                             <div class="row">
@@ -212,18 +203,14 @@
                                                 <div id="loadingAcoountSearch" class="loadingImg">
                                                     <span id ="LoadingContent" > <img src="<s:url value="/includes/images/Loader2.gif"/>"   ></span>
                                                 </div>
-
                                             </div>
-
                                         </div>
                                     </div>
                                     <div>
                                         <br>
                                         <div class="row">
                                             <div class="col-sm-2"><s:submit value="Search"  onclick="return checkCorrelation();" cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
-
                                             <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetvalues();"/></strong></div>
-                                            </td>
                                             <s:hidden name="sampleValue" id="sampleValue" value="2"/>
                                         </s:form>
                                     </div>
@@ -560,7 +547,7 @@
                     </div>
 
                     <script>
-                        $(function () {
+                        $(function() {
                             //$("#example1").DataTable();
                             $('#results').DataTable({
                                 "paging": true,
@@ -591,12 +578,12 @@
                 <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
                 <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
                 <script type="text/javascript">
-
-
-                    function checkCorrelation()
-                    {
-
-
+                    function checkCorrelation() {
+                        var db = document.forms["invoiceForm"]["database"].value;
+                        if (db == '') {
+                            alert("please select Database!!!");
+                            return false;
+                        }
                         var corrattr = document.getElementById('corrattribute').value;
                         var corrval = document.getElementById('corrvalue').value;
                         if ((corrattr != "-1") && (corrval == "")) {

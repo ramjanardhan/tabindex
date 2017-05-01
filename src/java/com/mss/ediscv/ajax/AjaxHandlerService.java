@@ -13,15 +13,15 @@ import com.mss.ediscv.util.ServiceLocatorException;
 public interface AjaxHandlerService {
 
     /** Creates a new instance of AjaxHandlerService */
-    public String getPoDetails(String poNumber, String poInst) throws ServiceLocatorException;
+    public String getPoDetails(String poNumber, String poInst, String database) throws ServiceLocatorException;
 
-    public String getASNDetails(String asnNumber, String poNumber, String fileID) throws ServiceLocatorException;
+    public String getASNDetails(String asnNumber, String poNumber, String fileID, String database) throws ServiceLocatorException;
 
-    public String getInvDetails(String invNumber, String poNumber, String fileID) throws ServiceLocatorException;
+    public String getInvDetails(String invNumber, String poNumber, String fileID, String database) throws ServiceLocatorException;
 
-    public String getPaymentDetails(String fileId) throws ServiceLocatorException;
+    public String getPaymentDetails(String fileId, String database) throws ServiceLocatorException;
 
-    public String getDocDetails(String isaNumber, String poNum, int id) throws ServiceLocatorException;
+    public String getDocDetails(String isaNumber, String poNum, int id, String database) throws ServiceLocatorException;
 
     public String getReportDeleteDetails(int id) throws ServiceLocatorException;
 

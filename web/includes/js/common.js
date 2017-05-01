@@ -145,7 +145,9 @@ function formatPhone(element) {
         alert('Please give atleast  10 charcters in PhoneNumber');
         return false;        
     }else{
-        element.value=str.replace(/[A-Za-z\(\)\.\-\x\s,]/g, "");
+        var pattern =/^\(\d{3}\)\-\d{3}\-\d{4}$/;
+        //        element.value=str.replace(/[A-Za-z\(\)\.\-\x\s,]/g, "");
+        element.value=str.replace(pattern, "");
         num=element.value;
         var _return;
         if(num.length == 10) { 
@@ -236,9 +238,10 @@ function validatenumber(xxxxx) {
 //PHONE NUMBER FORMAT SCRIPT :START   
 function formatPhone(num)
 { 
-
-    str = new String(document.userForm.ophno.value);
-    document.userForm.ophno.value=str.replace(/[A-Za-z\(\)\.\-\x\s,]/g, "");
+str = new String(document.userForm.ophno.value);
+    var pattern =/^\(\d{3}\)\-\d{3}\-\d{4}$/;
+    document.userForm.ophno.value=str.replace(pattern, "");
+    //document.userForm.ophno.value=str.replace(/[A-Za-z\(\)\.\-\x\s,]/gpattern, "");
     num=document.userForm.ophno.value;
     var _return;
     if(num.length == 10) 
@@ -289,7 +292,9 @@ function generalFormatPhone(element) {
         alert('Please give atleast  10 charcters in PhoneNumber');
         return false;        
     }else{        
-        element.value=str.replace(/[A-Za-z\(\)\.\-\x\s,]/g, "");
+        var pattern =/^\(\d{3}\)\-\d{3}\-\d{4}$/;
+        //        element.value=str.replace(/[A-Za-z\(\)\.\-\x\s,]/g, "");
+        element.value=str.replace(pattern, "");
         num=element.value;
         var _return;
         if(num.length == 10) { 

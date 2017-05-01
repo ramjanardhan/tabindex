@@ -261,6 +261,218 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }
         return purchaseList;
     }
+    
+    public ArrayList<PurchaseOrderBean> buildPurchaseQueryArchive(PurchaseOrderAction purchaseOrderAction) throws ServiceLocatorException {
+        StringBuffer purchaseSearchQuery = new StringBuffer();
+        String poDateTo = purchaseOrderAction.getPoDateTo();
+        String poDateFrom = purchaseOrderAction.getPoDateFrom();
+        String poRecId = "";
+        if (purchaseOrderAction.getPoRecId()!=null && !purchaseOrderAction.getPoRecId().equals("-1")) {
+            poRecId = purchaseOrderAction.getPoRecId();
+        }
+        String poRecName = "";
+        if (purchaseOrderAction.getPoRecName()!=null && !purchaseOrderAction.getPoRecName().equals("-1")) {
+            poRecName = purchaseOrderAction.getPoRecName();
+        }
+        String poSenderId = "";
+        if (purchaseOrderAction.getPoSenderId()!=null && !purchaseOrderAction.getPoSenderId().equals("-1")) {
+            poSenderId = purchaseOrderAction.getPoSenderId();
+        }
+        String poSenderName = "";
+        if (purchaseOrderAction.getPoSenderId()!=null && !purchaseOrderAction.getPoSenderName().equals("-1")) {
+            poSenderName = purchaseOrderAction.getPoSenderName();
+        }
+        String ackStatus = purchaseOrderAction.getAckStatus();
+        String status = purchaseOrderAction.getStatus();
+        String corrattribute = purchaseOrderAction.getCorrattribute();
+        String corrvalue = purchaseOrderAction.getCorrvalue();
+        String corrattribute1 = purchaseOrderAction.getCorrattribute1();
+        String corrvalue1 = purchaseOrderAction.getCorrvalue1();
+        String corrattribute2 = purchaseOrderAction.getCorrattribute2();
+        String corrvalue2 = purchaseOrderAction.getCorrvalue2();
+        String doctype = "";
+        if ((purchaseOrderAction.getDocType()!=null) && (!purchaseOrderAction.getDocType().equals("-1"))) {
+            doctype = purchaseOrderAction.getDocType();
+        }
+         purchaseSearchQuery.append("SELECT DISTINCT(ARCHIVE_FILES.FILE_ID) as FILE_ID,ARCHIVE_PO.PO_NUMBER as PO_NUMBER,ARCHIVE_FILES.TRANSACTION_TYPE as TRANSACTION_TYPE,ARCHIVE_PO.SO_NUMBER as SO_NUMBER,"
+                + "ARCHIVE_PO.SAP_IDOC_NUMBER as SAP_IDOC_NUMBER,ARCHIVE_PO.ORDER_DATE as ORDER_DATE,ARCHIVE_PO.SHIP_DATE as SHIP_DATE,"
+                + "ARCHIVE_PO.ORDER_STATUS AS ORDER_STATUS,ARCHIVE_PO.ISA_CONTROL_NUMBER as ISA_CONTROL_NUMBER,ARCHIVE_PO.ITEM_QTY as ITEM_QTY,"
+                + "ARCHIVE_FILES.DIRECTION as DIRECTION,ARCHIVE_FILES.GS_CONTROL_NUMBER as GS_CONTROL_NUMBER,ARCHIVE_FILES.STATUS as STATUS ,ARCHIVE_FILES.ACK_STATUS as ACK_STATUS ,TP2.NAME as RECEIVER_NAME,TP1.NAME as SENDER_NAME,"
+                + "ARCHIVE_FILES.DATE_TIME_RECEIVED as DATE_TIME_RECEIVED,ARCHIVE_FILES.REPROCESSSTATUS "
+                + "FROM ARCHIVE_PO "
+                + "LEFT OUTER JOIN ARCHIVE_FILES ON (ARCHIVE_PO.PO_NUMBER=ARCHIVE_FILES.PRI_KEY_VAL AND ARCHIVE_PO.FILE_ID = ARCHIVE_FILES.FILE_ID)"
+                + "LEFT OUTER JOIN TP TP1 ON (TP1.ID=ARCHIVE_FILES.SENDER_ID) "
+                + "LEFT OUTER JOIN TP TP2 ON (TP2.ID=ARCHIVE_FILES.RECEIVER_ID)");
+        purchaseSearchQuery.append(" WHERE 1=1 AND ARCHIVE_FILES.FLOWFLAG like 'M' ");
+        // FOr PO
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("PO Number"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.PRI_KEY_VAL", corrvalue.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("PO Number"))) {
+            if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.PRI_KEY_VAL", corrvalue1.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute2 != null) && (corrattribute2.equalsIgnoreCase("PO Number"))) {
+            if (corrvalue2 != null && !"".equals(corrvalue2.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.PRI_KEY_VAL", corrvalue2.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("ISA Number"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.ISA_Number", corrvalue.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("ISA Number"))) {
+            if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.ISA_Number", corrvalue1.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute2 != null) && (corrattribute2.equalsIgnoreCase("ISA Number"))) {
+            if (corrvalue2 != null && !"".equals(corrvalue2.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.ISA_Number", corrvalue2.trim().toUpperCase()));
+            }
+        }
+        // gs number
+        if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("GS Number"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.GS_CONTROL_NUMBER", corrvalue.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute1 != null) && corrattribute1.equalsIgnoreCase("GS Number")) {
+            if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.GS_CONTROL_NUMBER", corrvalue1.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute2 != null) && (corrattribute2.equalsIgnoreCase("GS Number"))) {
+            if (corrvalue2 != null && !"".equals(corrvalue2.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.GS_CONTROL_NUMBER", corrvalue2.trim().toUpperCase()));
+            }
+        }
+        
+         if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Instance Id"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.FILE_ID", corrvalue.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Instance Id"))) {
+            if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.FILE_ID", corrvalue1.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute2 != null) && (corrattribute2.equalsIgnoreCase("Instance Id"))) {
+            if (corrvalue2 != null && !"".equals(corrvalue2.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.FILE_ID", corrvalue2.trim().toUpperCase()));
+            }
+        }
+         //Direction
+         if ((corrattribute != null) && (corrattribute.equalsIgnoreCase("Direction"))) {
+            if (corrvalue != null && !"".equals(corrvalue.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.DIRECTION", corrvalue.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute1 != null) && (corrattribute1.equalsIgnoreCase("Direction"))) {
+            if (corrvalue1 != null && !"".equals(corrvalue1.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.DIRECTION", corrvalue1.trim().toUpperCase()));
+            }
+        }
+        if ((corrattribute2 != null) && (corrattribute2.equalsIgnoreCase("Direction"))) {
+            if (corrvalue2 != null && !"".equals(corrvalue2.trim())) {
+                purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.DIRECTION", corrvalue2.trim().toUpperCase()));
+            }
+        }
+        //Status
+        if (status != null && !"-1".equals(status.trim())) {
+            purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.STATUS", status.trim()));
+        }
+        //ACK_STATUS
+        if (ackStatus != null && !"-1".equals(ackStatus.trim())) {
+            purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.ACK_STATUS", ackStatus.trim()));
+        }
+        //Doc Type
+        if (doctype != null && !"".equals(doctype.trim())) {
+            purchaseSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.TRANSACTION_TYPE", doctype.trim()));
+        }
+        if (poDateFrom != null && !"".equals(poDateFrom)) {
+           // StringTokenizer st = new StringTokenizer(poDateFrom);
+            tmp_Recieved_From = DateUtility.getInstance().DateViewToDBCompare(poDateFrom);
+            purchaseSearchQuery.append(" AND ARCHIVE_FILES.DATE_TIME_RECEIVED >= '" + tmp_Recieved_From + "'");
+        }
+        if (poDateTo != null && !"".equals(poDateTo)) {
+           // StringTokenizer st1 = new StringTokenizer(poDateTo);
+            tmp_Recieved_ToTime = DateUtility.getInstance().DateViewToDBCompare(poDateTo);
+            purchaseSearchQuery.append(" AND ARCHIVE_FILES.DATE_TIME_RECEIVED <= '" + tmp_Recieved_ToTime + "'");
+        }
+        if (poSenderId != null && !"".equals(poSenderId.trim())) {
+            purchaseSearchQuery.append(WildCardSql.getWildCardSql1("TP1.ID", poSenderId.trim().toUpperCase()));
+        }
+        if (poRecId != null && !"".equals(poRecId.trim())) {
+            purchaseSearchQuery.append(WildCardSql.getWildCardSql1("TP2.ID", poRecId.trim().toUpperCase()));
+        }
+        if (poSenderName != null && !"".equals(poSenderName.trim())) {
+            purchaseSearchQuery.append(WildCardSql.getWildCardSql1("TP1.NAME", poSenderName.trim().toUpperCase()));
+        }
+        if (poRecName != null && !"".equals(poRecName.trim())) {
+            purchaseSearchQuery.append(WildCardSql.getWildCardSql1("TP2.NAME", poRecName.trim().toUpperCase()));
+        }
+        purchaseSearchQuery.append("order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
+        String searchQuery = purchaseSearchQuery.toString();
+        try {
+            connection = ConnectionProvider.getInstance().getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(searchQuery);
+            purchaseList = new ArrayList<PurchaseOrderBean>();
+            while (resultSet.next()) {
+                PurchaseOrderBean purchaseOrderBean = new PurchaseOrderBean();
+                purchaseOrderBean.setFileId(resultSet.getString("FILE_ID"));
+                purchaseOrderBean.setPo(resultSet.getString("PO_Number"));
+                purchaseOrderBean.setTransactionType(resultSet.getString("TRANSACTION_TYPE"));
+                purchaseOrderBean.setSo(resultSet.getString("SO_Number"));
+                purchaseOrderBean.setSapIdoc(resultSet.getString("SAP_IDOC_Number"));
+                purchaseOrderBean.setPoDate(resultSet.getString("Order_Date"));
+                purchaseOrderBean.setShipDate(resultSet.getString("Ship_Date"));
+                purchaseOrderBean.setPoStatus(resultSet.getString("Order_Status"));
+                purchaseOrderBean.setIsaControl(resultSet.getString("ISA_Control_Number"));
+                purchaseOrderBean.setItemQty(resultSet.getString("Item_Qty"));
+                purchaseOrderBean.setStatus(resultSet.getString("STATUS"));
+                String direction = resultSet.getString("DIRECTION");
+                purchaseOrderBean.setDirection(direction);
+                if ("INBOUND".equalsIgnoreCase(direction)) {
+                    purchaseOrderBean.setPname(resultSet.getString("SENDER_NAME"));
+                } else {
+                    purchaseOrderBean.setPname(resultSet.getString("RECEIVER_NAME"));
+                }
+                purchaseOrderBean.setGsControlNumber(resultSet.getString("GS_CONTROL_NUMBER"));
+                purchaseOrderBean.setReProcessStatus(resultSet.getString("REPROCESSSTATUS"));
+                purchaseOrderBean.setAckStatus(resultSet.getString("ACK_STATUS"));
+                purchaseOrderBean.setDate_time_rec(resultSet.getTimestamp("DATE_TIME_RECEIVED"));
+                purchaseList.add(purchaseOrderBean);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                    resultSet = null;
+                }
+                if (statement != null) {
+                    statement.close();
+                    statement = null;
+                }
+                if (connection != null) {
+                    connection.close();
+                    connection = null;
+                }
+            } catch (SQLException se) {
+                throw new ServiceLocatorException(se);
+            }
+        }
+        return purchaseList;
+    }
 
     /**
      * @return the purchaseBean

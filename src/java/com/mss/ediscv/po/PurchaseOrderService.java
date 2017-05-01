@@ -13,4 +13,5 @@ import java.util.List;
 public interface PurchaseOrderService {
 
     public List<PurchaseOrderBean> buildPurchaseQuery(PurchaseOrderAction purchaseOrderAction) throws ServiceLocatorException;
+    public List<PurchaseOrderBean> buildPurchaseQueryArchive(PurchaseOrderAction purchaseOrderAction) throws ServiceLocatorException;
 }

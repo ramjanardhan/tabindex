@@ -1,7 +1,6 @@
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@page buffer="50kb" autoFlush="true" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-
 <%@page import="com.mss.ediscv.payments.PaymentBean"%>
 <%@ taglib uri="/WEB-INF/tlds/dbgrid.tld" prefix="grd"%>
 <%@ page import="com.freeware.gridtag.*"%>
@@ -10,13 +9,23 @@
 <%@ page import="com.mss.ediscv.util.ConnectionProvider"%>
 <%@ page import="java.sql.SQLException"%>
 <%@ page import = "java.util.ResourceBundle" %>
-<%--<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>--%>
 <%@page buffer="50kb" autoFlush="true" %>
-
-
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <title>Miracle Supply Chain Visibility Portal</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Bootstrap 3.3.5 -->
+        <link rel="stylesheet" href='<s:url value="/includes/bootstrap/css/userdefined.css"/>'>
+        <link rel="stylesheet" href='<s:url value="/includes/bootstrap/css/bootstrap.min.css"/>' type="text/css">
+        <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
+        <link rel="stylesheet" href='<s:url value="/includes/plugins/daterangepicker/daterangepicker.css"/>' type="text/css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <style>
             #pay_buttons{
                 display: inline-block;
@@ -32,21 +41,6 @@
                 document.getElementById('loadingAcoountSearch').style.display = "none";
             }
         </script>
-
-        <meta charset="utf-8">
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <meta http-equiv="pragma" content="no-cache" />
-        <meta http-equiv="cache-control" content="no-cache" />
-        <title>Miracle Supply Chain Visibility Portal</title>
-        <!-- Tell the browser to be responsive to screen width -->
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <!-- Bootstrap 3.3.5 -->
-        <link rel="stylesheet" href='<s:url value="/includes/bootstrap/css/userdefined.css"/>'>
-        <link rel="stylesheet" href='<s:url value="/includes/bootstrap/css/bootstrap.min.css"/>' type="text/css">
-        <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
-        <link rel="stylesheet" href='<s:url value="/includes/plugins/daterangepicker/daterangepicker.css"/>' type="text/css">
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
     </head>
     <%
         String check = null;
@@ -56,21 +50,16 @@
     %>
 
     <body class="hold-transition skin-blue sidebar-mini" onload="doOnLoad();
-                check();">
+            check();">
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <script type="text/javascript">
-            function check()
-            {
-
-                var value1 = document.getElementById("corrattribute1").value;
-
-                if (value1 != "-1")
-                    document.getElementById("corr").style.display = "block";
-                else
-                    document.getElementById("corr").style.display = "none";
-
-
-            }
+        function check() {
+            var value1 = document.getElementById("corrattribute1").value;
+            if (value1 != "-1")
+                document.getElementById("corr").style.display = "block";
+            else
+                document.getElementById("corr").style.display = "none";
+        }
         </script>
         <div>
             <s:include value="../includes/template/header.jsp"/>
@@ -81,13 +70,9 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-
             <!-- Main content --> 
-
             <section class="content-header">
-                <h1>
-                    Payments
-                    <small>Manufacturing</small>
+                <h1>Payments<small>Manufacturing</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-wrench"></i>Manufacturing</a></li>
@@ -95,29 +80,26 @@
                 </ol>
             </section>
             <br>
-
             <section class="content">
-
                 <div class="box box-primary">
                     <div class="box-header with-border">
-                        <div class="box-tools pull-right">
-
-                        </div>
+                        <div class="box-tools pull-right"></div>
                     </div>  
                     <div class="box-body">
                         <div id="text">
                             <div  style="alignment-adjust:central;" >
-                                <%String contextPath = request.getContextPath();
-                                %>
-
-
-
+                                <% String contextPath = request.getContextPath(); %>
                                 <s:form action="../payment/paymentSearch.action" method="post" name="paymentForm" id="paymentForm" theme="simple">
                                     <s:hidden id="paDateFrom" name="paDateFrom" />
                                     <s:hidden id="paDateTo" name="paDateTo"/>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-3"><label>Database&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</label>
+                                                        <s:radio id="database" name="database" value="%{database}" list="#@java.util.LinkedHashMap@{'MSCVP':'MSCVP','ARCHIVE':'ARCHIVE'}"/>
+                                                    </div>
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-sm-3"> <label for="reportrange">Date Range</label>
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="MyDate();" /> 
@@ -147,8 +129,6 @@
                                                         <label for="docSenderName">Sender Name</label>  
                                                         <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="senderNameList" name="paSenderName" id="paSenderName" value="%{paSenderName}" tabindex="4" />
                                                     </div>
-
-
                                                 </div>
                                                 <br>
                                                 <div class="row">
@@ -186,18 +166,10 @@
                                                     <div id="loadingAcoountSearch" class="loadingImg">
                                                         <span id ="LoadingContent" > <img src="<s:url value="/includes/images/Loader2.gif"/>"   ></span>
                                                     </div>
-                                                </div>
-
-                                                <script>
-
-                                                </script>    
+                                                </div>  
                                                 <script>
                                                     var count = 0;
                                                 </script>
-
-
-
-
                                                 <div id="corr" style="display: none">
                                                     <br>   <div class="row">
                                                         <div class="col-sm-3">
@@ -208,41 +180,25 @@
                                                             <label for="corrvalue1">Value</label>
                                                             <s:textfield cssClass="form-control" name="corrvalue1" id="corrvalue1" value="%{corrvalue1}" />
                                                         </div>
-
                                                     </div>
                                                 </div>
-
-
-
                                             </div> </div>
-
-
                                         <div>
-
                                             <br>
                                             <div class="row">
-
                                                 <div class="col-sm-2"><s:submit value="Search"  onclick="return checkCorrelation();" cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
-
                                                 <div class="col-sm-2"><strong><input type="reset" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetValues1();"/></strong></div>
-                                                </td>
-                                                <s:hidden name="sampleValue" id="sampleValue" value="2"/>
-
-                                            </s:form>
+                                                        <s:hidden name="sampleValue" id="sampleValue" value="2"/>
+                                                    </s:form>
                                         </div>
                                     </div>
                                 </div>
                             </div></div>
-
                     </div>
             </section>
-
             <!-- ./wrapper -->
-
             <div id="gridDiv">
                 <s:if test="#session.paymentSearchList != null">
-
-
                     <%!String cssValue = "whiteStripe";
                         int resultsetTotal;%>
 
@@ -598,7 +554,7 @@
 
 
         <script>
-            $(function () {
+            $(function() {
                 // $("#example1").DataTable();
                 $('#results').DataTable({
                     "paging": true,
@@ -632,11 +588,12 @@
     <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
     <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
     <script type="text/javascript">
-//        function getDetails(fileId)
-//        {  
-//            getPaymentDetails(fileId);
-//        } 
         function checkCorrelation() {
+            var db = document.forms["paymentForm"]["database"].value;
+            if (db == '') {
+                alert("please select Database!!!");
+                return false;
+            }
             var corrattr = document.getElementById('corrattribute').value;
             var corrval = document.getElementById('corrvalue').value;
             var corrattr1 = document.getElementById('corrattribute1').value;
@@ -658,8 +615,8 @@
                 return false;
             }
         }
-        function resetValues1()
-        {
+
+        function resetValues1() {
             document.getElementById('paDateFrom').value = "";
             document.getElementById('paDateTo').value = "";
             document.getElementById('paSenderId').value = "-1";
@@ -685,9 +642,8 @@
 //        $('body,html').click(function(e){
 //            $('#hide-menu1').removeClass('show-menu');
 //        });
-    </script>
-    <script>
-        $("#addButton").click(function () {
+
+        $("#addButton").click(function() {
             count++;
             if (count == 1)
                 document.getElementById("corr").style.display = "block";

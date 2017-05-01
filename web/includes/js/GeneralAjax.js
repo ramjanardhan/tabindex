@@ -96,7 +96,7 @@ function readyStateHandlerLoadText2(req, responseTextHandler) {
     }
 }
 
-function getPoDetails(number, number1) {
+function getPoDetails(number, number1,db) {
     var num = number;
     var num1 = number1;
     $(function () {
@@ -105,7 +105,7 @@ function getPoDetails(number, number1) {
     });
     var req = getXMLHttpRequest();
     req.onreadystatechange = readyStateHandlerText(req, populatePoDetails);
-    var url = "../ajax/getPoDetails.action?poNumber=" + num + "&poInst=" + num1;
+    var url = "../ajax/getPoDetails.action?poNumber=" + num + "&poInst=" + num1 + "&database=" + db;
     req.open("POST", url, "true");
     // req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
     req.send(null);
@@ -391,12 +391,10 @@ function populatePoDetails(responseXML)
  * 
  */
 
-function getAsnDetails(number, ponum, fileId) {
-
+function getAsnDetails(number, ponum, fileId,db) {
     var num = number;
     var poNum = ponum;
     $(function () {
-
         $('#detail_box').show();
         return false;
 
@@ -404,7 +402,7 @@ function getAsnDetails(number, ponum, fileId) {
     var req = getXMLHttpRequest();
     req.onreadystatechange = readyStateHandlerText(req, populateASNDetails);
 
-    var url = "../ajax/getASNDetails.action?asnNumber=" + num + "&poNumber=" + poNum + "&fileId=" + fileId;
+    var url = "../ajax/getASNDetails.action?asnNumber=" + num + "&poNumber=" + poNum + "&fileId=" + fileId + "&database=" + db;
     req.open("GET", url, "true");
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.send(null);
@@ -590,11 +588,9 @@ function populateASNDetails(responseXML) {
  * 
  */
 function getInvDetails(number, ponum, fileID) {
+     var db = document.forms["invoiceForm"]["database"].value;
     var num = number;
-    //alert("inv number-->"+num);
-    //  var req = new XMLHttpRequest();
     $(function () {
-
         $('#detail_box').show();
         return false;
 
@@ -602,7 +598,7 @@ function getInvDetails(number, ponum, fileID) {
     var req = getXMLHttpRequest();
     req.onreadystatechange = readyStateHandlerText(req, populateInvDetails);
 
-    var url = "../ajax/getInvDetails.action?invNumber=" + num + "&poNumber=" + ponum + "&fileId=" + fileID;
+    var url = "../ajax/getInvDetails.action?invNumber=" + num + "&poNumber=" + ponum + "&fileId=" + fileID + "&database=" + db;
     req.open("GET", url, "true");
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.send(null);
@@ -749,7 +745,7 @@ function populateInvDetails(responseXML) {
  * For doc Ajax call
  * 
  */
-function getDocDetails(number, ponum, id) {
+function getDocDetails(number, ponum, id, db) {
     var num = number;
     var ponum = ponum;
     var id = id;
@@ -759,7 +755,7 @@ function getDocDetails(number, ponum, id) {
     });
     var req = getXMLHttpRequest();
     req.onreadystatechange = readyStateHandlerText(req, populateDocDetails);
-    var url = "../ajax/getDocDetails.action?isaNumber=" + num + "&poNumber=" + ponum + "&id=" + id;
+    var url = "../ajax/getDocDetails.action?isaNumber=" + num + "&poNumber=" + ponum + "&id=" + id + "&database=" + db;
     req.open("GET", url, "true");
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.send(null);
@@ -1394,16 +1390,15 @@ function populateLoadTenderCopy(responseText) {
  *Get Payment Details
  */
 function getPaymentDetails(fileId) {
+    var db = document.forms["paymentForm"]["database"].value;
     $(function () {
-
         $('#detail_box').show();
         return false;
-
     });
     var req = getXMLHttpRequest();
     req.onreadystatechange = readyStateHandlerText(req, populatePaymentDetails);
 
-    var url = "../ajax/getPaymentDetails.action?fileId=" + fileId;
+    var url = "../ajax/getPaymentDetails.action?fileId=" + fileId + "&database=" + db;
     req.open("GET", url, "true");
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.send(null);

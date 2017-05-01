@@ -78,6 +78,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     private String cnfrmPwd;
     private String senderItem;
     private String recItem;
+    private String database;
 
 
     public AjaxHandlerAction() {
@@ -86,7 +87,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public String getPoDetails() {
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
-                responseString = ServiceLocator.getAjaxHandlerService().getPoDetails(getPoNumber(), getPoInst()).toString();
+                responseString = ServiceLocator.getAjaxHandlerService().getPoDetails(getPoNumber(), getPoInst(), getDatabase()).toString();
                 httpServletResponse.setContentType("text/xml");
                 httpServletResponse.getWriter().write(responseString);
             } catch (Exception ex) {
@@ -99,7 +100,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public String getAsnDetails() {
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
-                responseString = ServiceLocator.getAjaxHandlerService().getASNDetails(getAsnNumber(), getPoNumber(), getFileId()).toString();
+                responseString = ServiceLocator.getAjaxHandlerService().getASNDetails(getAsnNumber(), getPoNumber(), getFileId(), getDatabase()).toString();
                 httpServletResponse.setContentType("text/xml");
                 httpServletResponse.getWriter().write(responseString);
             } catch (Exception ex) {
@@ -112,7 +113,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public String getInvDetails() {
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
-                responseString = ServiceLocator.getAjaxHandlerService().getInvDetails(getInvNumber(), getPoNumber(), getFileId()).toString();
+                responseString = ServiceLocator.getAjaxHandlerService().getInvDetails(getInvNumber(), getPoNumber(), getFileId(), getDatabase()).toString();
                 httpServletResponse.setContentType("text/xml");
                 httpServletResponse.getWriter().write(responseString);
             } catch (Exception ex) {
@@ -125,7 +126,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public String getDocDetails() {
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
-                responseString = ServiceLocator.getAjaxHandlerService().getDocDetails(getIsaNumber(), getPoNumber(), getId()).toString();
+                responseString = ServiceLocator.getAjaxHandlerService().getDocDetails(getIsaNumber(), getPoNumber(), getId(), getDatabase()).toString();
                 httpServletResponse.setContentType("text/xml");
                 httpServletResponse.getWriter().write(responseString);
             } catch (Exception ex) {
@@ -151,7 +152,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public String getPaymentDetails() {
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
-                responseString = ServiceLocator.getAjaxHandlerService().getPaymentDetails(getFileId()).toString();
+                responseString = ServiceLocator.getAjaxHandlerService().getPaymentDetails(getFileId(), getDatabase()).toString();
                 httpServletResponse.setContentType("text/xml");
                 httpServletResponse.getWriter().write(responseString);
             } catch (Exception ex) {
@@ -1123,6 +1124,14 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
 
     public void setRecItem(String recItem) {
         this.recItem = recItem;
+    }
+
+    public String getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(String database) {
+        this.database = database;
     }
     
 }

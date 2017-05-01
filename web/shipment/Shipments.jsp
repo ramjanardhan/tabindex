@@ -1,10 +1,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-
-
 <%@page import="com.mss.ediscv.shipment.ShipmentBean"%>
-
 <%@ taglib uri="/WEB-INF/tlds/dbgrid.tld" prefix="grd"%>
 <%@ page import="com.freeware.gridtag.*"%>
 <%@ page import="java.sql.Connection" %>
@@ -13,8 +10,6 @@
 <%@ page import="com.mss.ediscv.util.ConnectionProvider" %>
 <%@ page import="com.mss.ediscv.util.ServiceLocatorException" %>
 <%@ page import="org.apache.log4j.Logger"%>
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,13 +18,8 @@
                 display: inline-block;
                 float:right;
             }
-
         </style>
-
-
-
         <meta charset="utf-8">
-
         <title>Miracle Supply Chain Visibility Portal</title>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <meta http-equiv="pragma" content="no-cache" />
@@ -40,39 +30,29 @@
         <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
         <link rel="stylesheet" href='<s:url value="/includes/plugins/daterangepicker/daterangepicker.css"/>' type="text/css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
     </head>
     <%
         String check = null;
         if (request.getAttribute("check") != null) {
             check = request.getAttribute("check").toString();
         }
-
-        //System.out.println("check-->"+check);
     %>
-
-    <body class="hold-transition skin-blue sidebar-mini" onload= "doOnLoad();
-            check();"> 
+    <body class="hold-transition skin-blue sidebar-mini" onload= "doOnLoad(); check();"> 
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <script type="text/javascript">
-        function check()
-        {
+        function check() {
             var value1 = document.getElementById("corrattribute1").value;
-
             if (value1 != "-1")
                 document.getElementById("corr").style.display = "block";
             else
                 document.getElementById("corr").style.display = "none";
             var value2 = document.getElementById("corrattribute2").value;
-
             if (value2 != "-1")
                 document.getElementById("corr1").style.display = "block";
             else
                 document.getElementById("corr1").style.display = "none";
-
         }
         </script>
-
         <div>
             <s:include value="../includes/template/header.jsp"/>
         </div>
@@ -82,10 +62,7 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-
-
             <!-- Main content --> 
-
             <section class="content-header">
                 <h1>
                     Shipments 
@@ -97,28 +74,26 @@
                 </ol>
             </section>
             <br>
-
             <section class="content">
-
                 <div class="box box-primary">
                     <div class="box-header with-border">
-
-                        <div class="box-tools pull-right">
-
-                        </div>
+                        <div class="box-tools pull-right"></div>
                     </div>  
                     <div class="box-body">
                         <div id="text">
                             <div style="alignment-adjust:central;" >
-                                <%String contextPath = request.getContextPath();
-                                %>
-
+                                <% String contextPath = request.getContextPath(); %>
                                 <s:form action="../shipment/shipmentSearch.action" method="post" name="shipmentForm" id="shipmentForm" theme="simple">
                                     <s:hidden id="datepickerfrom" name="datepickerfrom" />
                                     <s:hidden id="datepicker" name="datepicker"/>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-3"><label>Database&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</label>
+                                                        <s:radio id="database" name="database" value="%{database}" list="#@java.util.LinkedHashMap@{'MSCVP':'MSCVP','ARCHIVE':'ARCHIVE'}"/>
+                                                    </div>
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-sm-3"> <label>Date Range</label>
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="Date1();" /> 
@@ -590,22 +565,21 @@
         <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
         <script type="text/javascript">
-
-                function getDetails(val, ponum, fileid)
-                {
-                    getAsnDetails(val, ponum, fileid);
+                function getDetails(val, ponum, fileid) {
+                     var db = document.forms["shipmentForm"]["database"].value;
+                    getAsnDetails(val, ponum, fileid,db);
                 }
+                
                 function checkCorrelation() {
-
-
+                    var db = document.forms["shipmentForm"]["database"].value;
+                     if (db == '') {
+                    alert("please select Database!!!");
+                    return false;
+                }
                     var corrattr = document.getElementById('corrattribute').value;
                     var corrval = document.getElementById('corrvalue').value;
-
                     var corrattr1 = document.getElementById('corrattribute1').value;
                     var corrval1 = document.getElementById('corrvalue1').value;
-
-
-
                     if ((corrattr != "-1") && (corrval == "")) {
                         alert("please enter Correlation Value!!!");
                         return false;
@@ -614,7 +588,6 @@
                         alert("please select Correlation!");
                         return false;
                     }
-
                     if ((corrattr1 != "-1") && (corrval1 == "")) {
                         alert("please enter Correlation Value!!!");
                         return false;
@@ -623,17 +596,11 @@
                         alert("please select Correlation!");
                         return false;
                     }
-
-
-
-
                     var res = Formvalidation(document.getElementById('datepickerfrom').value, document.getElementById('datepicker').value);
-
-
                     return res;
                 }
-                function resetvalues()
-                {
+                
+                function resetvalues() {
                     document.getElementById('buId').value = "-1";
                     document.getElementById('datepickerfrom').value = "";
                     document.getElementById('datepicker').value = "";
@@ -661,6 +628,7 @@
                     $("#shipments i").addClass("text-red");
                     document.getElementById('loadingAcoountSearch').style.display = "none";
                 }
+                
                 function hide() {
                     $('#hide-menu1').removeClass('show-menu');
                 }

@@ -13,4 +13,5 @@ import java.util.ArrayList;
 public interface DocRepositoryService {
 
     public ArrayList<DocRepositoryBean> buildDocumentQuery(DocRepositoryAction docbean) throws ServiceLocatorException;
+    public ArrayList<DocRepositoryBean> buildDocumentQueryArchive(DocRepositoryAction docbean) throws ServiceLocatorException;
 }

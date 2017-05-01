@@ -77,46 +77,38 @@
         <div>
             <s:include value="../includes/template/sidemenu.jsp"/>
         </div>
-
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-
             <!-- Main content --> 
-
             <section class="content-header">
-                <h1>
-                    Purchase Order
-                    <small>Manufacturing</small>
-                </h1>
+                <h1>Purchase Order<small>Manufacturing</small></h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-wrench"></i>Manufacturing</a></li>
                     <li class="active">Purchase Order</li>
                 </ol>
             </section>
             <br>
-
             <section class="content">
-
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <div class="box-tools pull-right">
-
                         </div>
                     </div>  
                     <div class="box-body">
                         <div id="text">
                             <div  style="alignment-adjust:central;" >
-                                <%String contextPath = request.getContextPath();
-                                %>
-
-
-
+                                <%String contextPath = request.getContextPath(); %>
                                 <s:form action="../po/poSearch" method="post" name="purchaseForm" id="purchaseForm" theme="simple">
                                     <s:hidden id="poDateFrom" name="poDateFrom" />
                                     <s:hidden id="poDateTo" name="poDateTo"/>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-sm-3"><label>Database&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</label>
+                                                        <s:radio id="database" name="database" value="%{database}" list="#@java.util.LinkedHashMap@{'MSCVP':'MSCVP','ARCHIVE':'ARCHIVE'}"/>
+                                                    </div>
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-sm-3"> <label>Date Range</label>
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="Date1();" /> 
@@ -200,7 +192,7 @@
                                                 </script>                                          
 
                                                 <script>
-                                                    $("#addButton").click(function () {
+                                                    $("#addButton").click(function() {
                                                         count++;
                                                         if (count == 1)
                                                             document.getElementById("corr").style.display = "block";
@@ -695,12 +687,8 @@
                 <div class="row col-sm-12" style="margin-top:10px;">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
             </div>
         </div>
-
-
-
-
         <script>
-            $(function () {
+            $(function() {
                 //$("#example1").DataTable();
                 $('#results').DataTable({
                     "paging": true,
@@ -729,26 +717,19 @@
 
     <script type="text/javascript">
             // New function to show the left grid
-
-            function demo()
-            {
-                $(function () {
-
+            function demo() {
+                $(function() {
                     $('#detail_box').show();
                     return false;
                 });
-
             }
 
             function getDetails(val, val1) {
-                getPoDetails(val, val1);
+                var db = document.forms["purchaseForm"]["database"].value;
+                getPoDetails(val, val1, db);
             }
 
-
-
-
-            function resetvalues()
-            {
+            function resetvalues() {
                 //document.getElementById('poNumber').value="";
                 document.getElementById('poDateFrom').value = "";
                 document.getElementById('poDateTo').value = "";
@@ -760,33 +741,29 @@
                 document.getElementById('poRecName').value = "-1";
                 document.getElementById('sampleValue').value = "1";
                 //document.getElementById('ackStatus').value="-1";
-
                 document.getElementById('ackStatus').value = "-1";
                 document.getElementById('status').value = "-1";
-
                 document.getElementById('corrattribute').value = "-1";
                 document.getElementById('corrvalue').value = "";
-
                 document.getElementById('corrattribute1').value = "-1";
                 document.getElementById('corrvalue1').value = "";
                 document.getElementById('corrattribute2').value = "-1";
                 document.getElementById('corrvalue2').value = "";
                 //  document.getElementById('docType').value="-1"; 
-
                 $('#gridDiv').hide();
             }
 
-
-            function enterDate()
-            {
+            function enterDate() {
                 alert("Please select from the Calender !");
                 document.getElementById('poDateFrom').value = '';
             }
 
-
             function checkCorrelation() {
-
-
+                var db = document.forms["purchaseForm"]["database"].value;
+                if (db == '') {
+                    alert("please select Database!!!");
+                    return false;
+                }
                 var corrattr = document.getElementById('corrattribute').value;
                 var corrval = document.getElementById('corrvalue').value;
 
@@ -795,7 +772,6 @@
 
                 var corrattr2 = document.getElementById('corrattribute2').value;
                 var corrval2 = document.getElementById('corrvalue2').value;
-
 
                 if ((corrattr != "-1") && (corrval == "")) {
                     alert("please enter Correlation Value!!!");
@@ -823,17 +799,11 @@
                     alert("please select Correlation!");
                     return false;
                 }
-
                 var res = Formvalidation(document.getElementById('poDateFrom').value, document.getElementById('poDateTo').value);
-
-
                 return res;
             }
 
-
-
             function doOnLoad() {
-
                 $("#purchaseorder").addClass("active");
                 $("#oredermanagement").addClass("active");
 
@@ -843,9 +813,7 @@
                 document.getElementById('loadingAcoountSearch').style.display = "none";
             }
 
-            function hide()
-            {
-
+            function hide() {
                 $('#hide-menu1').removeClass('show-menu');
             }
             //            $('body,html').click(function(e){

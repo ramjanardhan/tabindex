@@ -53,6 +53,7 @@ public class InvoiceAction extends ActionSupport implements ServletRequestAware 
     private List senderNameList;
     private List receiverNameList;
     private String reportrange;
+    private String database;
 
     public String getReportrange() {
         return reportrange;
@@ -113,7 +114,11 @@ public class InvoiceAction extends ActionSupport implements ServletRequestAware 
                 } else if (getCheck().equals("")) {
                     setCheck("1");
                 }
-                invoiceList = ServiceLocator.getInvoiceService().buildinvoiceQuery(this);
+                if("ARCHIVE".equals(getDatabase())){
+                    invoiceList = ServiceLocator.getInvoiceService().buildinvoiceQueryArchive(this);
+                }else{
+                   invoiceList = ServiceLocator.getInvoiceService().buildinvoiceQuery(this);
+                }
                 httpServletRequest.getSession(false).setAttribute(AppConstants.SES_INV_LIST, invoiceList);
                 resultType = SUCCESS;
             } catch (Exception ex) {
@@ -480,7 +485,12 @@ public class InvoiceAction extends ActionSupport implements ServletRequestAware 
     public void setCorrvalue2(String corrvalue2) {
         this.corrvalue2 = corrvalue2;
     }
-    /**
-     * @return the invAmt
-     */
+    
+    public String getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(String database) {
+        this.database = database;
+    }
 }

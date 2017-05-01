@@ -54,6 +54,7 @@ public class PurchaseOrderAction extends ActionSupport implements ServletRequest
     private String reportrange;
     private List<PurchaseOrderBean> purchaseOrderList;
     private static Logger logger = Logger.getLogger(PurchaseOrderAction.class.getName());
+    private String database;
 
     public String prepare() throws Exception {
         resultType = LOGIN;
@@ -111,7 +112,11 @@ public class PurchaseOrderAction extends ActionSupport implements ServletRequest
                 } else if (getCheck().equals("")) {
                     setCheck("1");
                 }
-                purchaseOrderList = ServiceLocator.getPurchaseService().buildPurchaseQuery(this);
+                if("ARCHIVE".equals(getDatabase())){
+                    purchaseOrderList = ServiceLocator.getPurchaseService().buildPurchaseQueryArchive(this);
+                }else{
+                    purchaseOrderList = ServiceLocator.getPurchaseService().buildPurchaseQuery(this);
+                }
                 httpServletRequest.getSession(false).setAttribute(AppConstants.SES_PO_LIST, purchaseOrderList);
                 resultType = SUCCESS;
             } catch (Exception ex) {
@@ -505,5 +510,13 @@ public class PurchaseOrderAction extends ActionSupport implements ServletRequest
 
     public void setReportrange(String reportrange) {
         this.reportrange = reportrange;
+    }
+    
+    public String getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(String database) {
+        this.database = database;
     }
 }

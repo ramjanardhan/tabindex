@@ -79,8 +79,13 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="row">
+                                                    <div class="col-sm-3"><label>Database&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</label>
+                                                        <s:radio id="database" name="database" value="%{database}" list="#@java.util.LinkedHashMap@{'MSCVP':'MSCVP','ARCHIVE':'ARCHIVE'}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
                                                     <div class="col-sm-3"> <label>Date range</label>
-                                                        <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}"  onchange="Date1()"/> 
+                                                        <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left" value="%{reportrange}"  onchange="Date1()"/> 
                                                     </div>
                                                     <div  class="col-sm-3">
                                                         <label>Document Type</label> 
@@ -163,7 +168,7 @@
                                         </span>
                                         <div class="row">
                                             <div class="col-sm-2"><s:submit value="Search"  onclick="return checkCorrelation();"   cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
-                                            <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetvalues();"/></strong></div>
+                                            <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetvaluesManufacteringDocRep();"/></strong></div>
                                             </td>
                                             <s:hidden name="sampleValue" id="sampleValue" value="2"/>
                                         </s:form>
@@ -491,7 +496,7 @@
                 </s:if> 
             </div>
             <script>
-                $(function () {
+                $(function() {
                     $('#results').DataTable({
                         "paging": true,
                         "lengthChange": true,
@@ -532,10 +537,16 @@
                 }
 
                 function getDetails(val, ponum, id) {
-                    getDocDetails(val, ponum, id);
+                    var db = document.forms["documentForm"]["database"].value;
+                    getDocDetails(val, ponum, id,db);
                 }
                 function checkCorrelation() {
                     //alert("checkCorrelation");
+                    var db = document.forms["documentForm"]["database"].value;
+                    if(db == ''){
+                        alert("please select Database!!!");
+                        return false;
+                    }
                     var corrattr = document.getElementById('corrattribute').value;
                     var corrval = document.getElementById('corrvalue').value;
                     var corrattr1 = document.getElementById('corrattribute1').value;
@@ -573,8 +584,7 @@
                         return false;
                     }
                 }
-                function resetvalues()
-                {
+                function resetvaluesManufacteringDocRep() {
                     document.getElementById('docdatepickerfrom').value = "";
                     document.getElementById('docdatepicker').value = "";
                     document.getElementById('docSenderId').value = "-1";
@@ -626,7 +636,7 @@
                     document.getElementById("docdatepicker").value = x;
                 }
                 var count = 0;
-                $("#addButton").click(function () {
+                $("#addButton").click(function() {
                     count++;
                     if (count == 1)
                         document.getElementById("corr").style.display = "block";

@@ -14,4 +14,5 @@ import java.util.ArrayList;
 public interface InvoiceService {
 
     public ArrayList<InvoiceBean> buildinvoiceQuery(InvoiceAction invoicebean) throws ServiceLocatorException;
+    public ArrayList<InvoiceBean> buildinvoiceQueryArchive(InvoiceAction invoicebean) throws ServiceLocatorException;
 }

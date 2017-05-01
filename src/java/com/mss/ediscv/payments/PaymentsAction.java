@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import com.mss.ediscv.util.AppConstants;
 import com.mss.ediscv.util.DataSourceDataProvider;
-import com.mss.ediscv.util.DateUtility;
 import com.mss.ediscv.util.ServiceLocator;
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.List;
@@ -54,6 +53,7 @@ public class PaymentsAction extends ActionSupport implements ServletRequestAware
     private List receiverNameList;
     private String reportrange;
     private static Logger logger = Logger.getLogger(PaymentsAction.class.getName());
+    private String database;
 
     public String prepare() throws Exception {
         resultType = LOGIN;
@@ -100,7 +100,12 @@ public class PaymentsAction extends ActionSupport implements ServletRequestAware
                 } else if (getCheck().equals("")) {
                     setCheck("1");
                 }
-                paymentList = ServiceLocator.getPaymentService().buildpaymentSQuery(this);
+                 if("ARCHIVE".equals(getDatabase())){
+                    paymentList = ServiceLocator.getPaymentService().buildpaymentSQueryArchive(this);
+                }else{
+                   paymentList = ServiceLocator.getPaymentService().buildpaymentSQuery(this);
+                }
+                
                 httpServletRequest.getSession(false).setAttribute(AppConstants.SES_PAYMENT_LIST, paymentList);
                 resultType = SUCCESS;
             } catch (Exception ex) {
@@ -508,5 +513,12 @@ public class PaymentsAction extends ActionSupport implements ServletRequestAware
 
     public void setCorrvalue2(String corrvalue2) {
         this.corrvalue2 = corrvalue2;
+    }
+    public String getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(String database) {
+        this.database = database;
     }
 }

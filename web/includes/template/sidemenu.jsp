@@ -116,12 +116,12 @@
                         <% if (usrFlowMap.containsValue("Logistics")) {%>
                         <li id="ltdashboard"><a href="<s:url action="../logisticsReports/dashboard.action"/>"><i class="fa fa-circle-o"></i>Logistics Dashboard</a></li> 
                             <% }
-                            if (usrFlowMap.containsValue("Manufacturing")) {%> 
+                                if (usrFlowMap.containsValue("Manufacturing")) {%> 
                         <li id="dashboard"><a href="<s:url action="../reports/dashboard.action"/>"><i class="fa fa-circle-o"></i>Manufacturing Dashboard</a></li>
                             <% }%>
                     </ul>
                 </li>
-
+                <%if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100")) {%>
                 <li class=" treeview" id="purging">
                     <a href="#">
                         <i class="fa fa-remove"></i> <span>Purging</span> 
@@ -131,7 +131,9 @@
                         <li id="purgeProcess" class=" treeview"><a href="<s:url action="../purge/purging.action"/>"><i class="fa fa-circle-o"></i>Purge Process</a></li>
                     </ul>
                 </li>
-                <% }%>
+
+                <% }
+                    }%>
                 <%
                     if (usrFlowMap.containsValue("Logistics")) {
                 %> 
@@ -142,32 +144,28 @@
                     </a>
                     <ul class="treeview-menu" >
                         <% //100,101,0,0,106,107
-                            if (!session.getAttribute(AppConstants.SES_ROLE_ID).equals("1")) {%>
+                            if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("102") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("141") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("142") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("103")) {%>
                         <li id="ltdocrepository"><a href="<s:url action="../logisticsdoc/Logistics.action"/>"><i class="fa fa-circle-o"></i> Doc Repository</a></li>
-                            <%} //100,101,0,0,106,107
-                            if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("101") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("106") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("107")) {%>
+
                         <li id="ltloadtendering">
                             <a href="<s:url action="../logisticsloadtendering/loadtendering.action"/>"><i class="fa fa-circle-o"></i> Load Tendering</a></li>
-                            <%} //100,0,102,0,106,107
-                                if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("102") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("106") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("107")) {%>
+
                         <li id="ltresponse"><a href="<s:url action="../ltResponse/ltResponse.action"/>"><i class="fa fa-circle-o"></i> Response</a></li>
-                            <%} //L_SHIPMENT = 100,0,102,103,106,107
-                            if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("102") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("103") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("106") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("107")) {%>
+
                         <li id="ltsupplychain">
                             <a href="#"><i class="fa fa-circle-o"></i> Supply Chain <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
                                 <li id="ltshipment"><a href="<s:url action="../logisticsshipment/ltshipment.action"/>"><i class="fa fa-circle-o"></i> Shipment</a></li>
                             </ul>
                         </li>
-                        <%} //L_INVOICE = 100,0,0,103,106,107
-                            if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("103") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("106") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("107")) {%>
+
                         <li id="ltfinance"> 
                             <a href="#"><i class="fa fa-circle-o"></i> Finance <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
                                 <li id="ltinvoice"><a href="<s:url action="../logisticsinvoice/ltinvoice.action"/>"><i class="fa fa-circle-o"></i> Invoice</a></li>
                             </ul>
                         </li>
-                        <%}%>
+
                         <li id="ltreports">
                             <a href="#"><i class="fa fa-circle-o"></i> Logistic&nbsp;Reports <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
@@ -175,20 +173,23 @@
                                     <%--    <li id="ltdashboard"><a href="<s:url action="../logisticsReports/dashboard.action"/>"><i class="fa fa-circle-o"></i> Dashboard</a></li> --%>
                             </ul>
                         </li>
+
                         <li id="ltconfig">
                             <a href="#"><i class="fa fa-circle-o"></i> Config<i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
                                 <li id="ltpartner"><a href="<s:url action="../partner/getPartnerList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i> Partner</a></li>
-                                <li id="ltrouting"><a href="<s:url action="../routing/getRoutingList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i> Routing</a></li>
-                                <li id="ltb2bchannel"><a href="<s:url action="../b2bchannel/getB2BChannelList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>B2B Channel</a></li>
-                                <li id="ltdeliverychannel"><a href="<s:url action="../partner/deliveryChannelList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>Delivery Channel</a></li>
+                                    <%--<li id="ltrouting"><a href="<s:url action="../routing/getRoutingList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i> Routing</a></li>
+                                    <li id="ltb2bchannel"><a href="<s:url action="../b2bchannel/getB2BChannelList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>B2B Channel</a></li>
+                                    <li id="ltdeliverychannel"><a href="<s:url action="../partner/deliveryChannelList.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>Delivery Channel</a></li>--%>
                                 <li id="ltscheduler"><a href="<s:url action="../partner/getSchedular.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>Scheduler</a></li>
                                     <%--<li id="purgeProcess"><a href="<s:url action="../purge/purging.action"> <s:param name="configFlowFlag" value="'logistics'"/></s:url>"><i class="fa fa-circle-o"></i>Purge Process</a></li>--%>
                             </ul>
                         </li>
                     </ul>
                 </li>
+
                 <%  }
+                    }
                     if (usrFlowMap.containsValue("Manufacturing")) {%>
                 <li class="treeview" id="manufacturing">
                     <a href="#">
@@ -196,24 +197,21 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
+                        <% if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("101") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("105") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("103")) {%>
                         <li id="docrepository"><a href="<s:url action="../doc/orderToCash"/>"><i class="fa fa-circle-o"></i> Document Repository</a></li>
-                            <% if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("101") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("105")) {%>
+
                         <li id="oredermanagement">
                             <a href="#"><i class="fa fa-circle-o"></i> Order Management <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
                                 <li id="purchaseorder"><a href="<s:url action="../po/purchaseOrder"/>"><i class="fa fa-circle-o"></i> Purchase Order</a></li>
                             </ul>
                         </li>
-                        <%}
-                            if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("102") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("105")) {%>
                         <li id="supplychain">
                             <a href="#"><i class="fa fa-circle-o"></i> Supply Chain <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
                                 <li id="shipments"><a href="<s:url action="../shipment/shipmentAction"/>"><i class="fa fa-circle-o"></i> Shipments </a></li>
                             </ul>
                         </li>
-                        <%}
-                            if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("103") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("105")) {%>
                         <li id="financials">
                             <a href="#"><i class="fa fa-circle-o"></i> Financials <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
@@ -221,7 +219,6 @@
                                 <li id="payments"><a href="<s:url action="../payment/paymentAction"/>"><i class="fa fa-circle-o"></i>Payments</a></li>
                             </ul>
                         </li>
-                        <%}%>
                         <li id="reports">
                             <a href="#"><i class="fa fa-circle-o"></i> Reports <i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
@@ -232,21 +229,20 @@
                                     <%--  <li id="dashboard"><a href="<s:url action="../reports/dashboard.action"/>"><i class="fa fa-circle-o"></i>Dashboard</a></li>  --%>
                             </ul>
                         </li>
-                        <% if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100")) {%>
                         <li id="config">
                             <a href="#"><i class="fa fa-circle-o"></i> Config<i class="fa fa-angle-left pull-right"></i></a>
                             <ul class="treeview-menu">
                                 <li id="partner"><a href="<s:url action="../partner/getPartnerList.action"><s:param name="configFlowFlag" value="'manufacturing'"/></s:url>"><i class="fa fa-circle-o"></i>Partner</a></li>
-                                <li id="routing"><a href="<s:url action="../routing/getRoutingList.action"><s:param name="configFlowFlag" value="'manufacturing'"/></s:url>"><i class="fa fa-circle-o"></i>Routing</a></li>
-                                <li id="b2bchannel"><a href="<s:url action="../b2bchannel/getB2BChannelList.action"><s:param name="configFlowFlag" value="'manufacturing'"/></s:url>"><i class="fa fa-circle-o"></i>B2B Channel</a></li>
-                                <li id="deliverychannel"><a href="<s:url action="../partner/deliveryChannelList.action"><s:param name="configFlowFlag" value="'manufacturing'"/></s:url>"><i class="fa fa-circle-o"></i>Delivery Channel</a></li>
+                                    <%--<li id="routing"><a href="<s:url action="../routing/getRoutingList.action"><s:param name="configFlowFlag" value="'manufacturing'"/></s:url>"><i class="fa fa-circle-o"></i>Routing</a></li>
+                                    <li id="b2bchannel"><a href="<s:url action="../b2bchannel/getB2BChannelList.action"><s:param name="configFlowFlag" value="'manufacturing'"/></s:url>"><i class="fa fa-circle-o"></i>B2B Channel</a></li>
+                                    <li id="deliverychannel"><a href="<s:url action="../partner/deliveryChannelList.action"><s:param name="configFlowFlag" value="'manufacturing'"/></s:url>"><i class="fa fa-circle-o"></i>Delivery Channel</a></li>--%>
                                 <li id="scheduler"><a href="<s:url action="../partner/getSchedular.action"> <s:param name="configFlowFlag" value="'manufacturing'"/></s:url>"><i class="fa fa-circle-o"></i>Scheduler</a></li>
                                 </ul>
                             </li>
-                        <%}%>
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
                 <% }
+                    }
                     if (usrFlowMap.containsValue("DocumentVisibility")) {%>
                 <li class="treeview" id="documentvisibility">
                     <a href="#">
@@ -259,6 +255,7 @@
                     </ul>
                 </li>
                 <% }%>
+                <%if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100")) {%>
                 <li class="treeview" id="utilities">
                     <a href="#">
                         <i class="fa fa-gavel"></i> <span>Utilities</span>
@@ -271,6 +268,7 @@
                     </ul>
                 </li>
                 <%
+                            }
                         }
                     }
                 %>

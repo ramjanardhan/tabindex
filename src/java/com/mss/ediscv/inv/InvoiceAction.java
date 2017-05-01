@@ -84,11 +84,11 @@ public class InvoiceAction extends ActionSupport implements ServletRequestAware 
                 List senderNameList;
                 List receiverNameList;
                 setCorrelationList(DataSourceDataProvider.getInstance().getCorrelationNames(3, 1));
-                setDocTypeList(DataSourceDataProvider.getInstance().getDocumentTypeList());
-                senderList = DataSourceDataProvider.getInstance().getSenderIdlist();
-                receiverList = DataSourceDataProvider.getInstance().getReciverIdlist();
-                senderNameList = DataSourceDataProvider.getInstance().getSenderNamelist();
-                receiverNameList = DataSourceDataProvider.getInstance().getReciverNamelist();
+                //setDocTypeList(DataSourceDataProvider.getInstance().getDocumentTypeList());
+                senderList = DataSourceDataProvider.getInstance().getSenderIdlist("M");
+                receiverList = DataSourceDataProvider.getInstance().getReciverIdlist("M");
+                senderNameList = DataSourceDataProvider.getInstance().getSenderNamelist("M");
+                receiverNameList = DataSourceDataProvider.getInstance().getReciverNamelist("M");
                 setSenderIdList(senderList);
                 setReceiverIdList(receiverList);
                 setSenderNameList(senderNameList);

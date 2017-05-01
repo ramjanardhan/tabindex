@@ -62,7 +62,7 @@ public class TrackInOutServiceImpl implements TrackInOutService {
         System.out.println("docdatepicker is "+docdatepicker);
         String docdatepickerfrom = trackInOutAction.getDocdatepickerfrom();
         System.out.println("docdatepickerfrom is "+docdatepickerfrom);
-        docTypeList = DataSourceDataProvider.getInstance().getDocumentTypeList();
+        docTypeList = DataSourceDataProvider.getInstance().getDocumentTypeList("M");
         String temp = "No Value";
         ArrayList temperoryList = new ArrayList();
         ArrayList inboundList = new ArrayList();
@@ -70,7 +70,7 @@ public class TrackInOutServiceImpl implements TrackInOutService {
         ArrayList documentTypeList = new ArrayList();
         ArrayList dateMonth = new ArrayList();
         ArrayList dateMonthdocType = new ArrayList();
-        documentSearchQuery.append("select count(DIRECTION) as total from FILES where DIRECTION=? and TRANSACTION_TYPE=?");
+        documentSearchQuery.append("select count(DIRECTION) as total from FILES where DIRECTION=? and TRANSACTION_TYPE=? AND FLOW_FLAG='M'");
         if (docdatepicker != null && !"".equals(docdatepicker) && docdatepickerfrom != null && !"".equals(docdatepickerfrom)) {
             documentSearchQuery.append(" and year(DATE_TIME_RECEIVED)=? and month(DATE_TIME_RECEIVED)=?");
             fromYear = DateUtility.getInstance().monthYear(docdatepickerfrom, "year");
@@ -181,15 +181,15 @@ public class TrackInOutServiceImpl implements TrackInOutService {
         if (trackInOutAction.getDocNetworkvan()!=null && !trackInOutAction.getDocNetworkvan().equals("-1")) {
             docNetworkvan = trackInOutAction.getDocNetworkvan();
         }
-        docTypeList = DataSourceDataProvider.getInstance().getDocumentTypeList();
-        Map partnerMap = DataSourceDataProvider.getInstance().getPartnerMap();
+        docTypeList = DataSourceDataProvider.getInstance().getDocumentTypeList("M");
+        Map partnerMap = DataSourceDataProvider.getInstance().getDashboardPartnerMap("2");
         int inboundTotal = 0;
         int outboundTotal = 0;
         double filesizeTotal = 0;
         double filesizeTotal1 = 0;
         TrackInOutBean trackInOutBean;
         documentSearchQuery.append("select count(DIRECTION) as total,cast(SUM(FILE_SIZE)/1024 as decimal(10,2)) as total_size from FILES where DIRECTION=? and TRANSACTION_TYPE=?");
-        documentSearchQuery.append(" and (SENDER_ID = ? or RECEIVER_ID=?)");
+        documentSearchQuery.append(" and (SENDER_ID = ? or RECEIVER_ID=?) AND FLOW_FLAG='M'");
 
         if (docNetworkvan != null && !"".equals(docNetworkvan.trim())) {
             documentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.NETWORK_VAN", docNetworkvan.trim()));
@@ -313,7 +313,7 @@ public class TrackInOutServiceImpl implements TrackInOutService {
                 + "FILES.DATE_TIME_RECEIVED as DATE_TIME_RECEIVED,FILES.ACK_STATUS as ACK_STATUS,"
                 + "TP.NAME as RECEIVER_NAME,TP.NAME as SENDER_NAME FROM FILES "
                 + "LEFT OUTER JOIN TP ON (TP.ID=FILES.SENDER_ID) OR (TP.ID=FILES.RECEIVER_ID)");
-        documentSearchQuery.append(" WHERE 1=1 ");
+        documentSearchQuery.append(" WHERE 1=1 AND FLOW_FLAG='M'");
         if (doctype != null && !"".equals(doctype.trim())) {
             documentSearchQuery.append(WildCardSql.getWildCardSql1("FILES.TRANSACTION_TYPE", doctype.trim()));
         }

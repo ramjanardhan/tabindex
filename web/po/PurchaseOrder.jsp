@@ -133,7 +133,7 @@
                                                     <div  class="col-sm-3">
                                                         <label for="docType">Document Type</label> 
 
-                                                        <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="docTypeList" name="docType" id="docType" value="%{docType}" tabindex="13"/>
+                                                        <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="{'850','855'}" name="docType" id="docType" value="%{docType}" tabindex="13"/>
                                                     </div>
 
                                                     <div  class="col-sm-3">
@@ -665,26 +665,35 @@
                     <div class="col-sm-6"> <label class="labelw">997ACKFile </label></div>                      
                     <div class="col-sm-6"><div id="POAckFileId"></div></div>
                 </div>
-                <div class="row col-sm-12 clear" id="sapDiv" style="display: none;margin-top:10px;">
-                    <div class="col-sm-6"> <label class="labelw"> SAP_USER </label>
-                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="SAP_USER" name="ManStatus" readonly="true"/>
+
+                <div id="sapDeatails" style="display: none;margin-top:10px;">
+                    <div class="col-sm-6"> <h4>SAP Details:</h4></div>
+                    <div class="row col-sm-12 clear">
+                        <div class="col-sm-6"> <label class="labelw"> SAP_USER </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="SAP_USER" name="ManStatus" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> PO_NUMBER </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PO_NUMBER" name="ManStatus" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> PO_DATE </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PO_DATE" name="ManStatus" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> IDOC CODE </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_CODE" name="ManStatus" readonly="true"/>
+                        </div>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> IDOC_NUMBER </label>
-                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_NUMBER" name="ManStatus" readonly="true"/>
+                    <div class="row col-sm-12 clear">
+                        <div class="col-sm-6"> <label class="labelw"> IDOC_NUMBER </label>
+                            <s:textfield  cssClass="form-control"  style="width: 217px;" required="required" placeholder="" id="IDOC_NUMBER" name="ManStatus" readonly="true"/>
+                        </div>
                     </div>
-                    <div class="col-sm-6"> <label class="labelw"> PO_NUMBER </label>
-                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PO_NUMBER" name="ManStatus" readonly="true"/>
-                    </div>
-                    <div class="col-sm-6"> <label class="labelw"> PO_DATE </label>
-                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="PO_DATE" name="ManStatus" readonly="true"/>
-                    </div>
-                    <div class="col-sm-6"> <label class="labelw"> IDOC CODE </label>
-                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_CODE" name="ManStatus" readonly="true"/>
-                    </div>
-                    <div class="col-sm-6"> <label class="labelw"> IDOC DESCRIPTION </label>
-                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_DESCRIPTION" name="ManStatus" readonly="true"/>
+                    <div class="row col-sm-12 clear">
+                        <div class="col-sm-6"> <label class="labelw"> IDOC_DESCRIPTION </label>
+                            <s:textfield  cssClass="form-control" style="width: 217px;" required="required" placeholder="" id="IDOC_STATUS_DESCRIPTION" name="ManStatus" readonly="true"/>
+                        </div>
                     </div>
                 </div>
+
                 <div class="row col-sm-12" id="errorDiv" style="display: none">
                     <div class="col-sm-6"> <label class="labelw"> Error&nbsp;Message </label></div>
                     <div class="col-sm-6" id="InvErrormessage" style="color: red"></div>
@@ -696,22 +705,6 @@
             </div>
         </div>
 
-
-
-
-        <script>
-            $(function () {
-                //$("#example1").DataTable();
-                $('#results').DataTable({
-                    "paging": true,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false
-                });
-            });
-        </script>
     </div>
     <div>
         <s:include value="../includes/template/footer.jsp"/>
@@ -851,6 +844,18 @@
             //            $('body,html').click(function(e){
             //                $('#hide-menu1').removeClass('show-menu');
             //            });
+            
+            $(function () {
+                //$("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
     </script>
 </body>
 </html>

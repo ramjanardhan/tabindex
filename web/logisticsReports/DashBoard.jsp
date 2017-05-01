@@ -161,7 +161,7 @@
                                             <div class="col-sm-12">
                                                 <div class="row">
                                                     <div class="col-sm-3"> <label>Date Range</label>
-                                                        <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}"  /> 
+                                                        <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="Date1()"/> 
                                                     </div>
                                                     <script type="text/javascript">
         function Date1()
@@ -228,8 +228,7 @@
                                 <div class="box-footer text-center">
                                     <div class="row">
                                         <%--     <s:submit value="Search" cssClass="button" tabindex="16"/> --%>
-                                        <div class="col-sm-2"> <strong><input type="button" value="Generate" class="btn btn-primary col-sm-12" tabindex="16" onclick="getDashboardDeatls();
-                                                Date1()"/></strong></div>
+                                        <div class="col-sm-2"> <strong><input type="button" value="Generate" class="btn btn-primary col-sm-12" tabindex="16" onclick="getDashboardDeatls('L');"/></strong></div>
 
                                         <div class="col-sm-2">    <strong><input type="reset" value="Reset" class="btn btn-primary col-sm-12" tabindex="17" onclick="return resetValues();"/></strong></div>
                                     </div>

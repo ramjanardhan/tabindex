@@ -60,7 +60,7 @@ public class LifecycleUtility {
         lifeCycleQuery.append("select DISTINCT(FILES.FILE_ID), FILES.FILE_TYPE, "
                 + "FILES.TRANSACTION_TYPE, FILES.DIRECTION,FILES.DATE_TIME_RECEIVED,FILES.STATUS, "
                 + "FILES.ACK_STATUS,FILES.REPROCESSSTATUS,PO.PO_NUMBER  "
-                + "FROM PO LEFT OUTER JOIN FILES ON "
+                + "FROM FILES LEFT OUTER JOIN PO ON "
                 + "(PO.PO_NUMBER = FILES.PRI_KEY_VAL AND PO.FILE_ID = FILES.FILE_ID) "
                 + "WHERE PO.PO_NUMBER LIKE '%" + poNum + "%'"
                 + " ORDER BY FILES.DATE_TIME_RECEIVED");
@@ -146,7 +146,7 @@ public class LifecycleUtility {
         String poNum = poNumber;
         lifeCycleQuery.append("select DISTINCT(FILES.FILE_ID),FILES.FILE_TYPE, FILES.TRANSACTION_TYPE, FILES.DIRECTION,"
                 + "FILES.DATE_TIME_RECEIVED,FILES.STATUS, ASN.PO_NUMBER ,FILES.ACK_STATUS,FILES.REPROCESSSTATUS "
-                + "from ASN LEFT OUTER JOIN FILES ON "
+                + "from FILES LEFT OUTER JOIN ASN ON "
                 + "(ASN.FILE_ID=FILES.FILE_ID) WHERE ASN.PO_NUMBER LIKE '%" + poNum + "%'"
                 + " ORDER BY FILES.DATE_TIME_RECEIVED");
         String searchQuery = lifeCycleQuery.toString();
@@ -225,8 +225,8 @@ public class LifecycleUtility {
         lifeCycleQuery.append("select DISTINCT(FILES.FILE_ID),FILES.FILE_TYPE, "
                 + "FILES.TRANSACTION_TYPE, FILES.DIRECTION,"
                 + "FILES.DATE_TIME_RECEIVED,FILES.STATUS, INVOICE.PO_NUMBER,FILES.REPROCESSSTATUS,FILES.ACK_STATUS "
-                + "from INVOICE LEFT OUTER JOIN "
-                + "FILES ON (INVOICE.FILE_ID=FILES.FILE_ID) WHERE INVOICE.PO_NUMBER LIKE '%" + poNum + "%'"
+                + "from FILES LEFT OUTER JOIN "
+                + "INVOICE ON (INVOICE.FILE_ID=FILES.FILE_ID) WHERE INVOICE.PO_NUMBER LIKE '%" + poNum + "%'"
                 + " ORDER BY FILES.DATE_TIME_RECEIVED");
         String searchQuery = lifeCycleQuery.toString();
         System.out.println("searchQuery Invoice------   "+searchQuery);
@@ -304,8 +304,8 @@ public class LifecycleUtility {
         lifeCycleQuery.append("select DISTINCT(FILES.FILE_ID),FILES.FILE_TYPE, FILES.TRANSACTION_TYPE,"
                 + "FILES.DIRECTION,FILES.DATE_TIME_RECEIVED,FILES.STATUS, "
                 + "PAYMENT.PO_NUMBER ,FILES.ACK_STATUS,FILES.REPROCESSSTATUS "
-                + "from PAYMENT LEFT OUTER JOIN "
-                + " FILES ON (PAYMENT.FILE_ID=FILES.FILE_ID) WHERE PAYMENT.PO_NUMBER LIKE '%" + poNum + "%'"
+                + "from FILES LEFT OUTER JOIN "
+                + " PAYMENT ON (PAYMENT.FILE_ID=FILES.FILE_ID) WHERE PAYMENT.PO_NUMBER LIKE '%" + poNum + "%'"
                 + " ORDER BY FILES.DATE_TIME_RECEIVED");
         String searchQuery = lifeCycleQuery.toString();
         System.out.println("searchQuery PAYMENT------   "+searchQuery);

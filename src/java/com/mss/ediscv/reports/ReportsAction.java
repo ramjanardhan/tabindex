@@ -57,11 +57,11 @@ public class ReportsAction extends ActionSupport implements ServletRequestAware 
             List receiverList;
             List senderNameList;
             List receiverNameList;
-            docList = DataSourceDataProvider.getInstance().getDocumentTypeList();
-            senderList = DataSourceDataProvider.getInstance().getSenderIdlist();
-            receiverList = DataSourceDataProvider.getInstance().getReciverIdlist();
-            senderNameList = DataSourceDataProvider.getInstance().getSenderNamelist();
-            receiverNameList = DataSourceDataProvider.getInstance().getReciverNamelist();
+            docList = DataSourceDataProvider.getInstance().getDocumentTypeList("M");
+            senderList = DataSourceDataProvider.getInstance().getSenderIdlist("M");
+            receiverList = DataSourceDataProvider.getInstance().getReciverIdlist("M");
+            senderNameList = DataSourceDataProvider.getInstance().getSenderNamelist("M");
+            receiverNameList = DataSourceDataProvider.getInstance().getReciverNamelist("M");
             setDocTypeList(docList);
             setSenderIdList(senderList);
             setReceiverIdList(receiverList);
@@ -92,11 +92,11 @@ public class ReportsAction extends ActionSupport implements ServletRequestAware 
                 List receiverList;
                 List senderNameList;
                 List receiverNameList;
-                docList = DataSourceDataProvider.getInstance().getDocumentTypeList();
-                senderList = DataSourceDataProvider.getInstance().getSenderIdlist();
-                receiverList = DataSourceDataProvider.getInstance().getReciverIdlist();
-                senderNameList = DataSourceDataProvider.getInstance().getSenderNamelist();
-                receiverNameList = DataSourceDataProvider.getInstance().getReciverNamelist();
+                docList = DataSourceDataProvider.getInstance().getDocumentTypeList("M");
+                senderList = DataSourceDataProvider.getInstance().getSenderIdlist("M");
+                receiverList = DataSourceDataProvider.getInstance().getReciverIdlist("M");
+                senderNameList = DataSourceDataProvider.getInstance().getSenderNamelist("M");
+                receiverNameList = DataSourceDataProvider.getInstance().getReciverNamelist("M");
                 setDocTypeList(docList);
                 setSenderIdList(senderList);
                 setReceiverIdList(receiverList);
@@ -126,10 +126,10 @@ public class ReportsAction extends ActionSupport implements ServletRequestAware 
                     httpServletRequest.getSession(false).setAttribute(AppConstants.SES_USER_DEFAULT_FLOWID, defaultFlowId);
                 }
                 List docList;
-                docList = DataSourceDataProvider.getInstance().getDocumentTypeList();
+                docList = DataSourceDataProvider.getInstance().getDocumentTypeList("M");
                 setDocTypeList(docList);
-                setPartnerMap(DataSourceDataProvider.getInstance().getDashboardPartnerMap());
-                setDocdatepicker(DateUtility.getInstance().getCurrentMySqlDateTime1());
+                setPartnerMap(DataSourceDataProvider.getInstance().getDashboardPartnerMap("2"));
+               // setDocdatepicker(DateUtility.getInstance().getCurrentMySqlDateTime1());
                 resultType = SUCCESS;
                 setResultType(SUCCESS);
             } catch (Exception exception) {

@@ -59,7 +59,7 @@ public class LogisticTrackInOutServiceImpl implements LogisticTrackInOutService 
         StringBuffer documentSearchQuery = new StringBuffer();
         String docdatepicker = logistictrackInOutAction.getDocdatepicker();
         String docdatepickerfrom = logistictrackInOutAction.getDocdatepickerfrom();
-        docTypeList = DataSourceDataProvider.getInstance().getDocumentTypeList();
+        docTypeList = DataSourceDataProvider.getInstance().getDocumentTypeList(0, 2);
         String temp = "No Value";
         ArrayList temperoryList = new ArrayList();
         ArrayList inboundList = new ArrayList();
@@ -177,7 +177,7 @@ public class LogisticTrackInOutServiceImpl implements LogisticTrackInOutService 
         if (!logistictrackInOutAction.getDocNetworkvan().equals("-1")) {
             docNetworkvan = logistictrackInOutAction.getDocNetworkvan();
         }
-        docTypeList = DataSourceDataProvider.getInstance().getDocumentTypeList();
+      docTypeList = DataSourceDataProvider.getInstance().getDocumentTypeList(0, 2);
         Map partnerMap = DataSourceDataProvider.getInstance().getPartnerMap();
         int inboundTotal = 0;
         int outboundTotal = 0;

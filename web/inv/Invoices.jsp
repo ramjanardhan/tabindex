@@ -165,7 +165,7 @@
                                                 <s:hidden id="invdatepicker" name="invdatepicker"/>
                                                 <div  class="col-sm-3">
                                                     <label for="docType">Document Type</label> 
-                                                    <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="docTypeList" name="docType" id="docType" value="%{docType}" tabindex="13"/>
+                                                    <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="{'810'}" name="docType" id="docType" value="%{docType}" tabindex="13"/>
                                                 </div>
 
                                                 <div  class="col-sm-3">

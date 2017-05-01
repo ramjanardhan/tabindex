@@ -298,7 +298,7 @@
                 %>
                 <%
                     try {
-                        docTypeList = DataSourceDataProvider.getInstance().getDocumentTypeList();
+                        docTypeList = DataSourceDataProvider.getInstance().getDocumentTypeList("M");
                     } catch (Exception e) {
                     }
                 %>

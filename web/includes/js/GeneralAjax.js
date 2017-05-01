@@ -360,20 +360,14 @@ function populatePoDetails(responseXML)
         }
 
         if (SAP_DETAILS != 'NO') {
+            document.getElementById('sapDeatails').style.display = "block";
             document.getElementById('SAP_USER').value = SAP_USER;
             document.getElementById('IDOC_NUMBER').value = IDOC_NUMBER;
             document.getElementById('PO_NUMBER').value = PO_NUMBER;
             document.getElementById('PO_DATE').value = PO_DATE;
             document.getElementById('IDOC_STATUS_CODE').value = IDOC_STATUS_CODE;
             document.getElementById('IDOC_STATUS_DESCRIPTION').value = IDOC_STATUS_DESCRIPTION;
-        } else {
-            document.getElementById('SAP_USER').value = '--';
-            document.getElementById('IDOC_NUMBER').value = '--';
-            document.getElementById('PO_NUMBER').value = '--';
-            document.getElementById('PO_DATE').value = '--';
-            document.getElementById('IDOC_STATUS_CODE').value = '--';
-            document.getElementById('IDOC_STATUS_DESCRIPTION').value = '--';
-        }
+        } 
 
     }
     if (chk.childNodes[0].nodeValue == "false") {
@@ -2859,11 +2853,13 @@ function populateDeliveryChannelDetails(responseXML)
  * Date : 02/19/2015
  */
 
-function getDashboardDeatls() {
-    //  alert("hii");
+function getDashboardDeatls(flag) {
+   // alert("hii"+flag);
     document.getElementById("tblCharts").style.display = 'none';
     var startDate = document.getElementById("docdatepickerfrom").value;
+  //  alert('startDate'+startDate);
     var endDate = document.getElementById("docdatepicker").value;
+   //  alert('endDate'+endDate);
     //  var docSenderId = document.getElementById("docSenderId").value;
     //  var direction = document.getElementById("direction").value;
     var docType = document.getElementById("docType").value;
@@ -2876,7 +2872,8 @@ function getDashboardDeatls() {
     var req = getXMLHttpRequest();
     req.onreadystatechange = readyStateHandlerLoadText(req, populateDashboardDetails);
     // var url="../ajax/getDashboardDetails.action?startDate="+startDate+"&endDate="+endDate+"&docType="+docType+"&ackStatus="+ackStatus+"&status="+status+"&partnerId="+partnerId+"&direction="+direction;
-    var url = "../ajax/getDashboardDetails.action?startDate=" + startDate + "&endDate=" + endDate + "&docType=" + docType + "&status=" + status + "&partnerId=" + partnerId;
+    var url = "../ajax/getDashboardDetails.action?flag="+flag+"&startDate=" + startDate + "&endDate=" + endDate + "&docType=" + docType + "&status=" + status + "&partnerId=" + partnerId;
+    //alert("url : "+url);
     req.open("GET", url, "true");
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.send(null);

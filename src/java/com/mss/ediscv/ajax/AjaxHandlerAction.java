@@ -91,6 +91,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     private String listName;
     private int items;
     private String modifieddate;
+    private String flag;
 
     public AjaxHandlerAction() {
     }
@@ -1295,5 +1296,15 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public void setModifieddate(String modifieddate) {
         this.modifieddate = modifieddate;
     }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+    
+    
 
 }

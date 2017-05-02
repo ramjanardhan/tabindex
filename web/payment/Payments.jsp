@@ -629,10 +629,10 @@
             document.getElementById('docType').value = "-1";
             document.getElementById('corrattribute').value = "-1";
             document.getElementById('corrvalue').value = "";
-            document.getElementById('corrattribute1').value = "-1";
-            document.getElementById('corrvalue1').value = "";
             document.getElementById('reportrange').value = "";
             $('#gridDiv').hide();
+            document.getElementById('corrattribute1').value = "-1";
+            document.getElementById('corrvalue1').value = "";
         }
 
         function hide()

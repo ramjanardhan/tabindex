@@ -4933,8 +4933,12 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
         String tmp_Recieved_ToTime = "";
         // System.out.println("invNumber--->"+invNumber); 
         //    queryString = "SELECT INVOKEMETHOD,MULTIPLEMSG,ADAPTER,TRANSLATIONMAPNAME,DOCEXTMAPNAME,PRODUCERMAILBOX FROM BUSINESSPROCESSINFO WHERE BP_ID ="+businessProcessId;
-        queryString = "select count(DIRECTION) as total from FILES where (SENDER_ID = ? or RECEIVER_ID=?) and DIRECTION=? ";
-
+        if(ajaxHandlerAction.getFlag().equals("M")){
+        queryString = "select count(DIRECTION) as total from FILES where (SENDER_ID = ? or RECEIVER_ID=?) and DIRECTION=? AND FLOWFLAG='M'";
+        }
+         if(ajaxHandlerAction.getFlag().equals("L")){
+        queryString = "select count(DIRECTION) as total from FILES where (SENDER_ID = ? or RECEIVER_ID=?) and DIRECTION=? AND FLOWFLAG='L'";
+        }
         // System.out.println("Logistics Invoice Details-->"+queryString);
         try {
 
@@ -4961,8 +4965,14 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
             preparedStatement = connection.prepareStatement(queryString);
             int inboundTotal = 0;
             int outboundTotal = 0;
+            Map partnerMap=null;
             if ("ALL".equalsIgnoreCase(ajaxHandlerAction.getPartnerId())) {
-                Map partnerMap = DataSourceDataProvider.getInstance().getDashboardPartnerMap();
+                 if(ajaxHandlerAction.getFlag().equals("M")){
+        partnerMap = DataSourceDataProvider.getInstance().getDashboardPartnerMap("2");
+        }else{
+              partnerMap = DataSourceDataProvider.getInstance().getDashboardPartnerMap("3");       
+                 }
+                
                 Iterator entries = partnerMap.entrySet().iterator();
 
                 while (entries.hasNext()) {

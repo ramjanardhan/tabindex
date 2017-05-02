@@ -219,17 +219,18 @@
                                                                         <th >ACK_STATUS</th></tr> </thead>
                                                                 <tbody>
                                                                     <%
-                                                                        String corrattribute;
-                                                                        String corrattribute1;
-                                                                        String corrattribute2;
+//                                                                        String corrattribute;
+//                                                                        String corrattribute1;
+//                                                                        String corrattribute2;
                                                                         for (int i = 0; i < list.size(); i++) {
                                                                             docRepositoryBean = (DocRepositoryBean) list.get(i);
-                                                                            corrattribute = docRepositoryBean.getCorrattribute();
-                                                                            corrattribute1 = docRepositoryBean.getCorrattribute1();
-                                                                            corrattribute2 = docRepositoryBean.getCorrattribute2();
+//                                                                            corrattribute = docRepositoryBean.getCorrattribute();
+//                                                                            corrattribute1 = docRepositoryBean.getCorrattribute1();
+//                                                                            corrattribute2 = docRepositoryBean.getCorrattribute2();
 
-                                                                            if (corrattribute != "-1" && !"-1".equalsIgnoreCase(corrattribute) && i == 0) {%>
-                                                                <td><%=corrattribute%> </td> 
+                                                                            //if (corrattribute != "-1" && !"-1".equalsIgnoreCase(corrattribute) && i == 0) {
+                                                                    %>
+                                                                <%--<td><%=corrattribute%> </td> 
                                                                 <%}
                                                                     if (corrattribute1 != "-1" && !"-1".equalsIgnoreCase(corrattribute1) && i == 0) {%>
                                                                 <td ><%=corrattribute1%> </td> 
@@ -238,7 +239,7 @@
                                                                 <td ><%=corrattribute2%> </td> 
                                                                 <%
                                                                     }
-                                                                %>
+                                                                %> --%>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>
@@ -299,7 +300,7 @@
                                                                             out.println(docRepositoryBean.getAckStatus());
                                                                         %>
                                                                     </td>
-                                                                    <%if (docRepositoryBean.getCorrvalue() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue())) {%>
+                                                                    <%--<%if (docRepositoryBean.getCorrvalue() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue())) {%>
                                                                     <td ><%=docRepositoryBean.getCorrvalue()%> </td> 
                                                                     <%}
                                                                         if (docRepositoryBean.getCorrvalue1() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue1())) {%>
@@ -308,7 +309,7 @@
                                                                         if (docRepositoryBean.getCorrvalue2() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue2())) {%>
                                                                     <td ><%=docRepositoryBean.getCorrvalue2()%> </td> 
                                                                     <%}
-                                                                    %>
+                                                                    %> --%>
                                                                 </tr>
                                                                 <%
                                                                     }

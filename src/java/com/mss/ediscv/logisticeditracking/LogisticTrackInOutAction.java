@@ -39,9 +39,9 @@ public class LogisticTrackInOutAction extends ActionSupport implements ServletRe
         setResultType(LOGIN);
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             List docList;
-            docList = DataSourceDataProvider.getInstance().getDocumentTypeList();
+            docList = DataSourceDataProvider.getInstance().getDocumentTypeList(0, 2);
             setDocTypeList(docList);
-            setPartnerMap(DataSourceDataProvider.getInstance().getDashboardPartnerMap());
+            setPartnerMap(DataSourceDataProvider.getInstance().getDashboardPartnerMap("3"));
             setNetworklanlist(DataSourceDataProvider.getInstance().getNetworkVanList());
             setDocdatepicker(DateUtility.getInstance().getCurrentMySqlDateTime1());
             if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_DOCREPORT_LIST) != null) {
@@ -95,9 +95,9 @@ public class LogisticTrackInOutAction extends ActionSupport implements ServletRe
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
                 List docList;
-                docList = DataSourceDataProvider.getInstance().getDocumentTypeList();
+                docList = DataSourceDataProvider.getInstance().getDocumentTypeList(0, 2);
                 setDocTypeList(docList);
-                setPartnerMap(DataSourceDataProvider.getInstance().getDashboardPartnerMap());
+                setPartnerMap(DataSourceDataProvider.getInstance().getDashboardPartnerMap("3"));
                 documentList = ServiceLocator.getLogisticTrackInOutService().getInquiryDetails(this);
                 if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_DOCREPORT_LIST) != null) {
                     httpServletRequest.getSession(false).removeAttribute(AppConstants.SES_DOCREPORT_LIST);

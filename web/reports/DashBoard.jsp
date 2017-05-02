@@ -59,6 +59,8 @@
 
             function resetvaluesManuDash()
             {
+                document.getElementById('docdatepickerfrom').value = "";
+                document.getElementById('docdatepicker').value = "";
                 document.getElementById('docType').value = "-1";
                 document.getElementById('reportrange').value = "";
                 document.getElementById('status').value = "-1";
@@ -150,13 +152,14 @@
                                         <div class="col-sm-12">
                                             <div class="row">
                                                 <div class="col-sm-3"> <label>Date Range</label>
-                                                    <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}"  /> 
+                                                    <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="Date1();" /> 
                                                 </div>
 
                                                 <script type="text/javascript">
         function Date1()
         {
             // alert("in to date1");
+           if(document.dashboardForm.reportrange.value!=null) {
             var date = document.dashboardForm.reportrange.value;
             // alert(date);
             var arr = date.split("-");
@@ -167,9 +170,10 @@
             document.getElementById("docdatepicker").value = x;
 
             var datefrom = document.getElementById("docdatepickerfrom").value;
-            //alert(datefrom);
+          //  alert(datefrom);
             var dateto = document.getElementById("docdatepicker").value;
-            // alert(dateto);
+            //alert(dateto);
+        }
         }
                                                 </script>
 
@@ -229,8 +233,7 @@
                                     </div>  
                                     <br>    
                                     <div class="row">
-                                        <div class="col-sm-2"> <strong><input type="button" value="Generate" class="btn btn-primary col-sm-12" tabindex="16" onclick="getDashboardDeatls();
-                                                Date1()"/></strong>
+                                        <div class="col-sm-2"> <strong><input type="button" value="Generate" class="btn btn-primary col-sm-12" tabindex="16" onclick="getDashboardDeatls('M')"/></strong>
 
                                         </div>
                                         <div class="col-sm-2"><strong><input type="reset" value="Reset" class="btn btn-primary col-sm-12" tabindex="17" onclick="return resetvaluesManuDash();"/></strong> </div>

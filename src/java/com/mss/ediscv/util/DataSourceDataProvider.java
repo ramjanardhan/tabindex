@@ -131,7 +131,7 @@ public class DataSourceDataProvider {
      //System.out.println("map-->"+docTypeMap);
      return docTypeMap;
      }*/
-    public List getDocumentTypeList() throws ServiceLocatorException {
+    public List getDocumentTypeList(String flowFlag) throws ServiceLocatorException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -142,7 +142,8 @@ public class DataSourceDataProvider {
         try {
           // System.out.println("st--->"+st);
 
-            queryString = "SELECT unique(FILES.TRANSACTION_TYPE) FROM FILES where FILES.TRANSACTION_TYPE is not null";
+           // queryString = "SELECT unique(FILES.TRANSACTION_TYPE) FROM FILES where FILES.TRANSACTION_TYPE is not null";
+            queryString = "SELECT unique(FILES.TRANSACTION_TYPE) FROM FILES where FILES.FLOWFLAG='"+flowFlag+"' AND FILES.TRANSACTION_TYPE is not null";
             //System.out.println("queryString--->"+queryString);
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
@@ -1356,7 +1357,7 @@ public class DataSourceDataProvider {
         return processMap; // returning the object.
     }//closing the method.
 
-    public Map getDashboardPartnerMap() throws ServiceLocatorException {
+    public Map getDashboardPartnerMap(String flowFlag) throws ServiceLocatorException {
 
         Map partnerMap = new TreeMap(); // Key-Description
         Connection connection = null;
@@ -1367,9 +1368,11 @@ public class DataSourceDataProvider {
         connection = ConnectionProvider.getInstance().getConnection();
         try {
             statement = connection.createStatement();
-
+            queryString="SELECT ID,NAME From TP WHERE FLOW_FLAG='"+ flowFlag + "'";
+            System.out.println("queryString partner"+queryString);
             // resultSet = statement.executeQuery("SELECT ID,FLOWNAME FROM MSCVP_ROLES LEFT OUTER JOIN M_USER_ROLES on (MSCVP_ROLES.ID=M_USER_ROLES.ROLE_ID) where USER_ID="+userId+" AND ID != 1 ORDER BY ROLE_NAME");
-            resultSet = statement.executeQuery("SELECT ID,NAME From TP ");
+            resultSet = statement.executeQuery(queryString);
+            
             while (resultSet.next()) {
                 partnerMap.put(resultSet.getString("ID"), resultSet.getString("NAME"));
             }
@@ -2162,7 +2165,7 @@ public class DataSourceDataProvider {
      return responseString;
      }*/
     //new action added for senderid and reciver id 
-    public List getSenderIdlist() throws ServiceLocatorException {
+    public List getSenderIdlist(String flowFlag) throws ServiceLocatorException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -2173,8 +2176,8 @@ public class DataSourceDataProvider {
         try {
           // System.out.println("st--->"+st);
 
-            queryString = "SELECT unique(TP.ID) FROM TP JOIN FILES ON (TP.ID=FILES.SENDER_ID)";
-            //System.out.println("queryString--->"+queryString);
+            queryString = "SELECT unique(TP.ID) FROM TP JOIN FILES ON (TP.ID=FILES.SENDER_ID) AND FILES.FLOWFLAG='"+flowFlag+"'";
+            System.out.println("queryString--->"+queryString);
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
 
@@ -2208,7 +2211,7 @@ public class DataSourceDataProvider {
         return sendeIdMap;
     }
 
-    public List getReciverIdlist() throws ServiceLocatorException {
+    public List getReciverIdlist(String flowFlag) throws ServiceLocatorException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -2219,7 +2222,7 @@ public class DataSourceDataProvider {
         try {
           // System.out.println("st--->"+st);
 
-            queryString = "SELECT unique(TP.ID) FROM TP JOIN FILES ON (TP.ID=FILES.RECEIVER_ID)";
+            queryString = "SELECT unique(TP.ID) FROM TP JOIN FILES ON (TP.ID=FILES.RECEIVER_ID) AND FILES.FLOWFLAG='"+flowFlag+"'";
             //System.out.println("queryString--->"+queryString);
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
@@ -2254,7 +2257,7 @@ public class DataSourceDataProvider {
         return receiverIdMap;
     }
 
-    public List getSenderNamelist() throws ServiceLocatorException {
+    public List getSenderNamelist(String flowFlag) throws ServiceLocatorException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -2265,8 +2268,8 @@ public class DataSourceDataProvider {
         try {
           // System.out.println("st--->"+st);
 
-            queryString = "SELECT unique(TP.NAME) FROM TP JOIN FILES ON (TP.ID=FILES.SENDER_ID)";
-            //System.out.println("queryString--->"+queryString);
+            queryString = "SELECT unique(TP.NAME) FROM TP JOIN FILES ON (TP.ID=FILES.SENDER_ID) AND FILES.FLOWFLAG='"+flowFlag+"'";
+            System.out.println("queryString--->"+queryString);
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
 
@@ -2300,7 +2303,7 @@ public class DataSourceDataProvider {
         return SenderNameMap;
     }
 
-    public List getReciverNamelist() throws ServiceLocatorException {
+    public List getReciverNamelist(String flowFlag) throws ServiceLocatorException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -2311,8 +2314,8 @@ public class DataSourceDataProvider {
         try {
           // System.out.println("st--->"+st);
 
-            queryString = "SELECT unique(TP.NAME) FROM TP JOIN FILES ON (TP.ID=FILES.RECEIVER_ID)";
-            //System.out.println("queryString--->"+queryString);
+            queryString = "SELECT unique(TP.NAME) FROM TP JOIN FILES ON (TP.ID=FILES.RECEIVER_ID) AND FILES.FLOWFLAG='"+flowFlag+"'";
+            System.out.println("queryString--->"+queryString);
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
 

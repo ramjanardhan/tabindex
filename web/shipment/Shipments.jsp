@@ -110,7 +110,7 @@
                                                     <div  class="col-sm-3">
 
                                                         <label>Document Type</label> 
-                                                        <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="docTypeList" name="docType" id="docType" value="%{docType}" />
+                                                        <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="{'856'}" name="docType" id="docType" value="%{docType}" />
                                                     </div>
 
                                                     <div  class="col-sm-3">

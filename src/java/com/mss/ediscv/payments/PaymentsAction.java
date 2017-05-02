@@ -72,11 +72,11 @@ public class PaymentsAction extends ActionSupport implements ServletRequestAware
                     httpSession.removeAttribute(AppConstants.SES_PAYMENT_LIST);
                 }
                 setCorrelationList(DataSourceDataProvider.getInstance().getCorrelationNames(4, 1));
-                setDocTypeList(DataSourceDataProvider.getInstance().getDocumentTypeList());
-                setSenderIdList(DataSourceDataProvider.getInstance().getSenderIdlist());
-                setReceiverIdList(DataSourceDataProvider.getInstance().getReciverIdlist());
-                setSenderNameList(DataSourceDataProvider.getInstance().getSenderNamelist());
-                setReceiverNameList(DataSourceDataProvider.getInstance().getReciverNamelist());
+                //setDocTypeList(DataSourceDataProvider.getInstance().getDocumentTypeList());
+                setSenderIdList(DataSourceDataProvider.getInstance().getSenderIdlist("M"));
+                setReceiverIdList(DataSourceDataProvider.getInstance().getReciverIdlist("M"));
+                setSenderNameList(DataSourceDataProvider.getInstance().getSenderNamelist("M"));
+                setReceiverNameList(DataSourceDataProvider.getInstance().getReciverNamelist("M"));
                 //setPaDateTo(DateUtility.getInstance().getCurrentMySqlDateTime1());
                 resultType = SUCCESS;
             } catch (Exception ex) {

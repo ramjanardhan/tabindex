@@ -104,9 +104,10 @@ public class LogisticReportsAction extends ActionSupport implements ServletReque
                     httpServletRequest.getSession(false).setAttribute(AppConstants.SES_USER_DEFAULT_FLOWID, defaultFlowId);
                 }
                 List docList;
-                docList = DataSourceDataProvider.getInstance().getDocumentTypeList();
+                //docList = DataSourceDataProvider.getInstance().getDocumentTypeList();
+                docList = DataSourceDataProvider.getInstance().getDocumentTypeList(0, 2);
                 setDocTypeList(docList);
-                setPartnerMap(DataSourceDataProvider.getInstance().getDashboardPartnerMap());
+                setPartnerMap(DataSourceDataProvider.getInstance().getDashboardPartnerMap("2"));
                 setDocdatepicker(DateUtility.getInstance().getCurrentMySqlDateTime1());
                 resultType = SUCCESS;
                 setResultType(SUCCESS);

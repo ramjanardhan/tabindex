@@ -44,9 +44,9 @@ public class TrackInOutAction extends ActionSupport implements ServletRequestAwa
                 httpServletRequest.getSession(false).setAttribute(AppConstants.SES_USER_DEFAULT_FLOWID, defaultFlowId);
             }
             List docList;
-            docList = DataSourceDataProvider.getInstance().getDocumentTypeList();
+            docList = DataSourceDataProvider.getInstance().getDocumentTypeList("M");
             setDocTypeList(docList);
-            setPartnerMap(DataSourceDataProvider.getInstance().getDashboardPartnerMap());
+            setPartnerMap(DataSourceDataProvider.getInstance().getDashboardPartnerMap("2"));
             setNetworklanlist(DataSourceDataProvider.getInstance().getNetworkVanList());
             setDocdatepicker(DateUtility.getInstance().getCurrentMySqlDateTime1());
             if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_DOCREPORT_LIST) != null) {
@@ -100,9 +100,9 @@ public class TrackInOutAction extends ActionSupport implements ServletRequestAwa
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
                 List docList;
-                docList = DataSourceDataProvider.getInstance().getDocumentTypeList();
+                docList = DataSourceDataProvider.getInstance().getDocumentTypeList("M");
                 setDocTypeList(docList);
-                setPartnerMap(DataSourceDataProvider.getInstance().getDashboardPartnerMap());
+                setPartnerMap(DataSourceDataProvider.getInstance().getDashboardPartnerMap("2"));
                 documentList = ServiceLocator.getTrackInOutService().getInquiryDetails(this);
                 if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_DOCREPORT_LIST) != null) {
                     httpServletRequest.getSession(false).removeAttribute(AppConstants.SES_DOCREPORT_LIST);

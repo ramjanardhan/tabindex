@@ -869,7 +869,7 @@ function populateDocDetails(responseXML)
             document.getElementById('InvErrormessage').innerHTML = "--";
         }
 
-        if (SAP_DETAILS != 'NO') {
+      /*  if (SAP_DETAILS != 'NO') {
             document.getElementById('sapDiv').style.display = "block";
             if (SAP_USER != "" && SAP_USER != null) {
                 document.getElementById('SAP_USER').value = SAP_USER;
@@ -901,7 +901,7 @@ function populateDocDetails(responseXML)
             } else {
                 document.getElementById('IDOC_STATUS_DESCRIPTION').value = "--";
             }
-        }
+        } */
 
         document.getElementById('ManNullValues').innerHTML = "<a href=\"javascript:getNullValues('<%=docRepositoryBean.getId()%>');\">Dispalay Null</a></td></tr>";
     }

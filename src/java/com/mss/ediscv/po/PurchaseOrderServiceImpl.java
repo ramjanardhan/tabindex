@@ -207,6 +207,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }
         purchaseSearchQuery.append("order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
         String searchQuery = purchaseSearchQuery.toString();
+        System.out.println("mscvp po query-->"+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();
@@ -419,6 +420,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
         }
         purchaseSearchQuery.append("order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
         String searchQuery = purchaseSearchQuery.toString();
+         System.out.println("archive po query-->"+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();

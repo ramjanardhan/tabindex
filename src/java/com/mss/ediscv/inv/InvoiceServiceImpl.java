@@ -133,6 +133,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
         invoiceSearchQuery.append(" order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
         String searchQuery = invoiceSearchQuery.toString();
+        System.out.println("mscvp invoice query-->"+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();
@@ -276,6 +277,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         }
         invoiceSearchQuery.append(" order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
         String searchQuery = invoiceSearchQuery.toString();
+         System.out.println("archive invoice query-->"+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();

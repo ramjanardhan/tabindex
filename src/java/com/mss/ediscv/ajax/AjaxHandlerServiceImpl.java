@@ -916,7 +916,10 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                 } else {
                     sb.append("<SEC_KEY_VAL>--</SEC_KEY_VAL>");
                 }
-                if (resultSet.getString("PRI_KEY_TYPE") != null && resultSet.getString("PRI_KEY_TYPE").equalsIgnoreCase("ASN")) {
+                if (resultSet.getString("PRI_KEY_TYPE") != null && resultSet.getString("PRI_KEY_TYPE").equalsIgnoreCase("PO")) {
+                    sb.append("<PRI_KEY_TYPE>PO</PRI_KEY_TYPE>");
+                }
+                else if (resultSet.getString("PRI_KEY_TYPE") != null && resultSet.getString("PRI_KEY_TYPE").equalsIgnoreCase("ASN")) {
                     sb.append("<PRI_KEY_TYPE> ASN </PRI_KEY_TYPE>");
                 } else if (resultSet.getString("PRI_KEY_TYPE") != null && resultSet.getString("PRI_KEY_TYPE").equalsIgnoreCase("IN")) {
                     sb.append("<PRI_KEY_TYPE> Invoice </PRI_KEY_TYPE>");
@@ -5391,7 +5394,7 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
     }
     
      @Override
-    public String addCodeList(String jsonData, String userName) throws ServiceLocatorException {
+    public String addCodeList(String jsonData, String userName, String newCodeListName) throws ServiceLocatorException {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         PreparedStatement preparedStatement1 = null;
@@ -5403,6 +5406,8 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
         int updatedRows = 0;
         int updatedRows1 = 0;
         int updatedRows2 = 0;
+           int count = 0;
+        
         try {
             array = new JSONArray(jsonData);
 
@@ -5411,6 +5416,16 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
         }
 
         try {
+             System.out.println("selected CodeList Name is "+newCodeListName);
+            
+                queryString = "SELECT COUNT(*) AS COUNT FROM CODELIST_XREF_VERS  WHERE LIST_NAME='"+newCodeListName+"'";
+            
+            preparedStatement = connection.prepareStatement(queryString);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                count = resultSet.getInt("COUNT");
+            }
+            if(count==0){
             queryString = "INSERT INTO SI_USER.CODELIST_XREF_ITEM "
                     + "(LIST_NAME, SENDER_ID, RECEIVER_ID, LIST_VERSION, SENDER_ITEM, RECEIVER_ITEM, TEXT1, TEXT2, TEXT3, TEXT4, DESCRIPTION, TEXT5, TEXT6, TEXT7, TEXT8, TEXT9)"
                     + " VALUES (?, ?, ?,? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -5509,6 +5524,15 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                     updatedRows2 = preparedStatement2.executeUpdate();
                 }
             }
+             if (updatedRows > 0 && updatedRows1 > 0 && updatedRows2 > 0) {
+            return "Inserted successfully";
+        } else {
+            return "Please Try Again";
+        }
+            }
+            else{
+                   return "Code list name already exists ..Please try with new one ";
+            }
         } catch (SQLException sql) {
             throw new ServiceLocatorException(sql);
         } catch (JSONException e) {
@@ -5528,11 +5552,7 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                 throw new ServiceLocatorException(ex);
             }
         }
-        if (updatedRows > 0 && updatedRows1 > 0 && updatedRows2 > 0) {
-            return "Inserted successfully";
-        } else {
-            return "Please Try Again";
-        }
+       return null;
     }
 
     @Override

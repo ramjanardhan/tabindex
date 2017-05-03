@@ -169,24 +169,41 @@
                                                             <tr>
                                                                 <td>
                                                                     <%
-                                                                        out.println(poLifeCycleBean.getTranType());
+                                                                    if (poLifeCycleBean.getTranType() != null && !"".equals(poLifeCycleBean.getTranType())) {
+                                                                                out.println(poLifeCycleBean.getTranType());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
+                                                                        
                                                                     %>
                                                                 </td>
 
                                                                 <td><a href="javascript:getDetails('<%=poLifeCycleBean.getPoNumber()%>','<%=poLifeCycleBean.getFileId()%>','PO');">
                                                                         <%
+                                                                        if (poLifeCycleBean.getPoNumber() != null && !"".equals(poLifeCycleBean.getPoNumber())) {
                                                                             out.println(poLifeCycleBean.getPoNumber());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %></a>
 
                                                                 </td>
                                                                 <td>
                                                                     <%
+                                                                            if (poLifeCycleBean.getFileId() != null && !"".equals(poLifeCycleBean.getFileId())) {
                                                                         out.println(poLifeCycleBean.getFileId());
+                                                                        } else {
+                                                                                out.println("-");
+                                                                            }
                                                                     %>
                                                                 </td>
                                                                 <td>
                                                                     <%
+                                                                        if (poLifeCycleBean.getFileType() != null && !"".equals(poLifeCycleBean.getFileType())) {
                                                                         out.println(poLifeCycleBean.getFileType());
+                                                                        } else {
+                                                                                out.println("-");
+                                                                            }
                                                                     %>
                                                                 </td>
 
@@ -194,14 +211,22 @@
 
                                                                 <td>
                                                                     <%
-                                                                        System.out.print("poLifeCycleBean.getDirection().toUpperCase() -->"+poLifeCycleBean.getDirection().toUpperCase());
-                                                                        System.out.print("poLifeCycleBean.getDirection() -->"+poLifeCycleBean.getDirection());
+                                                                        System.out.print("poLifeCycleBean.getDirection().toUpperCase() -->" + poLifeCycleBean.getDirection().toUpperCase());
+                                                                        System.out.print("poLifeCycleBean.getDirection() -->" + poLifeCycleBean.getDirection());
+                                                                        if (poLifeCycleBean.getDirection() != null && !"".equals(poLifeCycleBean.getDirection())) {
                                                                         out.println(poLifeCycleBean.getDirection().toUpperCase());
+                                                                        } else {
+                                                                                out.println("-");
+                                                                            }
                                                                     %>
                                                                 </td>
                                                                 <td>
                                                                     <%
+                                                                        if (poLifeCycleBean.getDatetimeRec() != null && !"".equals(poLifeCycleBean.getDatetimeRec())) {
                                                                         out.println(poLifeCycleBean.getDatetimeRec().toString().substring(0, poLifeCycleBean.getDatetimeRec().toString().lastIndexOf(":")));
+                                                                        } else {
+                                                                                out.println("-");
+                                                                            }
                                                                     %>
                                                                 </td>  
                                                                 <%--<td>
@@ -241,7 +266,7 @@
                                                                 </td> 
                                                                 <td>
                                                                     <%                                                                        // out.println(poLifeCycleBean.getReProcessStatus());
-                                                                        if (poLifeCycleBean.getReProcessStatus() != null) {
+                                                                        if (poLifeCycleBean.getReProcessStatus() != null && !"".equals(poLifeCycleBean.getReProcessStatus())) {
                                                                             out.println(poLifeCycleBean.getReProcessStatus().toUpperCase());
 
                                                                         } else {
@@ -278,35 +303,60 @@
                                                             <tr>
                                                                 <td>
                                                                     <%
-                                                                        out.println(asnLifecycleBean.getTranType());
+                                                                    if (asnLifecycleBean.getTranType() != null && !"".equals(asnLifecycleBean.getTranType())) {
+                                                                                out.println(asnLifecycleBean.getTranType());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
+                                                                        
                                                                     %>
                                                                 </td>
 
                                                                 <td><a href="javascript:getDetails('<%=asnLifecycleBean.getPoNumber()%>','<%=asnLifecycleBean.getFileId()%>','ASN');">
                                                                         <%
+                                                                        if (asnLifecycleBean.getPoNumber() != null && !"".equals(asnLifecycleBean.getPoNumber())) {
                                                                             out.println(asnLifecycleBean.getPoNumber());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
                                                                         %>
                                                                     </a>
                                                                 </td>
                                                                 <td>
                                                                     <%
+                                                                            if (asnLifecycleBean.getFileId() != null && !"".equals(asnLifecycleBean.getFileId())) {
                                                                         out.println(asnLifecycleBean.getFileId());
+                                                                        } else {
+                                                                                out.println("-");
+                                                                            }
                                                                     %>
                                                                 </td>
                                                                 <td>
                                                                     <%
+                                                                        if (asnLifecycleBean.getFileType() != null && !"".equals(asnLifecycleBean.getFileType())) {
                                                                         out.println(asnLifecycleBean.getFileType());
+                                                                        } else {
+                                                                                out.println("-");
+                                                                            }
                                                                     %>
                                                                 </td>
                                                                 <td>
                                                                     <%
+                                                                        if (asnLifecycleBean.getDirection() != null && !"".equals(asnLifecycleBean.getDirection())) {
                                                                         out.println(asnLifecycleBean.getDirection().toUpperCase());
+                                                                        } else {
+                                                                                out.println("-");
+                                                                            }
                                                                     %>
                                                                 </td>
 
                                                                 <td>
                                                                     <%
+                                                                        if (asnLifecycleBean.getDatetimeRec() != null && !"".equals(asnLifecycleBean.getDatetimeRec())) {
                                                                         out.println(asnLifecycleBean.getDatetimeRec().toString().substring(0, asnLifecycleBean.getDatetimeRec().toString().lastIndexOf(":")));
+                                                                        } else {
+                                                                                out.println("-");
+                                                                            }
                                                                     %>
                                                                 </td> 
                                                                 <td>
@@ -336,9 +386,8 @@
                                                                 <td>
                                                                     <%
                                                                         // out.println(asnLifecycleBean.getReProcessStatus());
-                                                                        if (asnLifecycleBean.getReProcessStatus() != null) {
+                                                                        if (asnLifecycleBean.getReProcessStatus() != null && !"".equals(asnLifecycleBean.getReProcessStatus())) {
                                                                             out.println(asnLifecycleBean.getReProcessStatus().toUpperCase());
-
                                                                         } else {
                                                                             out.println("-");
                                                                         }
@@ -371,24 +420,40 @@
                                                             <tr>
                                                                 <td>
                                                                     <%
-                                                                        out.println(invoiceLifecycleBean.getTranType());
+                                                                    if (invoiceLifecycleBean.getTranType() != null && !"".equals(invoiceLifecycleBean.getTranType())) {
+                                                                            out.println(invoiceLifecycleBean.getTranType());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
 
 
                                                                 <td><a href="javascript:getDetails('<%=invoiceLifecycleBean.getPoNumber()%>','<%=invoiceLifecycleBean.getFileId()%>','INV');">
                                                                         <%
+                                                                        if (invoiceLifecycleBean.getPoNumber() != null && !"".equals(invoiceLifecycleBean.getPoNumber())) {
                                                                             out.println(invoiceLifecycleBean.getPoNumber());
+                                                                            } else {
+                                                                            out.println("-");
+                                                                        }
                                                                         %></a>
                                                                 </td>
                                                                 <td>
                                                                     <%
+                                                                            if (invoiceLifecycleBean.getFileId() != null && !"".equals(invoiceLifecycleBean.getFileId())) {
                                                                         out.println(invoiceLifecycleBean.getFileId());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
                                                                 <td>
                                                                     <%
+                                                                        if (invoiceLifecycleBean.getFileType() != null && !"".equals(invoiceLifecycleBean.getFileType())) {
                                                                         out.println(invoiceLifecycleBean.getFileType());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
 
@@ -396,13 +461,21 @@
 
                                                                 <td>
                                                                     <%
+                                                                        if (invoiceLifecycleBean.getDirection() != null && !"".equals(invoiceLifecycleBean.getDirection())) {
                                                                         out.println(invoiceLifecycleBean.getDirection().toUpperCase());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
 
                                                                 <td>
                                                                     <%
+                                                                        if (invoiceLifecycleBean.getDatetimeRec() != null && !"".equals(invoiceLifecycleBean.getDatetimeRec())) {
                                                                         out.println(invoiceLifecycleBean.getDatetimeRec().toString().substring(0, invoiceLifecycleBean.getDatetimeRec().toString().lastIndexOf(":")));
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td> 
                                                                 <%--  <td>
@@ -443,9 +516,8 @@
                                                                 <td>
                                                                     <%
                                                                         // out.println(invoiceLifecycleBean.getReProcessStatus());
-                                                                        if (invoiceLifecycleBean.getReProcessStatus() != null) {
+                                                                        if (invoiceLifecycleBean.getReProcessStatus() != null && !"".equals(invoiceLifecycleBean.getReProcessStatus())) {
                                                                             out.println(invoiceLifecycleBean.getReProcessStatus().toUpperCase());
-
                                                                         } else {
                                                                             out.println("-");
                                                                         }
@@ -481,34 +553,59 @@
                                                             <tr>
                                                                 <td>
                                                                     <%
-                                                                        out.println(paymentLifecycleBean.getTranType());
+                                                                    if (paymentLifecycleBean.getTranType() != null && !"".equals(paymentLifecycleBean.getTranType())) {
+                                                                            out.println(paymentLifecycleBean.getTranType());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
+                                                                        
                                                                     %>
                                                                 </td>
 
                                                                 <td><a href="javascript:getDetails('<%=paymentLifecycleBean.getPoNumber()%>','<%=paymentLifecycleBean.getFileId()%>','PAYMENT');">
                                                                         <%
+                                                                        if (paymentLifecycleBean.getPoNumber() != null && !"".equals(paymentLifecycleBean.getPoNumber())) {
                                                                             out.println(paymentLifecycleBean.getPoNumber());
+                                                                            } else {
+                                                                            out.println("-");
+                                                                        }
                                                                         %></a>
                                                                 </td>
                                                                 <td>
                                                                     <%
+                                                                            if (paymentLifecycleBean.getFileId() != null && !"".equals(paymentLifecycleBean.getFileId())) {
                                                                         out.println(paymentLifecycleBean.getFileId());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
                                                                 <td>
                                                                     <%
+                                                                        if (paymentLifecycleBean.getFileType() != null && !"".equals(paymentLifecycleBean.getFileType())) {
                                                                         out.println(paymentLifecycleBean.getFileType());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
                                                                 <td>
                                                                     <%
+                                                                        if (paymentLifecycleBean.getDirection() != null && !"".equals(paymentLifecycleBean.getDirection())) {
                                                                         out.println(paymentLifecycleBean.getDirection().toUpperCase());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
 
                                                                 <td>
                                                                     <%
+                                                                        if (paymentLifecycleBean.getDatetimeRec() != null && !"".equals(paymentLifecycleBean.getDatetimeRec())) {
                                                                         out.println(paymentLifecycleBean.getDatetimeRec().toString().substring(0, paymentLifecycleBean.getDatetimeRec().toString().lastIndexOf(":")));
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
                                                                 <%-- <td>
@@ -549,9 +646,8 @@
 
                                                                 <td>
                                                                     <%
-                                                                        if (paymentLifecycleBean.getReProcessStatus() != null) {
+                                                                        if (paymentLifecycleBean.getReProcessStatus() != null && !"".equals(paymentLifecycleBean.getReProcessStatus())) {
                                                                             out.println(paymentLifecycleBean.getReProcessStatus().toUpperCase());
-
                                                                         } else {
                                                                             out.println("-");
                                                                         }
@@ -602,7 +698,7 @@
                     </div></section>
 
                 <div id="hide-menu1" class="hide-menu message ">
-
+                    <br>
                     <div class="row col-sm-12">
 
 
@@ -613,91 +709,98 @@
 
                         <div class="col-sm-6"> <label class="labelw">PO # :</label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPONum" name="LfcPONum" readonly="true"/>
-                        </div> <div class="row col-sm-12"> <br>
-                            <div class="col-sm-6"> <label class="labelw">PO Date :</label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPODates" name="LfcPODates" readonly="true"/>
-                            </div>
-                            <div class="col-sm-6"> <label class="labelw">PO Status :</label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcStatus1" name="LfcStatus1" readonly="true"/>
-                            </div>
-                            <div class="col-sm-6"> <label class="labelw">SO # :</label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcSo" name="LfcSo" readonly="true"/>
-                            </div>
-                            <div class="col-sm-6"> <label class="labelw">PO Qty :</label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOQty" name="POShipDate" readonly="true"/>
-                            </div>
-                            <div class="col-sm-6"> <label class="labelw">Transaction Type :</label>
-                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcTransactionType" name="LfcTransactionType" readonly="true"/>
-                            </div>
-                            <br>
-                            <div id="senderinfo">
-                                <div class="row col-sm-12">
-                                    <div class="col-sm-6"> <h5>Partner Info :</h5></div>
-                                    <div class="col-sm-6"></div>
-                                    <div class="col-sm-6"></div>
-
-                                </div>
-                                <br>
-                                <div class="row col-sm-12">
-                                    <div class="col-sm-6"> <label class="labelw">  Id </label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LycPOPartnerId" name="LycPOPartnerId" readonly="true"/>
-                                    </div>
-                                    <div class="col-sm-6"> <label class="labelw"> Name </label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LycPOPartnerName" name="LycPOPartnerName" readonly="true"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div id="receiverinfo">
-                                <div class="row col-sm-12">
-                                    <div class="col-sm-6"> <h5>Sender Info:</h5></div>
-                                    <div class="col-sm-6"></div>
-                                    <div class="col-sm-6"></div>
-                                </div>
-
-                                <br>
-                                <div class="row col-sm-12 clear">
-                                    <div class="col-sm-6"> <label class="labelw">  Id </label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOReceiverId" name="LfcPOReceiverId" readonly="true"/>
-                                    </div>
-                                    <div class="col-sm-6"> <label class="labelw"> Name </label>
-                                        <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOReceiverName" name="LfcPOReceiverName" readonly="true"/>
-                                    </div>
-                                </div>
-                            </div>  <div class="row col-sm-12 clear">
-                                <div class="col-sm-6"> <label class="labelw"> ISA # :</label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOIsa" name="LfcPOIsa" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label class="labelw"> ISA Date : </label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOISADate" name="LfcPOISADate" readonly="true"/>
-                                </div>
-                            </div>
-
-                            <br/>
-
-                            <div class="row col-sm-12" >
-
-                                <div class="col-sm-6"> <label class="labelw">  ISA TIME : </label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOIsATime" name="LfcPOIsATime" readonly="true"/>
-                                </div>
-                                <div class="col-sm-6"> <label class="labelw"> STATUS :</label>
-                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOStatus" name="LfcPOStatus" readonly="true"/>
-                                </div>
-                            </div>
-
-                            <div class="row col-sm-12" >
-                                <div class="col-sm-6"> <label class="labelw">  PreTranslation  </label></div>
-                                <div class="col-sm-6"><div id="LfcPOPreTransition"></div></div>
-                            </div>
-                            <div class="col-sm-6"> <label class="labelw"> PostTranslation </label></div>
-                            <div class="col-sm-6"><div id="LfcPOPostTransition"></div></div>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw">997ACKFile </label></div>                      
+                    </div>
+                    <div class="row col-sm-12"> 
+                        <div class="col-sm-6"> <label class="labelw">PO Date :</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPODates" name="LfcPODates" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw">PO Status :</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcStatus1" name="LfcStatus1" readonly="true"/>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6"> <label class="labelw">SO # :</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcSo" name="LfcSo" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw">PO Qty :</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOQty" name="POShipDate" readonly="true"/>
+                        </div>
+                    </div>
+                    <div class="row col-sm-12">
+                        <div class="col-sm-6"> <label class="labelw">Transaction Type :</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcTransactionType" name="LfcTransactionType" readonly="true"/>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="senderinfo">
+                        <div class="row col-sm-12">
+                            <div class="col-sm-6"> <h5>Partner Info :</h5></div>
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6"></div>
 
+                        </div>
+                        <br>
+                        <div class="row col-sm-12">
+                            <div class="col-sm-6"> <label class="labelw">  Id </label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LycPOPartnerId" name="LycPOPartnerId" readonly="true"/>
+                            </div>
+                            <div class="col-sm-6"> <label class="labelw"> Name </label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LycPOPartnerName" name="LycPOPartnerName" readonly="true"/>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="receiverinfo">
+                        <div class="row col-sm-12">
+                            <div class="col-sm-6"> <h5>Sender Info:</h5></div>
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6"></div>
+                        </div>
+
+                        <br>
+                        <div class="row col-sm-12 clear">
+                            <div class="col-sm-6"> <label class="labelw">  Id </label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOReceiverId" name="LfcPOReceiverId" readonly="true"/>
+                            </div>
+                            <div class="col-sm-6"> <label class="labelw"> Name </label>
+                                <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOReceiverName" name="LfcPOReceiverName" readonly="true"/>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="row col-sm-12 clear">
+                        <div class="col-sm-6"> <label class="labelw"> ISA # :</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOIsa" name="LfcPOIsa" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> ISA Date : </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOISADate" name="LfcPOISADate" readonly="true"/>
+                        </div>
+                    </div>
+
+
+                    <div class="row col-sm-12" >
+
+                        <div class="col-sm-6"> <label class="labelw">  ISA TIME : </label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOIsATime" name="LfcPOIsATime" readonly="true"/>
+                        </div>
+                        <div class="col-sm-6"> <label class="labelw"> STATUS :</label>
+                            <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOStatus" name="LfcPOStatus" readonly="true"/>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row col-sm-12" style="margin-top:10px;" >
+                        <div class="col-sm-6"> <label class="labelw">  PreTranslation  </label></div>
+                        <div class="col-sm-6"><div id="LfcPOPreTransition"></div></div>
+                    </div>
+                    <div class="row col-sm-12" >
+                        <div class="col-sm-6"> <label class="labelw"> PostTranslation </label></div>
+                        <div class="col-sm-6"><div id="LfcPOPostTransition"></div></div>
+                    </div>
+                    <div class="row col-sm-12" >
+                        <div class="col-sm-6"> <label class="labelw">997ACKFile </label></div>                      
                         <div class="col-sm-6"><div id="LfcPOAckFileId"></div></div>
                     </div>
 
-                    <br><br><br><br><br><br>
 
                     <div class="row col-sm-12" id="errorDiv" style="display: none">
                         <div class="col-sm-6"> <label class="labelw"> Error&nbsp;Message </label></div>
@@ -705,11 +808,13 @@
                     </div>
 
                     <div id="noresult"></div>
-                    <div class="row col-sm-12">
+                    <br>
+                    <div class="row col-sm-12" style="margin-top:10px;">
                         <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button>
                     </div>
                 </div>
             </div>
+
             <script type="text/javascript">
                 $(function () {
                     //$("#example1").DataTable();
@@ -726,13 +831,34 @@
             <%--  <div id="footer">
                <h2><font color="white">&#169 2013 Miracle Software Systems, Inc. All rights reserved</font></h2>
                       </div>--%>
-        </div>
-    </div>
-    <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
-    <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
-    <div>
-        <s:include value="../includes/template/footer.jsp"/>
+        </div>
+
+
+        <script type="text/javascript">
+            $(function () {
+                //$("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
+        </script>
+        <%--  <div id="footer">
+           <h2><font color="white">&#169 2013 Miracle Software Systems, Inc. All rights reserved</font></h2>
+                  </div>--%>
     </div>
+</div>
+<script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
+<script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
+
+<div>
+    <s:include value="../includes/template/footer.jsp"/>
+</div>
 </body>
 </html>
+

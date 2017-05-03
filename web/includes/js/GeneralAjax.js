@@ -784,6 +784,7 @@ function populateDocDetails(responseXML)
         var ST_CONTROL_NUMBER = detail.getElementsByTagName("ST_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
         var SEC_KEY_VAL = detail.getElementsByTagName("SEC_KEY_VAL")[0].childNodes[0].nodeValue;
         var PRI_KEY_VAL = detail.getElementsByTagName("PRI_KEY_VAL")[0].childNodes[0].nodeValue;
+        var PRI_KEY_TYPE = detail.getElementsByTagName("PRI_KEY_TYPE")[0].childNodes[0].nodeValue;
         var ACKFILEID = detail.getElementsByTagName("ACKFILEID")[0].childNodes[0].nodeValue;
         var ERRMESSAGE = detail.getElementsByTagName("ERR_MESSAGE")[0].childNodes[0].nodeValue;
 
@@ -810,8 +811,12 @@ function populateDocDetails(responseXML)
 
         }
         document.getElementById('ManFileId').value = fileid;
-        document.getElementById('ManShipment').value = PRI_KEY_VAL;
         document.getElementById('ManPurchaseOrder').value = SEC_KEY_VAL;
+          if(PRI_KEY_TYPE != "PO"){
+              document.getElementById('prikeytypeandvalue').style.display = "block";
+            document.getElementById('Manpri_key_type').value = PRI_KEY_TYPE;
+            document.getElementById('Manpri_key_value').value = PRI_KEY_VAL;
+        }
         if (SENDER_NAME == "NULL") {
             SENDER_NAME = "Null";
         }
@@ -3143,7 +3148,7 @@ function result(responseText) {
 
 
 
-
+/*
 function checkListName() {
     document.getElementById("loadingAcoountSearch").style.display = "block";
     var newCodeListName=document.getElementById("newname").value ;
@@ -3165,7 +3170,7 @@ function result1(responseText){
         alert("Code List name already exists. Please try with different one");
     }
 }
-
+*/
 // function to check whether deleted row from codelist grid exists in array or not
 function checkArray(i)
 {

@@ -70,7 +70,7 @@ public class InvoiceServiceImpl implements InvoiceService {
         if (invoiceAction.getDocType()!=null && !invoiceAction.getDocType().equals("-1")) {
             doctype = invoiceAction.getDocType();
         }
-        invoiceSearchQuery.append("SELECT DISTINCT(INVOICE.INVOICE_NUMBER) as INVOICE_NUMBER,FILES.FILE_ID as FILEID,FILES.DIRECTION as DIRECTION,"
+        invoiceSearchQuery.append("SELECT DISTINCT(FILES.FILE_ID) as FILEID,INVOICE.INVOICE_NUMBER as INVOICE_NUMBER,FILES.DIRECTION as DIRECTION,"
                 + "INVOICE.PO_NUMBER,INVOICE.ITEM_QTY,INVOICE.INVOICE_AMOUNT,FILES.ACK_STATUS as ACK_STATUS,FILES.STATUS as STATUS,FILES.DATE_TIME_RECEIVED as DATE_TIME_RECEIVED,FILES.REPROCESSSTATUS,"
                 + "INVOICE_DATE,TP2.NAME as RECEIVER_NAME,TP1.NAME as SENDER_NAME FROM INVOICE LEFT OUTER JOIN FILES ON "
                 + "(INVOICE.INVOICE_NUMBER=FILES.PRI_KEY_VAL  AND INVOICE.FILE_ID = FILES.FILE_ID) LEFT OUTER JOIN TP TP1 ON "
@@ -90,7 +90,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
         if (corrattribute!=null && corrattribute.equalsIgnoreCase("Invoice Number")) {
             if (corrvalue != null && !"".equals(corrvalue.trim())) {
-                invoiceSearchQuery.append(WildCardSql.getWildCardSql1("FILES.PRI_KEY_VAL", corrvalue.trim().toUpperCase()));
+                invoiceSearchQuery.append(WildCardSql.getWildCardSql1("INVOICE.INVOICE_NUMBER", corrvalue.trim().toUpperCase()));
             }
         }
          //Direction

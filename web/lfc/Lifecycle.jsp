@@ -23,19 +23,10 @@
         <title>Miracle Supply Chain Visibility portal</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
-
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-
-        <script language="JavaScript"
-        src='<s:url value="/includes/js/jquery-1.9.1.js"></s:url>'></script>
-            <script language="JavaScript"
-            src='<s:url value="/includes/js/jquery-ui.js"/>'></script>
-        <script language="JavaScript"
-        src='<s:url value="/includes/js/LfcAjax.js"/>'></script>
-
-
-
+        <script language="JavaScript" src='<s:url value="/includes/js/jquery-1.9.1.js"></s:url>'></script>
+            <script language="JavaScript" src='<s:url value="/includes/js/jquery-ui.js"/>'></script>
+        <script language="JavaScript" src='<s:url value="/includes/js/LfcAjax.js"/>'></script>
         <script type="text/javascript">
             $(function () {
                 $('#attach_box').click(function () {
@@ -131,8 +122,7 @@
                                     <div style="overflow-x:auto;">   
                                         <div align="right"><input type="button" value="Go back" class="btn btn-effect-ripple btn-primary" onclick="goBack()"></input></div>
                                         <br>
-                                        <table align="left" width="100%"
-                                               border="0" cellpadding="0" cellspacing="0">
+                                        <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0">
                                             <tr>
                                                 <td style="background-color: white;">
 
@@ -720,8 +710,6 @@
                     </div>
                 </div>
             </div>
-
-
             <script type="text/javascript">
                 $(function () {
                     //$("#example1").DataTable();

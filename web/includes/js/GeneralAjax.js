@@ -911,7 +911,7 @@ function populateDocDetails(responseXML)
  * Doc copying using Ajax call
  * 
  */
-function getProces(btnValue, list) {
+function getProcess(btnValue, list) {
     var po_Files = "";
 
     if ((btnValue.value == 'ReTransmit')) {

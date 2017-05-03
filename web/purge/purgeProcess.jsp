@@ -114,7 +114,7 @@
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <label>Transaction&nbsp;Type</label>
-                                                        <s:select headerKey="-1" headerValue="Select Type" cssClass="form-control" list="#@java.util.LinkedHashMap@{'204':'LoadTender','990':'LTResponse','214':'LTShipment','210':'LTInvoice','850':'PO','856':'Shipments','810':'Invoice','820':'Payments'}" name="transType" id="transType" tabindex="2"/> 
+                                                        <s:select headerKey="-1" headerValue="Select Type" cssClass="form-control" list="#@java.util.LinkedHashMap@{'850':'PO','856':'Shipments','810':'Invoice','820':'Payments'}" name="transType" id="transType" tabindex="2"/> 
                                                     </div>
 
                                                 </div>

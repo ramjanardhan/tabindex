@@ -533,9 +533,9 @@
                 <br/>
                 <div class="row col-sm-12" style="margin-top:10px;"> <button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" style="margin-left:12px;" value="X">Close</button></div>
             </div>
-
-            <script>
-                $(function () {
+        </div>
+                    <script type="text/javascript">
+             $(function () {
                     //$("#example1").DataTable();
                     $('#results').DataTable({
                         "paging": true,
@@ -546,15 +546,10 @@
                         "autoWidth": false
                     });
                 });
-            </script>
-
-        </div>
-
+                </script>
         <div>
             <s:include value="../includes/template/footer.jsp"/>
         </div>
-
-
         <script language="JavaScript"  src='<s:url value="/includes/js/DateValidation.js"/>'></script>
         <script language="JavaScript"  src='<s:url value="/includes/js/generalValidations.js"/>'></script>
         <script language="JavaScript"  src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
@@ -565,6 +560,7 @@
         <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
         <script type="text/javascript">
+            
                 function getDetails(val, ponum, fileid) {
                      var db = document.forms["shipmentForm"]["database"].value;
                     getAsnDetails(val, ponum, fileid,db);

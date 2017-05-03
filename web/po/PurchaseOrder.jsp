@@ -501,10 +501,10 @@
                                             <%--<div class="col-sm-2" style="margin-right:10%"><input type="button" value="ReTransmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to ReTransmit.')" onmouseout="UnTip()" onclick="return getProces(this, document.getElementById('sec_po_list').value);" id="pre"/></div>--%>
 
 
-                                            <div class="col-sm-2" style="margin-right:6%"><input type="button" value="ReSubmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to Resubmit.')" onmouseout="UnTip()" onclick="return getProces(this, document.getElementById('sec_po_list').value);" id="post"/></div>
+                                            <div class="col-sm-2" style="margin-right:6%"><input type="button" value="ReSubmit" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to Resubmit.')" onmouseout="UnTip()" onclick="return getProcess(this, document.getElementById('sec_po_list').value);" id="post"/></div>
 
 
-                                            <div class="col-sm-2" style="margin-right:5%"><input type="button" value="LifeCycle" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to generate Life Cycle.')" onmouseout="UnTip()" onclick="return getLifeCycle(document.getElementById('sec_po_list').value, 'manufacturing');"/></div>
+                                            <div class="col-sm-2" style="margin-right:5%"><input type="button" value="LifeCycle" class="btn btn-effect-ripple btn-primary" onmouseover="Tip('Click here to generate Life Cycle.')" onmouseout="UnTip()" onclick="return getLifeCycle(document.getElementById('sec_po_list').value, 'manufacturing', document.forms['purchaseForm']['database'].value);"/></div>
 
 
                                             <div class="col-sm-2" style="margin-right:2%"><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('po', 'xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()" id="excel"/> </div>  
@@ -696,8 +696,8 @@
                 <div class="row col-sm-12" style="margin-top:10px;">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
             </div>
         </div>
-        <script>
-            $(function() {
+<script type="text/javascript">
+        $(function() {
                 //$("#example1").DataTable();
                 $('#results').DataTable({
                     "paging": true,
@@ -708,10 +708,8 @@
                     "autoWidth": false
                 });
             });
-        </script>
-
-    </div>
-    <div>
+            </script>
+                        <div>
         <s:include value="../includes/template/footer.jsp"/>
     </div>
 
@@ -726,6 +724,7 @@
     <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
     <script type="text/javascript">
+        
             // New function to show the left grid
             function demo() {
                 $(function() {

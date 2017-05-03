@@ -545,9 +545,9 @@
                         <br>
                         <div class="row col-sm-12" style="margin-top:10px;"> <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
                     </div>
-
-                    <script>
-                        $(function() {
+                </div>
+                        <script type="text/javascript">
+                     $(function() {
                             //$("#example1").DataTable();
                             $('#results').DataTable({
                                 "paging": true,
@@ -558,16 +558,10 @@
                                 "autoWidth": false
                             });
                         });
-                    </script>
-
-
-                </div>
-
-
+                        </script>
                 <div>
                     <s:include value="../includes/template/footer.jsp"/>
                 </div>
-
                 <script>
                     $('input[name="daterange"]').daterangepicker();
                 </script>
@@ -578,6 +572,7 @@
                 <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
                 <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
                 <script type="text/javascript">
+                    
                     function checkCorrelation() {
                         var db = document.forms["invoiceForm"]["database"].value;
                         if (db == '') {

@@ -28,6 +28,7 @@ public class LifecycleAction extends ActionSupport implements ServletRequestAwar
     private String shipmentNumber;
     private PoLifecycleBean poLifecycleBean;
     private static Logger logger = Logger.getLogger(LifecycleAction.class.getName());
+    private String database;
 
     public String prepare() throws Exception {
         resultType = LOGIN;
@@ -158,6 +159,14 @@ public class LifecycleAction extends ActionSupport implements ServletRequestAwar
 
     public void setShipmentNumber(String shipmentNumber) {
         this.shipmentNumber = shipmentNumber;
+    }
+
+    public String getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(String database) {
+        this.database = database;
     }
     
 }

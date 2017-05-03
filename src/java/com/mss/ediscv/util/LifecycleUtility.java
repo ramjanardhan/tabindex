@@ -53,19 +53,29 @@ public class LifecycleUtility {
     LtInvoicesBean ltInvoicesBean = null;
         //LtTenderBean ltTenderBean=null;
 
-    public ArrayList<PoLifecycleBean> addPoLifeCycleBean(String poNumber) throws ServiceLocatorException {
+    public ArrayList<PoLifecycleBean> addPoLifeCycleBean(String poNumber, String database) throws ServiceLocatorException {
         poLifecycleBeanList = new ArrayList<PoLifecycleBean>();
         StringBuffer lifeCycleQuery = new StringBuffer();
         String poNum = poNumber;
-        lifeCycleQuery.append("select DISTINCT(FILES.FILE_ID), FILES.FILE_TYPE, "
+         if("ARCHIVE".equals(database)){
+             lifeCycleQuery.append("select DISTINCT(ARCHIVE_FILES.FILE_ID), ARCHIVE_FILES.FILE_TYPE, "
+                + "ARCHIVE_FILES.TRANSACTION_TYPE, ARCHIVE_FILES.DIRECTION,ARCHIVE_FILES.DATE_TIME_RECEIVED,ARCHIVE_FILES.STATUS, "
+                + "ARCHIVE_FILES.ACK_STATUS,ARCHIVE_FILES.REPROCESSSTATUS,ARCHIVE_PO.PO_NUMBER  "
+                + "FROM ARCHIVE_FILES LEFT OUTER JOIN ARCHIVE_PO ON "
+                + "(ARCHIVE_PO.PO_NUMBER = ARCHIVE_FILES.PRI_KEY_VAL AND ARCHIVE_PO.FILE_ID = ARCHIVE_FILES.FILE_ID) "
+                + "WHERE ARCHIVE_PO.PO_NUMBER LIKE '%" + poNum + "%'"
+                + " ORDER BY ARCHIVE_FILES.DATE_TIME_RECEIVED");
+         }else{
+             lifeCycleQuery.append("select DISTINCT(FILES.FILE_ID), FILES.FILE_TYPE, "
                 + "FILES.TRANSACTION_TYPE, FILES.DIRECTION,FILES.DATE_TIME_RECEIVED,FILES.STATUS, "
                 + "FILES.ACK_STATUS,FILES.REPROCESSSTATUS,PO.PO_NUMBER  "
                 + "FROM FILES LEFT OUTER JOIN PO ON "
                 + "(PO.PO_NUMBER = FILES.PRI_KEY_VAL AND PO.FILE_ID = FILES.FILE_ID) "
                 + "WHERE PO.PO_NUMBER LIKE '%" + poNum + "%'"
                 + " ORDER BY FILES.DATE_TIME_RECEIVED");
+         }
         String searchQuery = lifeCycleQuery.toString();
-        System.out.println("searchQuery Po------   "+searchQuery);
+        System.out.println("searchQuery lfc Po------>"+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();
@@ -140,17 +150,25 @@ public class LifecycleUtility {
       
     }
 
-    public ArrayList<AsnLifecycleBean> addAsnLifecycleBean(String poNumber) throws ServiceLocatorException {
+    public ArrayList<AsnLifecycleBean> addAsnLifecycleBean(String poNumber, String database) throws ServiceLocatorException {
         asnLifecycleBeanList = new ArrayList<AsnLifecycleBean>();
         StringBuffer lifeCycleQuery = new StringBuffer();
         String poNum = poNumber;
-        lifeCycleQuery.append("select DISTINCT(FILES.FILE_ID),FILES.FILE_TYPE, FILES.TRANSACTION_TYPE, FILES.DIRECTION,"
+         if("ARCHIVE".equals(database)){
+              lifeCycleQuery.append("select DISTINCT(ARCHIVE_FILES.FILE_ID),ARCHIVE_FILES.FILE_TYPE, ARCHIVE_FILES.TRANSACTION_TYPE, ARCHIVE_FILES.DIRECTION,"
+                + "ARCHIVE_FILES.DATE_TIME_RECEIVED,ARCHIVE_FILES.STATUS, ARCHIVE_ASN.PO_NUMBER ,ARCHIVE_FILES.ACK_STATUS,ARCHIVE_FILES.REPROCESSSTATUS "
+                + "from ARCHIVE_FILES LEFT OUTER JOIN ARCHIVE_ASN ON "
+                + "(ARCHIVE_ASN.FILE_ID=ARCHIVE_FILES.FILE_ID) WHERE ARCHIVE_ASN.PO_NUMBER LIKE '%" + poNum + "%'"
+                + " ORDER BY ARCHIVE_FILES.DATE_TIME_RECEIVED");
+         }else{
+              lifeCycleQuery.append("select DISTINCT(FILES.FILE_ID),FILES.FILE_TYPE, FILES.TRANSACTION_TYPE, FILES.DIRECTION,"
                 + "FILES.DATE_TIME_RECEIVED,FILES.STATUS, ASN.PO_NUMBER ,FILES.ACK_STATUS,FILES.REPROCESSSTATUS "
                 + "from FILES LEFT OUTER JOIN ASN ON "
                 + "(ASN.FILE_ID=FILES.FILE_ID) WHERE ASN.PO_NUMBER LIKE '%" + poNum + "%'"
                 + " ORDER BY FILES.DATE_TIME_RECEIVED");
+         }
         String searchQuery = lifeCycleQuery.toString();
-        System.out.println("searchQuery ASN------   "+searchQuery);
+        System.out.println("searchQuery lfc ASN------   "+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();
@@ -218,18 +236,27 @@ public class LifecycleUtility {
         return asnLifecycleBeanList;
     }
 
-    public ArrayList<InvoiceLifecycleBean> addInvoiceLifecycleBean(String poNumber) throws ServiceLocatorException {
+    public ArrayList<InvoiceLifecycleBean> addInvoiceLifecycleBean(String poNumber, String database) throws ServiceLocatorException {
         invoiceLifecycleBeanList = new ArrayList<InvoiceLifecycleBean>();
         StringBuffer lifeCycleQuery = new StringBuffer();
         String poNum = poNumber;
-        lifeCycleQuery.append("select DISTINCT(FILES.FILE_ID),FILES.FILE_TYPE, "
+        if("ARCHIVE".equals(database)){
+            lifeCycleQuery.append("select DISTINCT(ARCHIVE_FILES.FILE_ID),ARCHIVE_FILES.FILE_TYPE, "
+                + "ARCHIVE_FILES.TRANSACTION_TYPE, ARCHIVE_FILES.DIRECTION,"
+                + "ARCHIVE_FILES.DATE_TIME_RECEIVED,ARCHIVE_FILES.STATUS, ARCHIVE_INVOICE.PO_NUMBER,ARCHIVE_FILES.REPROCESSSTATUS,ARCHIVE_FILES.ACK_STATUS "
+                + "from ARCHIVE_FILES LEFT OUTER JOIN "
+                + "ARCHIVE_INVOICE ON (ARCHIVE_INVOICE.FILE_ID=ARCHIVE_FILES.FILE_ID) WHERE ARCHIVE_INVOICE.PO_NUMBER LIKE '%" + poNum + "%'"
+                + " ORDER BY ARCHIVE_FILES.DATE_TIME_RECEIVED");
+        }else{
+            lifeCycleQuery.append("select DISTINCT(FILES.FILE_ID),FILES.FILE_TYPE, "
                 + "FILES.TRANSACTION_TYPE, FILES.DIRECTION,"
                 + "FILES.DATE_TIME_RECEIVED,FILES.STATUS, INVOICE.PO_NUMBER,FILES.REPROCESSSTATUS,FILES.ACK_STATUS "
                 + "from FILES LEFT OUTER JOIN "
                 + "INVOICE ON (INVOICE.FILE_ID=FILES.FILE_ID) WHERE INVOICE.PO_NUMBER LIKE '%" + poNum + "%'"
                 + " ORDER BY FILES.DATE_TIME_RECEIVED");
+        }
         String searchQuery = lifeCycleQuery.toString();
-        System.out.println("searchQuery Invoice------   "+searchQuery);
+        System.out.println("searchQuery lfc Invoice------   "+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();
@@ -297,16 +324,26 @@ public class LifecycleUtility {
         return invoiceLifecycleBeanList;
     }
 
-    public ArrayList<PaymentLifecycleBean> addPaymentLifecycleBean(String poNumber) throws ServiceLocatorException {
+    public ArrayList<PaymentLifecycleBean> addPaymentLifecycleBean(String poNumber, String database) throws ServiceLocatorException {
         PaymentLifecycleBeanList = new ArrayList<PaymentLifecycleBean>();
         StringBuffer lifeCycleQuery = new StringBuffer();
         String poNum = poNumber;
-        lifeCycleQuery.append("select DISTINCT(FILES.FILE_ID),FILES.FILE_TYPE, FILES.TRANSACTION_TYPE,"
+         if("ARCHIVE".equals(database)){
+             lifeCycleQuery.append("select DISTINCT(ARCHIVE_FILES.FILE_ID),ARCHIVE_FILES.FILE_TYPE, ARCHIVE_FILES.TRANSACTION_TYPE,"
+                + "ARCHIVE_FILES.DIRECTION,ARCHIVE_FILES.DATE_TIME_RECEIVED,ARCHIVE_FILES.STATUS, "
+                + "ARCHIVE_PAYMENT.PO_NUMBER ,ARCHIVE_FILES.ACK_STATUS,ARCHIVE_FILES.REPROCESSSTATUS "
+                + "FROM ARCHIVE_FILES LEFT OUTER JOIN "
+                + " ARCHIVE_PAYMENT ON (ARCHIVE_PAYMENT.FILE_ID=ARCHIVE_FILES.FILE_ID) WHERE ARCHIVE_PAYMENT.PO_NUMBER LIKE '%" + poNum + "%'"
+                + " ORDER BY ARCHIVE_FILES.DATE_TIME_RECEIVED");
+         }else{
+             lifeCycleQuery.append("select DISTINCT(FILES.FILE_ID),FILES.FILE_TYPE, FILES.TRANSACTION_TYPE,"
                 + "FILES.DIRECTION,FILES.DATE_TIME_RECEIVED,FILES.STATUS, "
                 + "PAYMENT.PO_NUMBER ,FILES.ACK_STATUS,FILES.REPROCESSSTATUS "
                 + "from FILES LEFT OUTER JOIN "
                 + " PAYMENT ON (PAYMENT.FILE_ID=FILES.FILE_ID) WHERE PAYMENT.PO_NUMBER LIKE '%" + poNum + "%'"
                 + " ORDER BY FILES.DATE_TIME_RECEIVED");
+         }
+        
         String searchQuery = lifeCycleQuery.toString();
         System.out.println("searchQuery PAYMENT------   "+searchQuery);
         try {

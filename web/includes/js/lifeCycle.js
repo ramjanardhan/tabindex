@@ -6,7 +6,9 @@
 
 
 //for life cycle
- function getLifeCycle(checkList,flow) {
+ function getLifeCycle(checkList,flow,db) {
+//     var db = document.getElementById('database').value;
+    alert(db);
      if(flow=="manufacturing"){
                 var res = false;
                 var i = 0;
@@ -38,7 +40,7 @@
                     //alert(po_Num);
                     //window.location = "../lfc/lifeCycle.action?poNumber="+po_Num; 
                     //purchaseForm.action = "../lfc/lifeCycle.action?poNumber="+po_Num;
-                    location.href = "../lfc/lifecycle.action?poNumber=" + po_Num;
+                    location.href = "../lfc/lifecycle.action?poNumber=" + po_Num+ "&database=" + db;
                     return true;
                 }
             }

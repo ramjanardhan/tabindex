@@ -448,44 +448,34 @@
                         <%-- Grid End --%>
                     </s:if>
             </div> 
-            <script>
-                $(function () {
-                    // $("#example1").DataTable();
-                    $('#results').DataTable({
-                        "paging": true,
-                        "lengthChange": true,
-                        "searching": true,
-                        "ordering": true,
-                        "info": true,
-                        "autoWidth": true
-                    });
-                });
-            </script>
-
         </div> 
+                                <script type="text/javascript">
+                                                        $(function() {
+                                                            // $("#example1").DataTable();
+                                                            $('#results').DataTable({
+                                                                "paging": true,
+                                                                "lengthChange": true,
+                                                                "searching": true,
+                                                                "ordering": true,
+                                                                "info": true,
+                                                                "autoWidth": true
+                                                            });
+                                                        });
+                                                        </script>
         <div>
             <s:include value="../includes/template/footer.jsp"/>
         </div>
         <script type="text/javascript" src='<s:url value="../includes/js/DateValidation.js"/>'></script>
         <script language="JavaScript"  src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
         <script language="JavaScript"  src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
-
-
-        <script>
-                $('input[name="daterange"]').daterangepicker();
-        </script>
-
-
         <!-- Bootstrap 3.3.5 -->
         <script src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script>
         <script src='<s:url value="../includes/bootstrap/js/app.min.js"/>'></script>
         <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
         <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
-
-
-
-
+        <script type="text/javascript">
+                                                   
+                                                        $('input[name="daterange"]').daterangepicker();
+        </script>
     </body>
-
-
 </html>

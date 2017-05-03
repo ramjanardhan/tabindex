@@ -230,131 +230,129 @@
 
                                                                             //if (corrattribute != "-1" && !"-1".equalsIgnoreCase(corrattribute) && i == 0) {
                                                                     %>
-                                                                <%--<td><%=corrattribute%> </td> 
-                                                                <%}
-                                                                    if (corrattribute1 != "-1" && !"-1".equalsIgnoreCase(corrattribute1) && i == 0) {%>
-                                                                <td ><%=corrattribute1%> </td> 
-                                                                <%}
-                                                                    if (corrattribute2 != "-1" && !"-1".equalsIgnoreCase(corrattribute2) && i == 0) {%>
-                                                                <td ><%=corrattribute2%> </td> 
-                                                                <%
-                                                                    }
-                                                                %> --%>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <%
-                                                                              if (docRepositoryBean.getFile_type() != null && !"".equals(docRepositoryBean.getFile_type())) {
-                                                                                out.println(docRepositoryBean.getFile_type());
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                            //out.println(docRepositoryBean.getFile_type());
-                                                                        %>
-                                                                    </td>
-                                                                    <td><a href="javascript:getDetails('<%=docRepositoryBean.getFile_id()%>','<%=docRepositoryBean.getPoNumber()%>','<%=docRepositoryBean.getId()%>');">
-                                                                            <%
-                                                                             if (docRepositoryBean.getFile_id() != null && !"".equals(docRepositoryBean.getFile_id())) {
-                                                                                    out.println(docRepositoryBean.getFile_id());
+                                                                    <%--<td><%=corrattribute%> </td> 
+                                                                    <%}
+                                                                        if (corrattribute1 != "-1" && !"-1".equalsIgnoreCase(corrattribute1) && i == 0) {%>
+                                                                    <td ><%=corrattribute1%> </td> 
+                                                                    <%}
+                                                                        if (corrattribute2 != "-1" && !"-1".equalsIgnoreCase(corrattribute2) && i == 0) {%>
+                                                                    <td ><%=corrattribute2%> </td> 
+                                                                    <%
+                                                                        }
+                                                                    %> --%>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <%                                                                            if (docRepositoryBean.getFile_type() != null && !"".equals(docRepositoryBean.getFile_type())) {
+                                                                                    out.println(docRepositoryBean.getFile_type());
                                                                                 } else {
                                                                                     out.println("-");
                                                                                 }
-                                                                               // out.println(docRepositoryBean.getFile_id());
-                                                                            %>
-                                                                        </a>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%
+                                                                                //out.println(docRepositoryBean.getFile_type());
+%>
+                                                                        </td>
+                                                                        <td><a href="javascript:getDetails('<%=docRepositoryBean.getFile_id()%>','<%=docRepositoryBean.getPoNumber()%>','<%=docRepositoryBean.getId()%>');">
+                                                                                <%
+                                                                                    if (docRepositoryBean.getFile_id() != null && !"".equals(docRepositoryBean.getFile_id())) {
+                                                                                        out.println(docRepositoryBean.getFile_id());
+                                                                                    } else {
+                                                                                        out.println("-");
+                                                                                    }
+                                                                                   // out.println(docRepositoryBean.getFile_id());
+                                                                                %>
+                                                                            </a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%
                                                                                 if (docRepositoryBean.getPname() != null && !"".equals(docRepositoryBean.getPname())) {
-                                                                                out.println(docRepositoryBean.getPname());
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                        %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%
+                                                                                    out.println(docRepositoryBean.getPname());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                            %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%
                                                                                 if (docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")) != null
-                                                                                    && !"".equals(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")))) {
-                                                                                out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                                
-                                                                            //out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
-                                                                        %>
-                                                                    </td>  
-                                                                    <td>
-                                                                        <%
-                                                                            //out.println(docRepositoryBean.getTransaction_type());
-                                                                            if (docRepositoryBean.getTransaction_type() != null && !"".equals(docRepositoryBean.getTransaction_type())) {
-                                                                                out.println(docRepositoryBean.getTransaction_type());
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                        %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%
-                                                                            if (docRepositoryBean.getDirection() != null && !"".equals(docRepositoryBean.getDirection())) {
-                                                                                out.println(docRepositoryBean.getDirection().toUpperCase());
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                        %>
-                                                                    </td>  
-                                                                    <td>
-                                                                        <%
-                                                                            if (docRepositoryBean.getStatus().equalsIgnoreCase("ERROR")) {
-                                                                                out.println("<font color='red'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
-                                                                            } else if (docRepositoryBean.getStatus().equalsIgnoreCase("SUCCESS")) {
-                                                                                out.println("<font color='green'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
-                                                                            } else {
-                                                                                out.println("<font color='orange'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
-                                                                            }
-                                                                        %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%
-                                                                             if (docRepositoryBean.getReProcessStatus() != null && !"".equals(docRepositoryBean.getReProcessStatus())) {
-                                                                                out.println(docRepositoryBean.getReProcessStatus());
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                        %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%
-                                                                              if (docRepositoryBean.getAckStatus() != null && !"".equals(docRepositoryBean.getAckStatus())) {
-                                                                                out.println(docRepositoryBean.getAckStatus());
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                            //out.println(docRepositoryBean.getAckStatus());
-                                                                        %>
-                                                                    </td>
-                                                                    <%--<%if (docRepositoryBean.getCorrvalue() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue())) {%>
-                                                                    <td ><%=docRepositoryBean.getCorrvalue()%> </td> 
-                                                                    <%}
-                                                                        if (docRepositoryBean.getCorrvalue1() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue1())) {%>
-                                                                    <td ><%=docRepositoryBean.getCorrvalue1()%> </td> 
-                                                                    <%}
-                                                                        if (docRepositoryBean.getCorrvalue2() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue2())) {%>
-                                                                    <td ><%=docRepositoryBean.getCorrvalue2()%> </td> 
-                                                                    <%}
-                                                                    %> --%>
-                                                                </tr>
-                                                                <%
-                                                                    }
-                                                                } else {
-                                                                %>
-                                                                <tr><td>
-                                                                        <%
-                                                                                out.println("<img  border='0' align='top'  src='" + contextPath + "/includes/images/alert.gif'/><b>No records found for the given search criteria. Please try a different search criteria!</b>");
-                                                                            }
-                                                                        %>
-                                                                    </td>
-                                                                </tr>
+                                                                                        && !"".equals(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                                    out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+
+                                                                                //out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            %>
+                                                                        </td>  
+                                                                        <td>
+                                                                            <%                                                                            //out.println(docRepositoryBean.getTransaction_type());
+                                                                                if (docRepositoryBean.getTransaction_type() != null && !"".equals(docRepositoryBean.getTransaction_type())) {
+                                                                                    out.println(docRepositoryBean.getTransaction_type());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                            %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%
+                                                                                if (docRepositoryBean.getDirection() != null && !"".equals(docRepositoryBean.getDirection())) {
+                                                                                    out.println(docRepositoryBean.getDirection().toUpperCase());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                            %>
+                                                                        </td>  
+                                                                        <td>
+                                                                            <%
+                                                                                if (docRepositoryBean.getStatus().equalsIgnoreCase("ERROR")) {
+                                                                                    out.println("<font color='red'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
+                                                                                } else if (docRepositoryBean.getStatus().equalsIgnoreCase("SUCCESS")) {
+                                                                                    out.println("<font color='green'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
+                                                                                } else {
+                                                                                    out.println("<font color='orange'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
+                                                                                }
+                                                                            %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%
+                                                                                if (docRepositoryBean.getReProcessStatus() != null && !"".equals(docRepositoryBean.getReProcessStatus())) {
+                                                                                    out.println(docRepositoryBean.getReProcessStatus());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                            %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%
+                                                                                if (docRepositoryBean.getAckStatus() != null && !"".equals(docRepositoryBean.getAckStatus())) {
+                                                                                    out.println(docRepositoryBean.getAckStatus());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                                //out.println(docRepositoryBean.getAckStatus());
+                                                                            %>
+                                                                        </td>
+                                                                        <%--<%if (docRepositoryBean.getCorrvalue() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue())) {%>
+                                                                        <td ><%=docRepositoryBean.getCorrvalue()%> </td> 
+                                                                        <%}
+                                                                            if (docRepositoryBean.getCorrvalue1() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue1())) {%>
+                                                                        <td ><%=docRepositoryBean.getCorrvalue1()%> </td> 
+                                                                        <%}
+                                                                            if (docRepositoryBean.getCorrvalue2() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue2())) {%>
+                                                                        <td ><%=docRepositoryBean.getCorrvalue2()%> </td> 
+                                                                        <%}
+                                                                        %> --%>
+                                                                    </tr>
+                                                                    <%
+                                                                        }
+                                                                    } else {
+                                                                    %>
+                                                                    <tr><td>
+                                                                            <%
+                                                                                    out.println("<img  border='0' align='top'  src='" + contextPath + "/includes/images/alert.gif'/><b>No records found for the given search criteria. Please try a different search criteria!</b>");
+                                                                                }
+                                                                            %>
+                                                                        </td>
+                                                                    </tr>
                                                             </table>
                                                     </td>
                                                 </tr>
@@ -529,19 +527,19 @@
 
                 </s:if> 
             </div>
-            <script>
-                $(function() {
-                    $('#results').DataTable({
-                        "paging": true,
-                        "lengthChange": true,
-                        "searching": true,
-                        "ordering": true,
-                        "info": true,
-                        "autoWidth": false
-                    });
-                });
-            </script>
         </div>
+                                          <script type="text/javascript">
+            $(function() {
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
+        </script> 
         <div>
             <s:include value="../includes/template/footer.jsp"/>
         </div>
@@ -561,124 +559,124 @@
         <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
 
-        <script>
-                function doOnLoad()
-                {
-                    $("#docrepository").addClass("active");
-                    $("#manufacturing").addClass("active");
-                    $("#docrepository i").addClass("text-red");
-                    document.getElementById('loadingAcoountSearch').style.display = "none";
-                }
+        <script type="text/javascript">
+            function doOnLoad()
+            {
+                $("#docrepository").addClass("active");
+                $("#manufacturing").addClass("active");
+                $("#docrepository i").addClass("text-red");
+                document.getElementById('loadingAcoountSearch').style.display = "none";
+            }
 
-                function getDetails(val, ponum, id) {
-                    var db = document.forms["documentForm"]["database"].value;
-                    getDocDetails(val, ponum, id,db);
+            function getDetails(val, ponum, id) {
+                var db = document.forms["documentForm"]["database"].value;
+                getDocDetails(val, ponum, id, db);
+            }
+            function checkCorrelation() {
+                //alert("checkCorrelation");
+                var db = document.forms["documentForm"]["database"].value;
+                if (db == '') {
+                    alert("please select Database!!!");
+                    return false;
                 }
-                function checkCorrelation() {
-                    //alert("checkCorrelation");
-                    var db = document.forms["documentForm"]["database"].value;
-                    if(db == ''){
-                        alert("please select Database!!!");
-                        return false;
-                    }
-                    var corrattr = document.getElementById('corrattribute').value;
-                    var corrval = document.getElementById('corrvalue').value;
-                    var corrattr1 = document.getElementById('corrattribute1').value;
-                    var corrval1 = document.getElementById('corrvalue1').value;
-                    var corrattr2 = document.getElementById('corrattribute2').value;
-                    var corrval2 = document.getElementById('corrvalue2').value;
-                    if ((corrattr != "-1") && (corrval == "")) {
-                        // document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
-                        alert("please enter Correlation Value!!!");
-                        return false;
-                    }
-                    if ((corrattr == "-1") && (corrval != "")) {
-                        // document.getElementById('resMsg').innerHTML = "please select Correlation!";
-                        alert("please select Correlation!");
-                        return false;
-                    }
-                    if ((corrattr1 != "-1") && (corrval1 == "")) {
-                        //document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
-                        alert("please enter Correlation Value!!!");
-                        return false;
-                    }
-                    if ((corrattr1 == "-1") && (corrval1 != "")) {
-                        //document.getElementById('resMsg').innerHTML = "please select Correlation!";
-                        alert("please select Correlation!");
-                        return false;
-                    }
-                    if ((corrattr2 != "-1") && (corrval2 == "")) {
-                        //document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
-                        alert("please enter Correlation Value!!!");
-                        return false;
-                    }
-                    if ((corrattr2 == "-1") && (corrval2 != "")) {
-                        //document.getElementById('resMsg').innerHTML = "please select Correlation!";
-                        alert("please select Correlation!");
-                        return false;
-                    }
+                var corrattr = document.getElementById('corrattribute').value;
+                var corrval = document.getElementById('corrvalue').value;
+                var corrattr1 = document.getElementById('corrattribute1').value;
+                var corrval1 = document.getElementById('corrvalue1').value;
+                var corrattr2 = document.getElementById('corrattribute2').value;
+                var corrval2 = document.getElementById('corrvalue2').value;
+                if ((corrattr != "-1") && (corrval == "")) {
+                    // document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
+                    alert("please enter Correlation Value!!!");
+                    return false;
                 }
-                function resetvaluesManufacteringDocRep() {
-                    document.getElementById('docdatepickerfrom').value = "";
-                    document.getElementById('docdatepicker').value = "";
-                    document.getElementById('docSenderId').value = "-1";
-                    document.getElementById('docSenderName').value = "-1";
-                    document.getElementById('docBusId').value = "-1";
-                    document.getElementById('docRecName').value = "-1";
-                    document.getElementById('corrattribute').value = "-1";
-                    document.getElementById('corrvalue').value = "";
-                    document.getElementById('docType').value = "-1";
-                    document.getElementById('corrattribute1').value = "-1";
-                    document.getElementById('corrvalue1').value = "";
-                    document.getElementById('corrattribute2').value = "-1";
-                    document.getElementById('corrvalue2').value = "";
-                    document.getElementById('ackStatus').value = "-1";
-                    document.getElementById('status').value = "-1";
-                    document.getElementById('reportrange').value = "";
-                    $('#gridDiv').hide();
+                if ((corrattr == "-1") && (corrval != "")) {
+                    // document.getElementById('resMsg').innerHTML = "please select Correlation!";
+                    alert("please select Correlation!");
+                    return false;
                 }
+                if ((corrattr1 != "-1") && (corrval1 == "")) {
+                    //document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
+                    alert("please enter Correlation Value!!!");
+                    return false;
+                }
+                if ((corrattr1 == "-1") && (corrval1 != "")) {
+                    //document.getElementById('resMsg').innerHTML = "please select Correlation!";
+                    alert("please select Correlation!");
+                    return false;
+                }
+                if ((corrattr2 != "-1") && (corrval2 == "")) {
+                    //document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
+                    alert("please enter Correlation Value!!!");
+                    return false;
+                }
+                if ((corrattr2 == "-1") && (corrval2 != "")) {
+                    //document.getElementById('resMsg').innerHTML = "please select Correlation!";
+                    alert("please select Correlation!");
+                    return false;
+                }
+            }
+            function resetvaluesManufacteringDocRep() {
+                document.getElementById('docdatepickerfrom').value = "";
+                document.getElementById('docdatepicker').value = "";
+                document.getElementById('docSenderId').value = "-1";
+                document.getElementById('docSenderName').value = "-1";
+                document.getElementById('docBusId').value = "-1";
+                document.getElementById('docRecName').value = "-1";
+                document.getElementById('corrattribute').value = "-1";
+                document.getElementById('corrvalue').value = "";
+                document.getElementById('docType').value = "-1";
+                document.getElementById('corrattribute1').value = "-1";
+                document.getElementById('corrvalue1').value = "";
+                document.getElementById('corrattribute2').value = "-1";
+                document.getElementById('corrvalue2').value = "";
+                document.getElementById('ackStatus').value = "-1";
+                document.getElementById('status').value = "-1";
+                document.getElementById('reportrange').value = "";
+                $('#gridDiv').hide();
+            }
 
-                function hide()
-                {
+            function hide()
+            {
 
-                    $('#hide-menu1').removeClass('show-menu');
-                }
+                $('#hide-menu1').removeClass('show-menu');
+            }
 //                $('body,html').click(function (e) {
 //                    $('#hide-menu1').removeClass('show-menu');
 //                });
 
 
-                function check()
-                {
-                    var value1 = document.getElementById("corrattribute1").value;
-                    if (value1 != "-1")
-                        document.getElementById("corr").style.display = "block";
-                    else
-                        document.getElementById("corr").style.display = "none";
-                    var value2 = document.getElementById("corrattribute2").value;
-                    if (value2 != "-1")
-                        document.getElementById("corr1").style.display = "block";
-                    else
-                        document.getElementById("corr1").style.display = "none";
-                }
-                function Date1()
-                {
-                    var date = document.documentForm.reportrange.value;
-                    var arr = date.split("-");
-                    var x = arr[1].trim();
-                    document.getElementById("docdatepickerfrom").value = arr[0];
-                    document.getElementById("docdatepicker").value = x;
-                }
-                var count = 0;
-                $("#addButton").click(function() {
-                    count++;
-                    if (count == 1)
-                        document.getElementById("corr").style.display = "block";
-                    else if (count == 2)
-                        document.getElementById("corr1").style.display = "block";
-                    else
-                        alert('Limit exceded.... cant add more fields');
-                })
+            function check()
+            {
+                var value1 = document.getElementById("corrattribute1").value;
+                if (value1 != "-1")
+                    document.getElementById("corr").style.display = "block";
+                else
+                    document.getElementById("corr").style.display = "none";
+                var value2 = document.getElementById("corrattribute2").value;
+                if (value2 != "-1")
+                    document.getElementById("corr1").style.display = "block";
+                else
+                    document.getElementById("corr1").style.display = "none";
+            }
+            function Date1()
+            {
+                var date = document.documentForm.reportrange.value;
+                var arr = date.split("-");
+                var x = arr[1].trim();
+                document.getElementById("docdatepickerfrom").value = arr[0];
+                document.getElementById("docdatepicker").value = x;
+            }
+            var count = 0;
+            $("#addButton").click(function() {
+                count++;
+                if (count == 1)
+                    document.getElementById("corr").style.display = "block";
+                else if (count == 2)
+                    document.getElementById("corr1").style.display = "block";
+                else
+                    alert('Limit exceded.... cant add more fields');
+            })
         </script>
     </body>
 </html>

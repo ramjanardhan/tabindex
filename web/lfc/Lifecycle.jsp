@@ -814,27 +814,7 @@
                     </div>
                 </div>
             </div>
-
-            <script type="text/javascript">
-                $(function () {
-                    //$("#example1").DataTable();
-                    $('#results').DataTable({
-                        "paging": true,
-                        "lengthChange": true,
-                        "searching": true,
-                        "ordering": true,
-                        "info": true,
-                        "autoWidth": false
-                    });
-                });
-            </script>
-            <%--  <div id="footer">
-               <h2><font color="white">&#169 2013 Miracle Software Systems, Inc. All rights reserved</font></h2>
-                      </div>--%>
-
         </div>
-
-
         <script type="text/javascript">
             $(function () {
                 //$("#example1").DataTable();

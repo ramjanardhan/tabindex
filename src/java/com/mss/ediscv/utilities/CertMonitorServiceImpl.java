@@ -5,32 +5,19 @@
  */
 package com.mss.ediscv.utilities;
 
-import com.lowagie.text.pdf.ArabicLigaturizer;
 import com.mss.ediscv.util.ConnectionProvider;
-import com.mss.ediscv.util.DateUtility;
 import com.mss.ediscv.util.ServiceLocatorException;
-import java.sql.Array;
 import java.sql.Connection;
-import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import oracle.sql.ARRAY;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  *
@@ -139,7 +126,7 @@ public class CertMonitorServiceImpl implements CertMonitorService {
                 codeListBean.setSender_item(resultSet.getString("SENDER_ITEM"));
                 codeListBean.setReceiver_item(resultSet.getString("RECEIVER_ITEM"));
                 System.out.println("resultSet.getString(\"TEXT1\") is "+resultSet.getString("TEXT1"));
-                if (resultSet.getString("TEXT1") != "null" && !"".equalsIgnoreCase(resultSet.getString("TEXT1"))) {
+                if (resultSet.getString("TEXT1") != null && !"".equalsIgnoreCase(resultSet.getString("TEXT1"))) {
                     System.out.println("in if");
                 //if (!"".equalsIgnoreCase(resultSet.getString("TEXT1")) && resultSet.getString("TEXT1") != null) {
                     codeListBean.setText1(resultSet.getString("TEXT1"));
@@ -155,7 +142,7 @@ public class CertMonitorServiceImpl implements CertMonitorService {
                      System.out.println("else");
                     codeListBean.setText2("");
                 }
-                if (resultSet.getString("TEXT3") != null && !"".equals(resultSet.getString("TEXT3"))) {
+                if (resultSet.getString("TEXT3") != null && !"".equalsIgnoreCase(resultSet.getString("TEXT3"))) {
                 //if (!"".equalsIgnoreCase(resultSet.getString("TEXT3")) && resultSet.getString("TEXT3") != null) {
                 codeListBean.setText3(resultSet.getString("TEXT3"));
                 } else {

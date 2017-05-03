@@ -44,6 +44,7 @@ public class LifecycleAction extends ActionSupport implements ServletRequestAwar
         }
         return resultType;
     }
+
     //Life Cycle for logistics
     public String ltPrepare() throws Exception {
         resultType = LOGIN;
@@ -168,5 +169,5 @@ public class LifecycleAction extends ActionSupport implements ServletRequestAwar
     public void setDatabase(String database) {
         this.database = database;
     }
-    
+
 }

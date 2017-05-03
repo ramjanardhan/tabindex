@@ -25,17 +25,17 @@
         <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script language="JavaScript" src='<s:url value="/includes/js/jquery-1.9.1.js"></s:url>'></script>
-            <script language="JavaScript" src='<s:url value="/includes/js/jquery-ui.js"/>'></script>
+        <script language="JavaScript" src='<s:url value="/includes/js/jquery-ui.js"/>'></script>
         <script language="JavaScript" src='<s:url value="/includes/js/LfcAjax.js"/>'></script>
         <script type="text/javascript">
-            $(function () {
-                $('#attach_box').click(function () {
+            $(function() {
+                $('#attach_box').click(function() {
                     $('#sec_box').show();
                     return false;
                 });
             });
-            $(function () {
-                $('#detail_link').click(function () {
+            $(function() {
+                $('#detail_link').click(function() {
                     $('#detail_box').show();
                     return false;
                 });
@@ -44,7 +44,7 @@
             // New function to show the left grid
 
             function demo() {
-                $(function () {
+                $(function() {
 
                     $('#detail_box').show();
                     return false;
@@ -169,19 +169,19 @@
                                                             <tr>
                                                                 <td>
                                                                     <%
-                                                                    if (poLifeCycleBean.getTranType() != null && !"".equals(poLifeCycleBean.getTranType())) {
-                                                                                out.println(poLifeCycleBean.getTranType());
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                        
+                                                                        if (poLifeCycleBean.getTranType() != null && !"".equals(poLifeCycleBean.getTranType())) {
+                                                                            out.println(poLifeCycleBean.getTranType());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
+
                                                                     %>
                                                                 </td>
 
                                                                 <td><a href="javascript:getDetails('<%=poLifeCycleBean.getPoNumber()%>','<%=poLifeCycleBean.getFileId()%>','PO');">
                                                                         <%
-                                                                        if (poLifeCycleBean.getPoNumber() != null && !"".equals(poLifeCycleBean.getPoNumber())) {
-                                                                            out.println(poLifeCycleBean.getPoNumber());
+                                                                            if (poLifeCycleBean.getPoNumber() != null && !"".equals(poLifeCycleBean.getPoNumber())) {
+                                                                                out.println(poLifeCycleBean.getPoNumber());
                                                                             } else {
                                                                                 out.println("-");
                                                                             }
@@ -190,20 +190,20 @@
                                                                 </td>
                                                                 <td>
                                                                     <%
-                                                                            if (poLifeCycleBean.getFileId() != null && !"".equals(poLifeCycleBean.getFileId())) {
-                                                                        out.println(poLifeCycleBean.getFileId());
+                                                                        if (poLifeCycleBean.getFileId() != null && !"".equals(poLifeCycleBean.getFileId())) {
+                                                                            out.println(poLifeCycleBean.getFileId());
                                                                         } else {
-                                                                                out.println("-");
-                                                                            }
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
                                                                 <td>
                                                                     <%
                                                                         if (poLifeCycleBean.getFileType() != null && !"".equals(poLifeCycleBean.getFileType())) {
-                                                                        out.println(poLifeCycleBean.getFileType());
+                                                                            out.println(poLifeCycleBean.getFileType());
                                                                         } else {
-                                                                                out.println("-");
-                                                                            }
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
 
@@ -214,19 +214,19 @@
                                                                         System.out.print("poLifeCycleBean.getDirection().toUpperCase() -->" + poLifeCycleBean.getDirection().toUpperCase());
                                                                         System.out.print("poLifeCycleBean.getDirection() -->" + poLifeCycleBean.getDirection());
                                                                         if (poLifeCycleBean.getDirection() != null && !"".equals(poLifeCycleBean.getDirection())) {
-                                                                        out.println(poLifeCycleBean.getDirection().toUpperCase());
+                                                                            out.println(poLifeCycleBean.getDirection().toUpperCase());
                                                                         } else {
-                                                                                out.println("-");
-                                                                            }
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
                                                                 <td>
                                                                     <%
                                                                         if (poLifeCycleBean.getDatetimeRec() != null && !"".equals(poLifeCycleBean.getDatetimeRec())) {
-                                                                        out.println(poLifeCycleBean.getDatetimeRec().toString().substring(0, poLifeCycleBean.getDatetimeRec().toString().lastIndexOf(":")));
+                                                                            out.println(poLifeCycleBean.getDatetimeRec().toString().substring(0, poLifeCycleBean.getDatetimeRec().toString().lastIndexOf(":")));
                                                                         } else {
-                                                                                out.println("-");
-                                                                            }
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>  
                                                                 <%--<td>
@@ -303,19 +303,19 @@
                                                             <tr>
                                                                 <td>
                                                                     <%
-                                                                    if (asnLifecycleBean.getTranType() != null && !"".equals(asnLifecycleBean.getTranType())) {
-                                                                                out.println(asnLifecycleBean.getTranType());
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                        
+                                                                        if (asnLifecycleBean.getTranType() != null && !"".equals(asnLifecycleBean.getTranType())) {
+                                                                            out.println(asnLifecycleBean.getTranType());
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
+
                                                                     %>
                                                                 </td>
 
                                                                 <td><a href="javascript:getDetails('<%=asnLifecycleBean.getPoNumber()%>','<%=asnLifecycleBean.getFileId()%>','ASN');">
                                                                         <%
-                                                                        if (asnLifecycleBean.getPoNumber() != null && !"".equals(asnLifecycleBean.getPoNumber())) {
-                                                                            out.println(asnLifecycleBean.getPoNumber());
+                                                                            if (asnLifecycleBean.getPoNumber() != null && !"".equals(asnLifecycleBean.getPoNumber())) {
+                                                                                out.println(asnLifecycleBean.getPoNumber());
                                                                             } else {
                                                                                 out.println("-");
                                                                             }
@@ -324,39 +324,39 @@
                                                                 </td>
                                                                 <td>
                                                                     <%
-                                                                            if (asnLifecycleBean.getFileId() != null && !"".equals(asnLifecycleBean.getFileId())) {
-                                                                        out.println(asnLifecycleBean.getFileId());
+                                                                        if (asnLifecycleBean.getFileId() != null && !"".equals(asnLifecycleBean.getFileId())) {
+                                                                            out.println(asnLifecycleBean.getFileId());
                                                                         } else {
-                                                                                out.println("-");
-                                                                            }
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
                                                                 <td>
                                                                     <%
                                                                         if (asnLifecycleBean.getFileType() != null && !"".equals(asnLifecycleBean.getFileType())) {
-                                                                        out.println(asnLifecycleBean.getFileType());
+                                                                            out.println(asnLifecycleBean.getFileType());
                                                                         } else {
-                                                                                out.println("-");
-                                                                            }
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
                                                                 <td>
                                                                     <%
                                                                         if (asnLifecycleBean.getDirection() != null && !"".equals(asnLifecycleBean.getDirection())) {
-                                                                        out.println(asnLifecycleBean.getDirection().toUpperCase());
+                                                                            out.println(asnLifecycleBean.getDirection().toUpperCase());
                                                                         } else {
-                                                                                out.println("-");
-                                                                            }
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td>
 
                                                                 <td>
                                                                     <%
                                                                         if (asnLifecycleBean.getDatetimeRec() != null && !"".equals(asnLifecycleBean.getDatetimeRec())) {
-                                                                        out.println(asnLifecycleBean.getDatetimeRec().toString().substring(0, asnLifecycleBean.getDatetimeRec().toString().lastIndexOf(":")));
+                                                                            out.println(asnLifecycleBean.getDatetimeRec().toString().substring(0, asnLifecycleBean.getDatetimeRec().toString().lastIndexOf(":")));
                                                                         } else {
-                                                                                out.println("-");
-                                                                            }
+                                                                            out.println("-");
+                                                                        }
                                                                     %>
                                                                 </td> 
                                                                 <td>
@@ -420,7 +420,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <%
-                                                                    if (invoiceLifecycleBean.getTranType() != null && !"".equals(invoiceLifecycleBean.getTranType())) {
+                                                                        if (invoiceLifecycleBean.getTranType() != null && !"".equals(invoiceLifecycleBean.getTranType())) {
                                                                             out.println(invoiceLifecycleBean.getTranType());
                                                                         } else {
                                                                             out.println("-");
@@ -431,17 +431,17 @@
 
                                                                 <td><a href="javascript:getDetails('<%=invoiceLifecycleBean.getPoNumber()%>','<%=invoiceLifecycleBean.getFileId()%>','INV');">
                                                                         <%
-                                                                        if (invoiceLifecycleBean.getPoNumber() != null && !"".equals(invoiceLifecycleBean.getPoNumber())) {
-                                                                            out.println(invoiceLifecycleBean.getPoNumber());
+                                                                            if (invoiceLifecycleBean.getPoNumber() != null && !"".equals(invoiceLifecycleBean.getPoNumber())) {
+                                                                                out.println(invoiceLifecycleBean.getPoNumber());
                                                                             } else {
-                                                                            out.println("-");
-                                                                        }
+                                                                                out.println("-");
+                                                                            }
                                                                         %></a>
                                                                 </td>
                                                                 <td>
                                                                     <%
-                                                                            if (invoiceLifecycleBean.getFileId() != null && !"".equals(invoiceLifecycleBean.getFileId())) {
-                                                                        out.println(invoiceLifecycleBean.getFileId());
+                                                                        if (invoiceLifecycleBean.getFileId() != null && !"".equals(invoiceLifecycleBean.getFileId())) {
+                                                                            out.println(invoiceLifecycleBean.getFileId());
                                                                         } else {
                                                                             out.println("-");
                                                                         }
@@ -450,7 +450,7 @@
                                                                 <td>
                                                                     <%
                                                                         if (invoiceLifecycleBean.getFileType() != null && !"".equals(invoiceLifecycleBean.getFileType())) {
-                                                                        out.println(invoiceLifecycleBean.getFileType());
+                                                                            out.println(invoiceLifecycleBean.getFileType());
                                                                         } else {
                                                                             out.println("-");
                                                                         }
@@ -462,7 +462,7 @@
                                                                 <td>
                                                                     <%
                                                                         if (invoiceLifecycleBean.getDirection() != null && !"".equals(invoiceLifecycleBean.getDirection())) {
-                                                                        out.println(invoiceLifecycleBean.getDirection().toUpperCase());
+                                                                            out.println(invoiceLifecycleBean.getDirection().toUpperCase());
                                                                         } else {
                                                                             out.println("-");
                                                                         }
@@ -472,7 +472,7 @@
                                                                 <td>
                                                                     <%
                                                                         if (invoiceLifecycleBean.getDatetimeRec() != null && !"".equals(invoiceLifecycleBean.getDatetimeRec())) {
-                                                                        out.println(invoiceLifecycleBean.getDatetimeRec().toString().substring(0, invoiceLifecycleBean.getDatetimeRec().toString().lastIndexOf(":")));
+                                                                            out.println(invoiceLifecycleBean.getDatetimeRec().toString().substring(0, invoiceLifecycleBean.getDatetimeRec().toString().lastIndexOf(":")));
                                                                         } else {
                                                                             out.println("-");
                                                                         }
@@ -553,28 +553,28 @@
                                                             <tr>
                                                                 <td>
                                                                     <%
-                                                                    if (paymentLifecycleBean.getTranType() != null && !"".equals(paymentLifecycleBean.getTranType())) {
+                                                                        if (paymentLifecycleBean.getTranType() != null && !"".equals(paymentLifecycleBean.getTranType())) {
                                                                             out.println(paymentLifecycleBean.getTranType());
                                                                         } else {
                                                                             out.println("-");
                                                                         }
-                                                                        
+
                                                                     %>
                                                                 </td>
 
                                                                 <td><a href="javascript:getDetails('<%=paymentLifecycleBean.getPoNumber()%>','<%=paymentLifecycleBean.getFileId()%>','PAYMENT');">
                                                                         <%
-                                                                        if (paymentLifecycleBean.getPoNumber() != null && !"".equals(paymentLifecycleBean.getPoNumber())) {
-                                                                            out.println(paymentLifecycleBean.getPoNumber());
+                                                                            if (paymentLifecycleBean.getPoNumber() != null && !"".equals(paymentLifecycleBean.getPoNumber())) {
+                                                                                out.println(paymentLifecycleBean.getPoNumber());
                                                                             } else {
-                                                                            out.println("-");
-                                                                        }
+                                                                                out.println("-");
+                                                                            }
                                                                         %></a>
                                                                 </td>
                                                                 <td>
                                                                     <%
-                                                                            if (paymentLifecycleBean.getFileId() != null && !"".equals(paymentLifecycleBean.getFileId())) {
-                                                                        out.println(paymentLifecycleBean.getFileId());
+                                                                        if (paymentLifecycleBean.getFileId() != null && !"".equals(paymentLifecycleBean.getFileId())) {
+                                                                            out.println(paymentLifecycleBean.getFileId());
                                                                         } else {
                                                                             out.println("-");
                                                                         }
@@ -583,7 +583,7 @@
                                                                 <td>
                                                                     <%
                                                                         if (paymentLifecycleBean.getFileType() != null && !"".equals(paymentLifecycleBean.getFileType())) {
-                                                                        out.println(paymentLifecycleBean.getFileType());
+                                                                            out.println(paymentLifecycleBean.getFileType());
                                                                         } else {
                                                                             out.println("-");
                                                                         }
@@ -592,7 +592,7 @@
                                                                 <td>
                                                                     <%
                                                                         if (paymentLifecycleBean.getDirection() != null && !"".equals(paymentLifecycleBean.getDirection())) {
-                                                                        out.println(paymentLifecycleBean.getDirection().toUpperCase());
+                                                                            out.println(paymentLifecycleBean.getDirection().toUpperCase());
                                                                         } else {
                                                                             out.println("-");
                                                                         }
@@ -602,7 +602,7 @@
                                                                 <td>
                                                                     <%
                                                                         if (paymentLifecycleBean.getDatetimeRec() != null && !"".equals(paymentLifecycleBean.getDatetimeRec())) {
-                                                                        out.println(paymentLifecycleBean.getDatetimeRec().toString().substring(0, paymentLifecycleBean.getDatetimeRec().toString().lastIndexOf(":")));
+                                                                            out.println(paymentLifecycleBean.getDatetimeRec().toString().substring(0, paymentLifecycleBean.getDatetimeRec().toString().lastIndexOf(":")));
                                                                         } else {
                                                                             out.println("-");
                                                                         }
@@ -816,7 +816,7 @@
             </div>
         </div>
         <script type="text/javascript">
-            $(function () {
+            $(function() {
                 //$("#example1").DataTable();
                 $('#results').DataTable({
                     "paging": true,

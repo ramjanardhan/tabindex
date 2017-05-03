@@ -37,27 +37,26 @@ public class LifecycleServiceImpl implements LifecycleService {
         String Ponum = lifecycleAction.getPoNumber();
         String database = lifecycleAction.getDatabase();
         LifecycleUtility lifecycleUtility = new LifecycleUtility();
-        poLifecycleBeanList = lifecycleUtility.addPoLifeCycleBean(Ponum,database);
+        poLifecycleBeanList = lifecycleUtility.addPoLifeCycleBean(Ponum, database);
         httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_PO_LIST, poLifecycleBeanList);
         /**
          * ASN process*
          */
-        asnLifecycleBeanList = lifecycleUtility.addAsnLifecycleBean(Ponum,database);
+        asnLifecycleBeanList = lifecycleUtility.addAsnLifecycleBean(Ponum, database);
         httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_ASN_LIST, asnLifecycleBeanList);
         /**
          * INVOICE *
          */
-        invoiceLifecycleBeanList = lifecycleUtility.addInvoiceLifecycleBean(Ponum,database);
+        invoiceLifecycleBeanList = lifecycleUtility.addInvoiceLifecycleBean(Ponum, database);
         httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_INVOICE_LIST, invoiceLifecycleBeanList);
         /**
          * PAYMENT *
          */
-        PaymentLifecycleBeanList = lifecycleUtility.addPaymentLifecycleBean(Ponum,database);
+        PaymentLifecycleBeanList = lifecycleUtility.addPaymentLifecycleBean(Ponum, database);
         httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_PAYMENT_LIST, PaymentLifecycleBeanList);
     }
 
     //Life Cycle for Logistics
-
     public void buildLtLifeCycleBeans(LifecycleAction lifecycleAction, HttpServletRequest httpServletRequest) throws ServiceLocatorException {
         lifecycleBeans = new LifecycleBeans();
         String shipmentNum = lifecycleAction.getShipmentNumber();
@@ -78,7 +77,7 @@ public class LifecycleServiceImpl implements LifecycleService {
          * PAYMENT *
          */
         ltResponseLifecycleBeanList = lifecycleUtility.getLtResponse(shipmentNum);
-       // httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_PAYMENT_LIST, ltResponseLifecycleBeanList);
+        // httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_PAYMENT_LIST, ltResponseLifecycleBeanList);
 
         ArrayList LfcList = new ArrayList();
         LfcList.addAll(loadTenderBeanList);
@@ -87,7 +86,7 @@ public class LifecycleServiceImpl implements LifecycleService {
         LfcList.addAll(ltResponseLifecycleBeanList);
         System.out.println("impl LfcList" + LfcList.size());
 
-            //Collections.sort(LfcList,new DateTimeComparator()); 
+        //Collections.sort(LfcList,new DateTimeComparator()); 
         //  LfcList.get
         httpServletRequest.getSession(false).setAttribute(AppConstants.LFC_SES_LTTENDER_LIST, LfcList);
 

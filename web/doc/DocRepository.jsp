@@ -230,129 +230,131 @@
 
                                                                             //if (corrattribute != "-1" && !"-1".equalsIgnoreCase(corrattribute) && i == 0) {
                                                                     %>
-                                                                    <%--<td><%=corrattribute%> </td> 
-                                                                    <%}
-                                                                        if (corrattribute1 != "-1" && !"-1".equalsIgnoreCase(corrattribute1) && i == 0) {%>
-                                                                    <td ><%=corrattribute1%> </td> 
-                                                                    <%}
-                                                                        if (corrattribute2 != "-1" && !"-1".equalsIgnoreCase(corrattribute2) && i == 0) {%>
-                                                                    <td ><%=corrattribute2%> </td> 
-                                                                    <%
-                                                                        }
-                                                                    %> --%>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <%                                                                            if (docRepositoryBean.getFile_type() != null && !"".equals(docRepositoryBean.getFile_type())) {
-                                                                                    out.println(docRepositoryBean.getFile_type());
+                                                                <%--<td><%=corrattribute%> </td> 
+                                                                <%}
+                                                                    if (corrattribute1 != "-1" && !"-1".equalsIgnoreCase(corrattribute1) && i == 0) {%>
+                                                                <td ><%=corrattribute1%> </td> 
+                                                                <%}
+                                                                    if (corrattribute2 != "-1" && !"-1".equalsIgnoreCase(corrattribute2) && i == 0) {%>
+                                                                <td ><%=corrattribute2%> </td> 
+                                                                <%
+                                                                    }
+                                                                %> --%>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <%
+                                                                              if (docRepositoryBean.getFile_type() != null && !"".equals(docRepositoryBean.getFile_type())) {
+                                                                                out.println(docRepositoryBean.getFile_type());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
+                                                                            //out.println(docRepositoryBean.getFile_type());
+                                                                        %>
+                                                                    </td>
+                                                                    <td><a href="javascript:getDetails('<%=docRepositoryBean.getFile_id()%>','<%=docRepositoryBean.getPoNumber()%>','<%=docRepositoryBean.getId()%>');">
+                                                                            <%
+                                                                             if (docRepositoryBean.getFile_id() != null && !"".equals(docRepositoryBean.getFile_id())) {
+                                                                                    out.println(docRepositoryBean.getFile_id());
                                                                                 } else {
                                                                                     out.println("-");
                                                                                 }
-                                                                                //out.println(docRepositoryBean.getFile_type());
+                                                                               // out.println(docRepositoryBean.getFile_id());
                                                                             %>
-                                                                        </td>
-                                                                        <td><a href="javascript:getDetails('<%=docRepositoryBean.getFile_id()%>','<%=docRepositoryBean.getPoNumber()%>','<%=docRepositoryBean.getId()%>');">
-                                                                                <%
-                                                                                    if (docRepositoryBean.getFile_id() != null && !"".equals(docRepositoryBean.getFile_id())) {
-                                                                                        out.println(docRepositoryBean.getFile_id());
-                                                                                    } else {
-                                                                                        out.println("-");
-                                                                                    }
-                                                                                   // out.println(docRepositoryBean.getFile_id());
-                                                                                %>
-                                                                            </a>
-                                                                        </td>
-                                                                        <td>
-                                                                            <%
+                                                                        </a>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%
                                                                                 if (docRepositoryBean.getPname() != null && !"".equals(docRepositoryBean.getPname())) {
-                                                                                    out.println(docRepositoryBean.getPname());
-                                                                                } else {
-                                                                                    out.println("-");
-                                                                                }
-                                                                            %>
-                                                                        </td>
-                                                                        <td>
-                                                                            <%
+                                                                                out.println(docRepositoryBean.getPname());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
+                                                                        %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%
                                                                                 if (docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")) != null
-                                                                                        && !"".equals(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")))) {
-                                                                                    out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
-                                                                                } else {
-                                                                                    out.println("-");
-                                                                                }
-
-                                                                                //out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
-                                                                            %>
-                                                                        </td>  
-                                                                        <td>
-                                                                            <%                                                                            //out.println(docRepositoryBean.getTransaction_type());
-                                                                                if (docRepositoryBean.getTransaction_type() != null && !"".equals(docRepositoryBean.getTransaction_type())) {
-                                                                                    out.println(docRepositoryBean.getTransaction_type());
-                                                                                } else {
-                                                                                    out.println("-");
-                                                                                }
-                                                                            %>
-                                                                        </td>
-                                                                        <td>
-                                                                            <%
-                                                                                if (docRepositoryBean.getDirection() != null && !"".equals(docRepositoryBean.getDirection())) {
-                                                                                    out.println(docRepositoryBean.getDirection().toUpperCase());
-                                                                                } else {
-                                                                                    out.println("-");
-                                                                                }
-                                                                            %>
-                                                                        </td>  
-                                                                        <td>
-                                                                            <%
-                                                                                if (docRepositoryBean.getStatus().equalsIgnoreCase("ERROR")) {
-                                                                                    out.println("<font color='red'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
-                                                                                } else if (docRepositoryBean.getStatus().equalsIgnoreCase("SUCCESS")) {
-                                                                                    out.println("<font color='green'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
-                                                                                } else {
-                                                                                    out.println("<font color='orange'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
-                                                                                }
-                                                                            %>
-                                                                        </td>
-                                                                        <td>
-                                                                            <%
-                                                                                if (docRepositoryBean.getReProcessStatus() != null && !"".equals(docRepositoryBean.getReProcessStatus())) {
-                                                                                    out.println(docRepositoryBean.getReProcessStatus());
-                                                                                } else {
-                                                                                    out.println("-");
-                                                                                }
-                                                                            %>
-                                                                        </td>
-                                                                        <td>
-                                                                            <%
-                                                                                if (docRepositoryBean.getAckStatus() != null && !"".equals(docRepositoryBean.getAckStatus())) {
-                                                                                    out.println(docRepositoryBean.getAckStatus());
-                                                                                } else {
-                                                                                    out.println("-");
-                                                                                }
-                                                                                //out.println(docRepositoryBean.getAckStatus());
-                                                                            %>
-                                                                        </td>
-                                                                        <%--<%if (docRepositoryBean.getCorrvalue() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue())) {%>
-                                                                        <td ><%=docRepositoryBean.getCorrvalue()%> </td> 
-                                                                        <%}
-                                                                            if (docRepositoryBean.getCorrvalue1() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue1())) {%>
-                                                                        <td ><%=docRepositoryBean.getCorrvalue1()%> </td> 
-                                                                        <%}
-                                                                            if (docRepositoryBean.getCorrvalue2() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue2())) {%>
-                                                                        <td ><%=docRepositoryBean.getCorrvalue2()%> </td> 
-                                                                        <%}
-                                                                        %> --%>
-                                                                    </tr>
-                                                                    <%
-                                                                        }
-                                                                    } else {
-                                                                    %>
-                                                                    <tr><td>
-                                                                            <%
-                                                                                    out.println("<img  border='0' align='top'  src='" + contextPath + "/includes/images/alert.gif'/><b>No records found for the given search criteria. Please try a different search criteria!</b>");
-                                                                                }
-                                                                            %>
-                                                                        </td>
-                                                                    </tr>
+                                                                                    && !"".equals(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                                out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
+                                                                                
+                                                                            //out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                        %>
+                                                                    </td>  
+                                                                    <td>
+                                                                        <%
+                                                                            //out.println(docRepositoryBean.getTransaction_type());
+                                                                            if (docRepositoryBean.getTransaction_type() != null && !"".equals(docRepositoryBean.getTransaction_type())) {
+                                                                                out.println(docRepositoryBean.getTransaction_type());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
+                                                                        %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%
+                                                                            if (docRepositoryBean.getDirection() != null && !"".equals(docRepositoryBean.getDirection())) {
+                                                                                out.println(docRepositoryBean.getDirection().toUpperCase());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
+                                                                        %>
+                                                                    </td>  
+                                                                    <td>
+                                                                        <%
+                                                                            if (docRepositoryBean.getStatus().equalsIgnoreCase("ERROR")) {
+                                                                                out.println("<font color='red'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
+                                                                            } else if (docRepositoryBean.getStatus().equalsIgnoreCase("SUCCESS")) {
+                                                                                out.println("<font color='green'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
+                                                                            } else {
+                                                                                out.println("<font color='orange'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
+                                                                            }
+                                                                        %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%
+                                                                             if (docRepositoryBean.getReProcessStatus() != null && !"".equals(docRepositoryBean.getReProcessStatus())) {
+                                                                                out.println(docRepositoryBean.getReProcessStatus());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
+                                                                        %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%
+                                                                              if (docRepositoryBean.getAckStatus() != null && !"".equals(docRepositoryBean.getAckStatus())) {
+                                                                                out.println(docRepositoryBean.getAckStatus());
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
+                                                                            //out.println(docRepositoryBean.getAckStatus());
+                                                                        %>
+                                                                    </td>
+                                                                    <%--<%if (docRepositoryBean.getCorrvalue() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue())) {%>
+                                                                    <td ><%=docRepositoryBean.getCorrvalue()%> </td> 
+                                                                    <%}
+                                                                        if (docRepositoryBean.getCorrvalue1() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue1())) {%>
+                                                                    <td ><%=docRepositoryBean.getCorrvalue1()%> </td> 
+                                                                    <%}
+                                                                        if (docRepositoryBean.getCorrvalue2() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue2())) {%>
+                                                                    <td ><%=docRepositoryBean.getCorrvalue2()%> </td> 
+                                                                    <%}
+                                                                    %> --%>
+                                                                </tr>
+                                                                <%
+                                                                    }
+                                                                } else {
+                                                                %>
+                                                                <tr><td>
+                                                                        <%
+                                                                                out.println("<img  border='0' align='top'  src='" + contextPath + "/includes/images/alert.gif'/><b>No records found for the given search criteria. Please try a different search criteria!</b>");
+                                                                            }
+                                                                        %>
+                                                                    </td>
+                                                                </tr>
                                                             </table>
                                                     </td>
                                                 </tr>
@@ -393,29 +395,26 @@
                         <div class="row col-sm-12">
 
                             <br>
-                            <div class="col-sm-6"> <label class="labelw"> File ID : </label>
+                            <div class="col-sm-6"> <label class="labelw"> File ID</label>
                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="ManFileId" name="ManFileId"  readonly="true"/>
                             </div>
-                            <div class="col-sm-6"> <label class="labelw">  Purchase Order : </label>
+                            <div class="col-sm-6"> <label class="labelw">  Purchase Order</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManPurchaseOrder" name="ManPurchaseOrder" readonly="true"/>
                             </div>
                         </div>
                         <div class="row col-sm-12" id="prikeytypeandvalue" style="display:none"> 
                             <div class="col-sm-6"><label class="labelw">PRI_KEY_TYPE</label>
                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="Manpri_key_type" name="Manpri_key_type" readonly="true"/>
-
                             </div>
                             <div class="col-sm-6"> <label class="labelw">PRI_KEY_VAL</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="Manpri_key_value" name="Manpri_key_value" readonly="true"/>
-
-
                             </div>
                         </div>
                         <div class="row col-sm-12">
                             <div class="col-sm-6"> <label class="labelw">  Document Type</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManDocumentType" name="ManDocumentType" readonly="true"/>
                             </div>
-                            <div class="col-sm-6"> <label class="labelw"> Transaction Type:</label>
+                            <div class="col-sm-6"> <label class="labelw"> Transaction Type</label>
                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="ManTransactionType" name="ManTransactionType" readonly="true"/>
                             </div>
                         </div>
@@ -429,10 +428,10 @@
                             </div>
                             <br>
                             <div class="row col-sm-12">
-                                <div class="col-sm-6"> <label class="labelw">  Sender Id:</label>
+                                <div class="col-sm-6"> <label class="labelw">  Sender Id</label>
                                     <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManSenderId" name="ManSenderId" readonly="true"/>
                                 </div>
-                                <div class="col-sm-6"><label class="labelw">  Sender Name: </label>
+                                <div class="col-sm-6"><label class="labelw">  Sender Name</label>
                                     <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManSenderName" name="ManSenderName" readonly="true"/>
                                 </div>
                             </div>
@@ -447,33 +446,34 @@
 
                             <br>
                             <div class="row col-sm-12 clear">
-                                <div class="col-sm-6"><label class="labelw">  Receiver Id: </label>
+                                <div class="col-sm-6"><label class="labelw">  Receiver Id</label>
                                     <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManReceiverId" name="ManReceiverId" readonly="true"/>
                                 </div>
-                                <div class="col-sm-6"><label class="labelw">  Receiver Name: </label>
+                                <div class="col-sm-6"><label class="labelw">  Receiver Name</label>
                                     <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManReceiverName" name="ManReceiverName" readonly="true"/>
                                 </div>
                             </div>
                         </div>
                         <div class="row col-sm-12 clear">
-                            <br>
-                            <div class="col-sm-6"> <label class="labelw">   ISA:</label>
+                            <div class="col-sm-6"> <label class="labelw">   ISA</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManISA" name="ManISA" readonly="true"/>
                             </div>
-                            <div class="col-sm-6"><label class="labelw">  GS:</label>
+                            <div class="col-sm-6"><label class="labelw">  GS</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManGs" name="ManGs" readonly="true"/>
                             </div>
                         </div>
 
-                        <div class="row col-sm-12"  >
-                            <div class="col-sm-6"> <label class="labelw"> ST:</label>
+                        <br/>
+
+                        <div class="row col-sm-12" style="margin-top:10px;" >
+                            <div class="col-sm-6"> <label class="labelw"> ST</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManSt" name="ManSt" readonly="true"/>
                             </div>
-                            <div class="col-sm-6"> <label class="labelw"> ISA Date:</label>
+                            <div class="col-sm-6"> <label class="labelw"> ISA Date</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManIsADate" name="ManIsADate" readonly="true"/>
                             </div>
 
-                            <div class="col-sm-6"> <label class="labelw"> ISA Time:</label>
+                            <div class="col-sm-6"> <label class="labelw"> ISA Time</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManIsATime" name="ManIsATime" readonly="true"/>
                             </div>
                             <div class="col-sm-6"> <label class="labelw">  STATUS </label>
@@ -481,12 +481,12 @@
                             </div>
                         </div>
 
-                        <div class="row col-sm-12" style="margin-top:10px;">
-                            <div class="col-sm-6"> <label class="labelw"> Pre Translation:</label></div>
+                        <div class="row col-sm-12" >
+                            <div class="col-sm-6"> <label class="labelw"> Pre Translation</label></div>
                             <div class="col-sm-6"><div id="ManPreTranslation"></div>
                             </div></div>
                         <div class="row col-sm-12" >
-                            <div class="col-sm-6"><label class="labelw"> Post Translation:</label></div>
+                            <div class="col-sm-6"><label class="labelw"> Post Translation</label></div>
                             <div class="col-sm-6"> <div id="ManPostTranslation"></div></div>
                         </div>
                         <div class="row col-sm-12" >
@@ -499,7 +499,7 @@
                             <div class="col-sm-6"> <label class="labelw">  Error&nbsp;Message </label></div>
                             <div class="col-sm-6" id="InvErrormessage" style="color: red"></div>
                         </div>
-                        <%--<div class="row col-sm-12 clear" style="display: none;margin-top:10px;">
+                        <div class="row col-sm-12 clear" style="visibility: hidden">
                             <div class="col-sm-6"> <label class="labelw"> SAP_USER </label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="SAP_USER" name="ManStatus" readonly="true"/>
                             </div>
@@ -518,29 +518,29 @@
                             <div class="col-sm-6"> <label class="labelw">  IDOC_STATUS_DESCRIPTION </label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_DESCRIPTION" name="ManStatus" readonly="true"/>
                             </div>
-                        </div> --%>
+                        </div>
                         <div class="row col-sm-12" id="ManNullValues" style="display: none">
                             <div class="col-sm-6"> <label class="labelw"> display null values;</label></div></div>
                         <div id="noresult"></div>
-                        <div class="row col-sm-12" style="margin-top:10px;">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
+                        <div class="row col-sm-12">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
                     </div>
 
 
                 </s:if> 
             </div>
-        </div>
-        <script type="text/javascript">
-            $(function() {
-                $('#results').DataTable({
-                    "paging": true,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false
+            <script>
+                $(function() {
+                    $('#results').DataTable({
+                        "paging": true,
+                        "lengthChange": true,
+                        "searching": true,
+                        "ordering": true,
+                        "info": true,
+                        "autoWidth": false
+                    });
                 });
-            });
-        </script> 
+            </script>
+        </div>
         <div>
             <s:include value="../includes/template/footer.jsp"/>
         </div>
@@ -560,33 +560,26 @@
         <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
 
-        <script type="text/javascript">
-            function doOnLoad()
-            {
-            $("#docrepository").addClass("active");
+        <script>
+                function doOnLoad()
+                {
+                    $("#docrepository").addClass("active");
                     $("#manufacturing").addClass("active");
                     $("#docrepository i").addClass("text-red");
                     document.getElementById('loadingAcoountSearch').style.display = "none";
-            }
+                }
 
-            << << << < HEAD
-                    function getDetails(val, ponum, id) {
+                function getDetails(val, ponum, id) {
                     var db = document.forms["documentForm"]["database"].value;
-                            getDocDetails(val, ponum, id, db);
-                    }
-            function checkCorrelation() {
-            //alert("checkCorrelation");
-            var db = document.forms["documentForm"]["database"].value;
-                    if (db == '') {
-            alert("please select Database!!!");
-                    return false;
-                    === === =
-                    function getDetails(val, ponum, id) {
+                    getDocDetails(val, ponum, id,db);
+                }
+                function checkCorrelation() {
+                    //alert("checkCorrelation");
                     var db = document.forms["documentForm"]["database"].value;
-                            getDocDetails(val, ponum, id, db);
-                            >>> >>> > origin / master
+                    if(db == ''){
+                        alert("please select Database!!!");
+                        return false;
                     }
-            << << << < HEAD
                     var corrattr = document.getElementById('corrattribute').value;
                     var corrval = document.getElementById('corrvalue').value;
                     var corrattr1 = document.getElementById('corrattribute1').value;
@@ -594,83 +587,38 @@
                     var corrattr2 = document.getElementById('corrattribute2').value;
                     var corrval2 = document.getElementById('corrvalue2').value;
                     if ((corrattr != "-1") && (corrval == "")) {
-            // document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
-            alert("please enter Correlation Value!!!");
-                    return false;
-                    === === =
-                    function checkCorrelation() {
-                    //alert("checkCorrelation");
-                    var db = document.forms["documentForm"]["database"].value;
-                            if (db == '') {
-                    alert("please select Database!!!");
-                            return false;
-                    }
-                    var corrattr = document.getElementById('corrattribute').value;
-                            var corrval = document.getElementById('corrvalue').value;
-                            var corrattr1 = document.getElementById('corrattribute1').value;
-                            var corrval1 = document.getElementById('corrvalue1').value;
-                            var corrattr2 = document.getElementById('corrattribute2').value;
-                            var corrval2 = document.getElementById('corrvalue2').value;
-                            if ((corrattr != "-1") && (corrval == "")) {
-                    // document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
-                    alert("please enter Correlation Value!!!");
-                            return false;
+                        // document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
+                        alert("please enter Correlation Value!!!");
+                        return false;
                     }
                     if ((corrattr == "-1") && (corrval != "")) {
-                    // document.getElementById('resMsg').innerHTML = "please select Correlation!";
-                    alert("please select Correlation!");
-                            return false;
+                        // document.getElementById('resMsg').innerHTML = "please select Correlation!";
+                        alert("please select Correlation!");
+                        return false;
                     }
                     if ((corrattr1 != "-1") && (corrval1 == "")) {
-                    //document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
-                    alert("please enter Correlation Value!!!");
-                            return false;
+                        //document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
+                        alert("please enter Correlation Value!!!");
+                        return false;
                     }
                     if ((corrattr1 == "-1") && (corrval1 != "")) {
-                    //document.getElementById('resMsg').innerHTML = "please select Correlation!";
-                    alert("please select Correlation!");
-                            return false;
+                        //document.getElementById('resMsg').innerHTML = "please select Correlation!";
+                        alert("please select Correlation!");
+                        return false;
                     }
                     if ((corrattr2 != "-1") && (corrval2 == "")) {
-                    //document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
-                    alert("please enter Correlation Value!!!");
-                            return false;
+                        //document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
+                        alert("please enter Correlation Value!!!");
+                        return false;
                     }
                     if ((corrattr2 == "-1") && (corrval2 != "")) {
-                    //document.getElementById('resMsg').innerHTML = "please select Correlation!";
-                    alert("please select Correlation!");
-                            return false;
+                        //document.getElementById('resMsg').innerHTML = "please select Correlation!";
+                        alert("please select Correlation!");
+                        return false;
                     }
-                    >>> >>> > origin / master
-                    }
-            if ((corrattr == "-1") && (corrval != "")) {
-            // document.getElementById('resMsg').innerHTML = "please select Correlation!";
-            alert("please select Correlation!");
-                    return false;
-            }
-            if ((corrattr1 != "-1") && (corrval1 == "")) {
-            //document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
-            alert("please enter Correlation Value!!!");
-                    return false;
-            }
-            if ((corrattr1 == "-1") && (corrval1 != "")) {
-            //document.getElementById('resMsg').innerHTML = "please select Correlation!";
-            alert("please select Correlation!");
-                    return false;
-            }
-            if ((corrattr2 != "-1") && (corrval2 == "")) {
-            //document.getElementById('resMsg').innerHTML = "please enter Correlation Value!";
-            alert("please enter Correlation Value!!!");
-                    return false;
-            }
-            if ((corrattr2 == "-1") && (corrval2 != "")) {
-            //document.getElementById('resMsg').innerHTML = "please select Correlation!";
-            alert("please select Correlation!");
-                    return false;
-            }
-            }
-            function resetvaluesManufacteringDocRep() {
-            document.getElementById('docdatepickerfrom').value = "";
+                }
+                function resetvaluesManufacteringDocRep() {
+                    document.getElementById('docdatepickerfrom').value = "";
                     document.getElementById('docdatepicker').value = "";
                     document.getElementById('docSenderId').value = "-1";
                     document.getElementById('docSenderName').value = "-1";
@@ -687,84 +635,51 @@
                     document.getElementById('status').value = "-1";
                     document.getElementById('reportrange').value = "";
                     $('#gridDiv').hide();
-            }
+                }
 
-            function hide()
-            {
+                function hide()
+                {
 
-            $('#hide-menu1').removeClass('show-menu');
-            }
+                    $('#hide-menu1').removeClass('show-menu');
+                }
 //                $('body,html').click(function (e) {
 //                    $('#hide-menu1').removeClass('show-menu');
 //                });
 
 
-            << << << < HEAD
-                    function check()
-                    {
+                function check()
+                {
                     var value1 = document.getElementById("corrattribute1").value;
-                            if (value1 != "-1")
-                            document.getElementById("corr").style.display = "block";
-                            else
-                            document.getElementById("corr").style.display = "none";
-                            var value2 = document.getElementById("corrattribute2").value;
-                            if (value2 != "-1")
-                            document.getElementById("corr1").style.display = "block";
-                            else
-                            document.getElementById("corr1").style.display = "none";
-                    }
-            function Date1()
-            {
-            var date = document.documentForm.reportrange.value;
+                    if (value1 != "-1")
+                        document.getElementById("corr").style.display = "block";
+                    else
+                        document.getElementById("corr").style.display = "none";
+                    var value2 = document.getElementById("corrattribute2").value;
+                    if (value2 != "-1")
+                        document.getElementById("corr1").style.display = "block";
+                    else
+                        document.getElementById("corr1").style.display = "none";
+                }
+                function Date1()
+                {
+                    var date = document.documentForm.reportrange.value;
                     var arr = date.split("-");
                     var x = arr[1].trim();
                     document.getElementById("docdatepickerfrom").value = arr[0];
                     document.getElementById("docdatepicker").value = x;
-            }
-            var count = 0;
-                    $("#addButton").click(function() {
-            count++;
+                }
+                var count = 0;
+                $("#addButton").click(function() {
+                    count++;
                     if (count == 1)
-                    document.getElementById("corr").style.display = "block";
+                        document.getElementById("corr").style.display = "block";
                     else if (count == 2)
-                    document.getElementById("corr1").style.display = "block";
+                        document.getElementById("corr1").style.display = "block";
                     else
-                    alert('Limit exceded.... cant add more fields');
-            })
-                    === === =
-                    function check()
-                    {
-                    var value1 = document.getElementById("corrattribute1").value;
-                            if (value1 != "-1")
-                            document.getElementById("corr").style.display = "block";
-                            else
-                            document.getElementById("corr").style.display = "none";
-                            var value2 = document.getElementById("corrattribute2").value;
-                            if (value2 != "-1")
-                            document.getElementById("corr1").style.display = "block";
-                            else
-                            document.getElementById("corr1").style.display = "none";
-                    }
-            function Date1()
-            {
-            var date = document.documentForm.reportrange.value;
-                    var arr = date.split("-");
-                    var x = arr[1].trim();
-                    document.getElementById("docdatepickerfrom").value = arr[0];
-                    document.getElementById("docdatepicker").value = x;
-            }
-            var count = 0;
-                    $("#addButton").click(function () {
-            count++;
-                    if (count == 1)
-                    document.getElementById("corr").style.display = "block";
-                    else if (count == 2)
-                    document.getElementById("corr1").style.display = "block";
-                    else
-                    alert('Limit exceded.... cant add more fields');
-            })
-                    >>> >>> > origin / master
+                        alert('Limit exceded.... cant add more fields');
+                })
         </script>
     </body>
 </html>
 
+ 

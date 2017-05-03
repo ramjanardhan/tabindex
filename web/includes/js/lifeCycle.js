@@ -8,7 +8,7 @@
 //for life cycle
  function getLifeCycle(checkList,flow,db) {
 //     var db = document.getElementById('database').value;
-    alert(db);
+   // alert(db);
      if(flow=="manufacturing"){
                 var res = false;
                 var i = 0;

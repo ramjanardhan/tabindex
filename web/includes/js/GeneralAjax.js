@@ -3143,7 +3143,7 @@ function result(responseText) {
 
 
 
-
+/*
 function checkListName() {
     document.getElementById("loadingAcoountSearch").style.display = "block";
     var newCodeListName=document.getElementById("newname").value ;
@@ -3165,7 +3165,7 @@ function result1(responseText){
         alert("Code List name already exists. Please try with different one");
     }
 }
-
+*/
 // function to check whether deleted row from codelist grid exists in array or not
 function checkArray(i)
 {

@@ -86,7 +86,7 @@
                         }
 
                         $('#results').append(
-                                '<tr id="' + count + '"><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple" onclick="selectAllCheck();"/></td>' +
+                                '<tr id="' + count + '"><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple" onclick="selectAllUncheck();selectAllCheck();"/></td>' +
                                 '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/><input type="hidden" value="" id="senderId' + count + '" name="senderId' + count + '"/><input type="hidden" value="" id="listName' + count + '" name="listName' + count + '"/></td>' +
                                 '<td><input type="text" id="recItem' + count + '" name="recItem' + count + '" onchange="checkItems(' + count + ')"/></td>' +
                                 '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
@@ -124,7 +124,7 @@
                             }
                         }
                         $('#results').append(
-                                '<tr id="' + count + '"><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple" onclick="selectAllCheck();"/><input type="hidden" value="" id="listName' + count + '" name="listName' + count + '"/></td>' +
+                                '<tr id="' + count + '"><td><input type="checkbox" name="check' + count + '" id="check' + count + '" theme="simple" onclick="selectAllUncheck();selectAllCheck();"/><input type="hidden" value="" id="listName' + count + '" name="listName' + count + '"/></td>' +
                                 '<td><input type="text" id="senderItem' + count + '" name="senderItem' + count + '"/></td>' +
                                 '<td><input type="text" id="recItem' + count + '" name="recItem' + count + '" onchange="checkItems(' + count + ')"/></td>' +
                                 '<td><input type="text" id="desc' + count + '" name="desc' + count + '"/></td>' +
@@ -164,10 +164,10 @@
                     margin: 0 -13px !important;
                 }
             }
-/*            .content-wrapper
-            {
-                min-height: 800px !important;
-            }*/
+            /*            .content-wrapper
+                        {
+                            min-height: 800px !important;
+                        }*/
             div.dataTables_wrapper {
                 width: 1000px;
                 margin: 0 auto;
@@ -227,9 +227,9 @@
                     %>
                 </div> 
             </center>
-                <section class="content">
-            <s:form action="../utilities/getCodeListName.action" method="post" cssClass="contact-form" name="certForm" id="certForm" theme="simple">
-                
+            <section class="content">
+                <s:form action="../utilities/getCodeListName.action" method="post" cssClass="contact-form" name="certForm" id="certForm" theme="simple">
+
                     <div class="box box-primary">
                         <div class="box-body">
 
@@ -257,7 +257,7 @@
 
 
                 </s:form>
-                </section>
+            </section>
             <br>
             <br>
 
@@ -330,7 +330,8 @@
                                                                                         codeListBean = (CodeListBean) codeList.get(j);
 
 
-                                                                            %><tr> <td><input type="checkbox" id="check<%=j + 1%>" name="check<%=j + 1%>" onclick="selectAllCheck();"/></td>
+                                                                            %><tr> <td><input type="checkbox" id="check<%=j + 1%>" name="check<%=j + 1%>" onclick="selectAllUncheck();selectAllCheck();
+                                                                                    selectAllRecords();"/></td>
                                                                         <input type="hidden" value="<%=codeListBean.getListName()%>" id="listName<%=j + 1%>" name="listName<%=j + 1%>"/>
                                                                         <input type="hidden" value="<%=codeListBean.getSender_id()%>" id="senderId<%=j + 1%>" name="senderId<%=j + 1%>"/>
                                                                         <input type="hidden" value="<%=codeListBean.getReceiver_id()%>" id="recId<%=j + 1%>" name="recId<%=j + 1%>"/>
@@ -372,7 +373,7 @@
                                         <center><div id="messagediv"></div> </center>
                                         <div class="col-sm-12"> 
                                             <label>New Code List Name</label>
-                                            <s:textfield name="newname" id="newname" cssClass="form-control" value="%{newname}" tabindex="8" onchange="checkListName();"/> 
+                                            <s:textfield name="newname" id="newname" cssClass="form-control" value="%{newname}" tabindex="8"/> 
                                         </div>
                                         <div class="c1 col-sm-12">
 
@@ -455,7 +456,7 @@
 
 
 
-
+                                                // selecting all records
                                                 function selectAllRecords() {
                                                     var rowCount = $('#results tr').length;
                                                     if (document.getElementById("checkboxAll").checked)
@@ -581,16 +582,49 @@
                                                         //  window.location = "../utilities/codeVersionUpdate.action?listName=" + listName;
                                                     }
                                                 }
-                                                function selectAllCheck() {
+                                                // 
+                                                function selectAllUncheck() {
                                                     var rowCount = $('#results tr').length;
-                                                    for (var i = 1; i < rowCount; i++) {
+                                                    for (var i = 1; i < (rowCount + deletedRows.length); i++) {
                                                         //alert('hiii');
-                                                        if (document.getElementById('check' + i).checked == false) {
-                                                            document.getElementById("checkboxAll").checked = false;
+                                                        var flag1 = checkArray(i);
+                                                        if (flag1 == true)
+                                                        {
+                                                            continue;
+                                                        }
+                                                        else if (flag1 == false) {
+                                                            if (document.getElementById('check' + i).checked == false) {
+                                                                document.getElementById("checkboxAll").checked = false;
+                                                            }
                                                         }
                                                     }
 
                                                 }
+                                               
+                                                function selectAllCheck() {
+                                                     var checkdCount1=0;
+                                                    var rowCount = $('#results tr').length;
+                                                    //alert("rowCount - "+rowCount+" deletedRows.length - "+deletedRows.length);
+                                                    for (var i = 1; i < (rowCount + deletedRows.length); i++) {
+                                                        
+                                                        var flag1 = checkArray(i);
+                                                        if (flag1 == true)
+                                                        {
+                                                            continue;
+                                                        }
+                                                        else if (flag1 == false) {
+                                                            if (document.getElementById('check' + i).checked == true) {
+                                                            checkdCount1++;
+                                                        }
+                                                            if (checkdCount1 == (rowCount + deletedRows.length)-1) {
+                                                                    document.getElementById("checkboxAll").checked = true;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+
+                                                
+
                                                 function checkArray(i)
                                                 {
                                                     var count = deletedRows.length;
@@ -677,17 +711,22 @@
                                                             alert("please select rows to insert");
                                                             return false;
                                                         }
-
-                                                        document.getElementById('loadingAcoountSearch').style.display = "block";
-                                                        jQuery.ajax({
-                                                            url: "../ajax/codeListAdd.action",
-                                                            type: "POST",
-                                                            data: {json: array},
-                                                            success: function (result) {
-                                                                alert(result);
-                                                                document.getElementById('loadingAcoountSearch').style.display = "none";
-                                                            }
-                                                        });
+                                                        var isExists = "";
+                                                        isExists = checkListName();
+                                                        if (isExists != "Failure" && isExists != "") {
+                                                            document.getElementById('loadingAcoountSearch').style.display = "block";
+                                                            jQuery.ajax({
+                                                                url: "../ajax/codeListAdd.action",
+                                                                type: "POST",
+                                                                data: {json: array},
+                                                                success: function (result) {
+                                                                    alert(result);
+                                                                    document.getElementById('loadingAcoountSearch').style.display = "none";
+                                                                }
+                                                            });
+                                                        } else {
+                                                            alert("Please try later");
+                                                        }
                                                         //  window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
                                                     }
 
@@ -797,6 +836,30 @@
                                                     //location.reload();
                                                     // window.location = "../utilities/codeListDelete.action?json=" + encodeURIComponent(array) + "&listName=" + document.getElementById('listName').value + "&selectedName=" + document.getElementById('selectedName').value;
                                                     //window.location = "..utilities/codeListSearch.action?listName=" + document.getElementById('listName').value + "&selectedName=" +document.getElementById('selectedName').value;
+                                                }
+                                                function checkListName() {
+                                                    var res = "";
+                                                    document.getElementById("loadingAcoountSearch").style.display = "block";
+                                                    var newCodeListName = document.getElementById("newname").value;
+                                                    jQuery.ajax({
+                                                        url: "../ajax/checkCodeListName.action",
+                                                        type: "POST",
+                                                        data: {newListName: newCodeListName},
+                                                        success: function (result) {
+                                                            if (result == "Failure")
+                                                            {
+                                                                res = result;
+                                                                document.getElementById("newname").value = "";
+                                                                alert("Code List name already exists. Please try with different one");
+                                                                document.getElementById('loadingAcoountSearch').style.display = "none";
+                                                                return false;
+                                                            } else {
+                                                                res = result;
+                                                            }
+                                                            document.getElementById('loadingAcoountSearch').style.display = "none";
+                                                        }
+                                                    });
+                                                    return res;
                                                 }
 
 

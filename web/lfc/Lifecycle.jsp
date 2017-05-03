@@ -85,7 +85,7 @@
 
 
     </head>
-    <body class="hold-transition skin-blue sidebar-mini"  onload="doOnLoad()" onclick="hide()">
+    <body class="hold-transition skin-blue sidebar-mini"  onload="doOnLoad()">
         <div>
             <s:include value="../includes/template/header.jsp"/>
         </div>
@@ -702,40 +702,40 @@
                     <div class="row col-sm-12">
 
 
-                        <div class="col-sm-6"> <label class="labelw">Instance Id </label>
+                        <div class="col-sm-6"> <label class="labelw">Instance Id</label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcInstanceId" name="LfcInstanceId" readonly="true"/>
                         </div>
 
 
-                        <div class="col-sm-6"> <label class="labelw">PO # :</label>
+                        <div class="col-sm-6"> <label class="labelw">PO #</label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPONum" name="LfcPONum" readonly="true"/>
                         </div>
                     </div>
                     <div class="row col-sm-12"> 
-                        <div class="col-sm-6"> <label class="labelw">PO Date :</label>
+                        <div class="col-sm-6"> <label class="labelw">PO Date</label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPODates" name="LfcPODates" readonly="true"/>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw">PO Status :</label>
+                        <div class="col-sm-6"> <label class="labelw">PO Status</label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcStatus1" name="LfcStatus1" readonly="true"/>
                         </div>
                     </div>
                     <div class="row col-sm-12">
-                        <div class="col-sm-6"> <label class="labelw">SO # :</label>
+                        <div class="col-sm-6"> <label class="labelw">SO # </label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcSo" name="LfcSo" readonly="true"/>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw">PO Qty :</label>
+                        <div class="col-sm-6"> <label class="labelw">PO Qty </label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOQty" name="POShipDate" readonly="true"/>
                         </div>
                     </div>
                     <div class="row col-sm-12">
-                        <div class="col-sm-6"> <label class="labelw">Transaction Type :</label>
+                        <div class="col-sm-6"> <label class="labelw">Transaction Type </label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcTransactionType" name="LfcTransactionType" readonly="true"/>
                         </div>
                     </div>
                     <br>
                     <div id="senderinfo">
                         <div class="row col-sm-12">
-                            <div class="col-sm-6"> <h5>Partner Info :</h5></div>
+                            <div class="col-sm-6"> <h4>Sender Info :</h4></div>
                             <div class="col-sm-6"></div>
                             <div class="col-sm-6"></div>
 
@@ -753,7 +753,7 @@
                     <br>
                     <div id="receiverinfo">
                         <div class="row col-sm-12">
-                            <div class="col-sm-6"> <h5>Sender Info:</h5></div>
+                            <div class="col-sm-6"> <h4>Receiver Info:</h4></div>
                             <div class="col-sm-6"></div>
                             <div class="col-sm-6"></div>
                         </div>
@@ -769,10 +769,11 @@
                         </div>
                     </div>  
                     <div class="row col-sm-12 clear">
-                        <div class="col-sm-6"> <label class="labelw"> ISA # :</label>
+                        <br>
+                        <div class="col-sm-6"> <label class="labelw"> ISA # </label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOIsa" name="LfcPOIsa" readonly="true"/>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw"> ISA Date : </label>
+                        <div class="col-sm-6"> <label class="labelw"> ISA Date </label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOISADate" name="LfcPOISADate" readonly="true"/>
                         </div>
                     </div>
@@ -780,10 +781,10 @@
 
                     <div class="row col-sm-12" >
 
-                        <div class="col-sm-6"> <label class="labelw">  ISA TIME : </label>
+                        <div class="col-sm-6"> <label class="labelw">  ISA TIME </label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOIsATime" name="LfcPOIsATime" readonly="true"/>
                         </div>
-                        <div class="col-sm-6"> <label class="labelw"> STATUS :</label>
+                        <div class="col-sm-6"> <label class="labelw"> STATUS </label>
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="LfcPOStatus" name="LfcPOStatus" readonly="true"/>
                         </div>
                     </div>

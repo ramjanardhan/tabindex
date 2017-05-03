@@ -454,7 +454,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row col-sm-12 clear">
+                        <div class="row col-sm-12 clear" >
+                            <br>
                             <div class="col-sm-6"> <label class="labelw">   ISA</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManISA" name="ManISA" readonly="true"/>
                             </div>
@@ -465,7 +466,7 @@
 
                         <br/>
 
-                        <div class="row col-sm-12" style="margin-top:10px;" >
+                        <div class="row col-sm-12" >
                             <div class="col-sm-6"> <label class="labelw"> ST</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManSt" name="ManSt" readonly="true"/>
                             </div>
@@ -481,7 +482,7 @@
                             </div>
                         </div>
 
-                        <div class="row col-sm-12" >
+                        <div class="row col-sm-12" style="margin-top:10px;">
                             <div class="col-sm-6"> <label class="labelw"> Pre Translation</label></div>
                             <div class="col-sm-6"><div id="ManPreTranslation"></div>
                             </div></div>
@@ -499,7 +500,7 @@
                             <div class="col-sm-6"> <label class="labelw">  Error&nbsp;Message </label></div>
                             <div class="col-sm-6" id="InvErrormessage" style="color: red"></div>
                         </div>
-                        <div class="row col-sm-12 clear" style="visibility: hidden">
+                        <%--<div class="row col-sm-12 clear" style="visibility: hidden">
                             <div class="col-sm-6"> <label class="labelw"> SAP_USER </label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="SAP_USER" name="ManStatus" readonly="true"/>
                             </div>
@@ -518,11 +519,11 @@
                             <div class="col-sm-6"> <label class="labelw">  IDOC_STATUS_DESCRIPTION </label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_DESCRIPTION" name="ManStatus" readonly="true"/>
                             </div>
-                        </div>
+                        </div> --%>
                         <div class="row col-sm-12" id="ManNullValues" style="display: none">
                             <div class="col-sm-6"> <label class="labelw"> display null values;</label></div></div>
                         <div id="noresult"></div>
-                        <div class="row col-sm-12">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
+                        <div class="row col-sm-12" style="margin-top:10px;">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
                     </div>
 
 

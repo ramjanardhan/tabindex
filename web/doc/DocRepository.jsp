@@ -230,126 +230,129 @@
 
                                                                             //if (corrattribute != "-1" && !"-1".equalsIgnoreCase(corrattribute) && i == 0) {
                                                                     %>
-                                                                <%--<td><%=corrattribute%> </td> 
-                                                                <%}
-                                                                    if (corrattribute1 != "-1" && !"-1".equalsIgnoreCase(corrattribute1) && i == 0) {%>
-                                                                <td ><%=corrattribute1%> </td> 
-                                                                <%}
-                                                                    if (corrattribute2 != "-1" && !"-1".equalsIgnoreCase(corrattribute2) && i == 0) {%>
-                                                                <td ><%=corrattribute2%> </td> 
-                                                                <%
-                                                                    }
-                                                                %> --%>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <%
-                                                                            //System.out.println("docRepositoryBean.getDate_time_rec().toString() "+docRepositoryBean.getDate_time_rec());
-                                                                            if (docRepositoryBean.getFile_type() != null && !"".equals(docRepositoryBean.getFile_type())) {
-                                                                                out.println(docRepositoryBean.getFile_type());
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                        %>
-                                                                    </td>
-                                                                    <td><a href="javascript:getDetails('<%=docRepositoryBean.getFile_id()%>','<%=docRepositoryBean.getPoNumber()%>','<%=docRepositoryBean.getId()%>');">
+                                                                    <%--<td><%=corrattribute%> </td> 
+                                                                    <%}
+                                                                        if (corrattribute1 != "-1" && !"-1".equalsIgnoreCase(corrattribute1) && i == 0) {%>
+                                                                    <td ><%=corrattribute1%> </td> 
+                                                                    <%}
+                                                                        if (corrattribute2 != "-1" && !"-1".equalsIgnoreCase(corrattribute2) && i == 0) {%>
+                                                                    <td ><%=corrattribute2%> </td> 
+                                                                    <%
+                                                                        }
+                                                                    %> --%>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <%                                                                            if (docRepositoryBean.getFile_type() != null && !"".equals(docRepositoryBean.getFile_type())) {
+                                                                                    out.println(docRepositoryBean.getFile_type());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                                //out.println(docRepositoryBean.getFile_type());
+%>
+                                                                        </td>
+                                                                        <td><a href="javascript:getDetails('<%=docRepositoryBean.getFile_id()%>','<%=docRepositoryBean.getPoNumber()%>','<%=docRepositoryBean.getId()%>');">
+                                                                                <%
+                                                                                    if (docRepositoryBean.getFile_id() != null && !"".equals(docRepositoryBean.getFile_id())) {
+                                                                                        out.println(docRepositoryBean.getFile_id());
+                                                                                    } else {
+                                                                                        out.println("-");
+                                                                                    }
+                                                                                   // out.println(docRepositoryBean.getFile_id());
+                                                                                %>
+                                                                            </a>
+                                                                        </td>
+                                                                        <td>
                                                                             <%
-                                                                                if (docRepositoryBean.getFile_id() != null && !"".equals(docRepositoryBean.getFile_id())) {
-                                                                                    out.println(docRepositoryBean.getFile_id());
+                                                                                if (docRepositoryBean.getPname() != null && !"".equals(docRepositoryBean.getPname())) {
+                                                                                    out.println(docRepositoryBean.getPname());
                                                                                 } else {
                                                                                     out.println("-");
                                                                                 }
                                                                             %>
-                                                                        </a>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%
-                                                                            if (docRepositoryBean.getPname() != null && !"".equals(docRepositoryBean.getPname())) {
-                                                                                out.println(docRepositoryBean.getPname());
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                        %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%
-                                                                            if (docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")) != null
-                                                                                    && !"".equals(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")))) {
-                                                                                out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                        %>
-                                                                    </td>  
-                                                                    <td>
-                                                                        <%
-                                                                            if (docRepositoryBean.getTransaction_type() != null && !"".equals(docRepositoryBean.getTransaction_type())) {
-                                                                                out.println(docRepositoryBean.getTransaction_type());
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                        %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%
-                                                                            if (docRepositoryBean.getDirection() != null && !"".equals(docRepositoryBean.getDirection())) {
-                                                                                out.println(docRepositoryBean.getDirection().toUpperCase());
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                        %>
-                                                                    </td>  
-                                                                    <td>
-                                                                        <%
-                                                                            if (docRepositoryBean.getStatus().equalsIgnoreCase("ERROR")) {
-                                                                                out.println("<font color='red'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
-                                                                            } else if (docRepositoryBean.getStatus().equalsIgnoreCase("SUCCESS")) {
-                                                                                out.println("<font color='green'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
-                                                                            } else {
-                                                                                out.println("<font color='orange'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
-                                                                            }
-                                                                        %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%
-                                                                            if (docRepositoryBean.getReProcessStatus() != null && !"".equals(docRepositoryBean.getReProcessStatus())) {
-                                                                                out.println(docRepositoryBean.getReProcessStatus().toUpperCase());
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                        %>
-                                                                    </td>
-                                                                    <td>
-                                                                        <%
-                                                                            if (docRepositoryBean.getAckStatus() != null && !"".equals(docRepositoryBean.getAckStatus())) {
-                                                                                out.println(docRepositoryBean.getAckStatus());
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                        %>
-                                                                    </td>
-                                                                    <%--<%if (docRepositoryBean.getCorrvalue() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue())) {%>
-                                                                    <td ><%=docRepositoryBean.getCorrvalue()%> </td> 
-                                                                    <%}
-                                                                        if (docRepositoryBean.getCorrvalue1() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue1())) {%>
-                                                                    <td ><%=docRepositoryBean.getCorrvalue1()%> </td> 
-                                                                    <%}
-                                                                        if (docRepositoryBean.getCorrvalue2() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue2())) {%>
-                                                                    <td ><%=docRepositoryBean.getCorrvalue2()%> </td> 
-                                                                    <%}
-                                                                    %> --%>
-                                                                </tr>
-                                                                <%
-                                                                    }
-                                                                } else {
-                                                                %>
-                                                                <tr><td>
-                                                                        <%
-                                                                                out.println("<img  border='0' align='top'  src='" + contextPath + "/includes/images/alert.gif'/><b>No records found for the given search criteria. Please try a different search criteria!</b>");
-                                                                            }
-                                                                        %>
-                                                                    </td>
-                                                                </tr>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%
+                                                                                if (docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")) != null
+                                                                                        && !"".equals(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                                    out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+
+                                                                                //out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            %>
+                                                                        </td>  
+                                                                        <td>
+                                                                            <%                                                                            //out.println(docRepositoryBean.getTransaction_type());
+                                                                                if (docRepositoryBean.getTransaction_type() != null && !"".equals(docRepositoryBean.getTransaction_type())) {
+                                                                                    out.println(docRepositoryBean.getTransaction_type());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                            %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%
+                                                                                if (docRepositoryBean.getDirection() != null && !"".equals(docRepositoryBean.getDirection())) {
+                                                                                    out.println(docRepositoryBean.getDirection().toUpperCase());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                            %>
+                                                                        </td>  
+                                                                        <td>
+                                                                            <%
+                                                                                if (docRepositoryBean.getStatus().equalsIgnoreCase("ERROR")) {
+                                                                                    out.println("<font color='red'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
+                                                                                } else if (docRepositoryBean.getStatus().equalsIgnoreCase("SUCCESS")) {
+                                                                                    out.println("<font color='green'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
+                                                                                } else {
+                                                                                    out.println("<font color='orange'>" + docRepositoryBean.getStatus().toUpperCase() + "</font>");
+                                                                                }
+                                                                            %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%
+                                                                                if (docRepositoryBean.getReProcessStatus() != null && !"".equals(docRepositoryBean.getReProcessStatus())) {
+                                                                                    out.println(docRepositoryBean.getReProcessStatus());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                            %>
+                                                                        </td>
+                                                                        <td>
+                                                                            <%
+                                                                                if (docRepositoryBean.getAckStatus() != null && !"".equals(docRepositoryBean.getAckStatus())) {
+                                                                                    out.println(docRepositoryBean.getAckStatus());
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                                //out.println(docRepositoryBean.getAckStatus());
+                                                                            %>
+                                                                        </td>
+                                                                        <%--<%if (docRepositoryBean.getCorrvalue() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue())) {%>
+                                                                        <td ><%=docRepositoryBean.getCorrvalue()%> </td> 
+                                                                        <%}
+                                                                            if (docRepositoryBean.getCorrvalue1() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue1())) {%>
+                                                                        <td ><%=docRepositoryBean.getCorrvalue1()%> </td> 
+                                                                        <%}
+                                                                            if (docRepositoryBean.getCorrvalue2() != null && !"".equalsIgnoreCase(docRepositoryBean.getCorrvalue2())) {%>
+                                                                        <td ><%=docRepositoryBean.getCorrvalue2()%> </td> 
+                                                                        <%}
+                                                                        %> --%>
+                                                                    </tr>
+                                                                    <%
+                                                                        }
+                                                                    } else {
+                                                                    %>
+                                                                    <tr><td>
+                                                                            <%
+                                                                                    out.println("<img  border='0' align='top'  src='" + contextPath + "/includes/images/alert.gif'/><b>No records found for the given search criteria. Please try a different search criteria!</b>");
+                                                                                }
+                                                                            %>
+                                                                        </td>
+                                                                    </tr>
                                                             </table>
                                                     </td>
                                                 </tr>
@@ -393,19 +396,21 @@
                             <div class="col-sm-6"> <label class="labelw"> File ID : </label>
                                 <s:textfield cssClass="form-control"  required="required" placeholder="" id="ManFileId" name="ManFileId"  readonly="true"/>
                             </div>
-                            <div class="col-sm-6"><label class="labelw"> Shipment # </label>
-                                <s:textfield cssClass="form-control"  required="required" placeholder="" id="ManShipment" name="ManShipment" readonly="true"/>
-                            </div>
-                        </div>
-                        <div class="row col-sm-12"> <br>
-                            <div class="col-sm-6"> <label class="labelw">  Purchase Order : </label>
+                             <div class="col-sm-6"> <label class="labelw">  Purchase Order : </label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManPurchaseOrder" name="ManPurchaseOrder" readonly="true"/>
                             </div>
-                            <div class="col-sm-6"> <label class="labelw"> PRI_KEY_VAL</label>
-                                <s:textfield   cssClass="form-control"  required="required" placeholder="" id="ManPriKeyValue" name="ManPriKeyValue" readonly="true"/>
+                        </div>
+                        <div class="row col-sm-12" id="prikeytypeandvalue" style="display:none"> 
+                           <div class="col-sm-6"><label class="labelw">PRI_KEY_TYPE</label>
+                                   <s:textfield cssClass="form-control"  required="required" placeholder="" id="Manpri_key_type" name="Manpri_key_type" readonly="true"/>
+                                
+                            </div>
+                            <div class="col-sm-6"> <label class="labelw">PRI_KEY_VAL</label>
+                                    <s:textfield  cssClass="form-control"  required="required" placeholder="" id="Manpri_key_value" name="Manpri_key_value" readonly="true"/>
+                                
 
                             </div>
-                        </div>
+                            </div>
                         <div class="row col-sm-12">
                             <div class="col-sm-6"> <label class="labelw">  Document Type</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManDocumentType" name="ManDocumentType" readonly="true"/>
@@ -451,6 +456,7 @@
                             </div>
                         </div>
                         <div class="row col-sm-12 clear">
+                            <br>
                             <div class="col-sm-6"> <label class="labelw">   ISA:</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManISA" name="ManISA" readonly="true"/>
                             </div>
@@ -459,9 +465,7 @@
                             </div>
                         </div>
 
-                        <br/>
-
-                        <div class="row col-sm-12" style="margin-top:10px;" >
+                        <div class="row col-sm-12"  >
                             <div class="col-sm-6"> <label class="labelw"> ST:</label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="ManSt" name="ManSt" readonly="true"/>
                             </div>
@@ -477,7 +481,7 @@
                             </div>
                         </div>
 
-                        <div class="row col-sm-12" >
+                        <div class="row col-sm-12" style="margin-top:10px;">
                             <div class="col-sm-6"> <label class="labelw"> Pre Translation:</label></div>
                             <div class="col-sm-6"><div id="ManPreTranslation"></div>
                             </div></div>
@@ -495,7 +499,7 @@
                             <div class="col-sm-6"> <label class="labelw">  Error&nbsp;Message </label></div>
                             <div class="col-sm-6" id="InvErrormessage" style="color: red"></div>
                         </div>
-                        <div class="row col-sm-12 clear" style="visibility: hidden">
+                        <%--<div class="row col-sm-12 clear" style="display: none;margin-top:10px;">
                             <div class="col-sm-6"> <label class="labelw"> SAP_USER </label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="SAP_USER" name="ManStatus" readonly="true"/>
                             </div>
@@ -514,18 +518,18 @@
                             <div class="col-sm-6"> <label class="labelw">  IDOC_STATUS_DESCRIPTION </label>
                                 <s:textfield  cssClass="form-control"  required="required" placeholder="" id="IDOC_STATUS_DESCRIPTION" name="ManStatus" readonly="true"/>
                             </div>
-                        </div>
+                        </div> --%>
                         <div class="row col-sm-12" id="ManNullValues" style="display: none">
                             <div class="col-sm-6"> <label class="labelw"> display null values;</label></div></div>
                         <div id="noresult"></div>
-                        <div class="row col-sm-12">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
+                        <div class="row col-sm-12" style="margin-top:10px;">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
                     </div>
 
 
                 </s:if> 
             </div>
             <script>
-                $(function() {
+                $(function () {
                     $('#results').DataTable({
                         "paging": true,
                         "lengthChange": true,
@@ -567,12 +571,12 @@
 
                 function getDetails(val, ponum, id) {
                     var db = document.forms["documentForm"]["database"].value;
-                    getDocDetails(val, ponum, id,db);
+                    getDocDetails(val, ponum, id, db);
                 }
                 function checkCorrelation() {
                     //alert("checkCorrelation");
                     var db = document.forms["documentForm"]["database"].value;
-                    if(db == ''){
+                    if (db == '') {
                         alert("please select Database!!!");
                         return false;
                     }
@@ -665,7 +669,7 @@
                     document.getElementById("docdatepicker").value = x;
                 }
                 var count = 0;
-                $("#addButton").click(function() {
+                $("#addButton").click(function () {
                     count++;
                     if (count == 1)
                         document.getElementById("corr").style.display = "block";
@@ -677,3 +681,4 @@
         </script>
     </body>
 </html>
+

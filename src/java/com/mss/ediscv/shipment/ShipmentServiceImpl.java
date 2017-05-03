@@ -179,6 +179,7 @@ public class ShipmentServiceImpl implements ShipmentService {
         }
         shipmentSearchQuery.append("order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
         String searchQuery = shipmentSearchQuery.toString();
+         System.out.println("mscvp shipment query-->"+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();
@@ -369,7 +370,7 @@ public class ShipmentServiceImpl implements ShipmentService {
         }
         shipmentSearchQuery.append("order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
         String searchQuery = shipmentSearchQuery.toString();
-         System.out.println("asnQuery-->"+searchQuery);
+        System.out.println("archive shipment query-->"+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();

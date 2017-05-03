@@ -784,6 +784,7 @@ function populateDocDetails(responseXML)
         var ST_CONTROL_NUMBER = detail.getElementsByTagName("ST_CONTROL_NUMBER")[0].childNodes[0].nodeValue;
         var SEC_KEY_VAL = detail.getElementsByTagName("SEC_KEY_VAL")[0].childNodes[0].nodeValue;
         var PRI_KEY_VAL = detail.getElementsByTagName("PRI_KEY_VAL")[0].childNodes[0].nodeValue;
+        var PRI_KEY_TYPE = detail.getElementsByTagName("PRI_KEY_TYPE")[0].childNodes[0].nodeValue;
         var ACKFILEID = detail.getElementsByTagName("ACKFILEID")[0].childNodes[0].nodeValue;
         var ERRMESSAGE = detail.getElementsByTagName("ERR_MESSAGE")[0].childNodes[0].nodeValue;
 
@@ -810,8 +811,12 @@ function populateDocDetails(responseXML)
 
         }
         document.getElementById('ManFileId').value = fileid;
-        document.getElementById('ManShipment').value = PRI_KEY_VAL;
         document.getElementById('ManPurchaseOrder').value = SEC_KEY_VAL;
+          if(PRI_KEY_TYPE != "PO"){
+              document.getElementById('prikeytypeandvalue').style.display = "block";
+            document.getElementById('Manpri_key_type').value = PRI_KEY_TYPE;
+            document.getElementById('Manpri_key_value').value = PRI_KEY_VAL;
+        }
         if (SENDER_NAME == "NULL") {
             SENDER_NAME = "Null";
         }
@@ -863,7 +868,7 @@ function populateDocDetails(responseXML)
             document.getElementById('InvErrormessage').innerHTML = "--";
         }
 
-        if (SAP_DETAILS != 'NO') {
+      /*  if (SAP_DETAILS != 'NO') {
             document.getElementById('sapDiv').style.display = "block";
             if (SAP_USER != "" && SAP_USER != null) {
                 document.getElementById('SAP_USER').value = SAP_USER;
@@ -895,7 +900,7 @@ function populateDocDetails(responseXML)
             } else {
                 document.getElementById('IDOC_STATUS_DESCRIPTION').value = "--";
             }
-        }
+        } */
 
         document.getElementById('ManNullValues').innerHTML = "<a href=\"javascript:getNullValues('<%=docRepositoryBean.getId()%>');\">Dispalay Null</a></td></tr>";
     }

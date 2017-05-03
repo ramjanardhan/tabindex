@@ -133,7 +133,7 @@
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <label>Receiver Name</label>
-                                                        <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="receiverNameList" name="recName" id="recName" value="%{docRecName}"  />
+                                                        <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="receiverNameList" name="recName" id="recName" value="%{recName}"  />
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <label for="ackStatus">Ack Status</label>
@@ -492,6 +492,7 @@
                     </div>
                 </div>
                 <div class="row col-sm-12">
+                    <br>
                     <div class="col-sm-6">  <label class="labelw">  ISA # </label>
                         <s:textfield cssClass="form-control"  required="required" placeholder="" id="msgsControlNo" name="msgsControlNo" readonly="true"/>
                     </div>

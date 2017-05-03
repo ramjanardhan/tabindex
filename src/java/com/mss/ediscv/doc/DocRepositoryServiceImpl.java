@@ -247,7 +247,7 @@ public class DocRepositoryServiceImpl implements DocRepositoryService {
         }
         documentSearchQuery.append(" order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
         String searchQuery = documentSearchQuery.toString();
-        System.out.println("search query is "+searchQuery);
+        System.out.println("mscvp doc repository query-->"+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();
@@ -569,7 +569,7 @@ public class DocRepositoryServiceImpl implements DocRepositoryService {
         }
         documentSearchQuery.append(" order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
         String searchQuery = documentSearchQuery.toString();
-        System.out.println("search query is "+searchQuery);
+        System.out.println("archive doc repository query-->"+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();

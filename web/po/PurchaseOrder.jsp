@@ -617,8 +617,9 @@
                             <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POReceiverName" name="POReceiverName" readonly="true"/>
                         </div>
                     </div>
-                </div>  
+                </div>
                 <div class="row col-sm-12 clear">
+                    <br>
                     <div class="col-sm-6"> <label class="labelw">  ISA </label>
                         <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POIsa" name="POIsa" readonly="true"/>
                     </div>
@@ -626,9 +627,6 @@
                         <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POGs" name="POGs" readonly="true"/>
                     </div>
                 </div>
-
-                <br/>
-
                 <div class="row col-sm-12">
                     <div class="col-sm-6"> <label class="labelw">  ST </label>
                         <s:textfield  cssClass="form-control"  required="required" placeholder="" id="POSt" name="POSt" readonly="true"/>

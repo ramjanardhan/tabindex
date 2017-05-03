@@ -41,8 +41,7 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
     private List listNameMap;
     private String json;
     private int items;
-     private String modifieddate;
-    
+    private String modifieddate;
 
     public void setServletRequest(HttpServletRequest hsrequest) {
         this.hsrequest = hsrequest;
@@ -149,9 +148,6 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
     public void setModifieddate(String modifieddate) {
         this.modifieddate = modifieddate;
     }
-    
-    
-    
 
     public String getCertMonitor() throws Exception {
         String resultType = LOGIN;
@@ -180,15 +176,20 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
         if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
 
             try {
-                 hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
-                   Date d = new Date();
+                hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
+                Date d = new Date();
                 SimpleDateFormat sd = new SimpleDateFormat("MM/dd/yyyy");
                 setListNameMap(DataSourceDataProvider.getInstance().getListName());
                 List codeList = new ArrayList();
                 codeList = ServiceLocator.getCertMonitorService().doCodeListItems(getListName());
                 hsrequest.getSession(false).setAttribute(AppConstants.CODE_LIST, codeList);
                 setItems(codeList.size());
-                 setModifieddate(sd.format(d));
+                if (codeList.size() == 0) {
+                    setSelectedName("");
+                    setModifieddate("");
+                } else {
+                    setModifieddate(sd.format(d));
+                }
                 resultType = SUCCESS;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -202,7 +203,7 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
         String resultType = LOGIN;
         if (hsrequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME).toString() != null) {
             try {
-                 hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
+                hsrequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
                 String resultMessage = "";
                 List codeList = new ArrayList();
 
@@ -214,8 +215,5 @@ public class CertMonitorAction extends ActionSupport implements ServletRequestAw
         }
         return resultType;
     }
-
-   
-       
 
 }

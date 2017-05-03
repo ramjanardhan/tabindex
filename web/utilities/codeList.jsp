@@ -216,7 +216,7 @@
                 </ol>
             </section>
             <center> <div id="responseString">
-                    <%
+                 <%--   <%
                         String responseString = "";
                         if (session.getAttribute(AppConstants.REQ_RESULT_MSG) != null) {
                             responseString = session.getAttribute(AppConstants.REQ_RESULT_MSG).toString();
@@ -224,7 +224,7 @@
                             session.setAttribute(AppConstants.REQ_RESULT_MSG, null);
                         }
 
-                    %>
+                    %> --%>
                 </div> 
             </center>
             <section class="content">
@@ -330,8 +330,8 @@
                                                                                         codeListBean = (CodeListBean) codeList.get(j);
 
 
-                                                                            %><tr> <td><input type="checkbox" id="check<%=j + 1%>" name="check<%=j + 1%>" onclick="selectAllUncheck();selectAllCheck();
-                                                                                    selectAllRecords();"/></td>
+                                                                            %><tr> <td><input type="checkbox" id="check<%=j + 1%>" name="check<%=j + 1%>" onclick="selectAllUncheck();selectAllCheck(); "/></td>
+                                                                                   
                                                                         <input type="hidden" value="<%=codeListBean.getListName()%>" id="listName<%=j + 1%>" name="listName<%=j + 1%>"/>
                                                                         <input type="hidden" value="<%=codeListBean.getSender_id()%>" id="senderId<%=j + 1%>" name="senderId<%=j + 1%>"/>
                                                                         <input type="hidden" value="<%=codeListBean.getReceiver_id()%>" id="recId<%=j + 1%>" name="recId<%=j + 1%>"/>
@@ -575,7 +575,14 @@
                                                             data: {json: array, listName: listName},
                                                             success: function (result) {
                                                                 alert(result);
+                                                                if (result != "Please Try Again")
+                                                            {
+                                                                var listName = document.getElementById("listName").value;
+                                                                window.location = "../utilities/codeListSearch.action?listName=" + listName + "&selectedName=" + document.getElementById("selectedName").value;
+                                                            }
+                                                            else {
                                                                 document.getElementById('loadingAcoountSearch').style.display = "none";
+                                                            }
                                                             }
                                                         });
                                                         //window.location = "../utilities/codeVersionUpdate.action?listName=" + listName + "&json=" + encodeURIComponent(array);
@@ -600,13 +607,13 @@
                                                     }
 
                                                 }
-                                               
+
                                                 function selectAllCheck() {
-                                                     var checkdCount1=0;
+                                                    var checkdCount1 = 0;
                                                     var rowCount = $('#results tr').length;
                                                     //alert("rowCount - "+rowCount+" deletedRows.length - "+deletedRows.length);
                                                     for (var i = 1; i < (rowCount + deletedRows.length); i++) {
-                                                        
+
                                                         var flag1 = checkArray(i);
                                                         if (flag1 == true)
                                                         {
@@ -614,16 +621,16 @@
                                                         }
                                                         else if (flag1 == false) {
                                                             if (document.getElementById('check' + i).checked == true) {
-                                                            checkdCount1++;
-                                                        }
-                                                            if (checkdCount1 == (rowCount + deletedRows.length)-1) {
-                                                                    document.getElementById("checkboxAll").checked = true;
-                                                                }
+                                                                checkdCount1++;
+                                                            }
+                                                            if (checkdCount1 == (rowCount -1)) {
+                                                                document.getElementById("checkboxAll").checked = true;
                                                             }
                                                         }
                                                     }
+                                                }
 
-                                                
+
 
                                                 function checkArray(i)
                                                 {
@@ -711,22 +718,32 @@
                                                             alert("please select rows to insert");
                                                             return false;
                                                         }
-                                                        var isExists = "";
-                                                        isExists = checkListName();
-                                                        if (isExists != "Failure" && isExists != "") {
-                                                            document.getElementById('loadingAcoountSearch').style.display = "block";
-                                                            jQuery.ajax({
-                                                                url: "../ajax/codeListAdd.action",
-                                                                type: "POST",
-                                                                data: {json: array},
-                                                                success: function (result) {
-                                                                    alert(result);
+//                                                        var isExists = "";
+//                                                        isExists = checkListName();
+//                                                        if (isExists != "Failure" && isExists != "") {
+                                                        document.getElementById('loadingAcoountSearch').style.display = "block";
+                                                        jQuery.ajax({
+                                                            url: "../ajax/codeListAdd.action",
+                                                            type: "POST",
+                                                            data: {json: array, newListName: document.getElementById("newname").value},
+                                                            success: function (result) {
+                                                                alert(result);
+                                                                if ((result != "Inserted successfully") && (result != "Please Try Again"))
+                                                                {
+                                                                    document.getElementById("newname").value = "";
                                                                     document.getElementById('loadingAcoountSearch').style.display = "none";
                                                                 }
-                                                            });
-                                                        } else {
-                                                            alert("Please try later");
-                                                        }
+                                                                else {
+                                                                    window.location = "../utilities/codeListSearch.action?listName=" + document.getElementById("newname").value + "&selectedName=" + document.getElementById("newname").value;
+
+                                                                }
+
+                                                            }
+                                                        });
+//                                                        /}
+//                                                        else {
+//                                                            alert("Please try later");
+//                                                        }
                                                         //  window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
                                                     }
 
@@ -830,7 +847,21 @@
                                                         data: {json: array, listName: document.getElementById('listName').value, selectedName: document.getElementById('selectedName').value},
                                                         success: function (result) {
                                                             alert(result);
-                                                            document.getElementById('loadingAcoountSearch').style.display = "none";
+                                                            if (result != "Please Try Again")
+                                                            {
+                                                                var listName = document.getElementById("listName").value;
+                                                                if (listName != -1) {
+                                                                    document.getElementById("selectedName").value = listName;
+                                                                } else {
+                                                                    document.getElementById("selectedName").value = "";
+                                                                    //document.getElementById("modifieddate").value = "";
+                                                                }
+                                                                window.location = "../utilities/codeListSearch.action?listName=" + listName + "&selectedName=" + document.getElementById("selectedName").value;
+                                                            }
+                                                            else {
+                                                                document.getElementById('loadingAcoountSearch').style.display = "none";
+                                                            }
+
                                                         }
                                                     });
                                                     //location.reload();

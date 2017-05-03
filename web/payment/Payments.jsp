@@ -480,6 +480,7 @@
                     </div>
                 </div>
                 <div class="row col-sm-12 clear">
+                    <br>
                     <div class="col-sm-6"> <label class="labelw">  ISA #</label>
                         <input type="Text"  class="form-control"  required="required" placeholder="" id="isa" name="isa" readonly="true"/>
                     </div>
@@ -629,10 +630,10 @@
             document.getElementById('docType').value = "-1";
             document.getElementById('corrattribute').value = "-1";
             document.getElementById('corrvalue').value = "";
-            document.getElementById('corrattribute1').value = "-1";
-            document.getElementById('corrvalue1').value = "";
             document.getElementById('reportrange').value = "";
             $('#gridDiv').hide();
+            document.getElementById('corrattribute1').value = "-1";
+            document.getElementById('corrvalue1').value = "";
         }
 
         function hide()

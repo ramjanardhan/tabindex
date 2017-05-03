@@ -652,7 +652,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
                 System.out.println("username is " + userName);
                 String resultMessage = "";
                 List codeList = new ArrayList();
-                resultMessage = ServiceLocator.getAjaxHandlerService().addCodeList(getJson(), userName);
+                resultMessage = ServiceLocator.getAjaxHandlerService().addCodeList(getJson(), userName,getNewListName());
                 httpServletRequest.getSession(false).removeAttribute(AppConstants.CODE_LIST);
                 resultType = SUCCESS;
                 httpServletResponse.setContentType("text");

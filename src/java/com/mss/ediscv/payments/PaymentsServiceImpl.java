@@ -162,6 +162,7 @@ public class PaymentsServiceImpl implements PaymentsService {
         }
         paymentSearchQuery.append("order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
         String searchQuery = paymentSearchQuery.toString();
+         System.out.println("mscvp payment query-->"+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();
@@ -327,6 +328,7 @@ public class PaymentsServiceImpl implements PaymentsService {
         }
         paymentSearchQuery.append("order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
         String searchQuery = paymentSearchQuery.toString();
+        System.out.println("archive payment query-->"+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();

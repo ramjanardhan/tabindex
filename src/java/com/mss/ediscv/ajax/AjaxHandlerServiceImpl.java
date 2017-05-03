@@ -5443,12 +5443,12 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
 //                if(!"".equalsIgnoreCase(jsonObj.getString("senderIdInst")) || jsonObj.getString("senderIdInst") != null){
 //                preparedStatement.setString(2, jsonObj.getString("senderIdInst"));
 //                }else{
-                preparedStatement.setString(2, "None");
+                preparedStatement.setString(2, " ");
                 //}
 //                if(!"".equalsIgnoreCase(jsonObj.getString("recId")) || jsonObj.getString("recId") != null){
 //                preparedStatement.setString(3, jsonObj.getString("recId"));
 //                }else{
-                preparedStatement.setString(3, "None");
+                preparedStatement.setString(3, " ");
                 //}
                 preparedStatement.setInt(4, 1);
                 preparedStatement.setString(5, jsonObj.getString("senderItem"));
@@ -5693,8 +5693,8 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                         jsonObj = array.getJSONObject(i);
                         preparedStatement1 = connection.prepareStatement(queryString1);
                         preparedStatement1.setString(1, jsonObj.getString("listName1"));
-                        preparedStatement1.setString(2, "None");
-                        preparedStatement1.setString(3, "None");
+                        preparedStatement1.setString(2, " ");
+                        preparedStatement1.setString(3, " ");
                         preparedStatement1.setInt(4, addVersion);
                         preparedStatement1.setString(5, jsonObj.getString("senderItem"));
                         preparedStatement1.setString(6, jsonObj.getString("recItem"));
@@ -5778,8 +5778,8 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
 //                    jsonObj = array.getJSONObject(i);
 //                    preparedStatement = connection.prepareStatement(queryString);
 //                    preparedStatement.setString(1, jsonObj.getString("listName1"));
-//                    preparedStatement.setString(2, "None");
-//                    preparedStatement.setString(3, "None");
+//                    preparedStatement.setString(2, " ");
+//                    preparedStatement.setString(3, " ");
 //                    preparedStatement.setInt(4, addVersion);
 //                    preparedStatement.setString(5, jsonObj.getString("senderItem"));
 //                    preparedStatement.setString(6, jsonObj.getString("recItem"));

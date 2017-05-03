@@ -56,14 +56,13 @@
 
             function getPartnerList() {
                 var configFlowFlag1 = $('#configFlowFlag1').val();
-                if ((configFlowFlag1 == 'manufacturing')) {
-                    location.href = "../partner/getSchedularsearch.action?configFlowFlag1=" + configFlowFlag1;
-                }
-                else if ((configFlowFlag1 == 'logistics')) {
-
-                    location.href = "../partner/partnerSearch.action";
-                }
-                return true;
+             //   if ((configFlowFlag1 == 'manufacturing')) {
+             //       location.href = "../partner/getPartnerList.action?configFlowFlag=" + configFlowFlag1;
+             //   }
+               // else if ((configFlowFlag1 == 'logistics')) {
+                    location.href = "../partner/getPartnerList.action?configFlowFlag=" + configFlowFlag1;
+               // }
+             //   return true;
             }
         </script>
 

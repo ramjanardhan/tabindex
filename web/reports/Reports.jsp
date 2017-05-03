@@ -237,7 +237,7 @@
                                                             <table id="results"  class="table table-bordered table-hover">
                                                                 <%
                                                                     java.util.List list = (java.util.List) session.getAttribute(AppConstants.SES_DOCREPORT_LIST);
-
+                                                                    System.out.println("list size-->" + list.size());
                                                                     if (list.size() != 0) {
                                                                         ReportsBean docRepositoryBean;
                                                                 %>
@@ -449,19 +449,19 @@
                     </s:if>
             </div> 
         </div> 
-                                <script type="text/javascript">
-                                                        $(function() {
-                                                            // $("#example1").DataTable();
-                                                            $('#results').DataTable({
-                                                                "paging": true,
-                                                                "lengthChange": true,
-                                                                "searching": true,
-                                                                "ordering": true,
-                                                                "info": true,
-                                                                "autoWidth": true
-                                                            });
-                                                        });
-                                                        </script>
+        <script type="text/javascript">
+            $(function() {
+                // $("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true
+                });
+            });
+        </script>
         <div>
             <s:include value="../includes/template/footer.jsp"/>
         </div>
@@ -474,8 +474,8 @@
         <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
         <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
         <script type="text/javascript">
-                                                   
-                                                        $('input[name="daterange"]').daterangepicker();
+
+            $('input[name="daterange"]').daterangepicker();
         </script>
     </body>
 </html>

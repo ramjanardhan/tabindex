@@ -109,12 +109,15 @@ public class ReportsServiceImpl implements ReportsService {
         }
         documentSearchQuery.append(" order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
         String searchQuery = documentSearchQuery.toString();
+        System.out.println("manufactering excel reports query-->"+searchQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(searchQuery);
             documentList = new ArrayList<ReportsBean>();
+           // int i = 0;
             while (resultSet.next()) {
+                //System.out.println("i-->"+i);
                 ReportsBean reportsBean = new ReportsBean();
                 reportsBean.setFile_id(resultSet.getString("FILE_ID"));
                 reportsBean.setFile_origin(resultSet.getString("FILE_ORIGIN"));
@@ -135,6 +138,7 @@ public class ReportsServiceImpl implements ReportsService {
                 reportsBean.setAckStatus(resultSet.getString("ACK_STATUS"));
                 reportsBean.setErrorMessage(resultSet.getString("ERR_MESSAGE"));
                 documentList.add(reportsBean);
+               // i++;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -157,7 +161,6 @@ public class ReportsServiceImpl implements ReportsService {
                 throw new ServiceLocatorException(se);
             }
         }
-        System.out.println("Reports documentSearchQuery ----> "+documentSearchQuery);
         return documentList;
     }
 }

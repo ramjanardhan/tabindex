@@ -136,7 +136,7 @@
                                         <div class="col-sm-12">
                                             <div class="row">
                                                 <div class="col-sm-3"><label>Database&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</label>
-                                                    <s:radio id="database" name="database" value="%{database}" list="#@java.util.LinkedHashMap@{'MSCVP':'MSCVP','ARCHIVE':'ARCHIVE'}"/>
+                                                    <s:radio cssClass="myRadio" id="database" name="database" value="%{database}" list="#@java.util.LinkedHashMap@{'MSCVP':'MSCVP','ARCHIVE':'ARCHIVE'}"/>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -210,7 +210,7 @@
                                         <br>
                                         <div class="row">
                                             <div class="col-sm-2"><s:submit value="Search"  onclick="return checkCorrelation();" cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
-                                            <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetvalues();"/></strong></div>
+                                            <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetvaluesInvoice();"/></strong></div>
                                             <s:hidden name="sampleValue" id="sampleValue" value="2"/>
                                         </s:form>
                                     </div>
@@ -591,8 +591,9 @@
                             return false;
                         }
                     }
-                    function resetvalues()
+                    function resetvaluesInvoice()
                     {
+                        $('.myRadio').attr('checked',false);
                         document.getElementById('reportrange').value = '';
                         document.getElementById('invdatepickerfrom').value = '';
 

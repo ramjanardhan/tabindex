@@ -236,23 +236,6 @@
                                                 <div class="col-sm-3"> <label>Date Range</label>
                                                     <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}"  /> 
                                                 </div>
-
-                                                <script type="text/javascript">
-                                                    function Date1()
-                                                    {
-                                                        var date=document.trackInOutForm.reportrange.value;
-                                                           
-                                                        var arr=date.split("-");
-                                                          
-                                                        var x=arr[1].trim();
-                                                        document.getElementById("docdatepickerfrom").value = arr[0];
-                                                        document.getElementById("docdatepicker").value =x ;
-                                                            
-                                                         
-                                                                                                                
-                                                    }
-                                                </script>
-
                                                 <div id="loadingAcoountSearch" class="loadingImg">
                                                     <span id ="LoadingContent" > <img src="<s:url value="/includes/images/Loader2.gif"/>"   ></span>
                                                 </div>
@@ -262,7 +245,7 @@
                                             </div>
                                             <br>
                                             <div class="row">
-                                                <div class="col-sm-2"><s:submit value="Search"  onclick="Date1()" cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
+                                                <div class="col-sm-2"><s:submit value="Search"  onclick="return Date1();" cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
                                                 <div class="col-sm-2">   <strong><input type="button" value="Reset" class="btn btn-primary col-sm-12" tabindex="17" onclick="return resetvalues();"/></strong></div>
 
                                             </div>
@@ -622,7 +605,19 @@
 
 
             </div> 
-            <script language="javascript"> 
+            <script language="javascript">
+                function Date1()
+                {
+                    var date=document.trackInOutForm.reportrange.value;
+                    if(date==''){
+                        alert("Please Select Date Range");
+                        return false;
+                    }
+                    var arr=date.split("-");
+                    var x=arr[1].trim();
+                    document.getElementById("docdatepickerfrom").value = arr[0];
+                    document.getElementById("docdatepicker").value =x ;
+                }
                 function toggle(docType,k,id) {
                     //  alert(document.getElementsByClassName("inboundvalue"+docType).length);
                     var inbound = document.getElementById("inbound"+docType);

@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -29,6 +29,7 @@ import com.mss.ediscv.po.PurchaseOrderBean;
 import com.mss.ediscv.reports.ReportsBean;
 import com.mss.ediscv.shipment.ShipmentBean;
 import com.mss.ediscv.util.AppConstants;
+import com.mss.ediscv.util.DateUtility;
 import com.mss.ediscv.util.Properties;
 import com.mss.ediscv.util.ServiceLocator;
 import com.mss.ediscv.util.ServiceLocatorException;
@@ -180,11 +181,13 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             httpServletResponse.setContentType("application/force-download");
             // File file = new File(Properties.getProperty("mscvp.docCreationPath")+"SearchedExcelDocument.xls");
 
-            System.out.println("file-->" + fileLocation);
+            //System.out.println("file-->" + fileLocation);
             File file = new File(fileLocation);
             Date date = new Date();
 
-            fileName = (date.getYear() + 1900) + "_" + (date.getMonth() + 1) + "_" + date.getDate() + "_" + file.getName();
+            //fileName = (date.getYear() + 1900) + "_" + (date.getMonth() + 1) + "_" + date.getDate() + "_" + file.getName();
+            fileName = DateUtility.getInstance().getCurrentMySqlDateTime1() + "_" + file.getName();
+            //System.out.println("fileName------"+fileName);
             //  fileName = file.getName();
             if (file.exists()) {
                 inputStream = new FileInputStream(file);
@@ -206,7 +209,10 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             } else {
                 throw new FileNotFoundException("File not found");
             }
-        } catch (FileNotFoundException ex) {
+        } catch (ServiceLocatorException ex) {
+            Logger.getLogger(GridDownloadAction.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (FileNotFoundException ex) {
             try {
                 httpServletResponse.sendRedirect("../general/exception.action?exceptionMessage='No File found'");
             } catch (IOException ex1) {
@@ -293,7 +299,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 HSSFCell cellpo7 = row1.createCell((short) 7);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("Doc Repositry:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+               // cell.setCellValue("Doc Repositry:-Created Date : " + (date.getMonth() + 1) + "-" + (date.getDate()) + "-" + (date.getYear()+ 1900));
+                cell.setCellValue("Doc Repositry:-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -405,10 +412,12 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             fileOut.flush();
             fileOut.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        }
+            //e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
+        } 
         return filePath;
     }
 
@@ -474,7 +483,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 HSSFCell cellpo7 = row1.createCell((short) 7);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("Purchase Order:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                //cell.setCellValue("Purchase Order:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("Purchase Order:-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -585,6 +595,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -654,7 +666,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 HSSFCell cellpo6 = row1.createCell((short) 6);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("Shipment :-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                //cell.setCellValue("Shipment :-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("Shipment :-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -797,6 +810,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -869,7 +884,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 HSSFCell cellpo8 = row1.createCell((short) 8);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("Invoice :-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+               // cell.setCellValue("Invoice :-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("Invoice :-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -1094,15 +1110,12 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 HSSFCell cellpo8 = row1.createCell((short) 8);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("Payment :-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                //cell.setCellValue("Payment :-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("Payment :-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
                 worksheet.addMergedRegion(CellRangeAddress.valueOf("B2:F2"));
-
-
-
-
                 //end
                 row1 = worksheet.createRow((short) 3);
 
@@ -1246,6 +1259,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -1317,7 +1332,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
 //            HSSFCell cellpo8 = row1.createCell((short) 8);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("Logistics Document :-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                //cell.setCellValue("Logistics Document :-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("Logistics Document :-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -1435,6 +1451,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -1500,7 +1518,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 HSSFCell cellpo8 = row1.createCell((short) 8);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("LoadTendering :-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+               // cell.setCellValue("LoadTendering :-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("LoadTendering :-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -1620,6 +1639,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -1691,7 +1712,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
 //            HSSFCell cellpo8 = row1.createCell((short) 8);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("LT Response :-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("LT Response :-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -1841,6 +1862,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -1915,7 +1938,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
 //            HSSFCell cellpo8 = row1.createCell((short) 8);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("LT Shipment :-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("LT Shipment :-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -2064,6 +2087,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -2138,7 +2163,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 //HSSFCell cellpo8 = row1.createCell((short) 8);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("LT Invoice :-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("LT Invoice :-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -2288,6 +2313,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -2356,7 +2383,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 HSSFCell cellpo7 = row1.createCell((short) 7);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("Doc Repositry:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("Doc Repositry:-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -2488,6 +2515,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -2559,7 +2588,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 HSSFCell cellpo8 = row1.createCell((short) 8);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("Doc Repositry:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("Doc Repositry:-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -2688,6 +2717,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -2751,7 +2782,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 row1 = worksheet.createRow((short) 0);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("Dashboard Reports:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                //cell.setCellValue("Dashboard Reports:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("Dashboard Reports:-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -2762,14 +2794,14 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                     HSSFCell cell1 = row1.createCell((short) 0);
                     cell1.setCellValue("PartnerName");
                     HSSFCell cell2 = row1.createCell((short) 1);
-                    cell2.setCellValue("INBOUND");
+                    cell2.setCellValue("INBOUND DOC COUNT");
                 }
                 if (outbounddata.size() != 0) {
                     if (inbounddata.size() != 0) {
                         HSSFCell cell3 = row1.createCell((short) 2);
                         cell3.setCellValue("PartnerName");
                         HSSFCell cell4 = row1.createCell((short) 3);
-                        cell4.setCellValue("OUTBOUND");
+                        cell4.setCellValue("OUTBOUND DOC COUNT");
                     } else {
                         HSSFCell cell3 = row1.createCell((short) 0);
                         cell3.setCellValue("PartnerName");
@@ -2840,7 +2872,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             Drawing drawing = my_sheet.createDrawingPatriarch();
             Row row = my_sheet.createRow((short) 1);
             Cell cell = row.createCell((short) 5);
-            cell.setCellValue("Dashboard Pie Charts Reports:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+            cell.setCellValue("Dashboard Pie Charts Reports:-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
             cellStyleHead.setFont(fontHead);
             cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
             cell.setCellStyle(cellStyleHead);
@@ -2948,7 +2980,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             outboundtable.setWidthPercentage(50.00f);
             if (inbounddata.size() != 0 || outbounddata.size() != 0) {
                 inboundtable.addCell("PartnerName");
-                inboundtable.addCell("INBOUND");
+                inboundtable.addCell("INBOUND DOC COUNT");
                 for (int i = 0; i < inbounddata.size();) {
                     Inboundvalue = String.valueOf(inbounddata.get(i));
                     Inboundvalue1 = String.valueOf(inbounddata.get(i + 1));
@@ -2961,7 +2993,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 }
 
                 outboundtable.addCell("PartnerName");
-                outboundtable.addCell("OUTBOUND");
+                outboundtable.addCell("OUTBOUND DOC COUNT");
                 for (int i = 0; i < outbounddata.size();) {
                     Outboundvalue = String.valueOf(outbounddata.get(i));
                     Outboundvalue1 = String.valueOf(outbounddata.get(i + 1));
@@ -2983,7 +3015,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             Document document = new Document(PageSize.A3);
             writer = PdfWriter.getInstance(document, fileOut);
             document.open();
-            Paragraph par = new Paragraph("Dashboard Pie Reports:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate(), FontFactory.getFont("Arial", 26f));
+            //Paragraph par = new Paragraph("Dashboard Pie Reports:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate(), FontFactory.getFont("Arial", 26f));
+            Paragraph par = new Paragraph("Dashboard Pie Reports:-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1(), FontFactory.getFont("Arial", 26f));
             par.setAlignment(Paragraph.ALIGN_CENTER);
 
             document.add(par);
@@ -3117,7 +3150,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
 
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 0);
-                cell.setCellValue("EDI Tracking Summary:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("EDI Tracking Summary:-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -3236,6 +3269,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -3295,7 +3330,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 Date date = new Date();
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("EDI Tracking IN/OUT:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                //cell.setCellValue("EDI Tracking IN/OUT:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("EDI Tracking IN/OUT:-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -3563,6 +3599,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -3628,7 +3666,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 //  HSSFCell cellpo8 = row1.createCell((short) 8);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("Edi Tracking Inquiry:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                //cell.setCellValue("Edi Tracking Inquiry:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("Edi Tracking Inquiry:-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -3726,6 +3765,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -3823,7 +3864,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 Date date = new Date();
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("EDI Tracking IN/OUT:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("EDI Tracking IN/OUT:-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -4091,6 +4132,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -4156,7 +4199,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
                 //  HSSFCell cellpo8 = row1.createCell((short) 8);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("Edi Tracking Inquiry:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("Edi Tracking Inquiry:-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -4254,6 +4297,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -4299,7 +4344,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
 
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 0);
-                cell.setCellValue("EDI Tracking Summary:-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("EDI Tracking Summary:-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -4418,6 +4463,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -4486,7 +4533,7 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
 //            HSSFCell cellpo8 = row1.createCell((short) 8);
                 row1 = worksheet.createRow((short) 1);
                 Cell cell = row1.createCell((short) 1);
-                cell.setCellValue("Logistics Document :-Created Date : " + (date.getYear() + 1900) + "-" + (date.getMonth() + 1) + "-" + date.getDate());
+                cell.setCellValue("Logistics Document :-Created Date : " + DateUtility.getInstance().getCurrentMySqlDateTime1());
                 cellStyleHead.setFont(fontHead);
                 cellStyleHead.setAlignment(HSSFCellStyle.ALIGN_CENTER);
                 cell.setCellStyle(cellStyleHead);
@@ -4604,6 +4651,8 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception ex) {
+            //  ex.printStackTrace();
         }
         return filePath;
     }
@@ -4660,3 +4709,4 @@ public class GridDownloadAction implements Action, ServletRequestAware, ServletR
         this.startDate = startDate;
     }
 }
+

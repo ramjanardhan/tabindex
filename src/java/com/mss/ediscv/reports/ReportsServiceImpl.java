@@ -128,7 +128,7 @@ public class ReportsServiceImpl implements ReportsService {
                 reportsBean.setDirection(direction);
                 reportsBean.setDate_time_rec(resultSet.getTimestamp("DATE_TIME_RECEIVED"));
                 reportsBean.setStatus(resultSet.getString("STATUS"));
-                if (direction.equalsIgnoreCase("INBOUND")) {
+                 if ((direction!=null) && ("INBOUND".equalsIgnoreCase(direction))){
                     reportsBean.setPname(resultSet.getString("SENDER_NAME"));
                 } else {
                     reportsBean.setPname(resultSet.getString("RECEIVER_NAME"));

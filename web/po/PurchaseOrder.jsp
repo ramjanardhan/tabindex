@@ -110,7 +110,7 @@
                         <div id="text">
                             <div  style="alignment-adjust:central;" >
                                 <%String contextPath = request.getContextPath(); %>
-                                <s:form action="../po/poSearch" method="post" name="purchaseForm" id="purchaseForm" theme="simple">
+                                <s:form action="../po/poSearch.action" method="post" name="purchaseForm" id="purchaseForm" theme="simple">
                                     <s:hidden id="poDateFrom" name="poDateFrom" />
                                     <s:hidden id="poDateTo" name="poDateTo"/>
                                     <div class="form-group">

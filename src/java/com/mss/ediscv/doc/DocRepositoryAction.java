@@ -103,6 +103,11 @@ public class DocRepositoryAction extends ActionSupport implements ServletRequest
                 setReceiverIdList(receiverList);
                 setSenderNameList(senderNameList);
                 setReceiverNameList(receiverNameList);
+                if ("ARCHIVE".equals(getDatabase())) {
+                    setDatabase("ARCHIVE");
+                } else {
+                    setDatabase("MSCVP");
+                }
                 resultType = SUCCESS;
             } catch (Exception ex) {
                 httpServletRequest.getSession(false).setAttribute(AppConstants.REQ_EXCEPTION_MSG, ex.getMessage());
@@ -122,9 +127,9 @@ public class DocRepositoryAction extends ActionSupport implements ServletRequest
                 } else if (getCheck().equals("")) {
                     setCheck("1");
                 }
-                if("ARCHIVE".equals(getDatabase())){
+                if ("ARCHIVE".equals(getDatabase())) {
                     documentList = ServiceLocator.getDocumentService().buildDocumentQueryArchive(this);
-                }else{
+                } else {
                     documentList = ServiceLocator.getDocumentService().buildDocumentQuery(this);
                 }
                 httpServletRequest.getSession(false).setAttribute(AppConstants.SES_DOC_LIST, documentList);
@@ -712,6 +717,5 @@ public class DocRepositoryAction extends ActionSupport implements ServletRequest
     public void setDatabase(String database) {
         this.database = database;
     }
-    
-    
+
 }

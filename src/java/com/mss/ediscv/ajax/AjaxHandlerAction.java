@@ -251,7 +251,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public String getLifecycleDetails() {
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
-                responseString = ServiceLocator.getAjaxHandlerService().getLifeCycleDetails(getPoNumber(), getFileId(), getType()).toString();
+                responseString = ServiceLocator.getAjaxHandlerService().getLifeCycleDetails(getPoNumber(), getFileId(), getType(), getDatabase()).toString();
                 httpServletResponse.setContentType("text/xml");
                 httpServletResponse.getWriter().write(responseString);
             } catch (Exception ex) {

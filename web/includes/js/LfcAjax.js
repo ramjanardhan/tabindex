@@ -43,20 +43,19 @@ function getXMLHttpRequest() {
  * For doc Ajax call
  * 
  */
-function getlfcPODetails(number,id,type){
+function getlfcPODetails(number,id,type,db){
+    //alert(db);
     var num=number;
     var id=id;
     var type = type;
     $(function() {
-       
            $('#detail_box').show();
            return false;
-               
    });
    // alert("in js--->"+num+"-----"+type);
    var req = getXMLHttpRequest();
    req.onreadystatechange = readyStateHandlerText(req,populateLifecycle); 
-   var url="../ajax/LifecycleDetails.action?poNumber="+num+"&fileId="+id+"&type="+type;
+   var url="../ajax/LifecycleDetails.action?poNumber="+num+"&fileId="+id+"&type="+type+"&database="+db;
    req.open("GET",url,"true");
    // req.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
     req.send(null);

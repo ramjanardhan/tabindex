@@ -163,4 +163,127 @@ public class ReportsServiceImpl implements ReportsService {
         }
         return documentList;
     }
+    
+    public ArrayList<ReportsBean> getDocumentListArchive(ReportsAction reportsAction) throws ServiceLocatorException {
+        StringBuffer documentSearchQuery = new StringBuffer();
+        String docdatepicker = reportsAction.getDocdatepicker();
+        String docdatepickerfrom = reportsAction.getDocdatepickerfrom();
+        String docSenderId = "";
+        if (reportsAction.getDocSenderId()!=null && !reportsAction.getDocSenderId().equals("-1")) {
+            docSenderId = reportsAction.getDocSenderId();
+        }
+        String docSenderName = "";
+        if (reportsAction.getDocSenderName()!=null && !reportsAction.getDocSenderName().equals("-1")) {
+            docSenderName = reportsAction.getDocSenderName();
+        }
+        String docBusId = "";
+        if (reportsAction.getDocReceiverId()!=null && !reportsAction.getDocReceiverId().equals("-1")) {
+            docBusId = reportsAction.getDocReceiverId();
+        }
+        String docRecName = "";
+        if (reportsAction.getDocReceiverName()!=null && !reportsAction.getDocReceiverName().equals("-1")) {
+            docRecName = reportsAction.getDocReceiverName();
+        }
+        String doctype = "";
+        if (reportsAction.getDocType()!=null && !reportsAction.getDocType().equals("-1")) {
+            doctype = reportsAction.getDocType();
+        }
+        String status = reportsAction.getStatus();
+        String ackStatus = reportsAction.getAckStatus();
+        documentSearchQuery.append("SELECT DISTINCT(ARCHIVE_FILES.FILE_ID) as FILE_ID,ARCHIVE_FILES.ISA_NUMBER as ISA_NUMBER,"
+                + "ARCHIVE_FILES.FILE_TYPE as FILE_TYPE,ARCHIVE_FILES.FILE_ORIGIN as FILE_ORIGIN,"
+                + "ARCHIVE_FILES.TRANSACTION_TYPE as TRANSACTION_TYPE,ARCHIVE_FILES.DIRECTION as DIRECTION,"
+                + "ARCHIVE_FILES.DATE_TIME_RECEIVED as DATE_TIME_RECEIVED,ARCHIVE_FILES.STATUS as STATUS,ARCHIVE_FILES.ACK_STATUS as ACK_STATUS,"
+                + "TP2.NAME as RECEIVER_NAME,TP1.NAME as SENDER_NAME,ARCHIVE_FILES.SEC_KEY_VAL,ARCHIVE_FILES.REPROCESSSTATUS,ARCHIVE_FILES.ERR_MESSAGE as ERR_MESSAGE FROM ARCHIVE_FILES "
+                + "LEFT OUTER JOIN TP TP1 ON (TP1.ID=ARCHIVE_FILES.SENDER_ID) LEFT OUTER JOIN TP TP2 "
+                + "ON (TP2.ID=ARCHIVE_FILES.RECEIVER_ID)"
+                + "LEFT OUTER JOIN ARCHIVE_ASN ON (ARCHIVE_ASN.FILE_ID = ARCHIVE_FILES.FILE_ID)");
+        documentSearchQuery.append(" WHERE 1=1 AND FLOWFLAG like 'M' ");
+        if (doctype != null && !"".equals(doctype.trim())) {
+            documentSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.TRANSACTION_TYPE", doctype.trim()));
+        }
+        //Status
+        if (status != null && !"-1".equals(status.trim())) {
+            documentSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.STATUS", status.trim()));
+        }
+        //ACK_STATUS
+        if (ackStatus != null && !"-1".equals(ackStatus.trim())) {
+            documentSearchQuery.append(WildCardSql.getWildCardSql1("ARCHIVE_FILES.ACK_STATUS", ackStatus.trim()));
+        }
+        if (docBusId != null && !"".equals(docBusId.trim())) {
+            documentSearchQuery.append(WildCardSql.getWildCardSql1("TP2.ID", docBusId.trim().toUpperCase()));
+        }
+        if (docSenderId != null && !"".equals(docSenderId.trim())) {
+            documentSearchQuery.append(WildCardSql.getWildCardSql1("TP1.ID", docSenderId.trim().toUpperCase()));
+        }
+        if (docSenderName != null && !"".equals(docSenderName.trim())) {
+            documentSearchQuery.append(WildCardSql.getWildCardSql1("TP1.NAME", docSenderName.trim().toUpperCase()));
+        }
+        if (docRecName != null && !"".equals(docRecName.trim())) {
+            documentSearchQuery.append(WildCardSql.getWildCardSql1("TP2.NAME", docRecName.trim().toUpperCase()));
+        }
+        if (docdatepicker != null && !"".equals(docdatepicker)) {
+            tmp_Recieved_From = DateUtility.getInstance().DateViewToDBCompare(docdatepicker);
+            documentSearchQuery.append(" AND ARCHIVE_FILES.DATE_TIME_RECEIVED <= '" + tmp_Recieved_From + "'");
+        }
+        if (docdatepickerfrom != null && !"".equals(docdatepickerfrom)) {
+            tmp_Recieved_From = DateUtility.getInstance().DateViewToDBCompare(docdatepickerfrom);
+            documentSearchQuery.append(" AND ARCHIVE_FILES.DATE_TIME_RECEIVED >= '" + tmp_Recieved_From + "'");
+        }
+        documentSearchQuery.append(" order by DATE_TIME_RECEIVED DESC fetch first 50 rows only");
+        String searchQuery = documentSearchQuery.toString();
+        System.out.println("archive manufactering excel reports query-->"+searchQuery);
+        try {
+            connection = ConnectionProvider.getInstance().getConnection();
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(searchQuery);
+            documentList = new ArrayList<ReportsBean>();
+           // int i = 0;
+            while (resultSet.next()) {
+                //System.out.println("i-->"+i);
+                ReportsBean reportsBean = new ReportsBean();
+                reportsBean.setFile_id(resultSet.getString("FILE_ID"));
+                reportsBean.setFile_origin(resultSet.getString("FILE_ORIGIN"));
+                reportsBean.setFile_type(resultSet.getString("FILE_TYPE"));
+                reportsBean.setIsa_number(resultSet.getString("ISA_NUMBER"));
+                reportsBean.setTransaction_type(resultSet.getString("TRANSACTION_TYPE"));
+                String direction = resultSet.getString("DIRECTION");
+                reportsBean.setDirection(direction);
+                reportsBean.setDate_time_rec(resultSet.getTimestamp("DATE_TIME_RECEIVED"));
+                reportsBean.setStatus(resultSet.getString("STATUS"));
+                 if ((direction != null) && ("INBOUND".equalsIgnoreCase(direction))){
+                    reportsBean.setPname(resultSet.getString("SENDER_NAME"));
+                } else {
+                    reportsBean.setPname(resultSet.getString("RECEIVER_NAME"));
+                }
+                reportsBean.setPoNumber(resultSet.getString("SEC_KEY_VAL"));
+                reportsBean.setReProcessStatus(resultSet.getString("REPROCESSSTATUS"));
+                reportsBean.setAckStatus(resultSet.getString("ACK_STATUS"));
+                reportsBean.setErrorMessage(resultSet.getString("ERR_MESSAGE"));
+                documentList.add(reportsBean);
+               // i++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                    resultSet = null;
+                }
+                if (statement != null) {
+                    statement.close();
+                    statement = null;
+                }
+                if (connection != null) {
+                    connection.close();
+                    connection = null;
+                }
+            } catch (SQLException se) {
+                throw new ServiceLocatorException(se);
+            }
+        }
+        return documentList;
+    }
 }

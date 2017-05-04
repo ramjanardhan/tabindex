@@ -27,63 +27,6 @@
         <script language="JavaScript" src='<s:url value="/includes/js/jquery-1.9.1.js"></s:url>'></script>
         <script language="JavaScript" src='<s:url value="/includes/js/jquery-ui.js"/>'></script>
         <script language="JavaScript" src='<s:url value="/includes/js/LfcAjax.js"/>'></script>
-        <script type="text/javascript">
-            $(function() {
-                $('#attach_box').click(function() {
-                    $('#sec_box').show();
-                    return false;
-                });
-            });
-            $(function() {
-                $('#detail_link').click(function() {
-                    $('#detail_box').show();
-                    return false;
-                });
-            });
-
-            // New function to show the left grid
-
-            function demo() {
-                $(function() {
-
-                    $('#detail_box').show();
-                    return false;
-                });
-
-            }
-            function getDetails(ponum, fileid, type) {
-
-                // alert("hiiiiii---->"+val+"------"+type);
-                getlfcPODetails(ponum, fileid, type);
-            }
-            function goBack()
-            {
-                window.history.go(-1)
-            }
-
-            function hide()
-            {
-
-                $('#hide-menu1').removeClass('show-menu');
-            }
-//            $('body,html').click(function(e){
-//                $('#hide-menu1').removeClass('show-menu');
-//            });
-
-            function doOnLoad() {
-
-                $("#purchaseorder").addClass("active");
-                $("#oredermanagement").addClass("active");
-
-                $("#manufacturing").addClass("active");
-
-                $("#purchaseorder i").addClass("text-red");
-                document.getElementById('loadingAcoountSearch').style.display = "none";
-            }
-
-        </script>
-
-
     </head>
     <body class="hold-transition skin-blue sidebar-mini"  onload="doOnLoad()">
         <div>
@@ -121,6 +64,7 @@
                                 <div class="box-body">
                                     <div style="overflow-x:auto;">   
                                         <div align="right"><input type="button" value="Go back" class="btn btn-effect-ripple btn-primary" onclick="goBack()"></input></div>
+                                        <s:hidden id="database" name="database" value="%{database}"/>
                                         <br>
                                         <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0">
                                             <tr>
@@ -829,17 +773,56 @@
                 });
             });
         </script>
-        <%--  <div id="footer">
-           <h2><font color="white">&#169 2013 Miracle Software Systems, Inc. All rights reserved</font></h2>
-                  </div>--%>
-    </div>
-</div>
-<script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
-<script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
+        <div>
+            <s:include value="../includes/template/footer.jsp"/>
+        </div>
 
-<div>
-    <s:include value="../includes/template/footer.jsp"/>
-</div>
-</body>
+        <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
+        <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
+        <script type="text/javascript">
+           $(function() {
+               $('#attach_box').click(function() {
+                   $('#sec_box').show();
+                   return false;
+               });
+           });
+           $(function() {
+               $('#detail_link').click(function() {
+                   $('#detail_box').show();
+                   return false;
+               });
+           });
+           // New function to show the left grid
+           function demo() {
+               $(function() {
+                   $('#detail_box').show();
+                   return false;
+               });
+           }
+           function getDetails(ponum, fileid, type) {
+               var db = document.getElementById('database').value;
+             // alert("db jsp---->"+db);
+               getlfcPODetails(ponum, fileid, type,db);
+           }
+           function goBack() {
+               window.history.go(-1)
+           }
+
+           function hide() {
+               $('#hide-menu1').removeClass('show-menu');
+           }
+       //            $('body,html').click(function(e){
+       //                $('#hide-menu1').removeClass('show-menu');
+       //            });
+
+           function doOnLoad() {
+               $("#purchaseorder").addClass("active");
+               $("#oredermanagement").addClass("active");
+               $("#manufacturing").addClass("active");
+               $("#purchaseorder i").addClass("text-red");
+               document.getElementById('loadingAcoountSearch').style.display = "none";
+           }
+        </script>
+    </body>
 </html>
 

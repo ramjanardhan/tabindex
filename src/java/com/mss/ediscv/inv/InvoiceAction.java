@@ -94,6 +94,11 @@ public class InvoiceAction extends ActionSupport implements ServletRequestAware 
                 setReceiverIdList(receiverList);
                 setSenderNameList(senderNameList);
                 setReceiverNameList(receiverNameList);
+                if ("ARCHIVE".equals(getDatabase())) {
+                    setDatabase("ARCHIVE");
+                } else {
+                    setDatabase("MSCVP");
+                }
                 //setInvdatepicker(DateUtility.getInstance().getCurrentMySqlDateTime1());
                 resultType = SUCCESS;
             } catch (Exception ex) {

@@ -42,6 +42,7 @@ public class ReportsAction extends ActionSupport implements ServletRequestAware 
     private String reportrange;
     private List<ReportsBean> documentList;
     private Map partnerMap;
+    private String database;
 
     public String getReports() throws Exception {
         setResultType(LOGIN);
@@ -67,6 +68,11 @@ public class ReportsAction extends ActionSupport implements ServletRequestAware 
             setReceiverIdList(receiverList);
             setSenderNameList(senderNameList);
             setReceiverNameList(receiverNameList);
+            if ("ARCHIVE".equals(getDatabase())) {
+                setDatabase("ARCHIVE");
+            } else {
+                setDatabase("MSCVP");
+            }
 //            setDocdatepicker(DateUtility.getInstance().getCurrentMySqlDateTime1());
             if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_DOCREPORT_LIST) != null) {
                 httpServletRequest.getSession(false).removeAttribute(AppConstants.SES_DOCREPORT_LIST);
@@ -81,9 +87,16 @@ public class ReportsAction extends ActionSupport implements ServletRequestAware 
         setResultType(LOGIN);
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
-                System.out.println("getDocdatepickerfrom()----------------> "+getDocdatepickerfrom());
-                System.out.println("getDocdatepicker()----------------> "+getDocdatepicker());
-                documentList = ServiceLocator.getReportsService().getDocumentList(this);
+                System.out.println("getDocdatepickerfrom()----------------> " + getDocdatepickerfrom());
+                System.out.println("getDocdatepicker()----------------> " + getDocdatepicker());
+                 if ("ARCHIVE".equals(getDatabase())) {
+                    documentList = ServiceLocator.getReportsService().getDocumentListArchive(this);
+                    setDatabase("ARCHIVE");
+                } else {
+                   documentList = ServiceLocator.getReportsService().getDocumentList(this);
+                   setDatabase("MSCVP");
+                }
+                
                 if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_DOCREPORT_LIST) != null) {
                     httpServletRequest.getSession(false).removeAttribute(AppConstants.SES_DOCREPORT_LIST);
                 }
@@ -129,7 +142,7 @@ public class ReportsAction extends ActionSupport implements ServletRequestAware 
                 docList = DataSourceDataProvider.getInstance().getDocumentTypeList("M");
                 setDocTypeList(docList);
                 setPartnerMap(DataSourceDataProvider.getInstance().getDashboardPartnerMap("2"));
-               // setDocdatepicker(DateUtility.getInstance().getCurrentMySqlDateTime1());
+                // setDocdatepicker(DateUtility.getInstance().getCurrentMySqlDateTime1());
                 resultType = SUCCESS;
                 setResultType(SUCCESS);
             } catch (Exception exception) {
@@ -368,5 +381,12 @@ public class ReportsAction extends ActionSupport implements ServletRequestAware 
         this.reportrange = reportrange;
     }
 
-   
+    public String getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(String database) {
+        this.database = database;
+    }
+
 }

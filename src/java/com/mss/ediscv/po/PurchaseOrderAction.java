@@ -90,6 +90,11 @@ public class PurchaseOrderAction extends ActionSupport implements ServletRequest
                 setReceiverIdList(receiverList);
                 setSenderNameList(senderNameList);
                 setReceiverNameList(receiverNameList);
+                 if ("ARCHIVE".equals(getDatabase())) {
+                    setDatabase("ARCHIVE");
+                } else {
+                    setDatabase("MSCVP");
+                }
                 resultType = SUCCESS;
             } catch (Exception ex) {
                 httpServletRequest.getSession(false).setAttribute(AppConstants.REQ_EXCEPTION_MSG, ex.getMessage());

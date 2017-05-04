@@ -1945,33 +1945,32 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
      * Life cycle Details
      *
      */
-    public String getLifeCycleDetails(String poNumber, String fileId, String type) throws ServiceLocatorException {
+    public String getLifeCycleDetails(String poNumber, String fileId, String type, String database) throws ServiceLocatorException {
 
         String resultXml = "";
 
         LifecycleUtility lifecycleUtility = new LifecycleUtility();
 
         if (type.equalsIgnoreCase("PO")) {
-
             // System.out.println("in po");
-            poLifecycleBean = lifecycleUtility.getLFCPoDetails(poNumber, fileId);
+            poLifecycleBean = lifecycleUtility.getLFCPoDetails(poNumber, fileId, database);
             resultXml = getPoDetails(poLifecycleBean);
         }
 
         if (type.equalsIgnoreCase("ASN")) {
             // System.out.println("in ASN");
-            asnLifecycleBean = lifecycleUtility.getLFCAsnDetails(poNumber, fileId);
+            asnLifecycleBean = lifecycleUtility.getLFCAsnDetails(poNumber, fileId, database);
             resultXml = getASNDetails(asnLifecycleBean);
         }
 
         if (type.equalsIgnoreCase("INV")) {
             // System.out.println("in INV");
-            invoiceLifecycleBean = lifecycleUtility.getLFCInvoiceDetails(poNumber, fileId);
+            invoiceLifecycleBean = lifecycleUtility.getLFCInvoiceDetails(poNumber, fileId, database);
             resultXml = getINVDetails(invoiceLifecycleBean);
         }
         if (type.equalsIgnoreCase("PAYMENT")) {
             //  System.out.println("in payment");
-            paymentLifecycleBean = lifecycleUtility.getLFCPaymentDetails(poNumber, fileId);
+            paymentLifecycleBean = lifecycleUtility.getLFCPaymentDetails(poNumber, fileId, database);
             resultXml = getPayDetails(paymentLifecycleBean);
         }
         return resultXml;

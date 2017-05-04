@@ -77,6 +77,11 @@ public class PaymentsAction extends ActionSupport implements ServletRequestAware
                 setReceiverIdList(DataSourceDataProvider.getInstance().getReciverIdlist("M"));
                 setSenderNameList(DataSourceDataProvider.getInstance().getSenderNamelist("M"));
                 setReceiverNameList(DataSourceDataProvider.getInstance().getReciverNamelist("M"));
+                 if ("ARCHIVE".equals(getDatabase())) {
+                    setDatabase("ARCHIVE");
+                } else {
+                    setDatabase("MSCVP");
+                }
                 //setPaDateTo(DateUtility.getInstance().getCurrentMySqlDateTime1());
                 resultType = SUCCESS;
             } catch (Exception ex) {

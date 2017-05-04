@@ -86,6 +86,11 @@ public class ShipmentSearchAction extends ActionSupport implements ServletReques
                 setReceiverIdList(receiverList);
                 setSenderNameList(senderNameList);
                 setReceiverNameList(receiverNameList);
+                if ("ARCHIVE".equals(getDatabase())) {
+                    setDatabase("ARCHIVE");
+                } else {
+                    setDatabase("MSCVP");
+                }
                 //   setDatepicker(DateUtility.getInstance().getCurrentMySqlDateTime1());
                 resultType = SUCCESS;
             } catch (Exception ex) {

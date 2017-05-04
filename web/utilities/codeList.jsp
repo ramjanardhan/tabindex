@@ -492,6 +492,7 @@
                                                         alert("Cannot updae code list when no code list is selected");
                                                     }
                                                     else {
+                                                        listName = document.getElementById('listName1').value;
                                                         var checkedCount = 0;
                                                         var ips = {"jsonData": []};
                                                         var rowCount = $('#results tr').length;
@@ -511,7 +512,7 @@
 //                                                                else
 //                                                                {
                                                                         // alert('listName----'+listName);
-                                                                        listName = document.getElementById('listName1').value;
+                                                                        
 //                                                                    if (listName == "")
 //                                                                    {
 //                                                                        document.getElementById("messagediv").innerHTML = "<font class='text-danger'>Please Enter New List Name</font>";

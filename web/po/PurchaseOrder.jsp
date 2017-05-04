@@ -504,7 +504,7 @@
                                     <%
                                         // out.println(session.getAttribute(AppConstants.SES_ROLE_ID));
 
-                                        if ((session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104")) && list.size() != 0) {
+                                        if (list.size() != 0) {
                                     %>
 
                                     <div class="row">

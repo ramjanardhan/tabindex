@@ -28,6 +28,17 @@
             }
         </style>
         <script type="text/javascript">
+            $(function() {
+                // $("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true
+                });
+            });
             var myCalendar;
             function doOnLoad() {
                 $("#excelreports").addClass("active");
@@ -356,19 +367,7 @@
                     </s:if>
             </div> 
         </div> 
-        <script type="text/javascript">
-            $(function() {
-                // $("#example1").DataTable();
-                $('#results').DataTable({
-                    "paging": true,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": true
-                });
-            });
-        </script>
+        
         <div>
             <s:include value="../includes/template/footer.jsp"/>
         </div>

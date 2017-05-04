@@ -30,6 +30,21 @@
         <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
         <link rel="stylesheet" href='<s:url value="/includes/plugins/daterangepicker/daterangepicker.css"/>' type="text/css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+        <script type="text/javascript">
+            $(function () {
+                //$("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
+        </script>
+
     </head>
     <%
         String check = null;
@@ -37,7 +52,8 @@
             check = request.getAttribute("check").toString();
         }
     %>
-    <body class="hold-transition skin-blue sidebar-mini" onload= "doOnLoad(); check();"> 
+    <body class="hold-transition skin-blue sidebar-mini" onload= "doOnLoad();
+            check();"> 
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <script type="text/javascript">
         function check() {
@@ -535,19 +551,7 @@
                 <div class="row col-sm-12" style="margin-top:10px;"> <button type="button" class="btn btn-primary col-sm-11" id="hide-menu" onclick="hide()" style="margin-left:12px;" value="X">Close</button></div>
             </div>
         </div>
-                    <script type="text/javascript">
-             $(function () {
-                    //$("#example1").DataTable();
-                    $('#results').DataTable({
-                        "paging": true,
-                        "lengthChange": true,
-                        "searching": true,
-                        "ordering": true,
-                        "info": true,
-                        "autoWidth": false
-                    });
-                });
-                </script>
+
         <div>
             <s:include value="../includes/template/footer.jsp"/>
         </div>
@@ -561,75 +565,75 @@
         <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
         <script type="text/javascript">
-            
-                function getDetails(val, ponum, fileid) {
-                     var db = document.forms["shipmentForm"]["database"].value;
-                    getAsnDetails(val, ponum, fileid,db);
-                }
-                
-                function checkCorrelation() {
-                    var db = document.forms["shipmentForm"]["database"].value;
-                     if (db == '') {
-                    alert("please select Database!!!");
-                    return false;
-                }
-                    var corrattr = document.getElementById('corrattribute').value;
-                    var corrval = document.getElementById('corrvalue').value;
-                    var corrattr1 = document.getElementById('corrattribute1').value;
-                    var corrval1 = document.getElementById('corrvalue1').value;
-                    if ((corrattr != "-1") && (corrval == "")) {
-                        alert("please enter Correlation Value!!!");
-                        return false;
-                    }
-                    if ((corrattr == "-1") && (corrval != "")) {
-                        alert("please select Correlation!");
-                        return false;
-                    }
-                    if ((corrattr1 != "-1") && (corrval1 == "")) {
-                        alert("please enter Correlation Value!!!");
-                        return false;
-                    }
-                    if ((corrattr1 == "-1") && (corrval1 != "")) {
-                        alert("please select Correlation!");
-                        return false;
-                    }
-                    var res = Formvalidation(document.getElementById('datepickerfrom').value, document.getElementById('datepicker').value);
-                    return res;
-                }
-                
-                function resetvaluesShipment() {
-                    $('.myRadio').attr('checked',false);
-                    document.getElementById('buId').value = "-1";
-                    document.getElementById('datepickerfrom').value = "";
-                    document.getElementById('datepicker').value = "";
-                    document.getElementById('reportrange').value = ""
-                    document.getElementById('docType').value = "-1";
-                    document.getElementById('senderId').value = "-1";
-                    document.getElementById('senderName').value = "-1";
-                    document.getElementById('recName').value = "-1";
-                    document.getElementById('sampleValue').value = "1";
-                    document.getElementById('ackStatus').value = "-1";
-                    document.getElementById('status').value = "-1";
-                    document.getElementById('corrattribute').value = "-1";
-                    document.getElementById('corrvalue').value = "";
-                    document.getElementById('corrattribute1').value = "-1";
-                    document.getElementById('corrvalue1').value = "";
-                    //document.getElementById('corrattribute2').value="-1";
-                    //document.getElementById('corrvalue2').value="";
-                    $('#gridDiv').hide();
-                }
 
-                function doOnLoad() {
-                    $("#shipments").addClass("active");
-                    $("#supplychain").addClass("active");
-                    $("#manufacturing").addClass("active");
-                    $("#shipments i").addClass("text-red");
-                    document.getElementById('loadingAcoountSearch').style.display = "none";
-                }
-                
-                function hide() {
-                    $('#hide-menu1').removeClass('show-menu');
-                }
+                    function getDetails(val, ponum, fileid) {
+                        var db = document.forms["shipmentForm"]["database"].value;
+                        getAsnDetails(val, ponum, fileid, db);
+                    }
+
+                    function checkCorrelation() {
+                        var db = document.forms["shipmentForm"]["database"].value;
+                        if (db == '') {
+                            alert("please select Database!!!");
+                            return false;
+                        }
+                        var corrattr = document.getElementById('corrattribute').value;
+                        var corrval = document.getElementById('corrvalue').value;
+                        var corrattr1 = document.getElementById('corrattribute1').value;
+                        var corrval1 = document.getElementById('corrvalue1').value;
+                        if ((corrattr != "-1") && (corrval == "")) {
+                            alert("please enter Correlation Value!!!");
+                            return false;
+                        }
+                        if ((corrattr == "-1") && (corrval != "")) {
+                            alert("please select Correlation!");
+                            return false;
+                        }
+                        if ((corrattr1 != "-1") && (corrval1 == "")) {
+                            alert("please enter Correlation Value!!!");
+                            return false;
+                        }
+                        if ((corrattr1 == "-1") && (corrval1 != "")) {
+                            alert("please select Correlation!");
+                            return false;
+                        }
+                        var res = Formvalidation(document.getElementById('datepickerfrom').value, document.getElementById('datepicker').value);
+                        return res;
+                    }
+
+                    function resetvaluesShipment() {
+                        $('.myRadio').attr('checked', false);
+                        document.getElementById('buId').value = "-1";
+                        document.getElementById('datepickerfrom').value = "";
+                        document.getElementById('datepicker').value = "";
+                        document.getElementById('reportrange').value = ""
+                        document.getElementById('docType').value = "-1";
+                        document.getElementById('senderId').value = "-1";
+                        document.getElementById('senderName').value = "-1";
+                        document.getElementById('recName').value = "-1";
+                        document.getElementById('sampleValue').value = "1";
+                        document.getElementById('ackStatus').value = "-1";
+                        document.getElementById('status').value = "-1";
+                        document.getElementById('corrattribute').value = "-1";
+                        document.getElementById('corrvalue').value = "";
+                        document.getElementById('corrattribute1').value = "-1";
+                        document.getElementById('corrvalue1').value = "";
+                        //document.getElementById('corrattribute2').value="-1";
+                        //document.getElementById('corrvalue2').value="";
+                        $('#gridDiv').hide();
+                    }
+
+                    function doOnLoad() {
+                        $("#shipments").addClass("active");
+                        $("#supplychain").addClass("active");
+                        $("#manufacturing").addClass("active");
+                        $("#shipments i").addClass("text-red");
+                        document.getElementById('loadingAcoountSearch').style.display = "none";
+                    }
+
+                    function hide() {
+                        $('#hide-menu1').removeClass('show-menu');
+                    }
 //            $('body,html').click(function (e) {
 //                $('#hide-menu1').removeClass('show-menu');
 //            });

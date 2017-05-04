@@ -87,6 +87,17 @@
 
                 document.getElementById('loadingAcoountSearch').style.display = "none";
             }
+        $(function () {
+            // $("#example1").DataTable();
+            $('#results').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false
+            });
+        });
         </script>
     </head>
     <%--<body onload="doOnLoad();initDateTime('docdatepickerfrom','docdatepicker','<%=check %>');setStyle('docRep','');">  --%>
@@ -395,19 +406,7 @@
 
 
     </div>
-    <script>
-        $(function () {
-            // $("#example1").DataTable();
-            $('#results').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false
-            });
-        });
-    </script>
+    
 </div>
 </div> 
 <div>

@@ -37,7 +37,19 @@
 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
-
+        <script type="text/javascript">
+            $(function () {
+                //$("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
+        </script>
 
 
     </head>
@@ -192,7 +204,7 @@
                                                 </script>                                          
 
                                                 <script>
-                                                    $("#addButton").click(function() {
+                                                    $("#addButton").click(function () {
                                                         count++;
                                                         if (count == 1)
                                                             document.getElementById("corr").style.display = "block";
@@ -694,150 +706,124 @@
                 <div class="row col-sm-12" style="margin-top:10px;">  <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
             </div>
         </div>
-<script type="text/javascript">
-        $(function() {
-                //$("#example1").DataTable();
-                $('#results').DataTable({
-                    "paging": true,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false
-                });
-            });
-            </script>
-                        <div>
-        <s:include value="../includes/template/footer.jsp"/>
-    </div>
 
-    <script type="text/javascript" src='<s:url value="../includes/js/DateValidation.js"/>'></script>
-    <script type="text/javascript" src='<s:url value="../includes/js/lifeCycle.js"/>'></script>
-    <script language="JavaScript"  src='<s:url value="/includes/js/generalValidations.js"/>'></script>
-    <script language="JavaScript"  src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
-    <script language="JavaScript"  src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
-    <script type="text/javascript" src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script>
-    <script src='<s:url value="/includes/bootstrap/js/app.min.js"/>'></script>
-    <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
-    <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
+        <div>
+            <s:include value="../includes/template/footer.jsp"/>
+        </div>
 
-    <script type="text/javascript">
-        
-            // New function to show the left grid
-            function demo() {
-                $(function() {
-                    $('#detail_box').show();
-                    return false;
-                });
-            }
+        <script type="text/javascript" src='<s:url value="../includes/js/DateValidation.js"/>'></script>
+        <script type="text/javascript" src='<s:url value="../includes/js/lifeCycle.js"/>'></script>
+        <script language="JavaScript"  src='<s:url value="/includes/js/generalValidations.js"/>'></script>
+        <script language="JavaScript"  src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
+        <script language="JavaScript"  src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
+        <script type="text/javascript" src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script>
+        <script src='<s:url value="/includes/bootstrap/js/app.min.js"/>'></script>
+        <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
+        <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
-            function getDetails(val, val1) {
-                var db = document.forms["purchaseForm"]["database"].value;
-                getPoDetails(val, val1, db);
-            }
+        <script type="text/javascript">
 
-            function resetvaluesPO() {
-                $('.myRadio').attr('checked',false);
-                document.getElementById('poDateFrom').value = "";
-                document.getElementById('poDateTo').value = "";
-                document.getElementById('reportrange').value = ""
-                document.getElementById('docType').value = "-1";
-                document.getElementById('poSenderId').value = "-1";
-                document.getElementById('poSenderName').value = "-1";
-                document.getElementById('poRecId').value = "-1";
-                document.getElementById('poRecName').value = "-1";
-                document.getElementById('sampleValue').value = "1";
-                //document.getElementById('ackStatus').value="-1";
-                document.getElementById('ackStatus').value = "-1";
-                document.getElementById('status').value = "-1";
-                document.getElementById('corrattribute').value = "-1";
-                document.getElementById('corrvalue').value = "";
-                document.getElementById('corrattribute1').value = "-1";
-                document.getElementById('corrvalue1').value = "";
-                document.getElementById('corrattribute2').value = "-1";
-                document.getElementById('corrvalue2').value = "";
-                //  document.getElementById('docType').value="-1"; 
-                $('#gridDiv').hide();
-            }
+                    // New function to show the left grid
+                    function demo() {
+                        $(function () {
+                            $('#detail_box').show();
+                            return false;
+                        });
+                    }
 
-            function enterDate() {
-                alert("Please select from the Calender !");
-                document.getElementById('poDateFrom').value = '';
-            }
+                    function getDetails(val, val1) {
+                        var db = document.forms["purchaseForm"]["database"].value;
+                        getPoDetails(val, val1, db);
+                    }
 
-            function checkCorrelation() {
-                var db = document.forms["purchaseForm"]["database"].value;
-                if (db == '') {
-                    alert("please select Database!!!");
-                    return false;
-                }
-                var corrattr = document.getElementById('corrattribute').value;
-                var corrval = document.getElementById('corrvalue').value;
+                    function resetvaluesPO() {
+                        $('.myRadio').attr('checked', false);
+                        document.getElementById('poDateFrom').value = "";
+                        document.getElementById('poDateTo').value = "";
+                        document.getElementById('reportrange').value = ""
+                        document.getElementById('docType').value = "-1";
+                        document.getElementById('poSenderId').value = "-1";
+                        document.getElementById('poSenderName').value = "-1";
+                        document.getElementById('poRecId').value = "-1";
+                        document.getElementById('poRecName').value = "-1";
+                        document.getElementById('sampleValue').value = "1";
+                        //document.getElementById('ackStatus').value="-1";
+                        document.getElementById('ackStatus').value = "-1";
+                        document.getElementById('status').value = "-1";
+                        document.getElementById('corrattribute').value = "-1";
+                        document.getElementById('corrvalue').value = "";
+                        document.getElementById('corrattribute1').value = "-1";
+                        document.getElementById('corrvalue1').value = "";
+                        document.getElementById('corrattribute2').value = "-1";
+                        document.getElementById('corrvalue2').value = "";
+                        //  document.getElementById('docType').value="-1"; 
+                        $('#gridDiv').hide();
+                    }
 
-                var corrattr1 = document.getElementById('corrattribute1').value;
-                var corrval1 = document.getElementById('corrvalue1').value;
+                    function enterDate() {
+                        alert("Please select from the Calender !");
+                        document.getElementById('poDateFrom').value = '';
+                    }
 
-                var corrattr2 = document.getElementById('corrattribute2').value;
-                var corrval2 = document.getElementById('corrvalue2').value;
+                    function checkCorrelation() {
+                        var db = document.forms["purchaseForm"]["database"].value;
+                        if (db == '') {
+                            alert("please select Database!!!");
+                            return false;
+                        }
+                        var corrattr = document.getElementById('corrattribute').value;
+                        var corrval = document.getElementById('corrvalue').value;
 
-                if ((corrattr != "-1") && (corrval == "")) {
-                    alert("please enter Correlation Value!!!");
-                    return false;
-                }
-                if ((corrattr == "-1") && (corrval != "")) {
-                    alert("please select Correlation!");
-                    return false;
-                }
+                        var corrattr1 = document.getElementById('corrattribute1').value;
+                        var corrval1 = document.getElementById('corrvalue1').value;
 
-                if ((corrattr1 != "-1") && (corrval1 == "")) {
-                    alert("please enter Correlation Value!!!");
-                    return false;
-                }
-                if ((corrattr1 == "-1") && (corrval1 != "")) {
-                    alert("please select Correlation!");
-                    return false;
-                }
+                        var corrattr2 = document.getElementById('corrattribute2').value;
+                        var corrval2 = document.getElementById('corrvalue2').value;
 
-                if ((corrattr2 != "-1") && (corrval2 == "")) {
-                    alert("please enter Correlation Value!!!");
-                    return false;
-                }
-                if ((corrattr2 == "-1") && (corrval2 != "")) {
-                    alert("please select Correlation!");
-                    return false;
-                }
-                var res = Formvalidation(document.getElementById('poDateFrom').value, document.getElementById('poDateTo').value);
-                return res;
-            }
+                        if ((corrattr != "-1") && (corrval == "")) {
+                            alert("please enter Correlation Value!!!");
+                            return false;
+                        }
+                        if ((corrattr == "-1") && (corrval != "")) {
+                            alert("please select Correlation!");
+                            return false;
+                        }
 
-            function doOnLoad() {
-                $("#purchaseorder").addClass("active");
-                $("#oredermanagement").addClass("active");
+                        if ((corrattr1 != "-1") && (corrval1 == "")) {
+                            alert("please enter Correlation Value!!!");
+                            return false;
+                        }
+                        if ((corrattr1 == "-1") && (corrval1 != "")) {
+                            alert("please select Correlation!");
+                            return false;
+                        }
 
-                $("#manufacturing").addClass("active");
+                        if ((corrattr2 != "-1") && (corrval2 == "")) {
+                            alert("please enter Correlation Value!!!");
+                            return false;
+                        }
+                        if ((corrattr2 == "-1") && (corrval2 != "")) {
+                            alert("please select Correlation!");
+                            return false;
+                        }
+                        var res = Formvalidation(document.getElementById('poDateFrom').value, document.getElementById('poDateTo').value);
+                        return res;
+                    }
 
-                $("#purchaseorder i").addClass("text-red");
-                document.getElementById('loadingAcoountSearch').style.display = "none";
-            }
+                    function doOnLoad() {
+                        $("#purchaseorder").addClass("active");
+                        $("#oredermanagement").addClass("active");
 
-            function hide() {
-                $('#hide-menu1').removeClass('show-menu');
-            }
-            //            $('body,html').click(function(e){
-            //                $('#hide-menu1').removeClass('show-menu');
-            //            });
-            
-            $(function () {
-                //$("#example1").DataTable();
-                $('#results').DataTable({
-                    "paging": true,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false
-                });
-            });
-    </script>
-</body>
+                        $("#manufacturing").addClass("active");
+
+                        $("#purchaseorder i").addClass("text-red");
+                        document.getElementById('loadingAcoountSearch').style.display = "none";
+                    }
+
+                    function hide() {
+                        $('#hide-menu1').removeClass('show-menu');
+                    }
+
+        </script>
+    </body>
 </html>

@@ -16,6 +16,7 @@
 
 <!DOCTYPE html>
 <html>
+    <head>
     <style>
         #inv_buttons{
             display: inline-block;
@@ -57,7 +58,19 @@
     <script language="JavaScript"  src='<s:url value="/includes/js/generalValidations.js"/>'></script>
     <script language="JavaScript"  src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
     <script language="JavaScript"  src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
-
+    <script type="text/javascript">
+                     $(function() {
+                            //$("#example1").DataTable();
+                            $('#results').DataTable({
+                                "paging": true,
+                                "lengthChange": true,
+                                "searching": true,
+                                "ordering": true,
+                                "info": true,
+                                "autoWidth": false
+                            });
+                        });
+                        </script>
 
 
 </head>
@@ -547,19 +560,7 @@
                         <div class="row col-sm-12" style="margin-top:10px;"> <button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
                     </div>
                 </div>
-                        <script type="text/javascript">
-                     $(function() {
-                            //$("#example1").DataTable();
-                            $('#results').DataTable({
-                                "paging": true,
-                                "lengthChange": true,
-                                "searching": true,
-                                "ordering": true,
-                                "info": true,
-                                "autoWidth": false
-                            });
-                        });
-                        </script>
+                        
                 <div>
                     <s:include value="../includes/template/footer.jsp"/>
                 </div>

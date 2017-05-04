@@ -81,6 +81,17 @@
 
 
         <script>
+            $(function () {
+                //$("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true
+                });
+            });
              function doOnLoad()
             {
                 $("#editrackingsummary").addClass("active");
@@ -564,19 +575,7 @@
         <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
         <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
-        <script>
-            $(function () {
-                //$("#example1").DataTable();
-                $('#results').DataTable({
-                    "paging": true,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": true
-                });
-            });
-        </script>
+        
     </div>
     <div>
         <s:include value="../includes/template/footer.jsp"/>

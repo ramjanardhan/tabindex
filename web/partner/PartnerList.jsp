@@ -71,7 +71,17 @@
             // $('html').click(function(e){
             //  $('#hide-menu1').removeClass('show-menu');
             //});
-
+            $(function () {
+                //$("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
         </script> 
 
 
@@ -492,19 +502,7 @@
                                 </s:if> 
                             </div>
                         </div><!-- ./wrapper -->
-                        <script type="text/javascript">
-                            $(function () {
-                                //$("#example1").DataTable();
-                                $('#results').DataTable({
-                                    "paging": true,
-                                    "lengthChange": true,
-                                    "searching": true,
-                                    "ordering": true,
-                                    "info": true,
-                                    "autoWidth": false
-                                });
-                            });
-                        </script>
+
 
                     </div>
                     <div>

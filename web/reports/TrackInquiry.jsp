@@ -44,7 +44,17 @@
         </script>
         <script type="text/javascript">
 
-
+            $(function () {
+                // $("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
 
             function resetValues()
             {
@@ -371,20 +381,6 @@
 
             </div> 
 
-            <script>
-                $(function () {
-                    // $("#example1").DataTable();
-                    $('#results').DataTable({
-                        "paging": true,
-                        "lengthChange": true,
-                        "searching": true,
-                        "ordering": true,
-                        "info": true,
-                        "autoWidth": false
-                    });
-                });
-            </script>
-
 
         </div>
         <div>
@@ -398,7 +394,7 @@
 
 
         <script>
-                $('input[name="daterange"]').daterangepicker();
+                                                        $('input[name="daterange"]').daterangepicker();
         </script>
 
         <script src='<s:url value="../includes/bootstrap/js/bootstrap.min.js"/>'></script>

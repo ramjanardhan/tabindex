@@ -33,6 +33,18 @@
             }
         </style>
         <script>
+         $(function() {
+                // $("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+
+                });
+            });
             function doOnLoad() {
                 $("#payments").addClass("active");
                 $("#financials").addClass("active");
@@ -552,20 +564,7 @@
                 <div class="row col-sm-12" style="margin-top:10px;"><button type="button" class="btn btn-primary col-sm-11" style="margin-left:12px; " id="hide-menu" onclick="hide()" value="X">Close</button></div>
             </div>
         </div>
-<script type="text/javascript">
-         $(function() {
-                // $("#example1").DataTable();
-                $('#results').DataTable({
-                    "paging": true,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false
-
-                });
-            });
-                </script>    
+    
             <div>
         <s:include value="../includes/template/footer.jsp"/>
     </div>

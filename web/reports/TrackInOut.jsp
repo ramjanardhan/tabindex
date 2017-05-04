@@ -31,6 +31,17 @@
             }
         </script>
         <script type="text/javascript"> 
+            $(function () {
+                // $("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
             function resetvalues()
             {
    
@@ -690,19 +701,7 @@
         <script>
             $('input[name="daterange"]').daterangepicker();
         </script>
-              <script>
-            $(function () {
-                // $("#example1").DataTable();
-                $('#results').DataTable({
-                    "paging": true,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false
-                });
-            });
-        </script>
+              
      
         <script language="JavaScript"  src='<s:url value="/includes/js/GeneralAjax.js"/>'></script>
         <script language="JavaScript"  src='<s:url value="/includes/js/downloadAjax.js"/>'></script>

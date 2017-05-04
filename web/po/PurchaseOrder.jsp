@@ -317,14 +317,14 @@
                                                                     <th>Status</th> 
                                                                     <th>Ack&nbsp;Status</th>  
                                                                     <th>Reprocess</th> 
-
+                                                                    <%--
                                                                     <%
                                                                         // System.out.println("Session=========================="+session.getAttribute(AppConstants.SES_ROLE_ID).equals("100"));
                                                                         //System.out.println("Session=========================="+session.getAttribute(AppConstants.SES_ROLE_ID).equals("104"));
                                                                         if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104")) {
-                                                                    %>
+                                                                    %> --%>
                                                                     <td>#</td>
-                                                                    <%}%>
+                                                                    <%--<%}%> --%>
                                                                 </tr> </thead>
                                                             <tbody>
 
@@ -464,14 +464,14 @@
 
                                                                         %>
                                                                     </td>
-                                                                    <%                                                                        if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104")) {
-                                                                    %>
+                                                                    <%--<%                                                                        if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104")) {
+                                                                    %>--%>
                                                                     <td> &nbsp; &nbsp; 
                                                                         <input type = "checkbox" name ="check_List<%=i%>" id = "check_List<%=i%>" value="<%= purchaseOrderBean.getPo()%>"/>&nbsp; &nbsp;  
                                                                     </td> 
-                                                                    <%
+                                                                    <%--<%
                                                                         }
-                                                                    %>
+                                                                    %> --%>
                                                                 </tr>
                                                                 <%
                                                                     }

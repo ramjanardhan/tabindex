@@ -36,7 +36,8 @@
                     "searching": true,
                     "ordering": true,
                     "info": true,
-                    "autoWidth": true
+                    "autoWidth": true,
+                    order: [[0, 'desc']]
                 });
             });
             var myCalendar;
@@ -196,21 +197,13 @@
                                                                         ReportsBean docRepositoryBean;
                                                                 %>
                                                                 <thead> <tr>
-                                                                        <%-- <td >ISA #</td>
-                                                                         <td >File Format</td>
-                                                                         <td>Direction</td>
-                                                                         <td >Date</td>
-                                                                         <td>Status</td>  --%>
+                                                                        <th>DateTime</th>
                                                                         <th>File&nbsp;Format</th> 
                                                                         <th>InstanceId</th>
                                                                         <th>Partner</th>
-                                                                        <th>DateTime</th>
-                                                                            <%-- <td >ISA #</td>  --%>
-                                                                            <%-- <td >DOC_ORIGIN</td> --%>
                                                                         <th>Trans&nbsp;Type</th>
                                                                         <th >Direction</th>
                                                                         <th>Status</th>
-                                                                            <%-- <td >ACK_STATUS</td>  --%>
                                                                         <th>Reprocess</th>
                                                                     </tr>
                                                                 </thead>
@@ -226,6 +219,16 @@
                                                                     %>
                                                                 <td>
                                                                     <%
+                                                                        if (docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")) != null
+                                                                                && !"".equals(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                            out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
+                                                                    %>
+                                                                </td> 
+                                                                <td>
+                                                                    <%
                                                                         if (docRepositoryBean.getFile_type() != null && !"".equals(docRepositoryBean.getFile_type())) {
                                                                             out.println(docRepositoryBean.getFile_type());
                                                                         } else {
@@ -233,7 +236,7 @@
                                                                         }
                                                                     %>
                                                                 </td>
-                                                                <td><%-- <a href="javascript:getDetails('<%=docRepositoryBean.getFile_id()%>','<%=docRepositoryBean.getPoNumber()%>');"> --%>
+                                                                <td>
                                                                     <%
                                                                         if (docRepositoryBean.getFile_id() != null && !"".equals(docRepositoryBean.getFile_id())) {
                                                                             out.println(docRepositoryBean.getFile_id());
@@ -252,22 +255,6 @@
                                                                         }
                                                                     %>
                                                                 </td>
-                                                                <td>
-                                                                    <%
-                                                                        if (docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")) != null
-                                                                                && !"".equals(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")))) {
-                                                                            out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
-                                                                        } else {
-                                                                            out.println("-");
-                                                                        }
-                                                                    %>
-                                                                </td>  
-                                                                <%-- <td> 
-                                                                         <%
-                                                                         out.println(docRepositoryBean.getIsa_number());
-                                                                         %>
-                                                                        
-                                                                     </td>  --%>
                                                                 <td>
                                                                     <%
                                                                         if (docRepositoryBean.getTransaction_type() != null && !"".equals(docRepositoryBean.getTransaction_type())) {

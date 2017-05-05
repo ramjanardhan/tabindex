@@ -41,8 +41,8 @@
                     "searching": true,
                     "ordering": true,
                     "info": true,
-                    "autoWidth": false
-
+                    "autoWidth": false,
+                    order: [[0, 'desc']]
                 });
             });
             function doOnLoad() {
@@ -240,14 +240,11 @@
                                                             %>
                                                             <input type="hidden" name="sec_payment_list" id="sec_payment_list" value="<%=list.size()%>"/>
                                                             <thead> <tr>
-
+                                                                    <th >DateTime</th>
                                                                     <th>Partner</th>
                                                                     <th >InstanceId</th>
-                                                                        <%-- <td >Check #</td>  --%>
                                                                     <th>PO #</th>
                                                                     <th>Inv #</th>
-                                                                    <th >DateTime</th>
-                                                                        <%-- <td>Trans Type</td> --%>
                                                                     <th>Cheque #</th>
                                                                     <th>Cheque&nbsp;Amount</th>
                                                                     <th>Status</th>
@@ -255,20 +252,26 @@
                                                                 </tr></thead>
                                                             <tbody>
                                                                 <tr>
-
                                                                     <%
                                                                         for (int i = 0; i < list.size(); i++) {
                                                                             paymentBean = (PaymentBean) list.get(i);
-
                                                                             if (i % 2 == 0) {
                                                                                 cssValue = "whiteStripe";
                                                                             } else {
                                                                                 cssValue = "grayEditSelection";
                                                                             }
                                                                     %>
+                                                                    <td>
+                                                                        <%
+                                                                            if (paymentBean.getDate_time_rec().toString().substring(0, paymentBean.getDate_time_rec().toString().lastIndexOf(":")) != null
+                                                                                    && !"".equals(paymentBean.getDate_time_rec().toString().substring(0, paymentBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                                out.println(paymentBean.getDate_time_rec().toString().substring(0, paymentBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            } else {
+                                                                                out.println("-");
+                                                                            }
+                                                                        %>
 
-
-
+                                                                    </td>
                                                                     <td>
                                                                         <%
                                                                             if (paymentBean.getReceiverName() != null && !"".equals(paymentBean.getReceiverName())) {
@@ -276,7 +279,6 @@
                                                                             } else {
                                                                                 out.println("-");
                                                                             }
-
                                                                         %>
                                                                     </td>
                                                                     <td><a href="javascript:getPaymentDetails(<%=paymentBean.getFileId()%>);" >
@@ -309,23 +311,6 @@
                                                                         %>
 
                                                                     </td>
-                                                                    <td>
-                                                                        <%
-                                                                            if (paymentBean.getDate_time_rec().toString().substring(0, paymentBean.getDate_time_rec().toString().lastIndexOf(":")) != null
-                                                                                    && !"".equals(paymentBean.getDate_time_rec().toString().substring(0, paymentBean.getDate_time_rec().toString().lastIndexOf(":")))) {
-                                                                                out.println(paymentBean.getDate_time_rec().toString().substring(0, paymentBean.getDate_time_rec().toString().lastIndexOf(":")));
-                                                                            } else {
-                                                                                out.println("-");
-                                                                            }
-                                                                        %>
-
-                                                                    </td>
-                                                                    <%--  <td>
-                                                                        <%
-                                                                 out.println(paymentBean.getTransType());
-                                                                 %>
-                                                                         
-                                                                     </td> --%>
                                                                     <td>
                                                                         <%
                                                                             if (paymentBean.getCheckNumber() != null && !"".equals(paymentBean.getCheckNumber())) {

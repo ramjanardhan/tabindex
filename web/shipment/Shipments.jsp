@@ -227,7 +227,6 @@
                                             <div class="col-sm-2"><s:submit value="Search"  onclick="return checkCorrelation();" cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
 
                                             <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetvaluesShipment();"/></strong></div>
-                                            </td>
                                             <s:hidden name="sampleValue" id="sampleValue" value="2"/>
 
                                         </s:form>

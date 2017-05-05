@@ -49,7 +49,7 @@
             }
 
             function resetvaluesExcelReport() {
-                $('.myRadio').attr('checked',false);
+                $('.myRadio').attr('checked', false);
                 document.getElementById('docSenderId').value = "-1";
                 document.getElementById('docSenderName').value = "-1";
                 document.getElementById('docReceiverId').value = "-1";
@@ -108,14 +108,14 @@
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}"  onchange="Date1()"/> 
                                                     </div>
                                                     <script type="text/javascript">
-                                                     function Date1()
-                                                     {
-                                                         var date = document.reportsForm.reportrange.value;
-                                                         var arr = date.split("-");
-                                                         var x = arr[1].trim();
-                                                         document.getElementById("docdatepickerfrom").value = arr[0];
-                                                         document.getElementById("docdatepicker").value = x;
-                                                     }
+        function Date1()
+        {
+            var date = document.reportsForm.reportrange.value;
+            var arr = date.split("-");
+            var x = arr[1].trim();
+            document.getElementById("docdatepickerfrom").value = arr[0];
+            document.getElementById("docdatepicker").value = x;
+        }
                                                     </script>
 
                                                     <s:hidden id="docdatepickerfrom" name="docdatepickerfrom" />
@@ -160,7 +160,7 @@
                                         </div>
                                         <br>
                                         <div class="row">
-                                            <div class="col-sm-2"><s:submit value="Search" cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
+                                            <div class="col-sm-2"><s:submit value="Search" onclick="return checkReport();" cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
                                             <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetvaluesExcelReport();"/></strong></div>
                                                     <s:hidden name="sampleValue" id="sampleValue" value="2"/>
                                                 </s:form>
@@ -367,7 +367,7 @@
                     </s:if>
             </div> 
         </div> 
-        
+
         <div>
             <s:include value="../includes/template/footer.jsp"/>
         </div>
@@ -379,8 +379,17 @@
         <script src='<s:url value="../includes/bootstrap/js/app.min.js"/>'></script>
         <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
         <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
+
         <script type="text/javascript">
-            $('input[name="daterange"]').daterangepicker();
+                                                        $('input[name="daterange"]').daterangepicker();
+                                                        function checkReport() {
+                                                            var db = document.forms["reportsForm"]["database"].value;
+                                                            if (db == '') {
+                                                                alert("please select Database!!!");
+                                                                return false;
+                                                            }
+                                                        }
         </script>
+
     </body>
 </html>

@@ -198,9 +198,9 @@
                                         <div>
                                             <br>
                                             <div class="row">
+                                                <s:hidden name="sampleValue" id="sampleValue" value="2"/>
                                                 <div class="col-sm-2"><s:submit value="Search"  onclick="return checkCorrelation();" cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
                                                 <div class="col-sm-2"><strong><input type="reset" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetValuesPayments();"/></strong></div>
-                                                        <s:hidden name="sampleValue" id="sampleValue" value="2"/>
                                                     </s:form>
                                         </div>
                                     </div>

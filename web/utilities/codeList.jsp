@@ -385,9 +385,9 @@
                                         <div class="c1 col-sm-4"> 
                                             <input type="button" id="add" name="add" class="btn btn-primary" value="Add Row" tabindex="10"/>
                                         </div> 
-                                        <div class="c1 col-sm-4"> 
+                                        <%--<div class="c1 col-sm-4"> 
                                             <input type="button" class="btn btn-primary" value="Delete Row" id="deleteRow" tabindex="11" onclick="deleteRows();"/>
-                                        </div>
+                                        </div>--%>
 
                                         <div class="c1 col-sm-4"> 
                                             <input type="button" id="clear" class="btn btn-primary" value="Clear Grid" tabindex="13"/>
@@ -646,12 +646,12 @@
                                                 }
                                                 function insertRows()
                                                 {
-                                                    if (document.getElementById("items").value != 0)
+                                                    /* if (document.getElementById("items").value != 0)
                                                     {
                                                         alert("Cannot add new code list when existing one is selected");
                                                     }
                                                     else
-                                                    {
+                                                    { */
                                                         var checkedCount = 0;
                                                         var ips = {"jsonData": []};
                                                         var rowCount = $('#results tr').length;
@@ -748,7 +748,8 @@
                                                         //  window.location = "../utilities/codeListAdd.action?json=" + encodeURIComponent(array);
                                                     }
 
-                                                }
+                                                //}
+                                                
                                                 function deleteRows()
                                                 {
 

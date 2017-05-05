@@ -27,6 +27,19 @@
         <script language="JavaScript" src='<s:url value="/includes/js/jquery-1.9.1.js"></s:url>'></script>
         <script language="JavaScript" src='<s:url value="/includes/js/jquery-ui.js"/>'></script>
         <script language="JavaScript" src='<s:url value="/includes/js/LfcAjax.js"/>'></script>
+        <script type="text/javascript">
+            $(function() {
+                //$("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
+        </script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini"  onload="doOnLoad()">
         <div>
@@ -760,19 +773,7 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
-            $(function() {
-                //$("#example1").DataTable();
-                $('#results').DataTable({
-                    "paging": true,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false
-                });
-            });
-        </script>
+        
         <div>
             <s:include value="../includes/template/footer.jsp"/>
         </div>

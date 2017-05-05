@@ -114,11 +114,12 @@ public class CertMonitorServiceImpl implements CertMonitorService {
         System.out.println("before try");
         try {
             //queryString = "SELECT  * FROM CODELIST_XREF_ITEM WHERE  max(LIST_VERSION) AND LIST_NAME='" + selectedName + "'";
-            queryString = "SELECT * FROM CODELIST_XREF_ITEM WHERE LIST_NAME='" + selectedName + "' AND LIST_VERSION=(SELECT MAX(LIST_VERSION) from CODELIST_XREF_ITEM where LIST_NAME='" + selectedName + "' )";
+            queryString = "SELECT * FROM CODELIST_XREF_ITEM WHERE LIST_NAME='" + selectedName + "' AND LIST_VERSION=(SELECT DEFAULT_VERSION from CODELIST_XREF_VERS where LIST_NAME='" + selectedName + "' )";
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 codeListBean = new CodeListBean();
+                
                 codeListBean.setListName(resultSet.getString("LIST_NAME"));
                 codeListBean.setSender_id(resultSet.getString("SENDER_ID"));
                 codeListBean.setReceiver_id(resultSet.getString("RECEIVER_ID"));
@@ -127,7 +128,6 @@ public class CertMonitorServiceImpl implements CertMonitorService {
                 codeListBean.setReceiver_item(resultSet.getString("RECEIVER_ITEM"));
                 System.out.println("resultSet.getString(\"TEXT1\") is "+resultSet.getString("TEXT1"));
                 if (resultSet.getString("TEXT1") != null && !"".equalsIgnoreCase(resultSet.getString("TEXT1"))) {
-                    System.out.println("in if");
                 //if (!"".equalsIgnoreCase(resultSet.getString("TEXT1")) && resultSet.getString("TEXT1") != null) {
                     codeListBean.setText1(resultSet.getString("TEXT1"));
                 } else {

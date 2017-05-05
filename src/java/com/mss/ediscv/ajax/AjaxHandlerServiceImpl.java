@@ -5313,20 +5313,21 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
         String queryString = null;
         int count = 0;
         connection = ConnectionProvider.getInstance().getOracleConnection();
-
+        System.out.println("selected name is "+selectedName);
         try {
             if(selectedName!=null && !"-1".equals(selectedName)){
             queryString = "SELECT COUNT(*) AS COUNT FROM CODELIST_XREF_ITEM WHERE SENDER_ITEM='" + senderItem + "' AND RECEIVER_ITEM='" + recItem + "' AND LIST_NAME='"+selectedName+"'";
-            }
-            else
-            {
-                queryString = "SELECT COUNT(*) AS COUNT FROM CODELIST_XREF_ITEM WHERE SENDER_ITEM='" + senderItem + "' AND RECEIVER_ITEM='" + recItem + "'";
-            }
+            
+//            else
+//            {
+//                queryString = "SELECT COUNT(*) AS COUNT FROM CODELIST_XREF_ITEM WHERE SENDER_ITEM='" + senderItem + "' AND RECEIVER_ITEM='" + recItem + "'";
+//            }
             preparedStatement = connection.prepareStatement(queryString);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 count = resultSet.getInt("COUNT");
             }
+        }
         } catch (SQLException sql) {
             throw new ServiceLocatorException(sql);
         } finally {
@@ -5452,51 +5453,51 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                 preparedStatement.setInt(4, 1);
                 preparedStatement.setString(5, jsonObj.getString("senderItem"));
                 preparedStatement.setString(6, jsonObj.getString("recItem"));
-                if (!"".equalsIgnoreCase(jsonObj.getString("text1")) && jsonObj.getString("text1") != null) {
+                if (!"".equalsIgnoreCase(jsonObj.getString("text1").trim()) && jsonObj.getString("text1") != null) {
                     preparedStatement.setString(7, jsonObj.getString("text1"));
                 } else {
-                    preparedStatement.setString(7, "");
+                    preparedStatement.setString(7, "null");
                 }
-                if (!"".equalsIgnoreCase(jsonObj.getString("text2")) && jsonObj.getString("text2") != null) {
+                if (!"".equalsIgnoreCase(jsonObj.getString("text2").trim()) && jsonObj.getString("text2") != null) {
                     preparedStatement.setString(8, jsonObj.getString("text2"));
                 } else {
-                    preparedStatement.setString(8, "");
+                    preparedStatement.setString(8, "null");
                 }
-                if (!"".equalsIgnoreCase(jsonObj.getString("text3")) && jsonObj.getString("text3") != null) {
+                if (!"".equalsIgnoreCase(jsonObj.getString("text3").trim()) && jsonObj.getString("text3") != null) {
                     preparedStatement.setString(9, jsonObj.getString("text3"));
                 } else {
-                    preparedStatement.setString(9, "");
+                    preparedStatement.setString(9, "null");
                 }
-                if (!"".equalsIgnoreCase(jsonObj.getString("text4")) && jsonObj.getString("text4") != null) {
+                if (!"".equalsIgnoreCase(jsonObj.getString("text4").trim()) && jsonObj.getString("text4") != null) {
                     preparedStatement.setString(10, jsonObj.getString("text4"));
                 } else {
-                    preparedStatement.setString(10, "");
+                    preparedStatement.setString(10, "null");
                 }
                 preparedStatement.setString(11, jsonObj.getString("desc"));
-                if (!"".equalsIgnoreCase(jsonObj.getString("text5")) && jsonObj.getString("text5") != null) {
+                if (!"".equalsIgnoreCase(jsonObj.getString("text5").trim()) && jsonObj.getString("text5") != null) {
                     preparedStatement.setString(12, jsonObj.getString("text5"));
                 } else {
-                    preparedStatement.setString(12, "");
+                    preparedStatement.setString(12, "null");
                 }
-                if (!"".equalsIgnoreCase(jsonObj.getString("text6")) && jsonObj.getString("text6") != null) {
+                if (!"".equalsIgnoreCase(jsonObj.getString("text6").trim()) && jsonObj.getString("text6") != null) {
                     preparedStatement.setString(13, jsonObj.getString("text6"));
                 } else {
-                    preparedStatement.setString(13, "");
+                    preparedStatement.setString(13, "null");
                 }
-                if (!"".equalsIgnoreCase(jsonObj.getString("text7")) && jsonObj.getString("text7") != null) {
+                if (!"".equalsIgnoreCase(jsonObj.getString("text7").trim()) && jsonObj.getString("text7") != null) {
                     preparedStatement.setString(14, jsonObj.getString("text7"));
                 } else {
-                    preparedStatement.setString(14, "");
+                    preparedStatement.setString(14, "null");
                 }
-                if (!"".equalsIgnoreCase(jsonObj.getString("text8")) && jsonObj.getString("text8") != null) {
+                if (!"".equalsIgnoreCase(jsonObj.getString("text8").trim()) && jsonObj.getString("text8") != null) {
                     preparedStatement.setString(15, jsonObj.getString("text8"));
                 } else {
-                    preparedStatement.setString(15, "");
+                    preparedStatement.setString(15, "null");
                 }
-                if (!"".equalsIgnoreCase(jsonObj.getString("text9")) && jsonObj.getString("text9") != null) {
+                if (!"".equalsIgnoreCase(jsonObj.getString("text9").trim()) && jsonObj.getString("text9") != null) {
                     preparedStatement.setString(16, jsonObj.getString("text9"));
                 } else {
-                    preparedStatement.setString(16, "");
+                    preparedStatement.setString(16, "null");
                 }
                 preparedStatement1 = connection.prepareStatement(queryString1);
                 preparedStatement1.setString(1, jsonObj.getString("listName1"));
@@ -5672,7 +5673,7 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                     if (listNameMap > 0) {
                         if (i == 0) {
                             addVersion = listNameMap + 1;
-                            updateQueryString = "UPDATE CODELIST_XREF_VERS SET DEFAULT_VERSION=?,LIST_VERSION=? WHERE LIST_NAME=?";
+                            updateQueryString = "UPDATE CODELIST_XREF_VERS SET LIST_VERSION=?, DEFAULT_VERSION=? WHERE LIST_NAME=?";
                             preparedStatement = connection.prepareStatement(updateQueryString);
                             preparedStatement.setInt(1, addVersion);
                             preparedStatement.setInt(2, addVersion);
@@ -5697,51 +5698,51 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                         preparedStatement1.setInt(4, addVersion);
                         preparedStatement1.setString(5, jsonObj.getString("senderItem"));
                         preparedStatement1.setString(6, jsonObj.getString("recItem"));
-                        if (!" ".equalsIgnoreCase(jsonObj.getString("text1")) && jsonObj.getString("text1") != null) {
+                        if (!"".equalsIgnoreCase(jsonObj.getString("text1").trim()) && jsonObj.getString("text1") != null) {
                             preparedStatement1.setString(7, jsonObj.getString("text1"));
                         } else {
-                            preparedStatement1.setString(7, "");
+                            preparedStatement1.setString(7, "null");
                         }
-                        if (!" ".equalsIgnoreCase(jsonObj.getString("text2")) && jsonObj.getString("text2") != null) {
+                        if (!"".equalsIgnoreCase(jsonObj.getString("text2").trim()) && jsonObj.getString("text2") != null) {
                             preparedStatement1.setString(8, jsonObj.getString("text2"));
                         } else {
-                            preparedStatement1.setString(8, "");
+                            preparedStatement1.setString(8, "null");
                         }
-                        if (!" ".equalsIgnoreCase(jsonObj.getString("text3")) && jsonObj.getString("text3") != null) {
+                        if (!"".equalsIgnoreCase(jsonObj.getString("text3").trim()) && jsonObj.getString("text3") != null) {
                             preparedStatement1.setString(9, jsonObj.getString("text3"));
                         } else {
-                            preparedStatement1.setString(9, "");
+                            preparedStatement1.setString(9, "null");
                         }
-                        if (!" ".equalsIgnoreCase(jsonObj.getString("text4")) && jsonObj.getString("text4") != null) {
+                        if (!"".equalsIgnoreCase(jsonObj.getString("text4").trim()) && jsonObj.getString("text4") != null) {
                             preparedStatement1.setString(10, jsonObj.getString("text4"));
                         } else {
-                            preparedStatement1.setString(10, "");
+                            preparedStatement1.setString(10, "null");
                         }
                         preparedStatement1.setString(11, jsonObj.getString("desc"));
-                        if (!" ".equalsIgnoreCase(jsonObj.getString("text5")) && jsonObj.getString("text5") != null) {
+                        if (!"".equalsIgnoreCase(jsonObj.getString("text5").trim()) && jsonObj.getString("text5") != null) {
                             preparedStatement1.setString(12, jsonObj.getString("text5"));
                         } else {
-                            preparedStatement1.setString(12, "");
+                            preparedStatement1.setString(12, "null");
                         }
-                        if (!" ".equalsIgnoreCase(jsonObj.getString("text6")) && jsonObj.getString("text6") != null) {
+                        if (!"".equalsIgnoreCase(jsonObj.getString("text6").trim()) && jsonObj.getString("text6") != null) {
                             preparedStatement1.setString(13, jsonObj.getString("text6"));
                         } else {
-                            preparedStatement1.setString(13, "");
+                            preparedStatement1.setString(13, "null");
                         }
-                        if (!" ".equalsIgnoreCase(jsonObj.getString("text7")) && jsonObj.getString("text7") != null) {
+                        if (!"".equalsIgnoreCase(jsonObj.getString("text7").trim()) && jsonObj.getString("text7") != null) {
                             preparedStatement1.setString(14, jsonObj.getString("text7"));
                         } else {
-                            preparedStatement1.setString(14, "");
+                            preparedStatement1.setString(14, "null");
                         }
-                        if (!" ".equalsIgnoreCase(jsonObj.getString("text8")) && jsonObj.getString("text8") != null) {
+                        if (!"".equalsIgnoreCase(jsonObj.getString("text8").trim()) && jsonObj.getString("text8") != null) {
                             preparedStatement1.setString(15, jsonObj.getString("text8"));
                         } else {
-                            preparedStatement1.setString(15, "");
+                            preparedStatement1.setString(15, "null");
                         }
-                        if (!" ".equalsIgnoreCase(jsonObj.getString("text9")) && jsonObj.getString("text9") != null) {
+                        if (!"".equalsIgnoreCase(jsonObj.getString("text9").trim()) && jsonObj.getString("text9") != null) {
                             preparedStatement1.setString(16, jsonObj.getString("text9"));
                         } else {
-                            preparedStatement1.setString(16, "");
+                            preparedStatement1.setString(16, "null");
                         }
                         updatedRows1 = preparedStatement1.executeUpdate();
                         if (i == 0) {

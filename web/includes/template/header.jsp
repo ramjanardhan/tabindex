@@ -188,7 +188,7 @@
                             <s:password cssClass="form-control" placeholder="ConfirmPassword" name="confirmPwd" id="confirmPwd"/>
                         </div><br>
                         <div class="form-group remove-margin">
-                            <input type="button" value="Update" class="btn btn-primary col-sm-12" tabindex="16" onclick="getPassword()"/>
+                            <input type="button" value="Update" class="btn btn-primary col-sm-12" onclick="getPassword()"/>
                         </div>
                     </s:form>
                 </div>

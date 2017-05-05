@@ -821,7 +821,7 @@
                $("#oredermanagement").addClass("active");
                $("#manufacturing").addClass("active");
                $("#purchaseorder i").addClass("text-red");
-               document.getElementById('loadingAcoountSearch').style.display = "none";
+              // document.getElementById('loadingAcoountSearch').style.display = "none";
            }
         </script>
     </body>

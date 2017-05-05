@@ -36,7 +36,8 @@
                     "searching": true,
                     "ordering": true,
                     "info": true,
-                    "autoWidth": true
+                    "autoWidth": true,
+                    order: [[0, 'desc']]
                 });
             });
             var myCalendar;
@@ -49,7 +50,7 @@
             }
 
             function resetvaluesExcelReport() {
-                $('.myRadio').attr('checked',false);
+                $('.myRadio').attr('checked', false);
                 document.getElementById('docSenderId').value = "-1";
                 document.getElementById('docSenderName').value = "-1";
                 document.getElementById('docReceiverId').value = "-1";
@@ -108,14 +109,14 @@
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}"  onchange="Date1()"/> 
                                                     </div>
                                                     <script type="text/javascript">
-                                                     function Date1()
-                                                     {
-                                                         var date = document.reportsForm.reportrange.value;
-                                                         var arr = date.split("-");
-                                                         var x = arr[1].trim();
-                                                         document.getElementById("docdatepickerfrom").value = arr[0];
-                                                         document.getElementById("docdatepicker").value = x;
-                                                     }
+        function Date1()
+        {
+            var date = document.reportsForm.reportrange.value;
+            var arr = date.split("-");
+            var x = arr[1].trim();
+            document.getElementById("docdatepickerfrom").value = arr[0];
+            document.getElementById("docdatepicker").value = x;
+        }
                                                     </script>
 
                                                     <s:hidden id="docdatepickerfrom" name="docdatepickerfrom" />
@@ -160,7 +161,7 @@
                                         </div>
                                         <br>
                                         <div class="row">
-                                            <div class="col-sm-2"><s:submit value="Search" cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
+                                            <div class="col-sm-2"><s:submit value="Search" onclick="return checkReport();" cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
                                             <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetvaluesExcelReport();"/></strong></div>
                                                     <s:hidden name="sampleValue" id="sampleValue" value="2"/>
                                                 </s:form>
@@ -196,21 +197,13 @@
                                                                         ReportsBean docRepositoryBean;
                                                                 %>
                                                                 <thead> <tr>
-                                                                        <%-- <td >ISA #</td>
-                                                                         <td >File Format</td>
-                                                                         <td>Direction</td>
-                                                                         <td >Date</td>
-                                                                         <td>Status</td>  --%>
+                                                                        <th>DateTime</th>
                                                                         <th>File&nbsp;Format</th> 
                                                                         <th>InstanceId</th>
                                                                         <th>Partner</th>
-                                                                        <th>DateTime</th>
-                                                                            <%-- <td >ISA #</td>  --%>
-                                                                            <%-- <td >DOC_ORIGIN</td> --%>
                                                                         <th>Trans&nbsp;Type</th>
                                                                         <th >Direction</th>
                                                                         <th>Status</th>
-                                                                            <%-- <td >ACK_STATUS</td>  --%>
                                                                         <th>Reprocess</th>
                                                                     </tr>
                                                                 </thead>
@@ -226,6 +219,16 @@
                                                                     %>
                                                                 <td>
                                                                     <%
+                                                                        if (docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")) != null
+                                                                                && !"".equals(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                            out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
+                                                                    %>
+                                                                </td> 
+                                                                <td>
+                                                                    <%
                                                                         if (docRepositoryBean.getFile_type() != null && !"".equals(docRepositoryBean.getFile_type())) {
                                                                             out.println(docRepositoryBean.getFile_type());
                                                                         } else {
@@ -233,7 +236,7 @@
                                                                         }
                                                                     %>
                                                                 </td>
-                                                                <td><%-- <a href="javascript:getDetails('<%=docRepositoryBean.getFile_id()%>','<%=docRepositoryBean.getPoNumber()%>');"> --%>
+                                                                <td>
                                                                     <%
                                                                         if (docRepositoryBean.getFile_id() != null && !"".equals(docRepositoryBean.getFile_id())) {
                                                                             out.println(docRepositoryBean.getFile_id());
@@ -252,22 +255,6 @@
                                                                         }
                                                                     %>
                                                                 </td>
-                                                                <td>
-                                                                    <%
-                                                                        if (docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")) != null
-                                                                                && !"".equals(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")))) {
-                                                                            out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
-                                                                        } else {
-                                                                            out.println("-");
-                                                                        }
-                                                                    %>
-                                                                </td>  
-                                                                <%-- <td> 
-                                                                         <%
-                                                                         out.println(docRepositoryBean.getIsa_number());
-                                                                         %>
-                                                                        
-                                                                     </td>  --%>
                                                                 <td>
                                                                     <%
                                                                         if (docRepositoryBean.getTransaction_type() != null && !"".equals(docRepositoryBean.getTransaction_type())) {
@@ -367,7 +354,7 @@
                     </s:if>
             </div> 
         </div> 
-        
+
         <div>
             <s:include value="../includes/template/footer.jsp"/>
         </div>
@@ -379,8 +366,17 @@
         <script src='<s:url value="../includes/bootstrap/js/app.min.js"/>'></script>
         <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
         <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
+
         <script type="text/javascript">
-            $('input[name="daterange"]').daterangepicker();
+                                                        $('input[name="daterange"]').daterangepicker();
+                                                        function checkReport() {
+                                                            var db = document.forms["reportsForm"]["database"].value;
+                                                            if (db == '') {
+                                                                alert("please select Database!!!");
+                                                                return false;
+                                                            }
+                                                        }
         </script>
+
     </body>
 </html>

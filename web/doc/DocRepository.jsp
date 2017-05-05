@@ -32,14 +32,15 @@
         <script language="JavaScript" src='<s:url value="/includes/js/downloadAjax.js"/>'></script>
 
         <script>
-            $(function () {
+            $(function() {
                 $('#results').DataTable({
                     "paging": true,
                     "lengthChange": true,
                     "searching": true,
                     "ordering": true,
                     "info": true,
-                    "autoWidth": false
+                    "autoWidth": false,
+                    order: [[ 0, 'desc' ]]
                 });
             });
         </script>
@@ -220,10 +221,10 @@
                                                                         DocRepositoryBean docRepositoryBean;
                                                                 %>
                                                                 <thead><tr>
+                                                                        <th >DateTime</th>
                                                                         <th>File&nbsp;Format</th> 
                                                                         <th >InstanceId</th>
                                                                         <th >Partner</th>
-                                                                        <th >DateTime</th>
                                                                         <th >Trans&nbsp;Type</th>
                                                                         <th >Direction</th>
                                                                         <th >Status</th>
@@ -255,13 +256,23 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td>
+                                                                            <%  if (docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")) != null
+                                                                                        && !"".equals(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                                    out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                                //out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                            %>
+                                                                        </td> 
+                                                                        <td>
                                                                             <%                                                                            if (docRepositoryBean.getFile_type() != null && !"".equals(docRepositoryBean.getFile_type())) {
                                                                                     out.println(docRepositoryBean.getFile_type());
                                                                                 } else {
                                                                                     out.println("-");
                                                                                 }
                                                                                 //out.println(docRepositoryBean.getFile_type());
-%>
+                                                                            %>
                                                                         </td>
                                                                         <td><a href="javascript:getDetails('<%=docRepositoryBean.getFile_id()%>','<%=docRepositoryBean.getPoNumber()%>','<%=docRepositoryBean.getId()%>');">
                                                                                 <%
@@ -283,18 +294,6 @@
                                                                                 }
                                                                             %>
                                                                         </td>
-                                                                        <td>
-                                                                            <%
-                                                                                if (docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")) != null
-                                                                                        && !"".equals(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")))) {
-                                                                                    out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
-                                                                                } else {
-                                                                                    out.println("-");
-                                                                                }
-
-                                                                                //out.println(docRepositoryBean.getDate_time_rec().toString().substring(0, docRepositoryBean.getDate_time_rec().toString().lastIndexOf(":")));
-                                                                            %>
-                                                                        </td>  
                                                                         <td>
                                                                             <%                                                                            //out.println(docRepositoryBean.getTransaction_type());
                                                                                 if (docRepositoryBean.getTransaction_type() != null && !"".equals(docRepositoryBean.getTransaction_type())) {
@@ -670,7 +669,7 @@
                                 document.getElementById("docdatepicker").value = x;
                             }
                             var count = 0;
-                            $("#addButton").click(function () {
+                            $("#addButton").click(function() {
                                 count++;
                                 if (count == 1)
                                     document.getElementById("corr").style.display = "block";

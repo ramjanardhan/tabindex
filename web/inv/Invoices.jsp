@@ -67,19 +67,17 @@
                                 "searching": true,
                                 "ordering": true,
                                 "info": true,
-                                "autoWidth": false
+                                "autoWidth": false,
+                    order: [[0, 'desc']]
                             });
                         });
                         </script>
-
-
 </head>
 <%
     String check = null;
     if (request.getAttribute("check") != null) {
         check = request.getAttribute("check").toString();
     }
-
     //System.out.println("check-->"+check);
 %>
 
@@ -87,11 +85,8 @@
             check();">
     <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
     <script type="text/javascript">
-        function check()
-        {
-
+        function check() {
             var value1 = document.getElementById("corrattribute1").value;
-
             if (value1 != "-1")
                 document.getElementById("corr").style.display = "block";
             else
@@ -101,7 +96,6 @@
                 document.getElementById("corr1").style.display = "block";
             else
                 document.getElementById("corr1").style.display = "none";
-
         }
     </script>
 
@@ -261,13 +255,13 @@
                                                                     %>
                                                                     <input type="hidden" name="sec_invoice_list" id="sec_invoice_list" value="<%=list.size()%>"/>
                                                                     <thead>  <tr>
+                                                                            <th>DateTime</th>
                                                                             <th>InstanceId</th> 
                                                                             <th >Invoice #</th>
                                                                             <th >Partner</th>
                                                                             <th >PO #</th>
                                                                             <th >Item&nbsp;Qty</th>
                                                                             <th>Invoice&nbsp;Amount</th>
-                                                                            <th>DateTime</th>
                                                                             <th>Status</th>
                                                                             <th>Ack&nbsp;Status</th>
                                                                         </tr></thead>
@@ -283,6 +277,16 @@
                                                                                     cssValue = "grayEditSelection";
                                                                                 }
                                                                         %>
+                                                                        <td>
+                                                                            <%
+                                                                                if (invoiceBean.getDate_time_rec().toString().substring(0, invoiceBean.getDate_time_rec().toString().lastIndexOf(":")) != null
+                                                                                        && !"".equals(invoiceBean.getDate_time_rec().toString().substring(0, invoiceBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                                    out.println(invoiceBean.getDate_time_rec().toString().substring(0, invoiceBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                                } else {
+                                                                                    out.println("-");
+                                                                                }
+                                                                            %>
+                                                                        </td>
                                                                         <td>
                                                                             <%
                                                                                 if (invoiceBean.getFileId() != null && !"".equals(invoiceBean.getFileId())) {
@@ -340,17 +344,6 @@
                                                                                     out.println("-");
                                                                                 }
                                                                             %>
-                                                                        </td>
-                                                                        <td>
-                                                                            <%
-                                                                                if (invoiceBean.getDate_time_rec().toString().substring(0, invoiceBean.getDate_time_rec().toString().lastIndexOf(":")) != null
-                                                                                        && !"".equals(invoiceBean.getDate_time_rec().toString().substring(0, invoiceBean.getDate_time_rec().toString().lastIndexOf(":")))) {
-                                                                                    out.println(invoiceBean.getDate_time_rec().toString().substring(0, invoiceBean.getDate_time_rec().toString().lastIndexOf(":")));
-                                                                                } else {
-                                                                                    out.println("-");
-                                                                                }
-                                                                            %>
-
                                                                         </td>
                                                                         <td>
                                                                             <%

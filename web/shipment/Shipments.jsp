@@ -30,9 +30,8 @@
         <link rel="stylesheet" href='<s:url value="/includes/plugins/datatables/dataTables.bootstrap.css"/>' type="text/css">
         <link rel="stylesheet" href='<s:url value="/includes/plugins/daterangepicker/daterangepicker.css"/>' type="text/css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
         <script type="text/javascript">
-            $(function () {
+            $(function() {
                 //$("#example1").DataTable();
                 $('#results').DataTable({
                     "paging": true,
@@ -40,11 +39,11 @@
                     "searching": true,
                     "ordering": true,
                     "info": true,
-                    "autoWidth": false
+                    "autoWidth": false,
+                    order: [[0, 'desc']]
                 });
             });
         </script>
-
     </head>
     <%
         String check = null;
@@ -54,21 +53,6 @@
     %>
     <body class="hold-transition skin-blue sidebar-mini" onload= "doOnLoad();
             check();"> 
-        <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
-        <script type="text/javascript">
-        function check() {
-            var value1 = document.getElementById("corrattribute1").value;
-            if (value1 != "-1")
-                document.getElementById("corr").style.display = "block";
-            else
-                document.getElementById("corr").style.display = "none";
-            var value2 = document.getElementById("corrattribute2").value;
-            if (value2 != "-1")
-                document.getElementById("corr1").style.display = "block";
-            else
-                document.getElementById("corr1").style.display = "none";
-        }
-        </script>
         <div>
             <s:include value="../includes/template/header.jsp"/>
         </div>
@@ -124,22 +108,17 @@
                                                         }
                                                     </script>
                                                     <div  class="col-sm-3">
-
                                                         <label>Document Type</label> 
                                                         <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="{'856'}" name="docType" id="docType" value="%{docType}" />
                                                     </div>
-
                                                     <div  class="col-sm-3">
                                                         <label>Sender Id</label>  
                                                         <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="senderIdList" name="senderId" id="senderId" value="%{senderId}"  />
                                                     </div>
-
                                                     <div  class="col-sm-3">
                                                         <label>Sender Name</label>  
                                                         <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="senderNameList" name="senderName" id="senderName" value="%{senderName}"  />
                                                     </div>
-
-
                                                 </div>
                                                 <br>
                                                 <div class="row">
@@ -179,29 +158,18 @@
                                                         <span id ="LoadingContent" > <img src="<s:url value="/includes/images/Loader2.gif"/>"   ></span>
                                                     </div>
                                                 </div>
-
-                                                <script>
-
-                                                </script>                                      
-
                                                 <script>
                                                     var count = 0;
-                                                </script>                                          
-
-                                                <script>
-                                                    $("#addButton").click(function () {
+                                                    $("#addButton").click(function() {
                                                         count++;
                                                         if (count == 1)
                                                             document.getElementById("corr").style.display = "block";
-                                                        //                                                        else if(count==2)
-                                                        //                                                            document.getElementById("corr1").style.display = "block";
+                                                        //   else if(count==2)
+                                                        //   document.getElementById("corr1").style.display = "block";
                                                         else
                                                             alert('Limit exceded.... cant add more fields');
                                                     })
-
                                                 </script>
-
-
                                                 <div id="corr" style="display: none">
                                                     <br>   <div class="row">
                                                         <div class="col-sm-3">
@@ -212,44 +180,26 @@
                                                             <label for="corrvalue1">Value</label>
                                                             <s:textfield cssClass="form-control" name="corrvalue1" id="corrvalue1" value="%{corrvalue1}" />
                                                         </div>
-
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
                                         <br>
-
                                         <div class="row">
-
-
-
                                             <div class="col-sm-2"><s:submit value="Search"  onclick="return checkCorrelation();" cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
-
                                             <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetvaluesShipment();"/></strong></div>
-                                            </td>
                                             <s:hidden name="sampleValue" id="sampleValue" value="2"/>
-
                                         </s:form>
                                     </div>
                                 </div>
                             </div>
-                        </div></div>
-
+                        </div>
+                    </div>
                 </div>
-
-
-
-
-
             </section>
-
             <div id="gridDiv">
                 <s:if test="#session.shipmentSearchList != null">
                     <section class="content">
-
-
-
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="box">
@@ -258,56 +208,47 @@
                                     </div><!-- /.box-header -->
                                     <div class="box-body">
                                         <div style="overflow-x:auto;">                 
-
-                                            <table align="left" width="100%"
-                                                   border="0" cellpadding="0" cellspacing="0">
+                                            <table align="left" width="100%" border="0" cellpadding="0" cellspacing="0">
                                                 <tr>
                                                     <td style="background-color: white;">
-
-
-
                                                         <%!String cssValue = "whiteStripe";
                                                             int resultsetTotal;%>
-
-
-
                                                         <table id="results"  class="table table-bordered table-hover">
                                                             <%
                                                                 java.util.List list = (java.util.List) session.getAttribute(AppConstants.SES_SHIPMENT_LIST);
-
                                                                 if (list.size() != 0) {
-
                                                                     ShipmentBean shipmentBean;
                                                             %>
                                                             <input type="hidden" name="sec_shipment_list" id="sec_shipment_list" value="<%=list.size()%>"/> 
                                                             <thead><tr>
+                                                                    <th>DateTime</th>
                                                                     <th>InstanceId</th>
                                                                     <th >ASN #</th>
                                                                     <th >Partner</th>  
-
-
-                                                                    <th>DateTime</th>
-
                                                                     <th>Direction</th>
                                                                     <th>Status</th>
                                                                     <th>Ack&nbsp;Status</th>
-
                                                             </thead>
-
-
                                                             <%
                                                                 for (int i = 0; i < list.size(); i++) {
                                                                     shipmentBean = (ShipmentBean) list.get(i);
-
                                                                     if (i % 2 == 0) {
                                                                         cssValue = "whiteStripe";
                                                                     } else {
                                                                         cssValue = "grayEditSelection";
                                                                     }
                                                             %>
-
                                                             <tr>
-                                                                <%-- <td><a href="#" onclick="return demo();" > --%>
+                                                                <td>
+                                                                    <%
+                                                                        if (shipmentBean.getDate_time_rec().toString().substring(0, shipmentBean.getDate_time_rec().toString().lastIndexOf(":")) != null
+                                                                                && !"".equals(shipmentBean.getDate_time_rec().toString().substring(0, shipmentBean.getDate_time_rec().toString().lastIndexOf(":")))) {
+                                                                            out.println(shipmentBean.getDate_time_rec().toString().substring(0, shipmentBean.getDate_time_rec().toString().lastIndexOf(":")));
+                                                                        } else {
+                                                                            out.println("-");
+                                                                        }
+                                                                    %>
+                                                                </td>
                                                                 <td>
                                                                     <%
                                                                         if (shipmentBean.getFile_id() != null && !"".equals(shipmentBean.getFile_id())) {
@@ -333,16 +274,6 @@
                                                                     <%
                                                                         if (shipmentBean.getPname() != null && !"".equals(shipmentBean.getPname())) {
                                                                             out.println(shipmentBean.getPname());
-                                                                        } else {
-                                                                            out.println("-");
-                                                                        }
-                                                                    %>
-                                                                </td>
-                                                                <td>
-                                                                    <%
-                                                                        if (shipmentBean.getDate_time_rec().toString().substring(0, shipmentBean.getDate_time_rec().toString().lastIndexOf(":")) != null
-                                                                                && !"".equals(shipmentBean.getDate_time_rec().toString().substring(0, shipmentBean.getDate_time_rec().toString().lastIndexOf(":")))) {
-                                                                            out.println(shipmentBean.getDate_time_rec().toString().substring(0, shipmentBean.getDate_time_rec().toString().lastIndexOf(":")));
                                                                         } else {
                                                                             out.println("-");
                                                                         }
@@ -379,7 +310,6 @@
                                                                         }
                                                                     %>
                                                                 </td>
-
                                                             </tr>
                                                             <%
                                                                 }
@@ -391,55 +321,33 @@
                                                                             // out.println("<img  border='0' align='top'  src='"+contextPath+"/includes/images/alert.gif'/><b> No Records Found to Display!</b>");
                                                                             out.println("<img  border='0' align='top'  src='" + contextPath + "/includes/images/alert.gif'/><b>No records found for the given search criteria. Please try a different search criteria!</b>");
                                                                         }
-
                                                                     %>
                                                                 </td>
                                                             </tr>
-
                                                         </table>
                                                     </td>
                                                 </tr>
-                                                <%--<%                                                    if (list.size() != 0) {
-                                                %>
-                                                <tr>
-                                                    <!--                                            <td align="right" colspan="28" style="background-color: white;">
-                                                                                                    <div align="right" id="pageNavPosition"></div>
-                                                                                                </td>-->
-                                                </tr> 
-
-                                                <%}%>--%></tbody>
-
+                                               </tbody>
                                             </table></div>
-
                                         <%-- Process butttons  start --%>
-                                        <%                                            // out.println(session.getAttribute(AppConstants.SES_ROLE_ID));
+                                        <% // out.println(session.getAttribute(AppConstants.SES_ROLE_ID));
                                             if ((session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104")) && list.size() != 0) {
                                         %><br>
                                         <div class="row">
-
                                             <div id="gridButtons" >
-
-
                                                 <div class="col-sm-2"><input type="button" value="Generate Excel" class="btn btn-effect-ripple btn-primary" onclick="return gridDownload('shipment', 'xls');" onmouseover="Tip('Click here to generate an excel Report.')" onmouseout="UnTip()"  id="excel"/></div>
                                             </div>
                                         </div>
-
                                         <%}%>
                                     </div>
                                 </div>
-                            </div></div></section>
-
-
+                            </div>
+                        </div>
+                    </section>
                     <%-- process buttons end--%>
-
-
-
                 </s:if>
-
             </div>
-
             <div id="hide-menu1" class="hide-menu message ">
-
                 <div class="row col-sm-12">
                     <br>
                     <div class="col-sm-6">  <label class="labelw">  Instance Id </label>
@@ -563,8 +471,20 @@
         <script src='<s:url value="../includes/bootstrap/js/app.min.js"/>'></script>
         <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
         <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
-
+        <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <script type="text/javascript">
+                    function check() {
+                        var value1 = document.getElementById("corrattribute1").value;
+                        if (value1 != "-1")
+                            document.getElementById("corr").style.display = "block";
+                        else
+                            document.getElementById("corr").style.display = "none";
+                        var value2 = document.getElementById("corrattribute2").value;
+                        if (value2 != "-1")
+                            document.getElementById("corr1").style.display = "block";
+                        else
+                            document.getElementById("corr1").style.display = "none";
+                    }
 
                     function getDetails(val, ponum, fileid) {
                         var db = document.forms["shipmentForm"]["database"].value;

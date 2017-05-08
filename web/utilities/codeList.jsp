@@ -381,15 +381,15 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-sm-offset-2 col-sm-6" style="margin-top:20px">
-                                        <div class="c1 col-sm-4"> 
+                                    <div class="col-sm-offset-4 col-sm-4" style="margin-top:20px">
+                                        <div class="c1 col-sm-6"> 
                                             <input type="button" id="add" name="add" class="btn btn-primary" value="Add Row" tabindex="10"/>
                                         </div> 
                                         <%--<div class="c1 col-sm-4"> 
                                             <input type="button" class="btn btn-primary" value="Delete Row" id="deleteRow" tabindex="11" onclick="deleteRows();"/>
                                         </div>--%>
 
-                                        <div class="c1 col-sm-4"> 
+                                        <div class="c1 col-sm-6"> 
                                             <input type="button" id="clear" class="btn btn-primary" value="Clear Grid" tabindex="13"/>
                                         </div>
                                         <div class="c1 col-sm-12">

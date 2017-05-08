@@ -121,20 +121,28 @@
                             <% }%>
                     </ul>
                 </li>
-                <%if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100")) {%>
+                <% if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("101") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("105") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("103")) {%>
                 <li class=" treeview" id="purging">
                     <a href="#">
-                        <i class="fa fa-remove"></i> <span>Purging</span> 
+                        <i class="fa fa-remove"></i> <span>Archiving/Purging</span> 
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
+                    <%if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("100")) {%>
                     <ul class="treeview-menu">
                         <li id="archiveProcess" class=" treeview"><a href="<s:url action="../purge/arcPro.action"/>"><i class="fa fa-circle-o"></i>Archive Process</a></li>
                         <li id="archiveHistory" class=" treeview"><a href="<s:url action="../purge/arcHis.action"/>"><i class="fa fa-circle-o"></i>Archive History</a></li>
                         <li id="purgeProcess" class=" treeview"><a href="<s:url action="../purge/purPro.action"/>"><i class="fa fa-circle-o"></i>Purge Process</a></li>                        
                         <li id="purgeHisory" class=" treeview"><a href="<s:url action="../purge/purHis.action"/>"><i class="fa fa-circle-o"></i>Purge History</a></li>
                     </ul>
-
+                    <%}%>
+                    <% if (session.getAttribute(AppConstants.SES_ROLE_ID).equals("101") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("104") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("105") || session.getAttribute(AppConstants.SES_ROLE_ID).equals("103")) {%>
+                    <ul class="treeview-menu">
+                        <li id="archiveHistory" class=" treeview"><a href="<s:url action="../purge/arcHis.action"/>"><i class="fa fa-circle-o"></i>Archive History</a></li>
+                        <li id="purgeHisory" class=" treeview"><a href="<s:url action="../purge/purHis.action"/>"><i class="fa fa-circle-o"></i>Purge History</a></li>
+                    </ul>
+                    <%}%>
                 </li>
+
 
                 <% }
                     }%>

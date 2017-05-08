@@ -36,6 +36,7 @@
             function doOnLoad()
             {
                 $("#purging").addClass("active");
+                $("#archiveHistory").addClass("active");
                 $("#archiveHistory i").addClass("text-red");
 
                 // document.getElementById('loadingAcoountSearch').style.display = "none";
@@ -117,7 +118,7 @@
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <label>Transaction&nbsp;Type<font color="red">*</font></label>
-                                                        <s:select headerKey="-1" headerValue="Select Type" cssClass="form-control" list="#@java.util.LinkedHashMap@{'850':'PO','856':'Shipments','810':'Invoice','820':'Payments'}" name="transType" id="transType" tabindex="2"/> 
+                                                            <s:select headerKey="-1" headerValue="Select Type" cssClass="form-control" list="#@java.util.LinkedHashMap@{'850':'PO','856':'Shipments','810':'Invoice','820':'Payments'}" name="transType" id="transType" tabindex="2"/> 
                                                     </div>
                                                 </div>
                                                 <br>
@@ -136,9 +137,9 @@
                                 </div>
                             </div></div></div>
             </section>
- <div id="gridDiv">  
-            <s:if test="#session.archiveHistorylist!=null"> 
-                  
+            <div id="gridDiv">  
+                <s:if test="#session.archiveHistorylist!=null"> 
+
                     <%--- GRid start --%>
                     <%!String cssValue = "whiteStripe";
                         int resultsetTotal;%>
@@ -210,81 +211,92 @@
                                         </div></div>
                                 </div>
                             </div></section>
-               
-            </s:if>   
 
- </div>
+                </s:if>   
 
+            </div>
+            <script>
+                $(function () {
+                    // $("#example1").DataTable();
+                    $('#results').DataTable({
+                        "paging": true,
+                        "lengthChange": true,
+                        "searching": true,
+                        "ordering": true,
+                        "info": true,
+                        "autoWidth": false
+                    });
+                });
+            </script>
+        </div>
 
-
-
-
+        <div>
+            <s:include value="../includes/template/footer.jsp"/>
         </div>
 
 
+        <script language="JavaScript" src='<s:url value="/includes/js/DateValidation.js"/>'></script>
+        <script src='<s:url value="../includes/bootstrap/js/bootstrap.min.js"/>'></script>
+        <script src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script>
+        <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
+        <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
-    </div>
-    <div>
-        <s:include value="../includes/template/footer.jsp"/>
-    </div>
+        <script type="text/javascript">
 
+                function checkValues() {
+                    var date = document.arcHisForm.reportrange.value;
+                    var transType = document.getElementById("transType").value;
+                    if (date == "")
+                    {
+                        alert("please enter Date range !!");
+                        return false;
+                    }
+                    if (transType == "-1")
+                    {
+                        alert("please select Transaction Type !!");
+                        return false;
+                    }
+                }
+                function Date1()
+                {
+                    var date = document.arcHisForm.reportrange.value;
+                    var arr = date.split("-");
+                    var x = arr[1].trim();
+                    document.getElementById("datepickerfrom").value = arr[0];
+                    document.getElementById("datepicker").value = x;
+                }
 
-    <script language="JavaScript" src='<s:url value="/includes/js/DateValidation.js"/>'></script>
-    <script src='<s:url value="../includes/bootstrap/js/bootstrap.min.js"/>'></script>
-    <script src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script>
-    <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
-    <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
+                $(function () {
+                    // $("#example1").DataTable();
+                    $('#results').DataTable({
+                        "paging": true,
+                        "lengthChange": true,
+                        "searching": true,
+                        "ordering": true,
+                        "info": true,
+                        "autoWidth": false
+                    });
+                });
+                function Date1()
+                {
+                    var date = document.arcHisForm.reportrange.value;
+                    var arr = date.split("-");
+                    var x = arr[1].trim();
+                    document.getElementById("datepickerfrom").value = arr[0];
+                    document.getElementById("datepicker").value = x;
+                }
+                function resetvalues()
+                {
+                    document.getElementById('reportrange').value = "";
+                    document.getElementById('transType').value = "-1";
+                    //document.getElementById("datepickerfrom").value = "";
+                    //document.getElementById("datepicker").value = "";
 
-    <script type="text/javascript">
+                    $('#gridDiv').hide();
 
-        function checkValues() {
-            var date = document.arcHisForm.reportrange.value;
-            var transType = document.getElementById("transType").value;
-            if (date == "")
-            {
-                alert("please enter Date range !!");
-                return false;
-            }
-            if (transType == "-1")
-            {
-                alert("please select Transaction Type !!");
-                return false;
-            }
+                }
 
-        }
-      
-
-
-        $(function () {
-            // $("#example1").DataTable();
-            $('#results').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false
-            });
-        });
-        function Date1()
-        {
-            var date = document.arcHisForm.reportrange.value;
-            var arr = date.split("-");
-            var x = arr[1].trim();
-            document.getElementById("datepickerfrom").value = arr[0];
-            document.getElementById("datepicker").value = x;
-        }
-          function resetvalues()
-        {
-            document.getElementById('reportrange').value = "";
-            document.getElementById('transType').value = "-1";
-            //document.getElementById("datepickerfrom").value = "";
-            //document.getElementById("datepicker").value = "";
-
-            $('#gridDiv').hide();
-          
-        }
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>

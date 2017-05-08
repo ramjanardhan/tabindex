@@ -1230,7 +1230,7 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
         return sb.toString();
     }
 
-    public String getDocCopy(String poList, String type) throws ServiceLocatorException {
+    public String getDocCopy(String poList, String type, String database) throws ServiceLocatorException {
         String resultString = "";
         Connection connection = null;
         PreparedStatement statement = null;
@@ -1248,10 +1248,17 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                 String fileId = st1.nextToken();
                 if (poNum != null && fileId != null) {
                     if (type.equals("POST")) {
-                        queryString = "select distinct(PO.PO_NUMBER) as PO_NUMBER,FILES.FILE_ID,"
+                         if("ARCHIVE".equals(database)){
+                              queryString = "select distinct(ARCHIVE_PO.PO_NUMBER) as PO_NUMBER,ARCHIVE_FILES.FILE_ID,"
+                                + "POST_TRANS_FILEPATH,RE_TRANSLATE_FILEPATH from ARCHIVE_PO "
+                                + "LEFT OUTER JOIN ARCHIVE_FILES ON (ARCHIVE_PO.PO_NUMBER=ARCHIVE_FILES.PRI_KEY_VAL) where "
+                                + "ARCHIVE_PO.PO_NUMBER LIKE ('" + poNum + "') and ARCHIVE_FILES.FILE_ID LIKE '" + fileId + "'";
+                         }else{
+                              queryString = "select distinct(PO.PO_NUMBER) as PO_NUMBER,FILES.FILE_ID,"
                                 + "POST_TRANS_FILEPATH,RE_TRANSLATE_FILEPATH from PO "
                                 + "LEFT OUTER JOIN FILES ON (PO.PO_NUMBER=FILES.PRI_KEY_VAL) where "
                                 + "PO.PO_NUMBER LIKE ('" + poNum + "') and FILES.FILE_ID LIKE '" + fileId + "'";
+                         }
                         boolean isGetting = false;
                         try {
                             connection = ConnectionProvider.getInstance().getConnection();
@@ -1301,10 +1308,18 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                             }
                         }
                     } else {
-                        queryString = "select distinct(PO.PO_NUMBER) as PO_NUMBER,FILES.FILE_ID,"
+                         if("ARCHIVE".equals(database)){ 
+                              queryString = "select distinct(ARCHIVE_PO.PO_NUMBER) as PO_NUMBER,ARCHIVE_FILES.FILE_ID,"
+                                + "PRE_TRANS_FILEPATH,RE_SUBMIT_FILEPATH,ARCHIVE_FILES.SENDER_ID,ARCHIVE_FILES.RECEIVER_ID,"
+                                      + "ARCHIVE_FILES.TRANSACTION_TYPE from ARCHIVE_PO LEFT OUTER JOIN ARCHIVE_FILES "
+                                + "ON (ARCHIVE_PO.PO_NUMBER=ARCHIVE_FILES.PRI_KEY_VAL) where ARCHIVE_PO.PO_NUMBER LIKE ('" + poNum + "') "
+                                + "and ARCHIVE_FILES.FILE_ID LIKE '" + fileId + "'";
+                         }else{
+                              queryString = "select distinct(PO.PO_NUMBER) as PO_NUMBER,FILES.FILE_ID,"
                                 + "PRE_TRANS_FILEPATH,RE_SUBMIT_FILEPATH,FILES.SENDER_ID,FILES.RECEIVER_ID,FILES.TRANSACTION_TYPE from PO LEFT OUTER JOIN FILES "
                                 + "ON (PO.PO_NUMBER=FILES.PRI_KEY_VAL) where PO.PO_NUMBER LIKE ('" + poNum + "') "
                                 + "and FILES.FILE_ID LIKE '" + fileId + "'";
+                         }
                         boolean isGetting = false;
                         try {
                             connection = ConnectionProvider.getInstance().getConnection();

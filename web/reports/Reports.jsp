@@ -372,7 +372,7 @@
                                                         function checkReport() {
                                                             var db = document.forms["reportsForm"]["database"].value;
                                                             if (db == '') {
-                                                                alert("please select Database!!!");
+                                                                alert("Please select Database!!!");
                                                                 return false;
                                                             }
                                                         }

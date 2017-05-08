@@ -216,15 +216,16 @@
 
             </div>
     <script>
-            $(function() {
-                // $("#example1").DataTable();
+             $(function() {
+                //$("#example1").DataTable();
                 $('#results').DataTable({
                     "paging": true,
                     "lengthChange": true,
                     "searching": true,
                     "ordering": true,
                     "info": true,
-                    "autoWidth": false
+                    "autoWidth": false,
+                    order: [[0, 'desc']]
                 });
             });
         </script>

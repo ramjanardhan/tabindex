@@ -114,7 +114,7 @@
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"  tabindex="1" value="%{reportrange}"  onchange="Date1()"/> 
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <label>Transaction&nbsp;Type</label>
+                                                        <label>Transaction&nbsp;Type</label><font style="color:red">*</font>
                                                         <s:select headerKey="-1" headerValue="Select Type" cssClass="form-control" list="#@java.util.LinkedHashMap@{'850':'PO','856':'Shipments','810':'Invoice','820':'Payments'}" name="transType" id="transType" tabindex="2"/> 
                                                     </div>
 
@@ -122,7 +122,7 @@
                                                 <div class ="row"> 
                                                     <div class="col-sm-2"><s:submit value="Search History"  onclick="return checkValues();" tabindex="3" cssClass="btn btn-primary col-sm-12" /></div>
 
-                                                    <div class="col-sm-2"><strong><input type="reset" value="Reset"  tabindex="4" class="btn btn-primary col-sm-12" onclick="return resetvalues();"/></strong></div>
+                                                    <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="4" class="btn btn-primary col-sm-12" onclick="return resetvalues();"/></strong></div>
                                                 </div>
                                                 <s:hidden name="sampleValue" id="sampleValue" value="2"/>
                                                 <s:hidden name="datepickerfrom" id="datepickerfrom" value=""/>
@@ -249,11 +249,18 @@
 
     <script type="text/javascript">
 
+      
         function checkValues() {
             var date = document.purgeHisForm.reportrange.value;
+            var transType = document.getElementById("transType").value;
             if (date == "")
             {
-                alert("please enter date");
+                alert("please enter Date range !!");
+                return false;
+            }
+            if (transType == "-1")
+            {
+                alert("please select Transaction Type !!");
                 return false;
             }
 

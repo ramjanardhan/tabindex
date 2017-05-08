@@ -117,8 +117,8 @@
                                                             <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"  tabindex="1"  value="%{reportrange}" onchange="Date1()"/> 
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <label>Transaction&nbsp;Type</label>
-                                                        <s:select headerKey="-1" headerValue="Select Type" cssClass="form-control" list="#@java.util.LinkedHashMap@{'850':'PO','856':'Shipments','810':'Invoice','820':'Payments'}" name="transType" id="transType" tabindex="2"/> 
+                                                        <label>Transaction&nbsp;Type<font color="red">*</font></label>
+                                                            <s:select headerKey="-1" headerValue="Select Type" cssClass="form-control" list="#@java.util.LinkedHashMap@{'850':'PO','856':'Shipments','810':'Invoice','820':'Payments'}" name="transType" id="transType" tabindex="2"/> 
                                                     </div>
                                                 </div>
                                                 <br>
@@ -126,7 +126,7 @@
 
                                                 <div class ="row">
                                                     <div class="col-sm-2"><s:submit value="Search History"  onclick="return checkValues();" tabindex="3" cssClass="btn btn-primary col-sm-12"/></div>
-                                                    <div class="col-sm-2"><strong><input type="reset" value="Reset"  tabindex="4" class="btn btn-primary col-sm-12" onclick="return resetvalues();"/></strong></div>
+                                                    <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="4" class="btn btn-primary col-sm-12" onclick="return resetvalues();"/></strong></div>
                                                 </div>
 
 
@@ -227,54 +227,69 @@
                     "autoWidth": false,
                     order: [[0, 'desc']]
                 });
-            });
-        </script>
+            </script>
         </div>
-    
-    <div>
-        <s:include value="../includes/template/footer.jsp"/>
-    </div>
+
+        <div>
+            <s:include value="../includes/template/footer.jsp"/>
+        </div>
 
 
-    <script language="JavaScript" src='<s:url value="/includes/js/DateValidation.js"/>'></script>
-    <script src='<s:url value="../includes/bootstrap/js/bootstrap.min.js"/>'></script>
-    <script src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script>
-    <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
-    <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
+        <script language="JavaScript" src='<s:url value="/includes/js/DateValidation.js"/>'></script>
+        <script src='<s:url value="../includes/bootstrap/js/bootstrap.min.js"/>'></script>
+        <script src='<s:url value="../includes/plugins/daterangepicker/daterangepicker.js"/>'></script>
+        <script src='<s:url value="../includes/plugins/datatables/jquery.dataTables.min.js"/>'></script>
+        <script src='<s:url value="../includes/plugins/datatables/dataTables.bootstrap.min.js"/>'></script>
 
-    <script type="text/javascript">
+        <script type="text/javascript">
 
-            function checkValues() {
-                var date = document.arcHisForm.reportrange.value;
-                if (date == "")
+                function checkValues() {
+                    var date = document.arcHisForm.reportrange.value;
+                    var transType = document.getElementById("transType").value;
+                    if (date == "")
+                    {
+                        alert("please enter Date range !!");
+                        return false;
+                    }
+                    if (transType == "-1")
+                    {
+                        alert("please select Transaction Type !!");
+                        return false;
+                    }
+                }
+                function Date1()
                 {
-                    alert("please enter date");
-                    return false;
+                    var date = document.arcHisForm.reportrange.value;
+                    var arr = date.split("-");
+                    var x = arr[1].trim();
+                    document.getElementById("datepickerfrom").value = arr[0];
+                    document.getElementById("datepicker").value = x;
                 }
 
-            }
+                $(function () {
+                    // $("#example1").DataTable();
+                    $('#results').DataTable({
+                        "paging": true,
+                        "lengthChange": true,
+                        "searching": true,
+                        "ordering": true,
+                        "info": true,
+                        "autoWidth": false
+                    });
+                });
+                
+                function resetvalues()
+                {
+                    document.getElementById('reportrange').value = "";
+                    document.getElementById('transType').value = "-1";
+                    //document.getElementById("datepickerfrom").value = "";
+                    //document.getElementById("datepicker").value = "";
 
-            function Date1()
-            {
-                var date = document.arcHisForm.reportrange.value;
-                var arr = date.split("-");
-                var x = arr[1].trim();
-                document.getElementById("datepickerfrom").value = arr[0];
-                document.getElementById("datepicker").value = x;
-            }
-            function resetvalues()
-            {
-                alert(document.getElementById('reportrange').value);
-                alert(document.getElementById('transType').value);
-                document.getElementById('reportrange').value = "";
-                document.getElementById('transType').value = "-1";
-                //document.getElementById("datepickerfrom").value = "";
-                //document.getElementById("datepicker").value = "";
+                    $('#gridDiv').hide();
 
-                $('#gridDiv').hide();
+                }
 
-            }
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>

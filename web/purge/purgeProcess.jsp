@@ -118,14 +118,14 @@
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <label>Comments<font color = "red">*</font></label>
-                                                        <s:textfield  cssClass="form-control"  name="comments" id="commentId"  tabindex="1" />
+                                                        <s:textfield  cssClass="form-control"  name="comments" id="commentId"  tabindex="3" />
                                                         
                                                     </div></div>  </div></div>
                                         
                                                         <br>      <div class="row">
-                                            <div class="col-sm-2"><s:submit value="Purge Data"  onclick="return checkValues();" tabindex="3" cssClass="btn btn-primary col-sm-12"/></div>
+                                            <div class="col-sm-2"><s:submit value="Purge Data"  onclick="return checkValues();" tabindex="4" cssClass="btn btn-primary col-sm-12"/></div>
 
-                                            <div class="col-sm-2"><strong><input type="reset" value="Reset"  tabindex="4" class="btn btn-primary col-sm-12" onclick="return resetvalues();"/></strong></div>
+                                            <div class="col-sm-2"><strong><input type="reset" value="Reset"  tabindex="5" class="btn btn-primary col-sm-12" onclick="return resetvalues();"/></strong></div>
 
                                             <s:hidden name="sampleValue" id="sampleValue" value="2"/>
 
@@ -180,14 +180,19 @@
             var days = document.getElementById('dayCount').value;
             var transactionType = document.getElementById('transType').value;
             var comment = document.getElementById('commentId').value;
+        if (days == "") {
+                alert("Please enter Day Count !!");
+                return false;
+            }
+            if (transactionType == "-1")  {
+                alert(" Please select Transaction Type !!");
+                return false;
+            } 
             if(comment == "")
             {
-            alert("Please Add your Comments!! ");
+            alert("Please add your Comments !! ");
             return false;
             }
-            if (transactionType == "-1")
-                transactionType = "All";
-            if (days != "") {
                 var r = confirm("Confirm to delete " + days + " days before " + transactionType + " transaction records");
                 if (r == true)
                 {
@@ -198,12 +203,7 @@
                     returnType = false;
                 }
                 return returnType;
-            } else {
-                alert("Please enter days count !");
-                return false;
             }
-
-        }
         function resetvalues()
         {
             document.getElementById('dayCount').value = "";
@@ -220,3 +220,4 @@
 </body>
 
 </html>
+

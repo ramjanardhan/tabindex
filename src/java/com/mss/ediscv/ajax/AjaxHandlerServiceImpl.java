@@ -5526,7 +5526,7 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                 preparedStatement2.setString(3, "null");
                 preparedStatement2.setInt(4, 1);
                 preparedStatement2.setInt(5, 1);
-                preparedStatement2.setString(6, "");
+                preparedStatement2.setString(6, "null");
                 preparedStatement2.setString(7, userName);
                 //java.sql.Date d=new java.sql.Date(i);
                 //SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -5679,20 +5679,22 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                 int listNameMap = 0;
 //                if (i < listitems) {
                     jsonObj = array.getJSONObject(i);
-                    queryString = "SELECT  DEFAULT_VERSION FROM CODELIST_XREF_VERS WHERE LIST_NAME ='" + jsonObj.getString("listName1") + "'";
+                    queryString = "SELECT  LIST_VERSION FROM CODELIST_XREF_VERS WHERE LIST_NAME ='" + jsonObj.getString("listName1") + "'";
                     preparedStatement = connection.prepareStatement(queryString);
                     resultSet = preparedStatement.executeQuery();
                     while (resultSet.next()) {
-                        listNameMap = resultSet.getInt("DEFAULT_VERSION");
+                        listNameMap = resultSet.getInt("LIST_VERSION");
                     }
                     if (listNameMap > 0) {
                         if (i == 0) {
                             addVersion = listNameMap + 1;
-                            updateQueryString = "UPDATE CODELIST_XREF_VERS SET LIST_VERSION=?, DEFAULT_VERSION=? WHERE LIST_NAME=?";
+                            updateQueryString = "UPDATE CODELIST_XREF_VERS SET LIST_VERSION=?, DEFAULT_VERSION=?, SENDER_ID=?, RECEIVER_ID=?  WHERE LIST_NAME=?";
                             preparedStatement = connection.prepareStatement(updateQueryString);
                             preparedStatement.setInt(1, addVersion);
                             preparedStatement.setInt(2, addVersion);
-                            preparedStatement.setString(3, jsonObj.getString("listName1"));
+                            preparedStatement.setString(3, "null");
+                            preparedStatement.setString(4, "null");
+                            preparedStatement.setString(5, jsonObj.getString("listName1"));
                             updatedRows = preparedStatement.executeUpdate();
                         }
                         queryString1 = "INSERT INTO SI_USER.CODELIST_XREF_ITEM "
@@ -5768,7 +5770,7 @@ public class AjaxHandlerServiceImpl implements AjaxHandlerService {
                             preparedStatement2.setString(3, "null");
                             preparedStatement2.setInt(4, addVersion);
                             preparedStatement2.setInt(5, 1);
-                            preparedStatement2.setString(6, "");
+                            preparedStatement2.setString(6, "null");
                             preparedStatement2.setString(7, userName);
                             //java.sql.Date d=new java.sql.Date(i);
                             //SimpleDateFormat sd=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");

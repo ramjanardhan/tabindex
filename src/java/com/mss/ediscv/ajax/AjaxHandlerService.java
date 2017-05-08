@@ -25,7 +25,7 @@ public interface AjaxHandlerService {
 
     public String getReportDeleteDetails(int id) throws ServiceLocatorException;
 
-    public String getDocCopy(String poList, String type) throws ServiceLocatorException;
+    public String getDocCopy(String poList, String type, String database) throws ServiceLocatorException;
 
     public String getDocASNCopy(String asnList, String type) throws ServiceLocatorException;
 

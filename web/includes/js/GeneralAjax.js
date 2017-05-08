@@ -916,7 +916,7 @@ function populateDocDetails(responseXML)
  * Doc copying using Ajax call
  * 
  */
-function getProcess(btnValue, list) {
+function getProcess(btnValue, list, db) {
     var po_Files = "";
 
     if ((btnValue.value == 'ReTransmit')) {
@@ -949,7 +949,7 @@ function getProcess(btnValue, list) {
         if ((po_Files != "") && (po_Files != null)) {
             var r = confirm("Please confirm retransmission of the selected PO!");
             if (r == true) {
-                getcopy(po_Files, "POST");
+                getcopy(po_Files, "POST",db);
             }
             else {
                 return false;
@@ -989,7 +989,7 @@ function getProcess(btnValue, list) {
         if ((po_Files != "") && (po_Files != null)) {
             var r = confirm("Please confirm resubmission of the selected PO!");
             if (r == true) {
-                getcopy(po_Files, "PRE");
+                getcopy(po_Files, "PRE",db);
             } else {
                 return false;
             }
@@ -1006,11 +1006,11 @@ function populateDocCopy(responseText) {
 }
 
 
-function getcopy(PO_LIST, type) {
+function getcopy(PO_LIST, type,db) {
     //var req = new XMLHttpRequest();
     var req = getXMLHttpRequest();
     req.onreadystatechange = readyStateHandlerString(req, populateDocCopy);
-    var url = "../ajax/getDocCopy.action?poList=" + PO_LIST + "&type=" + type;
+    var url = "../ajax/getDocCopy.action?poList=" + PO_LIST + "&type=" + type + "&database=" + db;
     req.open("GET", url, "true");
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     req.send(null);

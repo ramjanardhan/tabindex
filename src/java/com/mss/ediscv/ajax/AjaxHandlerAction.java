@@ -181,7 +181,7 @@ public class AjaxHandlerAction extends ActionSupport implements ServletRequestAw
     public String getDocCopy() {
         if (httpServletRequest.getSession(false).getAttribute(AppConstants.SES_USER_NAME) != null) {
             try {
-                responseString = ServiceLocator.getAjaxHandlerService().getDocCopy(getPoList().toString(), getType().toString());
+                responseString = ServiceLocator.getAjaxHandlerService().getDocCopy(getPoList().toString(), getType().toString(), getDatabase());
                 httpServletResponse.setContentType("text/xml");
                 httpServletResponse.getWriter().write(responseString);
             } catch (Exception ex) {

@@ -277,14 +277,7 @@
                         "autoWidth": false
                     });
                 });
-                function Date1()
-                {
-                    var date = document.arcHisForm.reportrange.value;
-                    var arr = date.split("-");
-                    var x = arr[1].trim();
-                    document.getElementById("datepickerfrom").value = arr[0];
-                    document.getElementById("datepicker").value = x;
-                }
+                
                 function resetvalues()
                 {
                     document.getElementById('reportrange').value = "";

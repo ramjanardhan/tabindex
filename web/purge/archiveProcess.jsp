@@ -35,7 +35,7 @@
             function doOnLoad()
             {
                 $("#purging").addClass("active");
-                $("#purgeProcess i").addClass("text-red");
+                $("#archiveProcess i").addClass("text-red");
 
                 document.getElementById('loadingAcoountSearch').style.display = "none";
             }
@@ -69,12 +69,12 @@
 
             <section class="content-header">
                 <h1>
-                    Purge Process
-                    <small>Purging</small>
+                    Archive Process
+                    <small>Archiving</small>
                 </h1>
                 <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-remove"></i>Purging</a></li>
-                    <li class="active">Purge Process</li>
+                    <li><a href="#"><i class="fa fa-remove"></i>Archiving</a></li>
+                    <li class="active">Archive Process</li>
                 </ol>
             </section>
             <br>
@@ -94,15 +94,15 @@
                                 <%String contextPath = request.getContextPath();
                                 %>
 
-                                <s:form action="../purge/purgeProcess.action" method="post" name="purgeProcessForm" id="purgeProcessForm" theme="simple">
+                                <s:form action="../purge/archiveProcess.action" method="post" name="arcProcessForm" id="arcProcessForm" theme="simple">
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="row">
-                                                    
+
                                                     <%
-                                                     //REQ_RESULT_MSG
-                                                    if (request.getAttribute(AppConstants.REQ_RESULT_MSG) != null) {
+                                                        //REQ_RESULT_MSG
+                                                        if (request.getAttribute(AppConstants.REQ_RESULT_MSG) != null) {
                                                             String responseString = request.getAttribute(AppConstants.REQ_RESULT_MSG).toString();
                                                             //request.getSession(false).removeAttribute("responseString");
                                                             out.println(responseString);
@@ -110,20 +110,21 @@
                                                     %>
                                                     <div class="col-sm-3">
                                                         <label>Day Count<font color="red">*</font></label>
-                                                            <s:textfield  cssClass="form-control"  name="dayCount" id="dayCount"  tabindex="1" onblur="return validatenumber(this);"/>
+                                                            <s:textfield  cssClass="form-control"   name="dayCount" id="dayCount"  tabindex="1" onblur="return validatenumber(this);"/>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <label>Transaction&nbsp;Type<font color = "red">*</font></label>
-                                                            <s:select headerKey="-1" headerValue="Select Type" cssClass="form-control" list="#@java.util.LinkedHashMap@{'850':'PO','856':'Shipments','810':'Invoice','820':'Payments'}" name="transType" id="transType" tabindex="2"/> 
+                                                        <label>Transaction&nbsp;Type</label>
+                                                        <s:select headerKey="-1" headerValue="Select Type" cssClass="form-control" list="#@java.util.LinkedHashMap@{'850':'PO','856':'Shipments','810':'Invoice','820':'Payments'}" name="transType" id="transType" tabindex="2"/> 
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <label>Comments<font color = "red">*</font></label>
-                                                        <s:textfield  cssClass="form-control"  name="comments" id="commentId"  tabindex="1" />
-                                                        
+                                                            <s:textfield  cssClass="form-control"  name="comments" id="commentId"  tabindex="1" />
+
                                                     </div></div>  </div></div>
-                                        
-                                                        <br>      <div class="row">
-                                            <div class="col-sm-2"><s:submit value="Purge Data"  onclick="return checkValues();" tabindex="3" cssClass="btn btn-primary col-sm-12"/></div>
+
+                                        <br>      <div class="row">                                              
+
+                                            <div class="col-sm-2"><s:submit value="Archive Data"  onclick="return checkValues();" tabindex="3" cssClass="btn btn-primary col-sm-12"/></div>
 
                                             <div class="col-sm-2"><strong><input type="reset" value="Reset"  tabindex="4" class="btn btn-primary col-sm-12" onclick="return resetvalues();"/></strong></div>
 
@@ -136,7 +137,7 @@
                             </div>
                         </div></div></div>
             </section>
-            
+
             <script>
                 $(function () {
                     // $("#example1").DataTable();
@@ -150,7 +151,7 @@
                     });
                 });
             </script>
-              </div>
+        </div>
 
 
 
@@ -181,10 +182,9 @@
             var days = document.getElementById('dayCount').value;
             var transactionType = document.getElementById('transType').value;
             var comment = document.getElementById('commentId').value;
-            if(comment == "")
-            {
-            alert("Please Add your Comments!! ");
-            return false;
+            if (comment == "") {
+                alert(" Please add yasdsadour Comments !!");
+                return false;
             }
             if (transactionType == "-1")
                 transactionType = "All";
@@ -203,16 +203,6 @@
                 alert("Please enter days count !");
                 return false;
             }
-
-        }
-        function resetvalues()
-        {
-            document.getElementById('dayCount').value = "";
-            document.getElementById('transType').value = "-1";
-            document.getElementById('commentId').value = "";
-
-            $('#detail_box').hide();
-            $('#gridDiv').hide();
 
         }
 

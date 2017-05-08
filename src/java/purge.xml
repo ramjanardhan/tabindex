@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <!--
     Document   : ltresponse.xml
@@ -16,19 +16,63 @@
 <struts>
     <package name="purge" namespace="/purge" extends="default">
         <default-interceptor-ref name="crudStack"/>
-            <action name = "purging" class="com.mss.ediscv.purge.PurgeAction" >
-                <result>/purge/purgeProcess.jsp</result>
+            <action name = "arcPro" class="com.mss.ediscv.purge.PurgeAction" method = "getArcProPage">
+                <result>/purge/archiveProcess.jsp</result>
                 <result name="error" type="redirect" >../exception/exception.action</result> 
                 <result type="redirect" name="login">../general/login.action</result>
                 <result name="accessFailed" type="redirect" >../exception/accessFailed.action</result> 
             </action>
          
-              <action name = "purgeProcess" class="com.mss.ediscv.purge.PurgeAction" method="doPurgeProcess">
+             <action name = "arcHis" class="com.mss.ediscv.purge.PurgeAction" method = "getArcHistory">
+                <result>/purge/archiveHistory.jsp</result>
+                <result name="error" type="redirect" >../exception/exception.action</result> 
+                <result type="redirect" name="login">../general/login.action</result>
+                <result name="accessFailed" type="redirect" >../exception/accessFailed.action</result> 
+            </action>
+                <action name = "purPro" class="com.mss.ediscv.purge.PurgeAction" method = "getPurProPage">
+                <result>/purge/purgeProcess.jsp</result>
+                <result name="error" type="redirect" >../exception/exception.action</result> 
+                <result type="redirect" name="login">../general/login.action</result>
+                <result name="accessFailed" type="redirect" >../exception/accessFailed.action</result> 
+            </action>   
+
+            <action name = "purHis" class="com.mss.ediscv.purge.PurgeAction" method = "getPurHistory">
+                <result>/purge/purgeHistory.jsp</result>
+                <result name="error" type="redirect" >../exception/exception.action</result> 
+                <result type="redirect" name="login">../general/login.action</result>
+                <result name="accessFailed" type="redirect" >../exception/accessFailed.action</result> 
+            </action>
+            
+
+              <action name = "archiveProcess" class="com.mss.ediscv.purge.PurgeAction" method="doArchiveProcess">
+                <result>/purge/archiveProcess.jsp</result>
+                <result name="error" type="redirect" >../exception/exception.action</result> 
+                <result type="redirect" name="login">../general/login.action</result>
+                <result name="accessFailed" type="redirect" >../exception/accessFailed.action</result> 
+            </action>
+            
+             <action name = "archiveHistory" class="com.mss.ediscv.purge.PurgeAction" method="doArchiveHistory">
+                <result>/purge/archiveHistory.jsp</result>
+                <result name="error" type="redirect" >../exception/exception.action</result> 
+                <result type="redirect" name="login">../general/login.action</result>
+                <result name="accessFailed" type="redirect" >../exception/accessFailed.action</result> 
+            </action>
+            
+             <action name = "purgeProcess" class="com.mss.ediscv.purge.PurgeAction" method="doPurgeProcess">
                 <result>/purge/purgeProcess.jsp</result>
                 <result name="error" type="redirect" >../exception/exception.action</result> 
                 <result type="redirect" name="login">../general/login.action</result>
                 <result name="accessFailed" type="redirect" >../exception/accessFailed.action</result> 
             </action>
+            
+             <action name = "purgeHistory" class="com.mss.ediscv.purge.PurgeAction" method="doPurgeHistory">
+                <result>/purge/purgeHistory.jsp</result>
+                <result name="error" type="redirect" >../exception/exception.action</result> 
+                <result type="redirect" name="login">../general/login.action</result>
+                <result name="accessFailed" type="redirect" >../exception/accessFailed.action</result> 
+            </action>
+            
+           
      
        
          

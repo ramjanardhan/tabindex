@@ -128,8 +128,12 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li id="purgeProcess" class=" treeview"><a href="<s:url action="../purge/purging.action"/>"><i class="fa fa-circle-o"></i>Purge Process</a></li>
+                        <li id="archiveProcess" class=" treeview"><a href="<s:url action="../purge/arcPro.action"/>"><i class="fa fa-circle-o"></i>Archive Process</a></li>
+                        <li id="archiveHistory" class=" treeview"><a href="<s:url action="../purge/arcHis.action"/>"><i class="fa fa-circle-o"></i>Archive History</a></li>
+                        <li id="purgeProcess" class=" treeview"><a href="<s:url action="../purge/purPro.action"/>"><i class="fa fa-circle-o"></i>Purge Process</a></li>                        
+                        <li id="purgeHisory" class=" treeview"><a href="<s:url action="../purge/purHis.action"/>"><i class="fa fa-circle-o"></i>Purge History</a></li>
                     </ul>
+
                 </li>
 
                 <% }

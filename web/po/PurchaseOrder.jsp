@@ -87,7 +87,7 @@
                                             <div class="col-sm-12">
                                                 <div class="row">
                                                     <div class="col-sm-3"><label>Database&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;</label>
-                                                        <s:radio cssClass="myRadio" id="database" name="database" value="%{database}" list="#@java.util.LinkedHashMap@{'MSCVP':'MSCVP','ARCHIVE':'ARCHIVE'}"/>
+                                                        <s:radio cssClass="myRadio" id="database" name="database" value="%{database}" list="#@java.util.LinkedHashMap@{'MSCVP':'LIVE','ARCHIVE':'ARCHIVE'}"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">

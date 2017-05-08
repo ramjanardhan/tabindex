@@ -223,7 +223,7 @@ public class PurgeServiceImpl implements PurgeService {
                 System.out.println(" in while loop before delete records method");
             }
             //connection.commit();
-            responseString = "<font color='green'>Purge Process Completed Successfully</font>";
+            responseString = "<font color='green'>Archive Process Completed Successfully</font>";
         } catch (SQLException e) {
             e.printStackTrace();
             responseString = "<font color='red'>Please try Again</font>";
@@ -333,7 +333,7 @@ public class PurgeServiceImpl implements PurgeService {
 
             archiveHistoryQuery.append("AND TRANSACTION_TYPE = '" + transType + "'");
         }
-        archiveHistoryQuery.append("AND FLAG = 'purge'");
+        archiveHistoryQuery.append("AND FLAG = 'Purge'");
         System.out.println("archiveHistoryQuery is " + archiveHistoryQuery);
         try {
             connection = ConnectionProvider.getInstance().getConnection();

@@ -35,6 +35,7 @@
             function doOnLoad()
             {
                 $("#purging").addClass("active");
+                $("#archiveProcess").addClass("active");
                 $("#archiveProcess i").addClass("text-red");
 
                 document.getElementById('loadingAcoountSearch').style.display = "none";
@@ -52,8 +53,7 @@
 
         //System.out.println("check-->"+check);
     %>
-    <body onload="doOnLoad();
-            check();" class="hold-transition skin-blue sidebar-mini">
+    <body onload="doOnLoad();" class="hold-transition skin-blue sidebar-mini">
         <script type="text/javascript" src='<s:url value="/includes/js/wz_tooltip.js"/>'></script>
         <div>
             <s:include value="../includes/template/header.jsp"/>

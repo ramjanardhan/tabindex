@@ -36,6 +36,7 @@
             function doOnLoad()
             {
                 $("#purging").addClass("active");
+                $("#archiveHistory").addClass("active");
                 $("#archiveHistory i").addClass("text-red");
 
                 // document.getElementById('loadingAcoountSearch').style.display = "none";
@@ -136,9 +137,9 @@
                                 </div>
                             </div></div></div>
             </section>
- <div id="gridDiv">  
-            <s:if test="#session.archiveHistorylist!=null"> 
-                  
+            <div id="gridDiv">  
+                <s:if test="#session.archiveHistorylist!=null"> 
+
                     <%--- GRid start --%>
                     <%!String cssValue = "whiteStripe";
                         int resultsetTotal;%>
@@ -210,20 +211,25 @@
                                         </div></div>
                                 </div>
                             </div></section>
-               
-            </s:if>   
 
- </div>
+                </s:if>   
 
-
-
-
-
+            </div>
+    <script>
+            $(function() {
+                // $("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
+        </script>
         </div>
-
-
-
-    </div>
+    
     <div>
         <s:include value="../includes/template/footer.jsp"/>
     </div>
@@ -237,49 +243,36 @@
 
     <script type="text/javascript">
 
-        function checkValues() {
-            var date = document.arcHisForm.reportrange.value;
-            if (date == "")
-            {
-                alert("please enter date");
-                return false;
+            function checkValues() {
+                var date = document.arcHisForm.reportrange.value;
+                if (date == "")
+                {
+                    alert("please enter date");
+                    return false;
+                }
+
             }
 
-        }
-      
+            function Date1()
+            {
+                var date = document.arcHisForm.reportrange.value;
+                var arr = date.split("-");
+                var x = arr[1].trim();
+                document.getElementById("datepickerfrom").value = arr[0];
+                document.getElementById("datepicker").value = x;
+            }
+            function resetvalues()
+            {
+                alert(document.getElementById('reportrange').value);
+                alert(document.getElementById('transType').value);
+                document.getElementById('reportrange').value = "";
+                document.getElementById('transType').value = "-1";
+                //document.getElementById("datepickerfrom").value = "";
+                //document.getElementById("datepicker").value = "";
 
+                $('#gridDiv').hide();
 
-        $(function () {
-            // $("#example1").DataTable();
-            $('#results').DataTable({
-                "paging": true,
-                "lengthChange": true,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false
-            });
-        });
-        function Date1()
-        {
-            var date = document.arcHisForm.reportrange.value;
-            var arr = date.split("-");
-            var x = arr[1].trim();
-            document.getElementById("datepickerfrom").value = arr[0];
-            document.getElementById("datepicker").value = x;
-        }
-          function resetvalues()
-        {
-              alert(document.getElementById('reportrange').value);
-            alert(document.getElementById('transType').value);
-            document.getElementById('reportrange').value = "";
-            document.getElementById('transType').value = "-1";
-            //document.getElementById("datepickerfrom").value = "";
-            //document.getElementById("datepicker").value = "";
-
-            $('#gridDiv').hide();
-          
-        }
+            }
     </script>
 </body>
 

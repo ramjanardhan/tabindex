@@ -37,6 +37,7 @@
             function doOnLoad()
             {
                 $("#purging").addClass("active");
+                $("#purgeHisory").addClass("active");
                 $("#purgeHisory i").addClass("text-red");
 
                 //   document.getElementById('loadingAcoountSearch').style.display = "none";

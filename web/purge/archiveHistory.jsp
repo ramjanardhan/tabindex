@@ -227,17 +227,17 @@
                 </s:if>   
 
             </div>
-            <script>
-                $(function () {
-                    // $("#example1").DataTable();
-                    $('#results').DataTable({
-                        "paging": true,
-                        "lengthChange": true,
-                        "searching": true,
-                        "ordering": true,
-                        "info": true,
-                        "autoWidth": false
-                    });
+    <script>
+             $(function() {
+                //$("#example1").DataTable();
+                $('#results').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false,
+                    order: [[0, 'desc']]
                 });
             </script>
         </div>

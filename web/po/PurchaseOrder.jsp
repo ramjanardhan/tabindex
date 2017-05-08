@@ -635,7 +635,7 @@
                     function checkCorrelation() {
                         var db = document.forms["purchaseForm"]["database"].value;
                         if (db == '') {
-                            alert("please select Database!!!");
+                            alert("Please select Database!!!");
                             return false;
                         }
                         var corrattr = document.getElementById('corrattribute').value;

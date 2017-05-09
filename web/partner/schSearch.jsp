@@ -211,7 +211,7 @@
                                                     <div  class="col-sm-4">
                                                         <label for="Status">Status</label> 
 
-                                                        <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="{'Active','InActive'}" name="status" id="status" value="%{status}" />
+                                                        <s:select headerKey="-1" cssClass="form-control" headerValue="Select Type" list="{'Active','InActive'}" name="status" id="status" value="%{status}" tabindex="1"/>
                                                     </div>
 
                                                     <div id="loadingAcoountSearch" class="loadingImg">
@@ -223,8 +223,8 @@
                                             <br>
 
                                             <div class="row">
-                                                <div class="col-sm-2"><s:submit value="Search"   cssClass="btn btn-primary col-sm-12" tabindex="16"/></div>
-                                                <div class="col-sm-2">   <strong><input type="button" value="Add" class="btn btn-primary col-sm-12" tabindex="17" onclick="goToSchdularReport();"/></strong></div>
+                                                <div class="col-sm-2"><s:submit value="Search"   cssClass="btn btn-primary col-sm-12" tabindex="2"/></div>
+                                                <div class="col-sm-2">   <strong><input type="button" value="Add" class="btn btn-primary col-sm-12"  onclick="goToSchdularReport();" tabindex="3"/></strong></div>
                                             </div>
 
                                             <s:hidden name="sampleValue" id="sampleValue" value="2"/>

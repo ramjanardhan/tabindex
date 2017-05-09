@@ -96,7 +96,7 @@
                                             <div class="col-sm-12">
                                                 <div class="row">
                                                     <div class="col-sm-3"> <label>Date Range</label>
-                                                        <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="Date1();" /> 
+                                                        <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="Date1();" tabindex="1"/> 
                                                     </div>
                                                     <script type="text/javascript">
         function Date1()
@@ -111,7 +111,7 @@
                                                     <div class="col-sm-3">
                                                         <label for="certType">Certificate Type <font style="color: red">*</font></label>
 
-                                                        <s:select headerKey="-1" headerValue="--Select Type--" cssClass="form-control" list="#@java.util.LinkedHashMap@{'CA':'CA Certificate','System':'System Certificate','Trusted':'Trusted Certificate'}" name="certType" id="certType" value="%{certType}"  /> 
+                                                        <s:select headerKey="-1" headerValue="--Select Type--" cssClass="form-control" list="#@java.util.LinkedHashMap@{'CA':'CA Certificate','System':'System Certificate','Trusted':'Trusted Certificate'}" name="certType" id="certType" value="%{certType}"  tabindex="2"/> 
                                                     </div>
 
                                                 </div>
@@ -130,9 +130,9 @@
                                         </span>
                                         <div class="row">
 
-                                            <div class="col-sm-2"><s:submit value="Search"  cssClass="btn btn-primary col-sm-12" tabindex="16" onclick="return validateCertType();"/></div>
+                                            <div class="col-sm-2"><s:submit value="Search"  cssClass="btn btn-primary col-sm-12"  onclick="return validateCertType();" tabindex="3"/></div>
 
-                                            <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetvalues();"/></strong></div>
+                                            <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="4" class="btn btn-primary col-sm-12" onclick="return resetvalues();" tabindex="4"/></strong></div>
 
                                             <s:hidden name="sampleValue" id="sampleValue" value="2"/>
 

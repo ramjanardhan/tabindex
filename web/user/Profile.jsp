@@ -253,26 +253,26 @@
 
                                                     <div class="row">
                                                         <div class="col-sm-2"> <label for="name">Name</label></div>
-                                                        <div class="col-sm-4"> <s:textfield name="name"  id="name" placeholder="Nina Mcintire" cssClass="form-control pull-left"   value="%{userBean.name}"  readonly="true"/> 
+                                                        <div class="col-sm-4"> <s:textfield name="name"  id="name" placeholder="Nina Mcintire" cssClass="form-control pull-left"   value="%{userBean.name}"  readonly="true" tabindex="1"/> 
                                                         </div> 
                                                         <div class="col-sm-2"> <label for="education">Education</label></div>
-                                                        <div class="col-sm-4">  <s:textfield name="education"  id="education" placeholder=" B.S. in Computer Science from the University of Tennessee at Knoxville" cssClass="form-control pull-left"   value="%{userBean.education}"  />  
+                                                        <div class="col-sm-4">  <s:textfield name="education"  id="education" placeholder=" B.S. in Computer Science from the University of Tennessee at Knoxville" cssClass="form-control pull-left"   value="%{userBean.education}"  tabindex="2"/>  
                                                         </div> 
                                                     </div> <br>
                                                     <div class="row">
                                                         <div class="col-sm-2"> <label for="designation">Designation</label></div>
-                                                        <div class="col-sm-4">  <s:textfield name="designation"  id="designation" placeholder="Software Engineer" cssClass="form-control pull-left"   value="%{userBean.designation}"  />  
+                                                        <div class="col-sm-4">  <s:textfield name="designation"  id="designation" placeholder="Software Engineer" cssClass="form-control pull-left"   value="%{userBean.designation}"  tabindex="3"/>  
                                                         </div>
                                                         <div class="col-sm-2">  <label for="location">Location</label> </div>
-                                                        <div class="col-sm-4">   <s:textfield name="location"  id="location" placeholder="Novi MI" cssClass="form-control pull-left"   value="%{userBean.location}"  />  
+                                                        <div class="col-sm-4">   <s:textfield name="location"  id="location" placeholder="Novi MI" cssClass="form-control pull-left"   value="%{userBean.location}"  tabindex="4"/>  
                                                         </div>
                                                     </div><br>
                                                     <div class="row">
                                                         <div class="col-sm-2"> <label for="organization">Organization</label> </div>
-                                                        <div class="col-sm-4">  <s:textfield name="organization"  id="organization" placeholder="Miracle Software Systems, Inc." cssClass="form-control pull-left"   value="%{userBean.organization}"  />
+                                                        <div class="col-sm-4">  <s:textfield name="organization"  id="organization" placeholder="Miracle Software Systems, Inc." cssClass="form-control pull-left"   value="%{userBean.organization}"  tabindex="5"/>
                                                         </div>
                                                         <div class="col-sm-2"> <label for="dob">DOB</label> </div>
-                                                        <div class="col-sm-4"><div class="inner-addon left-addon"><s:textfield name="dob" data-provide="datepicker"  id="dob" cssClass="form-control pull-left" placeholder="MM/DD/YYYY  &#xf063;"  value="%{userBean.dob}" style="padding: 0px 34px;"  /><i class="fa fa-calendar glyphicon glyphicon-calendar" style="position: relative;right: -9px;top: -26px;"></i></div> 
+                                                        <div class="col-sm-4"><div class="inner-addon left-addon"><s:textfield name="dob" data-provide="datepicker"  id="dob" cssClass="form-control pull-left" placeholder="MM/DD/YYYY  &#xf063;"  value="%{userBean.dob}" style="padding: 0px 34px;"  tabindex="6"/><i class="fa fa-calendar glyphicon glyphicon-calendar" style="position: relative;right: -9px;top: -26px;"></i></div> 
                                                                 <%-- <div class="col-sm-4"><div class="inner-addon"><s:textfield name="dob" data-provide="datepicker"  id="dob" cssClass="form-control pull-left" placeholder="MM/DD/YYYY"  value="%{userBean.dob}"  /></div> --%>
 
                                                         </div>
@@ -285,20 +285,20 @@
                                                     <div class="row">
                                                         <div class="col-sm-2"><label for="gender">Gender</label></div> 
                                                         <div class="col-sm-4" style="padding:13px">
-                                                            <s:radio name="gender" id="gender" cssClass="width:30px" list="{'Male','Female'}" value="%{userBean.gender}" ></s:radio>
+                                                            <s:radio name="gender" id="gender" cssClass="width:30px" list="{'Male','Female'}" value="%{userBean.gender}" tabindex="7"></s:radio>
                                                             </div>
 
                                                             <div class="col-sm-2">
                                                                 <label>Phone Number</label>
                                                             </div>
                                                             <div class="col-sm-4">
-                                                            <s:textfield name="phonenumber"  id="phonenumber" placeholder="9123456780" cssClass="form-control pull-left"   value="%{userBean.phonenumber}" onchange="formatPhone(this)" />  
+                                                            <s:textfield name="phonenumber"  id="phonenumber" placeholder="9123456780" cssClass="form-control pull-left"   value="%{userBean.phonenumber}" onchange="formatPhone(this)" tabindex="8"/>  
                                                         </div>
                                                     </div> <br>
 
                                                     <div class="row">
 
-                                                        <div class="col-sm-2"><b> <s:submit value="Update" cssClass="btn btn-primary btn-block"/></b></div>
+                                                        <div class="col-sm-2"><b> <s:submit value="Update" cssClass="btn btn-primary btn-block" tabindex="9"/></b></div>
                                                         <div class="col-sm-6"></div>
                                                         <div class="col-sm-4"></div>
                                                     </div>

@@ -236,7 +236,7 @@
 
                                                                 <s:select headerKey="-1" cssClass="form-control" headerValue="HH" list="{'01','02','03','04','05','06','07','08','09','10','11','12'}" name="schhours" id="schhours" value="%{schhours}" tabindex="2" />
                                                             </div>
-                                                            <div class="col-sm-4"><br> <s:select  list="{'AM','PM'}" name="schhrFormat" id="schhrFormat" value="%{schhrFormat}" tabindex="2" cssClass="form-control"/></div>
+                                                            <div class="col-sm-4"><br> <s:select  list="{'AM','PM'}" name="schhrFormat" id="schhrFormat" value="%{schhrFormat}"  cssClass="form-control" tabindex="3"/></div>
                                                         </div>
 
 
@@ -244,17 +244,17 @@
 
                                                             <div  class="col-sm-4">
                                                                 <label for="userEmail">Active Users</label>  
-                                                                <s:select headerKey="-1" multiple="true" required="true" list="userMap" name="userEmail" id="userEmail" value="receiverids"  cssClass="form-control"/>
+                                                                <s:select headerKey="-1" multiple="true" required="true" list="userMap" name="userEmail" id="userEmail" value="receiverids"  cssClass="form-control" tabindex="4"/>
 
                                                             </div>
                                                             <div class="col-sm-4">
                                                                 <label for="extranalmailids">External User EmailIds</label>
-                                                                <s:textarea  name="extranalmailids" id="extranalmailids"  value="%{extranalmailids}" tabindex="7" cssClass="form-control" onchange="SchEmailValidator(this);checkEmails(this);"/>
+                                                                <s:textarea  name="extranalmailids" id="extranalmailids"  value="%{extranalmailids}"  cssClass="form-control" onchange="SchEmailValidator(this);checkEmails(this);" tabindex="5"/>
                                                             </div>  
 
                                                             <div class="col-sm-4">
                                                                 <label for="reportsType">Reports&nbsp;Type</label>
-                                                                <s:select headerKey="-1" cssClass="form-control"  headerValue="All" list="{'ExcelReport'}" name="reportsType" id="reportsType" value="%{reportsType}" tabindex="2"  onchange="Reportstype();"/>
+                                                                <s:select headerKey="-1" cssClass="form-control"  headerValue="All" list="{'ExcelReport'}" name="reportsType" id="reportsType" value="%{reportsType}"   onchange="Reportstype();" tabindex="6"/>
                                                             </div>
 
                                                         </div>
@@ -281,13 +281,13 @@
                                                     // out.println("pageId-->"+request.getAttribute("tppageId").toString());
                                                     if (request.getAttribute("userPageId").toString().equals("0")) {
                                                 %>
-                                                <div class="col-sm-2"> <s:submit value="Add" cssClass="btn btn-primary col-sm-12" onclick="return checkUservalues();" tabindex="8"/></div>
-                                                <div class="col-sm-2"><strong><input type="button" value="Reset"  tabindex="17" class="btn btn-primary col-sm-12" onclick="return resetvalues();"/></strong></div>
+                                                <div class="col-sm-2"> <s:submit value="Add" cssClass="btn btn-primary col-sm-12" onclick="return checkUservalues();" tabindex="7"/></div>
+                                                <div class="col-sm-2"><strong><input type="button" value="Reset"   class="btn btn-primary col-sm-12" onclick="return resetvalues();" tabindex="8"/></strong></div>
                                                 <div class="col-sm-2">  <strong><input type="button" value="BackToList" class="btn btn-primary col-sm-12" onclick="return getUserList();" tabindex="9"/></strong></div>
                                                         <%} else {%>
-                                                <div class="col-sm-2"> <s:submit value="Update" cssClass="btn btn-primary col-sm-12"  tabindex="8"/></div>
+                                                <div class="col-sm-2"> <s:submit value="Update" cssClass="btn btn-primary col-sm-12"  tabindex="10"/></div>
 
-                                                <div class="col-sm-2">  <strong><input type="button" value="BackToList" class="btn btn-primary col-sm-12" onclick="return getUserList();" tabindex="9"/></strong></div>
+                                                <div class="col-sm-2">  <strong><input type="button" value="BackToList" class="btn btn-primary col-sm-12" onclick="return getUserList();" tabindex="11"/></strong></div>
 
                                                 <%}%>
 

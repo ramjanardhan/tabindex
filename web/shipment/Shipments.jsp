@@ -66,12 +66,12 @@
             <section class="content-header">
                 <h1>
                     Shipments 
-                    <small>Manufacturing</small>
+<!--                    <small>Manufacturing</small>-->
                 </h1>
-                <ol class="breadcrumb">
+<!--                <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-wrench"></i>Manufacturing</a></li>
                     <li class="active">Shipments </li>
-                </ol>
+                </ol>-->
             </section>
             <br>
             <section class="content">

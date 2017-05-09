@@ -65,12 +65,12 @@
             <section class="content-header">
                 <h1>
                     Document Repository
-                    <small>Manufacturing</small>
+<!--                    <small>Manufacturing</small>-->
                 </h1>
-                <ol class="breadcrumb">
+<!--                <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-wrench"></i>Manufacturing</a></li>
                     <li class="active">Document Repository</li>
-                </ol>
+                </ol>-->
             </section>
             <br>
             <section class="content">
@@ -97,7 +97,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-sm-3"> <label>Date range</label>
+                                                    <div class="col-sm-3"> <label>Date Range</label>
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left" value="%{reportrange}"  onchange="Date1()"/> 
                                                     </div>
                                                     <div  class="col-sm-3">

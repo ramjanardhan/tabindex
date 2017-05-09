@@ -82,11 +82,13 @@
             <!-- Content Header (Page header) -->
             <!-- Main content --> 
             <section class="content-header">
-                <h1> Excel Reports <small>Manufacturing</small> </h1>
-                <ol class="breadcrumb">
+                <h1> Excel Reports
+<!--                    <small>Manufacturing</small>-->
+                </h1>
+<!--                <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-wrench"></i>Manufacturing</a></li>
                     <li class="active"> Excel Reports</li>
-                </ol>
+                </ol>-->
             </section>
             <br>
             <section class="content">

@@ -184,11 +184,12 @@
                                                                         <th >Comments</th>
                                                                         <th >Archive Date</th>
                                                                 </thead>
+                                                                <tbody>
                                                                 <%
                                                                     for (int i = 0; i < list.size(); i++) {
                                                                         purgeHistoryBean = (PurgeHistoryBean) list.get(i);
                                                                 %>
-                                                                <tbody>
+                                                                
                                                                     <tr>
                                                                         <td><%
                                                                             out.println(purgeHistoryBean.getUser());
@@ -205,8 +206,10 @@
                                                                         <td><%
                                                                             out.println(purgeHistoryBean.getArchiveDate());
                                                                             %></td></tr>
-                                                                </tbody>
-                                                                <%}
+                                                               
+                                                                <%}%>
+                                                                
+                                                                     </tbody><%
                                                                 } else {
                                                                 %>
                                                                 <tr><td>
@@ -261,12 +264,12 @@
                     var transType = document.getElementById("transType").value;
                     if (date == "")
                     {
-                        alert("please enter Date range !!");
+                        alert("Please enter Date range !!");
                         return false;
                     }
                     if (transType == "-1")
                     {
-                        alert("please select Transaction Type !!");
+                        alert("Please select Transaction Type !!");
                         return false;
                     }
                 }

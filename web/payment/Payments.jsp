@@ -84,12 +84,13 @@
             <!-- Content Header (Page header) -->
             <!-- Main content --> 
             <section class="content-header">
-                <h1>Payments<small>Manufacturing</small>
+                <h1>Payments
+<!--                    <small>Manufacturing</small>-->
                 </h1>
-                <ol class="breadcrumb">
+<!--                <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-wrench"></i>Manufacturing</a></li>
                     <li class="active">Payments</li>
-                </ol>
+                </ol>-->
             </section>
             <br>
             <section class="content">

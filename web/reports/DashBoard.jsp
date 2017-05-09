@@ -152,7 +152,7 @@
                                         <div class="col-sm-12">
                                             <div class="row">
                                                 <div class="col-sm-3"> <label>Date Range</label>
-                                                    <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"   value="%{reportrange}" onchange="Date1();" /> 
+                                                    <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"  value="%{reportrange}" onchange="Date1();" tabindex="1"/> 
                                                 </div>
 
                                                 <script type="text/javascript">
@@ -179,30 +179,9 @@
 
                                                 <s:hidden id="docdatepickerfrom" name="docdatepickerfrom" />
                                                 <s:hidden id="docdatepicker" name="docdatepicker"/>
-                                                <!--                                                                    <script type="text/javascript">
-                                                                                                                        $(function() {
-                                                    
-                                                                                                                            function cb(start, end) {
-                                                                                                                                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-                                                                                                                            }
-                                                                                                                            cb(moment().subtract(29, 'days'), moment());
-                                                
-                                                                                                                            $('#reportrange').daterangepicker({
-                                                                                                                                ranges: {
-                                                                                                                                    'Today': [moment(), moment()],
-                                                           
-                                                                                                                                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                                                                                                                                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                                                                                                                                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                                                                                                                                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-                                                                                                                                    'Transactions Until': [moment()]
-                                                                                                                                }
-                                                                                                                            }, cb);
-                                                
-                                                                                                                        });
-                                                                                                                    </script>-->
+                                    
                                                 <div class="col-sm-3"> <label for="docType">Document Type</label>
-                                                    <s:select headerKey="-1" headerValue="Select Type" list="docTypeList" name="docType" id="docType" value="%{docType}" tabindex="13" cssClass="form-control"/>
+                                                    <s:select headerKey="-1" headerValue="Select Type" list="docTypeList" name="docType" id="docType" value="%{docType}" tabindex="2" cssClass="form-control"/>
                                                 </div>
 
                                                 <div class="col-sm-3">  <label for="partnerMapId">Trading Partner Name </label>
@@ -212,7 +191,7 @@
                                                         headerKey="ALL"
                                                         headerValue="ALL"
                                                         list="partnerMap" 
-                                                        tabindex="13" cssClass="form-control"
+                                                        tabindex="3" cssClass="form-control"
                                                         value="" />
                                                 </div><!-- /.box -->
                                             </div>
@@ -222,10 +201,10 @@
                                             <div class="row">
 
                                                 <div class="col-sm-3" for="ackStatus"><label>Ack Status</label>
-                                                    <s:select headerKey="-1" headerValue="Select Type" list="{'Overdue','Accepted','Rejected'}" name="ackStatus" id="ackStatus" value="%{ackStatus}" tabindex="15" cssClass="form-control"/> 
+                                                    <s:select headerKey="-1" headerValue="Select Type" list="{'Overdue','Accepted','Rejected'}" name="ackStatus" id="ackStatus" value="%{ackStatus}" tabindex="4" cssClass="form-control"/> 
                                                 </div>
                                                 <div class="col-sm-3" >   <label for="status">Status</label>
-                                                    <s:select headerKey="-1" headerValue="Select Type" list="{'Success','Error','Warning'}" name="status" id="status" value="%{status}" tabindex="14" cssClass="form-control"/> 
+                                                    <s:select headerKey="-1" headerValue="Select Type" list="{'Success','Error','Warning'}" name="status" id="status" value="%{status}" tabindex="5" cssClass="form-control"/> 
                                                 </div>
 
                                             </div> 
@@ -233,10 +212,10 @@
                                     </div>  
                                     <br>    
                                     <div class="row">
-                                        <div class="col-sm-2"> <strong><input type="button" value="Generate" class="btn btn-primary col-sm-12" tabindex="16" onclick="getDashboardDeatls('M')"/></strong>
+                                        <div class="col-sm-2"> <strong><input type="button" value="Generate" class="btn btn-primary col-sm-12" tabindex="6" onclick="getDashboardDeatls('M')"/></strong>
 
                                         </div>
-                                        <div class="col-sm-2"><strong><input type="reset" value="Reset" class="btn btn-primary col-sm-12" tabindex="17" onclick="return resetvaluesManuDash();"/></strong> </div>
+                                        <div class="col-sm-2"><strong><input type="reset" value="Reset" class="btn btn-primary col-sm-12" tabindex="7" onclick="return resetvaluesManuDash();"/></strong> </div>
 
 
                                         <s:hidden name="sampleValue" id="sampleValue" value="2"/>

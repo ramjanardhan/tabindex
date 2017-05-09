@@ -67,11 +67,13 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <section class="content-header">
-                <h1>Search Certificate Monitoring<small>Certificate Monitoring</small></h1>
-                <ol class="breadcrumb">
+                <h1>Search Certificate Monitoring
+<!--                    <small>Certificate Monitoring</small>-->
+                </h1>
+<!--                <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-gavel"></i>Certificate Monitoring</a></li>
                     <li class="active">Search Certificate Monitoring</li>
-                </ol>
+                </ol>-->
             </section>
             <br>
 

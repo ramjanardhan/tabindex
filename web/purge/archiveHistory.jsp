@@ -125,7 +125,7 @@
                                                     <s:hidden name="datepicker" id="datepicker" value=""/>
 
                                                     <s:hidden name="sampleValue" id="sampleValue" value="2"/>
-                                                    <div class="col-sm-3"> <label>Date range<font color="red">*</font></label>
+                                                    <div class="col-sm-3"> <label>Date Range<font color="red">*</font></label>
                                                             <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"  tabindex="1"  value="%{reportrange}" onchange="Date1()"/> 
                                                     </div>
                                                     <div class="col-sm-3">
@@ -264,7 +264,7 @@
                     var transType = document.getElementById("transType").value;
                     if (date == "")
                     {
-                        alert("Please enter Date range !!");
+                        alert("Please enter Date Range !!");
                         return false;
                     }
                     if (transType == "-1")

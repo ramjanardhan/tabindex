@@ -110,7 +110,7 @@
                                                             out.println(responseString);
                                                         }
                                                     %>
-                                                    <div class="col-sm-3"> <label>Date range</label> <font style="color:red">*</font>
+                                                    <div class="col-sm-3"> <label>Date Range</label> <font style="color:red">*</font>
                                                         <s:textfield name="reportrange"  id="reportrange" cssClass="form-control pull-left"  tabindex="1" value="%{reportrange}"  onchange="Date1()"/> 
                                                     </div>
                                                     <div class="col-sm-3">
@@ -258,7 +258,7 @@
             var transType = document.getElementById("transType").value;
             if (date == "")
             {
-                alert("Please enter Date range !!");
+                alert("Please enter Date Range !!");
                 return false;
             }
             if (transType == "-1")
